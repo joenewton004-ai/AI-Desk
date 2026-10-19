@@ -219,6 +219,26 @@ def cmd_options(a) -> None:
         print(f"  {p:>10.2f}  {pnl:>+12,.2f}")
 
 
+def cmd_fetch(a) -> None:
+    """Download daily bars to market_data/<SYMBOL>.csv so they can be committed
+    and shared (e.g. with a cloud session that can't reach Yahoo)."""
+    import yfinance as yf
+
+    from ai_desk.data import _normalise
+
+    out = Path(a.out)
+    out.mkdir(parents=True, exist_ok=True)
+    for symbol in a.symbols:
+        raw = yf.Ticker(symbol).history(start=a.start, end=a.end, auto_adjust=True)
+        if raw.empty:
+            print(f"  {symbol}: no data returned - skipped")
+            continue
+        df = _normalise(raw)
+        path = out / f"{symbol.upper().lstrip('^')}.csv"
+        df.to_csv(path, float_format="%.6f")
+        print(f"  {symbol}: {len(df)} days {df.index[0].date()} -> {df.index[-1].date()}  saved {path}")
+
+
 def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(prog="ai_desk", description="Rules-based trading desk")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -270,6 +290,13 @@ def build_parser() -> argparse.ArgumentParser:
     o.add_argument("--rate", type=float, default=0.04)
     o.add_argument("--div", type=float, default=0.013)
     o.set_defaults(func=cmd_options)
+
+    f = sub.add_parser("fetch", help="download daily prices to CSV files you can commit")
+    f.add_argument("symbols", nargs="+", help="e.g. SPY QQQ TLT GLD ^VIX")
+    f.add_argument("--start", default="1993-01-01")
+    f.add_argument("--end", default=None)
+    f.add_argument("--out", default="market_data")
+    f.set_defaults(func=cmd_fetch)
     return ap
 
 

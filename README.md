@@ -37,6 +37,14 @@ This downloads SPY daily prices since 2000 (cached in `data/`), runs every
 strategy, and prints a comparison against buy & hold. `output/equity.png`
 shows the equity curves and drawdowns.
 
+To save prices as CSV files you can commit and share (for example with a
+Claude Code cloud session that can't reach Yahoo):
+
+```bash
+python -m ai_desk fetch SPY QQQ IWM TLT IEF GLD ^VIX
+python -m ai_desk backtest --strategy all --source market_data/SPY.csv
+```
+
 No internet? Add `--source synthetic` to use fake data. That's good for
 learning the tools, but meaningless for judging a strategy.
 
