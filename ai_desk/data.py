@@ -90,8 +90,58 @@ def load_prices(symbol: str, start: str = "2005-01-01", end: str | None = None,
                 source: str = "yahoo", **kwargs) -> pd.DataFrame:
     """Single entry point used by the CLI. source: yahoo | synthetic | path/to/file.csv"""
     if source == "yahoo":
-        return load_yahoo(symbol, start, end, **kwargs)
-    if source == "synthetic":
+        df = load_yahoo(symbol, start, end, **kwargs)
+    elif source == "synthetic":
         df = synthetic_prices()
-        return df.loc[start:end] if end else df.loc[start:]
-    return load_csv(source)
+    else:
+        df = load_csv(source)
+    return df.loc[start:end]
+
+
+def load_cash_rate(source: str = "yahoo", start: str = "1990-01-01", end: str | None = None,
+                   **kwargs) -> pd.Series | None:
+    """Annual T-bill rate as a decimal (0.045 = 4.5%), from Yahoo's ^IRX
+    (13-week Treasury bill). For a CSV source, looks for IRX.csv in the same
+    folder. Returns None if unavailable (cash then earns 0%)."""
+    if source == "synthetic":
+        return None
+    if source == "yahoo":
+        df = load_yahoo("^IRX", start, end, **kwargs)
+    else:
+        path = Path(source).with_name("IRX.csv")
+        if not path.exists():
+            return None
+        df = load_csv(path)
+    return (df["close"] / 100).rename("cash_rate")
+
+
+# extra series a strategy can ask for via `requires`, and where to get them
+EXTRA_SERIES = {"vix": "^VIX"}
+
+
+def add_required_columns(prices: pd.DataFrame, columns, source: str = "yahoo",
+                         **kwargs) -> pd.DataFrame:
+    """Join extra daily series (e.g. the VIX close) onto the price table.
+
+    Each value is the series' close on that date, carried forward over
+    missing days, so it is known by that day's close - no lookahead.
+    """
+    out = prices.copy()
+    for col in columns:
+        if col in out.columns:
+            continue
+        if col not in EXTRA_SERIES:
+            raise ValueError(f"don't know where to load '{col}' from")
+        if source == "synthetic":
+            # stand-in: VIX-like series from trailing realised vol
+            from ai_desk.indicators import realized_vol
+            series = (realized_vol(prices["close"], 20) * 110).bfill()
+        else:
+            symbol = EXTRA_SERIES[col]
+            if source == "yahoo":
+                extra = load_yahoo(symbol, str(prices.index[0].date()), None, **kwargs)
+            else:
+                extra = load_csv(Path(source).with_name(f"{symbol.lstrip('^')}.csv"))
+            series = extra["close"]
+        out[col] = series.reindex(out.index).ffill()
+    return out

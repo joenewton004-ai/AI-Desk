@@ -32,3 +32,15 @@ def test_plan_sells_to_flat(prices):
     plan = plan_order(prices, Flat(), RiskConfig(), "SPY",
                       equity=100_000, current_qty=50, max_order_notional=1e9)
     assert plan.side == "sell" and plan.order_qty == 50
+
+
+def test_drops_todays_bar_while_market_open(prices):
+    from datetime import datetime, timezone
+
+    from ai_desk.live import drop_incomplete_bar
+
+    last = prices.index[-1]
+    during = datetime(last.year, last.month, last.day, 18, 0, tzinfo=timezone.utc)   # 2pm New York
+    after = datetime(last.year, last.month, last.day, 21, 0, tzinfo=timezone.utc)    # 5pm New York
+    assert len(drop_incomplete_bar(prices, during)) == len(prices) - 1
+    assert len(drop_incomplete_bar(prices, after)) == len(prices)

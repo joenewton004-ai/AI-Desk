@@ -7,4 +7,6 @@ venv/
 .env
 data/
 logs/
-output/
+/output/
+market_data/
+research/output/*.csv

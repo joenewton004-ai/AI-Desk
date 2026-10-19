@@ -72,3 +72,27 @@ def test_start_date_skips_warmup(prices):
 def test_max_drawdown():
     eq = pd.Series([100, 120, 90, 110, 60, 130])
     assert max_drawdown(eq) == pytest.approx(60 / 120 - 1)
+
+
+def test_cash_earns_interest(prices):
+    """A strategy that stays in cash should grow at the T-bill rate."""
+    res = run_backtest(prices, _AlwaysFlat(), initial_equity=1.0, cash_rate=0.05)
+    years = (len(res.equity) - 1) / 252
+    assert res.equity.iloc[-1] == pytest.approx((1 + 0.05 / 252) ** (252 * years), rel=1e-9)
+    # earning the risk-free rate is not skill: there is no excess return to rate
+    assert np.isnan(res.metrics["sharpe"])
+
+
+def test_turn_of_month_calendar():
+    idx = pd.bdate_range("2026-08-24", "2026-09-11")
+    prices = pd.DataFrame({"open": 1.0, "high": 1.0, "low": 1.0, "close": 1.0, "volume": 1}, index=idx)
+    exp = get_strategy("turn_of_month", days_before=1, days_after=3).target_exposure(prices)
+    # decided at these closes -> held on Aug 31 (last day) and Sep 1-3 (first three)
+    assert list(exp[exp > 0].index.strftime("%m-%d")) == ["08-28", "08-31", "09-01", "09-02"]
+
+
+def test_momentum_only_changes_at_month_start(prices):
+    exp = get_strategy("momentum").target_exposure(prices)
+    changes = exp.index[exp.diff().fillna(0) != 0]
+    prev = [prices.index[prices.index.get_loc(d) - 1] for d in changes]
+    assert all(d.month != p.month for d, p in zip(changes, prev))

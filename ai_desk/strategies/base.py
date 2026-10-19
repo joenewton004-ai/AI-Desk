@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import asdict, dataclass
+from typing import ClassVar
 
 import pandas as pd
 
@@ -20,6 +21,7 @@ import pandas as pd
 @dataclass
 class Strategy(ABC):
     name = "base"
+    requires: ClassVar[tuple] = ()   # extra columns needed beyond OHLCV, e.g. ("vix",)
 
     @abstractmethod
     def target_exposure(self, prices: pd.DataFrame) -> pd.Series:
