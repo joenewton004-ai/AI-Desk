@@ -1,0 +1,97 @@
+"""Market data loading.
+
+Every loader returns a DataFrame indexed by date with lowercase columns:
+open, high, low, close, volume. Prices are split/dividend adjusted where
+the source supports it, so returns include dividends.
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+COLUMNS = ["open", "high", "low", "close", "volume"]
+
+
+def _normalise(df: pd.DataFrame) -> pd.DataFrame:
+    if isinstance(df.columns, pd.MultiIndex):
+        df = df.droplevel(1, axis=1)
+    df = df.rename(columns=str.lower)
+    missing = [c for c in COLUMNS if c not in df.columns]
+    if missing:
+        raise ValueError(f"price data is missing columns: {missing}")
+    df = df[COLUMNS].copy()
+    df.index = pd.to_datetime(df.index)
+    if df.index.tz is not None:
+        df.index = df.index.tz_localize(None)
+    df.index.name = "date"
+    df = df.sort_index()
+    df = df[~df.index.duplicated(keep="last")]
+    return df.dropna(subset=["open", "close"])
+
+
+def load_yahoo(symbol: str, start: str, end: str | None = None,
+               cache_dir: str | Path = "data", refresh: bool = False) -> pd.DataFrame:
+    """Download daily bars from Yahoo Finance, caching them as CSV.
+
+    The cache means repeated backtests don't re-download and you get the
+    same data every run (reproducibility matters when comparing ideas).
+    """
+    cache = Path(cache_dir) / f"{symbol.upper()}_{start}_{end or 'latest'}.csv"
+    if cache.exists() and not refresh and end is not None:
+        return load_csv(cache)
+
+    import yfinance as yf  # imported lazily so tests don't need network
+
+    raw = yf.Ticker(symbol).history(start=start, end=end, auto_adjust=True)
+    if raw.empty:
+        raise RuntimeError(f"no data returned for {symbol} - check the symbol and your connection")
+    df = _normalise(raw)
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(cache)
+    return df
+
+
+def load_csv(path: str | Path) -> pd.DataFrame:
+    """Load bars from a CSV with a date column plus open/high/low/close/volume."""
+    df = pd.read_csv(path, index_col=0, parse_dates=True)
+    return _normalise(df)
+
+
+def synthetic_prices(n_days: int = 2520, seed: int = 7, start_price: float = 100.0,
+                     start: str = "2010-01-01") -> pd.DataFrame:
+    """Generate fake daily bars that switch between bull and bear regimes.
+
+    Useful for tests and for trying the tools offline. Results on synthetic
+    data say NOTHING about real markets.
+    """
+    rng = np.random.default_rng(seed)
+    regimes = [(0.10, 0.14), (-0.15, 0.30)]  # (annual drift, annual vol)
+    state, rets = 0, []
+    for _ in range(n_days):
+        if rng.random() < (0.004 if state == 0 else 0.015):
+            state = 1 - state
+        mu, sigma = regimes[state]
+        rets.append(rng.normal(mu / 252, sigma / np.sqrt(252)))
+    close = start_price * np.exp(np.cumsum(rets))
+    prev = np.concatenate([[start_price], close[:-1]])
+    gap = rng.normal(0, 0.003, n_days)
+    open_ = prev * np.exp(gap)
+    high = np.maximum(open_, close) * (1 + np.abs(rng.normal(0, 0.004, n_days)))
+    low = np.minimum(open_, close) * (1 - np.abs(rng.normal(0, 0.004, n_days)))
+    idx = pd.bdate_range(start=start, periods=n_days, name="date")
+    return pd.DataFrame({"open": open_, "high": high, "low": low, "close": close,
+                         "volume": rng.integers(1_000_000, 5_000_000, n_days)}, index=idx)
+
+
+def load_prices(symbol: str, start: str = "2005-01-01", end: str | None = None,
+                source: str = "yahoo", **kwargs) -> pd.DataFrame:
+    """Single entry point used by the CLI. source: yahoo | synthetic | path/to/file.csv"""
+    if source == "yahoo":
+        return load_yahoo(symbol, start, end, **kwargs)
+    if source == "synthetic":
+        df = synthetic_prices()
+        return df.loc[start:end] if end else df.loc[start:]
+    return load_csv(source)
