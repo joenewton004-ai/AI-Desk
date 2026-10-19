@@ -197,8 +197,16 @@ A company fails, and is excluded, if:
 - its revenue fell in more than 2 years
 - its pre-tax ROIC was under 10% in more than 3 of the years where it can be measured
 
-Companies with under 7 years of filings ("short history") or no SEC data
-(often foreign IFRS filers) are kept but flagged as unverified. The first
+Companies with under 7 years of filings ("short history") are kept but
+flagged. Companies with no SEC data to check, mostly foreign filers using
+international accounting standards, are excluded and listed in the report.
+`--allow-unverified` keeps them. When a company's filings have no
+operating-income line (Eli Lilly, for example), pre-tax income is used
+instead.
+
+A **data sanity check** also flags forward P/Es that imply earnings more
+than tripling next year. That's usually a Yahoo error, such as an estimate
+not adjusted for a stock split. These are left out of the value score. The first
 run builds a ticker-to-SEC-ID map and downloads the filings, which takes
 several minutes. After that, everything is cached. `--no-history` skips the
 check.

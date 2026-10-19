@@ -294,7 +294,7 @@ def cmd_screen(a) -> None:
                      "positive FCF (--no-gates to rank everything)".format(**{**filters.DEFAULT_GATES, **gates}))
 
     if not a.no_history:
-        df, history_notes = long_run_filter(df)
+        df, history_notes = long_run_filter(df, a.allow_unverified)
         notes += history_notes
 
     print("Fetching 12-month price momentum ...")
@@ -311,7 +311,7 @@ def cmd_screen(a) -> None:
     print(f"Full results ({len(ranked)} companies, every metric): {stem}.csv")
 
 
-def long_run_filter(df: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]:
+def long_run_filter(df: pd.DataFrame, allow_unverified: bool = False) -> tuple[pd.DataFrame, list[str]]:
     from ai_desk.fundamentals import filters
     from ai_desk.fundamentals.edgar import annual_history, ticker_map
 
@@ -331,7 +331,7 @@ def long_run_filter(df: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]:
     # parallel downloads; edgar's shared rate limiter keeps them under the SEC's cap
     with ThreadPoolExecutor(max_workers=6) as pool:
         histories = dict(zip(df.index, pool.map(load, df.index)))
-    return filters.apply_long_run(df, histories)
+    return filters.apply_long_run(df, histories, allow_unverified=allow_unverified)
 
 
 def screen_report(top: pd.DataFrame, n_total: int, notes: list[str]) -> str:
@@ -359,6 +359,8 @@ def screen_report(top: pd.DataFrame, n_total: int, notes: list[str]) -> str:
             lines.append(f"- 10-year check: {r['long_run']} ({r['long_run_detail']})")
         elif "long_run" in r:
             lines.append(f"- 10-year check: passed ({r['long_run_detail']})")
+        if r.get("data_flags"):
+            lines.append(f"- ⚠ data check: {r['data_flags']}")
         if r["data_coverage"] < 0.8:
             lines.append(f"- note: only {r['data_coverage']:.0%} of metrics available")
         lines.append("")
@@ -430,6 +432,8 @@ def build_parser() -> argparse.ArgumentParser:
     sc.add_argument("--max-forward-pe", type=float, default=None, help="hard filter, e.g. 35")
     sc.add_argument("--no-history", action="store_true",
                     help="skip the 10-year SEC check (faster, but lets cyclical peaks through)")
+    sc.add_argument("--allow-unverified", action="store_true",
+                    help="keep companies with no SEC filings to check (mostly foreign filers)")
     sc.add_argument("--refresh", action="store_true", help="ignore the cache and re-download")
     sc.add_argument("--workers", type=int, default=2, help="parallel downloads (Yahoo throttles above ~4)")
     sc.add_argument("--out", default="output")

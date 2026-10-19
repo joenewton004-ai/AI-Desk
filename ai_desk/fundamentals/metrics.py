@@ -111,6 +111,14 @@ def compute(company: dict) -> dict:
     market_cap = info.get("marketCap") or np.nan
     ev = info.get("enterpriseValue") or (market_cap + _last(debt) - _last(cash))
     fwd_pe = info.get("forwardPE")
+    trailing_pe = info.get("trailingPE")
+    flags = []
+    # forward earnings more than 3x trailing usually means a data error (e.g. an
+    # estimate not adjusted for a stock split) - don't let it drive the value score
+    if fwd_pe and trailing_pe and fwd_pe > 0 and trailing_pe / fwd_pe > 3:
+        flags.append(f"forward P/E {fwd_pe:.0f} vs trailing {trailing_pe:.0f}: forward estimate looks wrong, "
+                     "excluded from value score")
+        fwd_pe = None
     common_ni = np.nansum(net_inc.values) if len(net_inc) else np.nan
 
     return {
@@ -146,6 +154,8 @@ def compute(company: dict) -> dict:
         "ebit_yield": _div(_last(ebit), ev),
         "fcf_yield": _div(_last(fcf), market_cap),
         "peg": info.get("trailingPegRatio"),
+        "trailing_pe": trailing_pe if trailing_pe and trailing_pe > 0 else np.nan,
+        "data_flags": "; ".join(flags),
     }
 
 

@@ -58,7 +58,7 @@ def long_run_check(history: pd.DataFrame | None, rules: dict | None = None) -> t
         return "short history", f"only {n} years of SEC filings"
 
     problems = []
-    margin = h["operating_margin"].dropna()
+    margin = h["operating_margin"].dropna()   # includes the pre-tax fallback for filers without an operating line
     profitable = (margin > 0).mean() if len(margin) else float("nan")
     if profitable < r["min_profitable_share"]:
         problems.append(f"operating loss in {int((margin <= 0).sum())} of {len(margin)} years")
@@ -77,16 +77,25 @@ def long_run_check(history: pd.DataFrame | None, rules: dict | None = None) -> t
 
 
 def apply_long_run(df: pd.DataFrame, histories: dict[str, pd.DataFrame | None],
-                   rules: dict | None = None) -> tuple[pd.DataFrame, list[str]]:
-    """Add `long_run` / `long_run_detail` columns and drop the failures."""
+                   rules: dict | None = None, allow_unverified: bool = False) -> tuple[pd.DataFrame, list[str]]:
+    """Add `long_run` / `long_run_detail` columns and drop the failures.
+
+    Companies with no SEC data can't be checked at all, so they're dropped
+    too unless `allow_unverified` - a great-business claim needs evidence.
+    "Short history" companies are kept but flagged.
+    """
     results = {sym: long_run_check(histories.get(sym), rules) for sym in df.index}
     df = df.assign(long_run=[results[s][0] for s in df.index],
                    long_run_detail=[results[s][1] for s in df.index])
     counts = df["long_run"].value_counts()
-    notes = [f"10-year check (SEC filings): {counts.get('pass', 0)} passed, {counts.get('fail', 0)} failed and "
-             f"were excluded, {counts.get('short history', 0)} have under 7 years of filings and "
-             f"{counts.get('no SEC data', 0)} have no SEC data (both kept, but unverified)"]
-    return df[df["long_run"] != "fail"], notes
+    no_data = sorted(df.index[df["long_run"] == "no SEC data"])
+    drop = {"fail"} if allow_unverified else {"fail", "no SEC data"}
+    notes = [f"10-year check (SEC filings): {counts.get('pass', 0)} passed, {counts.get('fail', 0)} failed "
+             f"(excluded), {counts.get('short history', 0)} have under 7 years of filings (kept, flagged)"]
+    if no_data:
+        notes.append(f"{len(no_data)} had no SEC data to check ({', '.join(no_data)}) - "
+                     + ("kept, unverified" if allow_unverified else "excluded; --allow-unverified keeps them"))
+    return df[~df["long_run"].isin(drop)], notes
 
 
 def business_type_mask(df: pd.DataFrame) -> pd.Series:

@@ -170,7 +170,7 @@ def test_long_run_check(name, hist, expected):
     assert status == expected, (name, detail)
 
 
-def test_apply_long_run_drops_only_failures():
+def test_apply_long_run_drops_failures_and_unverifiable():
     from ai_desk.fundamentals.filters import apply_long_run
 
     df = pd.DataFrame(index=["GOOD", "CYCLICAL", "NEW", "FOREIGN"])
@@ -178,8 +178,8 @@ def test_apply_long_run_drops_only_failures():
                  "CYCLICAL": _history([np.nan, -.1, -.1, -.1, .1, .1, .1, .1, .1, .1], [0.3] * 10, [0.2] * 10),
                  "NEW": _history([np.nan, 0.5], [0.2] * 2, [0.3] * 2)}
     kept, notes = apply_long_run(df, histories)
-    assert list(kept.index) == ["GOOD", "NEW", "FOREIGN"]
-    assert "1 failed" in notes[0]
+    assert list(kept.index) == ["GOOD", "NEW"]          # FOREIGN has no SEC data to check
+    assert "1 failed" in notes[0] and "FOREIGN" in notes[1]
 
 
 def test_ticker_header_parsing():
@@ -188,3 +188,22 @@ def test_ticker_header_parsing():
     head = '{"cik":"0001652044","entityType":"operating","name":"Alphabet Inc.","tickers":["GOOGL","GOOG"],"exchanges"'
     m = _HEADER.search(head)
     assert m["name"] == "Alphabet Inc." and '"GOOGL","GOOG"' in m["tickers"]
+
+
+def test_implausible_forward_pe_is_flagged_not_scored():
+    c = make_company(forward_pe=4.7)
+    c["info"]["trailingPE"] = 45.8          # forward EPS ~10x trailing: an unadjusted split
+    m = compute(c)
+    assert np.isnan(m["fwd_earnings_yield"]) and "forward estimate looks wrong" in m["data_flags"]
+    ok = make_company(forward_pe=14)
+    ok["info"]["trailingPE"] = 27            # 2x: fast growth, plausible
+    assert compute(ok)["data_flags"] == ""
+
+
+def test_no_sec_data_excluded_unless_allowed():
+    from ai_desk.fundamentals.filters import apply_long_run
+
+    df = pd.DataFrame(index=["GOOD", "FOREIGN"])
+    good = {"GOOD": _history([np.nan] + [0.1] * 9, [0.2] * 10, [0.3] * 10)}
+    assert list(apply_long_run(df, good)[0].index) == ["GOOD"]
+    assert list(apply_long_run(df, good, allow_unverified=True)[0].index) == ["GOOD", "FOREIGN"]
