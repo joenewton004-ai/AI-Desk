@@ -35,3 +35,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   (filing dates, delisted companies) - SEC EDGAR, not Yahoo.
 - Yahoo throttles with HTTP 401/429. Route every Yahoo call through
   `fundamentals.yahoo.with_retry`, and keep downloads to a few workers.
+- Research notes (`research/notes/<date>/`): numbers come from
+  `research/build_notes.py` (DATA blocks), never typed by hand. Prose must
+  cite dated sources and say what to verify. Notes are research, not advice.
+- EDGAR: only data.sec.gov is reachable here. Ticker->CIK must be verified
+  via data.sec.gov/submissions. Never put the user's email in SEC_USER_AGENT
+  without asking - it comes from .env.

@@ -217,6 +217,15 @@ Notes on the method:
   performed in the past. That needs point-in-time data from SEC EDGAR, which
   is the next step.
 
+### Research notes on the shortlist
+
+`ai_desk/fundamentals/edgar.py` pulls 10+ years of reported financials from
+SEC EDGAR. Set `SEC_USER_AGENT` in `.env` first: the SEC asks for a name and
+email. Notes on the screen's top companies live in `research/notes/<date>/`.
+Each one gives the 10-year record, the market's worry, the risks and the
+sources. `python research/build_notes.py research/notes/<date>` refreshes
+the numbers in them from the data.
+
 ## 7. Options: learning toolkit
 
 Before trading options, learn what each structure risks and earns:
