@@ -37,13 +37,16 @@ This downloads SPY daily prices since 2000 (cached in `data/`), runs every
 strategy, and prints a comparison against buy & hold. `output/equity.png`
 shows the equity curves and drawdowns.
 
-To save prices as CSV files you can commit and share (for example with a
-Claude Code cloud session that can't reach Yahoo):
+To save prices as CSV files (for repeatable research, or for working
+offline):
 
 ```bash
-python -m ai_desk fetch SPY QQQ IWM TLT IEF GLD ^VIX
+python -m ai_desk fetch SPY QQQ IWM GLD TLT IEF ^VIX ^IRX
 python -m ai_desk backtest --strategy all --source market_data/SPY.csv
 ```
+
+`market_data/` is git-ignored. Yahoo's data is for personal use, so don't
+publish it.
 
 No internet? Add `--source synthetic` to use fake data. That's good for
 learning the tools, but meaningless for judging a strategy.
@@ -65,6 +68,14 @@ learning the tools, but meaningless for judging a strategy.
 | `buy_hold` | the benchmark everything must beat | none |
 | `trend` | hold SPY above its 200-day average, cash below. Aims to sit out big crashes | `lookback`, `band` |
 | `rsi_reversion` | buy sharp 2-day dips inside an uptrend, sell the bounce | `rsi_window`, `entry_rsi`, `exit_sma`, `trend_sma` |
+| `momentum` | hold while the 12-month return is positive, checked monthly | `lookback`, `skip`, `monthly` |
+| `vix_filter` | step aside when the VIX spikes, re-enter when it calms down | `exit_above`, `enter_below` |
+| `turn_of_month` | hold only the last day and first 3 days of each month | `days_before`, `days_after` |
+
+**Which ones hold up on real data?** See
+[`research/FINDINGS.md`](research/FINDINGS.md). In short, `momentum` and
+`trend` cut the worst crash losses roughly in half while keeping most of the
+market's return. The others failed the robustness tests.
 
 Change parameters with `--param`:
 
@@ -78,7 +89,12 @@ Add risk rules with flags. They work with any strategy:
 --target-vol 0.12     # size positions to ~12% annual volatility
 --max-dd-halt 0.25    # circuit breaker: go to cash and stop after a 25% drawdown
 --commission-bps 1 --slippage-bps 2   # trading costs (defaults shown)
+--cash-rate auto      # cash earns the T-bill rate (default); or none, or e.g. 0.03
 ```
+
+By default, uninvested cash earns the T-bill rate (Yahoo's `^IRX`), and
+Sharpe/Sortino measure returns *above* that rate. Earning interest on cash
+isn't skill, so it shouldn't make a strategy look better.
 
 ## 4. Don't fool yourself: validation
 
@@ -106,6 +122,19 @@ Rules of thumb before trusting a strategy:
 - It survives doubled costs (`--slippage-bps 5`).
 - You can explain *why* the edge exists and who is on the other side of the trade.
 - It has at least ~100 trades. Fewer than that is mostly luck.
+
+### Full edge research
+
+```bash
+python -m ai_desk fetch SPY QQQ IWM GLD TLT IEF ^VIX ^IRX
+python research/edges.py
+```
+
+This runs every strategy through the same tests: full period, three
+sub-periods, a cost stress test, other markets, a parameter plateau check
+and walk-forward. It also studies overnight vs intraday returns and
+multi-asset rotation. The output goes to `research/output/`, and the
+write-up is in `research/FINDINGS.md`.
 
 ## 5. Paper trading (Alpaca)
 
@@ -184,6 +213,9 @@ ai_desk/
   data.py            price loading (Yahoo, CSV, synthetic) + caching
   indicators.py      SMA, RSI, realised volatility
   strategies/        one file per edge; registry in __init__.py
+research/
+  edges.py           robustness tests for every strategy
+  FINDINGS.md        what held up on real data, and what didn't
   risk.py            vol targeting, leverage cap, drawdown halt, rebalance threshold
   backtest.py        next-open execution with costs
   metrics.py         CAGR, Sharpe, Sortino, drawdown...

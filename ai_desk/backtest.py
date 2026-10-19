@@ -7,6 +7,9 @@ Timing (this is where most home-made backtests cheat by accident):
 
 So a signal can never profit from the same bar it was computed on.
 
+Uninvested cash earns the T-bill rate (`cash_rate`, annual, e.g. from ^IRX).
+A weight above 1 borrows at that same rate (real brokers charge more).
+
 Simplification: the position is treated as a constant fraction of equity
 (as if rebalanced daily for free). Costs are charged only when the target
 weight changes by at least risk.rebalance_threshold (entries and full exits
@@ -47,7 +50,8 @@ class BacktestResult:
 
 def run_backtest(prices: pd.DataFrame, strategy: Strategy, risk: RiskConfig | None = None,
                  costs: CostModel | None = None, start: str | pd.Timestamp | None = None,
-                 initial_equity: float = 100_000.0) -> BacktestResult:
+                 initial_equity: float = 100_000.0,
+                 cash_rate: pd.Series | float | None = None) -> BacktestResult:
     """Simulate a strategy. Indicators see all history, but trading and scoring
     begin at `start` - this lets warm-up periods (e.g. a 200-day average) use
     earlier data without counting it as performance."""
@@ -63,6 +67,11 @@ def run_backtest(prices: pd.DataFrame, strategy: Strategy, risk: RiskConfig | No
     closes = prices["close"].to_numpy()
     tgt = np.nan_to_num(target.to_numpy())
     dates = prices.index
+    if isinstance(cash_rate, pd.Series):
+        rate = cash_rate.reindex(dates).ffill().fillna(0.0).to_numpy()
+    else:
+        rate = np.full(len(dates), float(cash_rate or 0.0))
+    daily_rf = rate / 252
 
     equity, weight, peak = initial_equity, 0.0, initial_equity
     pending = 0.0
@@ -71,6 +80,7 @@ def run_backtest(prices: pd.DataFrame, strategy: Strategy, risk: RiskConfig | No
 
     for i in range(begin, len(prices)):
         if i > begin:
+            equity *= 1 + (1 - weight) * daily_rf[i - 1]            # interest on cash held
             equity *= 1 + weight * (opens[i] / closes[i - 1] - 1)   # overnight, old position
             small = abs(pending - weight) < risk.rebalance_threshold and pending != 0 and weight != 0
             if pending != weight and not small:                     # fill at the open
@@ -94,5 +104,7 @@ def run_backtest(prices: pd.DataFrame, strategy: Strategy, risk: RiskConfig | No
     eq = pd.Series(eq_out, index=idx, name="equity")
     w = pd.Series(w_out, index=idx, name="weight")
     tr = pd.DataFrame(trades, columns=["date", "price", "from_weight", "to_weight", "cost"])
-    metrics = summarize(eq, w, n_trades=len(tr), total_costs=float(tr["cost"].sum()))
+    rf = pd.Series(daily_rf, index=dates).shift(1).loc[idx]
+    metrics = summarize(eq, w, n_trades=len(tr), total_costs=float(tr["cost"].sum()),
+                        rf_daily=rf if cash_rate is not None else None)
     return BacktestResult(strategy.describe(), eq, w, tr, metrics, halted_on)

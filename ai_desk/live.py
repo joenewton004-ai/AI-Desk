@@ -64,6 +64,17 @@ def plan_order(prices: pd.DataFrame, strategy: Strategy, risk: RiskConfig, symbo
     return plan
 
 
+def drop_incomplete_bar(prices: pd.DataFrame, now: datetime | None = None) -> pd.DataFrame:
+    """While the US market is open, today's bar is still changing. Signals must
+    use completed days only (as in the backtest), so drop it until 4:15pm New York."""
+    from zoneinfo import ZoneInfo
+
+    ny = (now or datetime.now(timezone.utc)).astimezone(ZoneInfo("America/New_York"))
+    if prices.index[-1].date() == ny.date() and (ny.hour, ny.minute) < (16, 15):
+        return prices.iloc[:-1]
+    return prices
+
+
 def journal(plan: OrderPlan, status: str, path: str | Path = "logs/journal.csv") -> None:
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -84,6 +95,7 @@ def run_paper(prices: pd.DataFrame, strategy: Strategy, risk: RiskConfig, symbol
               max_drawdown_halt: float = 0.20, max_data_age_days: int | None = 5) -> OrderPlan:
     from ai_desk.broker.alpaca import AlpacaPaper
 
+    prices = drop_incomplete_bar(prices)
     # never trade on missing or stale data (e.g. the download silently failed)
     if len(prices) < 260:
         raise RuntimeError(f"only {len(prices)} bars of data - need ~1 year for the indicators")

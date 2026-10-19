@@ -7,6 +7,8 @@ changes plainly and be honest about whether a strategy has a real edge.
 ## Commands
 - Tests: `python -m pytest -q`
 - Offline demo: `python -m ai_desk backtest --strategy all --source synthetic`
+- Real data: `python -m ai_desk fetch SPY QQQ IWM GLD TLT IEF ^VIX ^IRX` (to `market_data/`, git-ignored)
+- Full robustness research: `python research/edges.py`, then update `research/FINDINGS.md` by hand
 
 ## Non-negotiables
 - No lookahead: a strategy's exposure at day t may use data up to t's close
@@ -21,3 +23,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   without lookahead.
 - Judge any new strategy with `validate` and `walkforward` against
   buy_hold, including costs. Report weak results honestly.
+- Cash earns the T-bill rate in backtests, and Sharpe is measured above it.
+  Don't compare strategies with that switched off.
+- A strategy that needs extra data declares it in `requires` (e.g. `("vix",)`).
+  Add new series to `EXTRA_SERIES` in `data.py`.
+- Today's bar is incomplete while the US market is open. Research runs pin an
+  `END` date to the last full trading day.

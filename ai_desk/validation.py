@@ -19,7 +19,7 @@ from dataclasses import dataclass
 import pandas as pd
 
 from ai_desk.backtest import BacktestResult, CostModel, run_backtest
-from ai_desk.metrics import summarize
+from ai_desk.metrics import daily_rf, summarize
 from ai_desk.risk import RiskConfig
 from ai_desk.strategies import get_strategy
 
@@ -36,25 +36,25 @@ def _score(result: BacktestResult, metric: str) -> float:
 
 def param_sensitivity(prices: pd.DataFrame, strategy_name: str, grid: dict[str, list],
                       risk: RiskConfig | None = None, costs: CostModel | None = None,
-                      start=None, end=None) -> pd.DataFrame:
+                      start=None, end=None, cash_rate=None) -> pd.DataFrame:
     """Backtest every parameter combination; returns one row per combination."""
     data = prices.loc[:end] if end is not None else prices
     rows = []
     for params in expand_grid(grid):
-        res = run_backtest(data, get_strategy(strategy_name, **params), risk, costs, start=start)
+        res = run_backtest(data, get_strategy(strategy_name, **params), risk, costs, start=start, cash_rate=cash_rate)
         rows.append({**params, **{k: res.metrics[k] for k in ("cagr", "sharpe", "max_drawdown", "trades")}})
     return pd.DataFrame(rows)
 
 
 def split_test(prices: pd.DataFrame, strategy_name: str, params: dict, split: str,
                risk: RiskConfig | None = None, costs: CostModel | None = None,
-               start=None) -> dict[str, BacktestResult]:
+               start=None, cash_rate=None) -> dict[str, BacktestResult]:
     split_ts = pd.Timestamp(split)
     before = prices.loc[prices.index < split_ts]
     strat = get_strategy(strategy_name, **params)
     return {
-        "in_sample": run_backtest(before, strat, risk, costs, start=start),
-        "out_of_sample": run_backtest(prices, strat, risk, costs, start=split_ts),
+        "in_sample": run_backtest(before, strat, risk, costs, start=start, cash_rate=cash_rate),
+        "out_of_sample": run_backtest(prices, strat, risk, costs, start=split_ts, cash_rate=cash_rate),
     }
 
 
@@ -68,7 +68,8 @@ class WalkForwardResult:
 def walk_forward(prices: pd.DataFrame, strategy_name: str, grid: dict[str, list],
                  train_years: int = 5, test_years: int = 1, metric: str = "sharpe",
                  risk: RiskConfig | None = None, costs: CostModel | None = None,
-                 initial_equity: float = 100_000.0, warmup_days: int = 252) -> WalkForwardResult:
+                 initial_equity: float = 100_000.0, warmup_days: int = 252,
+                 cash_rate=None) -> WalkForwardResult:
     """warmup_days: bars at the start of the data excluded from scoring, so slow
     indicators (e.g. a 250-day average) aren't penalised for sitting in cash
     while they have no reading yet."""
@@ -85,7 +86,8 @@ def walk_forward(prices: pd.DataFrame, strategy_name: str, grid: dict[str, list]
 
         best_params, best_score = None, float("-inf")
         for params in combos:
-            res = run_backtest(train, get_strategy(strategy_name, **params), risk, costs, start=train_start)
+            res = run_backtest(train, get_strategy(strategy_name, **params), risk, costs, start=train_start,
+                               cash_rate=cash_rate)
             s = _score(res, metric)
             if s > best_score:
                 best_params, best_score = params, s
@@ -98,7 +100,8 @@ def walk_forward(prices: pd.DataFrame, strategy_name: str, grid: dict[str, list]
         if first_test >= len(window):
             break
         res = run_backtest(window, get_strategy(strategy_name, **best_params), risk, costs,
-                           start=window.index[first_test - 1], initial_equity=equity)
+                           start=window.index[first_test - 1], initial_equity=equity,
+                           cash_rate=cash_rate)
         pieces.append(res.equity if not pieces else res.equity.iloc[1:])
         equity = float(res.equity.iloc[-1])
         windows.append({"test_start": window.index[first_test].date(),
@@ -110,4 +113,4 @@ def walk_forward(prices: pd.DataFrame, strategy_name: str, grid: dict[str, list]
     if not pieces:
         raise ValueError("not enough data for walk-forward; reduce train_years or load more history")
     eq = pd.concat(pieces)
-    return WalkForwardResult(eq, pd.DataFrame(windows), summarize(eq))
+    return WalkForwardResult(eq, pd.DataFrame(windows), summarize(eq, rf_daily=daily_rf(cash_rate, eq.index)))

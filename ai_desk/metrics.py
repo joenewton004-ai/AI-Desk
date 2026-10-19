@@ -8,19 +8,32 @@ import pandas as pd
 TRADING_DAYS = 252
 
 
+def daily_rf(cash_rate, index: pd.DatetimeIndex) -> pd.Series | None:
+    """T-bill return earned on each date in `index` (yesterday's annual rate / 252)."""
+    if cash_rate is None:
+        return None
+    if not isinstance(cash_rate, pd.Series):
+        return pd.Series(float(cash_rate) / TRADING_DAYS, index=index)
+    return cash_rate.reindex(index).ffill().fillna(0.0).shift(1) / TRADING_DAYS
+
+
 def max_drawdown(equity: pd.Series) -> float:
     """Largest peak-to-trough fall, as a negative fraction (e.g. -0.34)."""
     return float((equity / equity.cummax() - 1).min())
 
 
 def summarize(equity: pd.Series, weights: pd.Series | None = None,
-              n_trades: int | None = None, total_costs: float | None = None) -> dict:
+              n_trades: int | None = None, total_costs: float | None = None,
+              rf_daily: pd.Series | None = None) -> dict:
+    """rf_daily: the daily risk-free (T-bill) return. Sharpe and Sortino are
+    measured on returns ABOVE it - earning T-bill interest isn't skill."""
     rets = equity.pct_change().dropna()
+    excess = rets - (rf_daily.reindex(rets.index).fillna(0.0) if rf_daily is not None else 0.0)
     years = len(rets) / TRADING_DAYS
     total = equity.iloc[-1] / equity.iloc[0] - 1
     cagr = (equity.iloc[-1] / equity.iloc[0]) ** (1 / years) - 1 if years > 0 else np.nan
     vol = rets.std() * np.sqrt(TRADING_DAYS)
-    downside = rets[rets < 0].std() * np.sqrt(TRADING_DAYS)
+    downside = excess[excess < 0].std() * np.sqrt(TRADING_DAYS)
     mdd = max_drawdown(equity)
     out = {
         "start": equity.index[0].date().isoformat(),
@@ -28,9 +41,9 @@ def summarize(equity: pd.Series, weights: pd.Series | None = None,
         "total_return": total,
         "cagr": cagr,
         "volatility": vol,
-        # Sharpe/Sortino with a 0% risk-free rate - fine for comparing strategies
-        "sharpe": rets.mean() / rets.std() * np.sqrt(TRADING_DAYS) if rets.std() > 0 else np.nan,
-        "sortino": rets.mean() * TRADING_DAYS / downside if downside > 0 else np.nan,
+        # below 1e-9 the "volatility" is just floating-point rounding (e.g. a cash-only strategy)
+        "sharpe": excess.mean() / excess.std() * np.sqrt(TRADING_DAYS) if excess.std() > 1e-9 else np.nan,
+        "sortino": excess.mean() * TRADING_DAYS / downside if downside > 1e-9 else np.nan,
         "max_drawdown": mdd,
         "calmar": cagr / abs(mdd) if mdd < 0 else np.nan,
     }

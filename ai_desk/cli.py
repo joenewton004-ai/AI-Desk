@@ -9,7 +9,7 @@ from pathlib import Path
 import pandas as pd
 
 from ai_desk.backtest import CostModel, run_backtest
-from ai_desk.data import load_prices
+from ai_desk.data import add_required_columns, load_cash_rate, load_prices
 from ai_desk.metrics import format_table
 from ai_desk.risk import RiskConfig
 from ai_desk.strategies import STRATEGIES, get_strategy
@@ -52,6 +52,8 @@ def _common(p: argparse.ArgumentParser) -> None:
     p.add_argument("--target-vol", type=float, default=None, help="e.g. 0.15 for 15%% annual vol targeting")
     p.add_argument("--max-leverage", type=float, default=1.0)
     p.add_argument("--max-dd-halt", type=float, default=None, help="e.g. 0.25: stop trading after a 25%% drawdown")
+    p.add_argument("--cash-rate", default="auto",
+                   help="interest on cash: auto (T-bill rate from ^IRX), none, or a fixed rate like 0.03")
 
 
 def _risk(a) -> RiskConfig:
@@ -62,27 +64,49 @@ def _costs(a) -> CostModel:
     return CostModel(a.commission_bps, a.slippage_bps)
 
 
+def _load(a, strategy_names) -> pd.DataFrame:
+    """Price table plus any extra columns (e.g. VIX) the strategies need."""
+    prices = load_prices(a.symbol, a.start, a.end, a.source)
+    needed = {c for n in strategy_names for c in STRATEGIES[n].requires}
+    return add_required_columns(prices, sorted(needed), a.source) if needed else prices
+
+
+def _cash(a):
+    if a.cash_rate == "none":
+        return None
+    if a.cash_rate == "auto":
+        try:
+            return load_cash_rate(a.source)
+        except Exception as e:  # noqa: BLE001 - interest is a refinement, don't fail the run
+            print(f"[!] couldn't load T-bill rates ({e}); cash earns 0%")
+            return None
+    return float(a.cash_rate)
+
+
 def _warmup_start(prices: pd.DataFrame, days: int = 250):
     """Skip the first ~year so long averages have data before trading begins."""
     return prices.index[min(days, len(prices) - 2)]
 
 
 def cmd_backtest(a) -> None:
-    prices = load_prices(a.symbol, a.start, a.end, a.source)
-    start = _warmup_start(prices)
     names = list(STRATEGIES) if a.strategy == "all" else [a.strategy, "buy_hold"]
+    prices = _load(a, names)
+    start = _warmup_start(prices)
     params = parse_params(a.param)
     rows, results = {}, {}
+    cash = _cash(a)
     for name in dict.fromkeys(names):
         strat = get_strategy(name, **(params if name == a.strategy else {}))
         # the benchmark is always plain buy & hold, with no risk overlay
         risk = RiskConfig() if name == "buy_hold" else _risk(a)
-        res = run_backtest(prices, strat, risk, _costs(a), start=start)
+        res = run_backtest(prices, strat, risk, _costs(a), start=start, cash_rate=cash)
         rows[name] = res.metrics
         results[name] = res
         if res.halted_on is not None:
             print(f"[!] {name}: drawdown circuit breaker tripped on {res.halted_on.date()}")
-    print(f"\n{a.symbol}  ({a.source})  costs={a.commission_bps + a.slippage_bps:.1f}bps/trade\n")
+    print(f"\n{a.symbol}  ({a.source})  costs={a.commission_bps + a.slippage_bps:.1f}bps/trade  "
+          f"cash earns {'T-bill rate' if isinstance(cash, pd.Series) else f'{cash or 0:.1%}'}  "
+          f"(sharpe/sortino measured above that rate)\n")
     print(format_table(rows))
     if a.source == "synthetic":
         print("\nNote: synthetic data is random - these numbers say nothing about real markets.")
@@ -122,32 +146,33 @@ def _plot(results, path: Path) -> None:
 def cmd_validate(a) -> None:
     from ai_desk.validation import param_sensitivity, split_test
 
-    prices = load_prices(a.symbol, a.start, a.end, a.source)
+    prices = _load(a, [a.strategy])
     start = _warmup_start(prices)
     params = parse_params(a.param)
-    res = split_test(prices, a.strategy, params, a.split, _risk(a), _costs(a), start=start)
+    cash = _cash(a)
+    res = split_test(prices, a.strategy, params, a.split, _risk(a), _costs(a), start=start, cash_rate=cash)
     print(f"\n{get_strategy(a.strategy, **params).describe()}  split at {a.split}\n")
     print(format_table({k: v.metrics for k, v in res.items()}))
     if a.grid:
         print("\nParameter sensitivity (IN-SAMPLE only). Look for a broad plateau, not one lucky peak:\n")
         table = param_sensitivity(prices, a.strategy, parse_grid(a.grid), _risk(a), _costs(a),
-                                  start=start, end=pd.Timestamp(a.split) - pd.Timedelta(days=1))
+                                  start=start, end=pd.Timestamp(a.split) - pd.Timedelta(days=1), cash_rate=cash)
         print(table.to_string(index=False, float_format=lambda x: f"{x:.3f}"))
 
 
 def cmd_walkforward(a) -> None:
-    from ai_desk.metrics import summarize
     from ai_desk.validation import walk_forward
 
-    prices = load_prices(a.symbol, a.start, a.end, a.source)
+    prices = _load(a, [a.strategy])
+    cash = _cash(a)
     wf = walk_forward(prices, a.strategy, parse_grid(a.grid), a.train_years, a.test_years,
-                      a.metric, _risk(a), _costs(a))
+                      a.metric, _risk(a), _costs(a), cash_rate=cash)
     bench = run_backtest(prices, get_strategy("buy_hold"), RiskConfig(), _costs(a),
-                         start=wf.equity.index[0])
+                         start=wf.equity.index[0], cash_rate=cash)
     print("\nParameters chosen in each window (each test year traded blind):\n")
     print(wf.windows.to_string(index=False, float_format=lambda x: f"{x:.3f}"))
     print("\nStitched out-of-sample performance vs buy & hold:\n")
-    print(format_table({f"{a.strategy} (OOS)": wf.metrics, "buy_hold": summarize(bench.equity)}))
+    print(format_table({f"{a.strategy} (OOS)": wf.metrics, "buy_hold": bench.metrics}))
 
 
 def cmd_paper(a) -> None:
@@ -157,6 +182,8 @@ def cmd_paper(a) -> None:
     start = "2000-01-01" if demo else (pd.Timestamp.today() - pd.DateOffset(years=2)).date().isoformat()
     prices = load_prices(a.symbol, start, None, a.source)
     strat = get_strategy(a.strategy, **parse_params(a.param))
+    if strat.requires:
+        prices = add_required_columns(prices, strat.requires, a.source)
     plan = run_paper(prices, strat, _risk(a), a.symbol, execute=a.execute,
                      max_order_pct=a.max_order_pct, max_drawdown_halt=a.account_dd_halt,
                      max_data_age_days=None if demo else 5)

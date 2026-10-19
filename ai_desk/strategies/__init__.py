@@ -5,12 +5,18 @@ from __future__ import annotations
 from ai_desk.strategies.base import Strategy
 from ai_desk.strategies.buy_hold import BuyAndHold
 from ai_desk.strategies.mean_reversion import RSIMeanReversion
+from ai_desk.strategies.momentum import TimeSeriesMomentum
+from ai_desk.strategies.seasonal import TurnOfMonth
 from ai_desk.strategies.trend import TrendFollowing
+from ai_desk.strategies.vix_filter import VixFilter
 
 STRATEGIES: dict[str, type[Strategy]] = {
     BuyAndHold.name: BuyAndHold,
     TrendFollowing.name: TrendFollowing,
     RSIMeanReversion.name: RSIMeanReversion,
+    TimeSeriesMomentum.name: TimeSeriesMomentum,
+    VixFilter.name: VixFilter,
+    TurnOfMonth.name: TurnOfMonth,
 }
 
 
