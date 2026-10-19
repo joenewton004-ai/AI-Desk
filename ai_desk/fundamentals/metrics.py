@@ -115,7 +115,7 @@ def compute(company: dict) -> dict:
 
     return {
         "symbol": company["symbol"],
-        "name": info.get("longName"),
+        "name": info.get("longName") or company["symbol"],
         "sector": info.get("sector"),
         "industry": info.get("industry"),
         "market_cap": market_cap,
