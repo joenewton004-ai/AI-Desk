@@ -162,7 +162,62 @@ weekdays. On Windows use Task Scheduler. On macOS or Linux use cron.
 (Power Automate Desktop can also run it.) Check the journal weekly and
 compare it to the backtest.
 
-## 6. Options: learning toolkit
+## 6. Stock screener: great businesses at reasonable prices
+
+```bash
+python -m ai_desk screen                       # every US-listed company above $10B
+python -m ai_desk screen --top 50 --min-cap 50e9
+python -m ai_desk screen --tickers MSFT AAPL COST V
+python -m ai_desk screen --min-roic 0.15 --max-forward-pe 35 --weight value=0.35
+python -m ai_desk screen --no-gates            # rank everything, not just great businesses
+```
+
+The first run downloads about 4 years of statements per company from Yahoo,
+which takes a while. After that, results are cached for a week. Each run
+writes `output/screen_<date>.md`, a ranked shortlist explaining *why* each
+company scored as it did, plus a CSV with every metric for every company.
+
+Before ranking, companies have to pass the **great-business gates**, which
+are on by default:
+- an average ROIC of at least 12%
+- no year with negative ROIC
+- revenue rising in most years
+- positive free cash flow
+- at least 75% of the metrics available
+
+These keep out businesses at a cyclical peak (miners in a commodity boom,
+for example) and turnarounds, which would otherwise rank high on one hot
+year.
+
+Each company is then compared with the rest of the universe. Every metric becomes
+a percentile (100 = best), the metrics average into categories, and the
+categories average into the overall score:
+
+| category (weight) | metrics |
+|---|---|
+| **quality** (35%) | average and worst-year ROIC, gross margin, operating margin, FCF ÷ net income |
+| **growth** (25%) | revenue CAGR, latest-quarter growth vs a year ago, growth vs industry peers (the market-share proxy), gross-margin trend |
+| **value** (20%) | forward P/E, EV/EBIT, FCF yield |
+| **strength** (10%) | net debt ÷ EBITDA, share-count change (buybacks vs dilution), stock comp ÷ revenue |
+| **momentum** (10%) | 12-month price change, skipping the latest month |
+
+Notes on the method:
+- ROIC = EBIT × (1 − tax rate) ÷ average operating invested capital. Operating
+  invested capital is total assets, minus cash, minus non-debt current
+  liabilities. This version still works when buybacks have pushed
+  shareholders' equity negative, as at McDonald's or AutoZone.
+- Banks, lenders, insurers, asset managers and REITs are excluded, because
+  these metrics don't apply to them. Payment networks, exchanges, data
+  providers and insurance brokers stay in, as long as they report normal
+  operating statements.
+- When Yahoo throttles, it sometimes returns empty data. The downloader
+  retries, and never caches an incomplete company.
+- **This is a screener, not a backtest.** Yahoo has about 4 years of history
+  and no delisted companies, so it can't show how the screen would have
+  performed in the past. That needs point-in-time data from SEC EDGAR, which
+  is the next step.
+
+## 7. Options: learning toolkit
 
 Before trading options, learn what each structure risks and earns:
 
@@ -193,7 +248,7 @@ loss, breakevens, and a P&L table at expiry.
 5. **Paper-trade options.** Alpaca and Interactive Brokers both support
    paper options trading.
 
-## 7. Adding your own strategy
+## 8. Adding your own strategy
 
 1. Copy `ai_desk/strategies/trend.py` to a new file and change the rules in
    `target_exposure`. It must return, for each day, the exposure you want
@@ -223,6 +278,7 @@ research/
   live.py            daily paper-trading run + journal
   broker/alpaca.py   Alpaca paper REST client
   options/           Black-Scholes, Greeks, implied vol, strategy payoffs
+  fundamentals/      stock screener: universe, Yahoo statements, metrics, scoring
   cli.py             the `python -m ai_desk ...` commands
 tests/               pytest suite
 ```
