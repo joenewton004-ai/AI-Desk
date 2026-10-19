@@ -54,7 +54,7 @@ It has an operating margin of about 38%, an EV/EBIT of about 9, and strong 12-mo
 - **Project costs.** FY2026 included a **$2.3B impairment on Jansen** (potash), a reminder that big mining projects often overrun.
 
 ## What this teaches the screener
-Like AngloGold, BHP passes the 4-year gates because of a strong price period. A 10-year consistency gate using EDGAR history would flag both as cyclical.
+Like AngloGold, BHP passed the 4-year gates because of a strong price period. The screener's 10-year check now excludes it, because its revenue fell in 3 of the last 10 years.
 
 ## Sources
 - [BHP results for the year ended 30 June 2026 (BHP)](https://www.bhp.com/news/media-centre/releases/2026/08/bhp-results-for-the-full-year-ended-30-june-2026)

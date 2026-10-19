@@ -7,6 +7,9 @@
 3. "Great business" gates: the screen is for durable, high-return
    businesses, so cyclical peaks and turnarounds are filtered out BEFORE
    ranking, rather than letting a hot year carry them to the top.
+4. The 10-year check: Yahoo only has ~4 years, which can sit entirely inside
+   a commodity boom. SEC filings show whether the record holds up over a
+   full cycle.
 """
 
 from __future__ import annotations
@@ -26,6 +29,73 @@ DEFAULT_GATES = {
     "min_fcf_margin": 0.0,     # generating cash, not burning it
     "min_coverage": 0.75,      # at least 3/4 of the metrics available
 }
+
+
+# the 10-year check (last 10 fiscal years from SEC filings)
+LONG_RUN_RULES = {
+    "years": 10,
+    "min_years": 7,                 # fewer = "short history": flagged, not failed
+    "min_profitable_share": 0.8,    # operating profit > 0 in 8 of 10 years
+    "max_revenue_declines": 2,      # revenue fell in at most 2 years
+    "roic_floor": 0.10,             # pre-tax ROIC of 10%+ ...
+    "min_roic_share": 0.7,          # ... in 7 of 10 years
+    "min_roic_years": 5,            # (only judged when 5+ years can be measured)
+}
+
+
+def long_run_check(history: pd.DataFrame | None, rules: dict | None = None) -> tuple[str, str]:
+    """Judge a company's last 10 years of SEC-reported results.
+
+    Returns (status, detail), where status is "pass", "fail", "short history"
+    or "no SEC data". Only "fail" removes a company from the screen.
+    """
+    r = {**LONG_RUN_RULES, **(rules or {})}
+    if history is None or history.empty:
+        return "no SEC data", "no filings found (often a foreign IFRS filer)"
+    h = history.dropna(subset=["revenue_$bn"]).tail(r["years"])
+    n = len(h)
+    if n < r["min_years"]:
+        return "short history", f"only {n} years of SEC filings"
+
+    problems = []
+    margin = h["operating_margin"].dropna()   # includes the pre-tax fallback for filers without an operating line
+    profitable = (margin > 0).mean() if len(margin) else float("nan")
+    if profitable < r["min_profitable_share"]:
+        problems.append(f"operating loss in {int((margin <= 0).sum())} of {len(margin)} years")
+    declines = int((h["revenue_growth"].dropna() < 0).sum())
+    if declines > r["max_revenue_declines"]:
+        problems.append(f"revenue fell in {declines} years")
+    roic = h["roic_pretax"].dropna()
+    if len(roic) >= r["min_roic_years"]:
+        good = (roic >= r["roic_floor"]).mean()
+        if good < r["min_roic_share"]:
+            problems.append(f"pre-tax ROIC under {r['roic_floor']:.0%} in {int((roic < r['roic_floor']).sum())} "
+                            f"of {len(roic)} years")
+    detail = f"{n} years: " + ("; ".join(problems) if problems else
+                               f"profitable {profitable:.0%} of years, revenue fell {declines}x")
+    return ("fail" if problems else "pass"), detail
+
+
+def apply_long_run(df: pd.DataFrame, histories: dict[str, pd.DataFrame | None],
+                   rules: dict | None = None, allow_unverified: bool = False) -> tuple[pd.DataFrame, list[str]]:
+    """Add `long_run` / `long_run_detail` columns and drop the failures.
+
+    Companies with no SEC data can't be checked at all, so they're dropped
+    too unless `allow_unverified` - a great-business claim needs evidence.
+    "Short history" companies are kept but flagged.
+    """
+    results = {sym: long_run_check(histories.get(sym), rules) for sym in df.index}
+    df = df.assign(long_run=[results[s][0] for s in df.index],
+                   long_run_detail=[results[s][1] for s in df.index])
+    counts = df["long_run"].value_counts()
+    no_data = sorted(df.index[df["long_run"] == "no SEC data"])
+    drop = {"fail"} if allow_unverified else {"fail", "no SEC data"}
+    notes = [f"10-year check (SEC filings): {counts.get('pass', 0)} passed, {counts.get('fail', 0)} failed "
+             f"(excluded), {counts.get('short history', 0)} have under 7 years of filings (kept, flagged)"]
+    if no_data:
+        notes.append(f"{len(no_data)} had no SEC data to check ({', '.join(no_data)}) - "
+                     + ("kept, unverified" if allow_unverified else "excluded; --allow-unverified keeps them"))
+    return df[~df["long_run"].isin(drop)], notes
 
 
 def business_type_mask(df: pd.DataFrame) -> pd.Series:

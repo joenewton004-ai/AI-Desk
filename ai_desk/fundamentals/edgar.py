@@ -10,9 +10,13 @@ set SEC_USER_AGENT in .env to something like "Your Name you@example.com".
 
 from __future__ import annotations
 
+import gzip
 import json
 import os
+import re
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -30,7 +34,11 @@ FLOW = {
                 "RevenueFromContractsWithCustomers"],
     "gross_profit": ["GrossProfit"],
     # last resort for filers with no operating line (e.g. AngloGold): pre-tax profit
-    "operating_income": ["OperatingIncomeLoss", "ProfitLossFromOperatingActivities", "ProfitLossBeforeTax"],
+    # some filers (e.g. Eli Lilly, KLA) don't tag an operating line: fall back to pre-tax income
+    "operating_income": ["OperatingIncomeLoss", "ProfitLossFromOperatingActivities",
+                         "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+                         "IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments",
+                         "ProfitLossBeforeTax"],
     "net_income": ["NetIncomeLoss", "ProfitLossAttributableToOwnersOfParent", "ProfitLoss"],
     "operating_cash_flow": ["NetCashProvidedByUsedInOperatingActivities",
                             "CashFlowsFromUsedInOperatingActivities"],
@@ -54,22 +62,113 @@ def _user_agent() -> str:
     return os.environ.get("SEC_USER_AGENT", "AI-Desk research tool")
 
 
+_rate_lock = threading.Lock()
+_last_request = [0.0]
+MIN_INTERVAL = 0.125   # at most 8 requests/second across all threads (SEC limit: 10)
+
+
+def _wait_turn() -> None:
+    with _rate_lock:
+        wait = _last_request[0] + MIN_INTERVAL - time.monotonic()
+        if wait > 0:
+            time.sleep(wait)
+        _last_request[0] = time.monotonic()
+
+
+def _get(url: str, stream: bool = False) -> requests.Response:
+    """GET with the SEC's required User-Agent, a shared rate limit (safe to
+    call from several threads) and backoff on throttling."""
+    for attempt in range(5):
+        _wait_turn()
+        r = requests.get(url, headers={"User-Agent": _user_agent()}, timeout=30, stream=stream)
+        if r.status_code in (429, 503):
+            time.sleep(2 ** attempt)
+            continue
+        return r
+    return r
+
+
 def company_facts(cik: int, cache_dir: Path = CACHE, max_age_days: float = 7) -> dict:
-    path = cache_dir / f"CIK{cik:010d}.json"
-    if path.exists():
-        age = datetime.now(timezone.utc).timestamp() - path.stat().st_mtime
-        if age < max_age_days * 86400:
-            return json.loads(path.read_text())
-    for attempt in range(4):
-        r = requests.get(f"{BASE}/api/xbrl/companyfacts/CIK{cik:010d}.json",
-                         headers={"User-Agent": _user_agent()}, timeout=30)
-        if r.status_code == 200:
-            break
-        time.sleep(2 ** attempt)   # SEC allows ~10 requests/second; back off on 429/503
+    """All XBRL facts for one company. Cached gzipped (~10x smaller than raw)."""
+    path = cache_dir / f"CIK{cik:010d}.json.gz"
+    if path.exists() and time.time() - path.stat().st_mtime < max_age_days * 86400:
+        return json.loads(gzip.decompress(path.read_bytes()))
+    r = _get(f"{BASE}/api/xbrl/companyfacts/CIK{cik:010d}.json")
+    if r.status_code == 404:
+        return {"facts": {}}   # company has no XBRL financial data
     r.raise_for_status()
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(r.text)
+    path.write_bytes(gzip.compress(r.content))
     return r.json()
+
+
+# --- ticker -> CIK -----------------------------------------------------------
+# www.sec.gov (and its ticker list) isn't reachable here, only data.sec.gov.
+# So: list every company that reported revenue recently (XBRL "frames"), then
+# read the ticker symbols from the top of each company's filing index.
+
+# IFRS filers don't appear in the frames API; these are verified by hand
+# against data.sec.gov/submissions (newest registration first).
+KNOWN_CIKS = {"AU": [1973832, 1067428], "BHP": [811809]}
+_HEADER = re.compile(r'"name":"(?P<name>[^"]*)","tickers":\[(?P<tickers>[^\]]*)\]')
+
+
+def candidate_ciks(min_revenue: float = 1e8, min_assets: float = 5e8) -> set[int]:
+    """Companies big enough to matter. Annual revenue frames miss many
+    non-December fiscal years (TJX, Copart), so also include everyone with a
+    sizeable balance sheet at recent quarter-ends - every filer reports one."""
+    ciks = set()
+    for tag in ("Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax"):
+        for y in (2023, 2024, 2025):
+            r = _get(f"{BASE}/api/xbrl/frames/us-gaap/{tag}/USD/CY{y}.json")
+            if r.status_code == 200:
+                ciks |= {e["cik"] for e in r.json()["data"] if e["val"] >= min_revenue}
+    for period in ("CY2025Q1I", "CY2025Q2I", "CY2025Q3I", "CY2025Q4I"):
+        r = _get(f"{BASE}/api/xbrl/frames/us-gaap/Assets/USD/{period}.json")
+        if r.status_code == 200:
+            ciks |= {e["cik"] for e in r.json()["data"] if e["val"] >= min_assets}
+    return ciks
+
+
+def tickers_for(cik: int) -> tuple[str, list[str]]:
+    """Company name and ticker symbols, reading only the start of the filing
+    index (the full file is ~150KB; the header is in the first few hundred bytes)."""
+    r = _get(f"{BASE}/submissions/CIK{cik:010d}.json", stream=True)
+    try:
+        text = ""
+        for chunk in r.iter_content(2048):
+            text += chunk.decode("utf-8", "ignore")
+            m = _HEADER.search(text)
+            if m:
+                return m["name"], re.findall(r'"([^"]+)"', m["tickers"])
+            if len(text) > 20_000:
+                break
+    finally:
+        r.close()
+    return "", []
+
+
+def ticker_map(cache_dir: Path = CACHE, max_age_days: float = 30, progress: bool = True) -> dict[str, list[int]]:
+    """{ticker: [cik, ...]} for sizeable US filers. The first build takes a few
+    minutes (thousands of small requests); later rebuilds only look up
+    companies not seen before. Refreshed monthly."""
+    path = cache_dir / "ticker_map_v2.json"
+    cache = json.loads(path.read_text()) if path.exists() else {"tickers": {}, "checked": []}
+    if path.exists() and time.time() - path.stat().st_mtime < max_age_days * 86400:
+        return {**cache["tickers"], **KNOWN_CIKS}
+    checked = set(cache["checked"])
+    todo = sorted(candidate_ciks() - checked)
+    out = cache["tickers"]
+    with ThreadPoolExecutor(max_workers=6) as pool:   # the rate limiter keeps it under the SEC cap
+        for i, (cik, (_, tickers)) in enumerate(zip(todo, pool.map(tickers_for, todo)), 1):
+            for t in tickers:
+                out.setdefault(t.upper(), [cik])
+            checked.add(cik)
+            if progress and i % 250 == 0:
+                print(f"  SEC ticker map: {i}/{len(todo)}")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({"tickers": out, "checked": sorted(checked)}))
+    return {**out, **KNOWN_CIKS}
 
 
 def _entries(facts: dict, tag: str) -> list[dict]:

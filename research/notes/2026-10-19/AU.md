@@ -55,7 +55,7 @@ Revenue grew 71% in 2025, margins are at records, and its forward P/E of about 9
 A miner's profit is roughly (gold price − cost per ounce) × ounces. At $4,400 gold and roughly $2,000 AISC, margins are huge. If gold fell back to $3,000, the profit per ounce would roughly halve. **This is a gold-price view, not a quality-business view.** If you want gold exposure, an ETF like GLD avoids the operational and political risk of individual mines.
 
 ## What this teaches the screener
-The great-business gates need a **long-run history check**. Requiring, say, a positive return on capital in at least 8 of the last 10 years from EDGAR would have removed AngloGold and BHP. That's a recommended next change.
+The great-business gates needed a **long-run history check**. The screener now has one, and it excludes AngloGold: pre-tax ROIC was under 10% in 2 of the 5 years where it can be measured.
 
 ## Sources
 - [AngloGold Q2 2026 earnings release (Business Wire)](https://www.businesswire.com/news/home/20260731433108/en/)

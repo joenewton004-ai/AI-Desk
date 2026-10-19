@@ -293,6 +293,10 @@ def cmd_screen(a) -> None:
         notes.append("gates: avg ROIC >= {min_roic_avg:.0%}, no negative-ROIC year, revenue up in most years, "
                      "positive FCF (--no-gates to rank everything)".format(**{**filters.DEFAULT_GATES, **gates}))
 
+    if not a.no_history:
+        df, history_notes = long_run_filter(df, a.allow_unverified)
+        notes += history_notes
+
     print("Fetching 12-month price momentum ...")
     df["momentum_12_1"] = price_momentum(df.index.tolist()).reindex(df.index)
     ranked = score(df, parse_params(a.weight))
@@ -305,6 +309,29 @@ def cmd_screen(a) -> None:
     Path(f"{stem}.md").write_text(md)
     print("\n" + md)
     print(f"Full results ({len(ranked)} companies, every metric): {stem}.csv")
+
+
+def long_run_filter(df: pd.DataFrame, allow_unverified: bool = False) -> tuple[pd.DataFrame, list[str]]:
+    from ai_desk.fundamentals import filters
+    from ai_desk.fundamentals.edgar import annual_history, ticker_map
+
+    print("10-year check: loading SEC filings (cached; the first run takes several minutes) ...")
+    from concurrent.futures import ThreadPoolExecutor
+
+    ciks = ticker_map()
+
+    def load(sym):
+        cik = ciks.get(sym.upper())
+        try:
+            return annual_history(cik) if cik else None
+        except Exception as e:  # noqa: BLE001 - one bad filing shouldn't stop the screen
+            print(f"  [!] {sym}: SEC history failed ({str(e)[:60]})")
+            return None
+
+    # parallel downloads; edgar's shared rate limiter keeps them under the SEC's cap
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        histories = dict(zip(df.index, pool.map(load, df.index)))
+    return filters.apply_long_run(df, histories, allow_unverified=allow_unverified)
 
 
 def screen_report(top: pd.DataFrame, n_total: int, notes: list[str]) -> str:
@@ -328,6 +355,12 @@ def screen_report(top: pd.DataFrame, n_total: int, notes: list[str]) -> str:
         lines.append(f"**{i}. {sym} - {r['name']}** ({r['industry']})")
         lines.append(f"- strengths: {r['strengths'] or 'none in the top 20%'}")
         lines.append(f"- weaknesses: {r['weaknesses'] or 'none in the bottom 20%'}")
+        if "long_run" in r and r["long_run"] != "pass":
+            lines.append(f"- 10-year check: {r['long_run']} ({r['long_run_detail']})")
+        elif "long_run" in r:
+            lines.append(f"- 10-year check: passed ({r['long_run_detail']})")
+        if r.get("data_flags"):
+            lines.append(f"- ⚠ data check: {r['data_flags']}")
         if r["data_coverage"] < 0.8:
             lines.append(f"- note: only {r['data_coverage']:.0%} of metrics available")
         lines.append("")
@@ -397,6 +430,10 @@ def build_parser() -> argparse.ArgumentParser:
     sc.add_argument("--no-gates", action="store_true",
                     help="rank every company, not just ones passing the great-business gates")
     sc.add_argument("--max-forward-pe", type=float, default=None, help="hard filter, e.g. 35")
+    sc.add_argument("--no-history", action="store_true",
+                    help="skip the 10-year SEC check (faster, but lets cyclical peaks through)")
+    sc.add_argument("--allow-unverified", action="store_true",
+                    help="keep companies with no SEC filings to check (mostly foreign filers)")
     sc.add_argument("--refresh", action="store_true", help="ignore the cache and re-download")
     sc.add_argument("--workers", type=int, default=2, help="parallel downloads (Yahoo throttles above ~4)")
     sc.add_argument("--out", default="output")

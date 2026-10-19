@@ -28,7 +28,7 @@ verify yourself.
 - **Fortinet:** a watchlist candidate, to buy if the refresh cycle cools and the price falls.
 
 ## What this taught us about the screener
-1. **Four years of data can't tell a great business from a cyclical peak.** AngloGold and BHP passed every gate because Yahoo's window starts at the beginning of a commodity rally. **Fix:** add a 10-year consistency gate using EDGAR, for example a positive return on capital in at least 8 of the last 10 years and limited margin swings.
+1. **Four years of data can't tell a great business from a cyclical peak.** AngloGold and BHP passed every gate because Yahoo's window starts at the beginning of a commodity rally. **Fixed:** the screener now runs a 10-year check on SEC filings. It excludes AngloGold (pre-tax ROIC under 10% in 2 of its 5 measurable years), BHP (revenue fell in 3 years), Halozyme (losses until 2020) and Neurocrine (ROIC under 10% in 4 of 10 years).
 2. **Biotech numbers hide expiry dates.** Incyte, Halozyme and Neurocrine look excellent today, but each depends on one or two products with patent or pricing deadlines. **Fix:** flag healthcare companies whose largest product is a high share of sales, for a manual patent check.
 3. **One-off items distort a single year.** Incyte (a one-time $246M benefit), Halozyme (a $285M acquisition charge) and NVIDIA (fast growth making trailing EV/EBIT stale) all needed context. **Fix:** compare forward and trailing measures, and flag large gaps for review.
 4. **"Cheap quality" is cheap for a reason.** Every high-quality, low-P/E name had a specific controversy. The screen finds the candidates; the judgment call is whether you disagree with the market's reason.
