@@ -169,6 +169,7 @@ python -m ai_desk screen                       # every US-listed company above $
 python -m ai_desk screen --top 50 --min-cap 50e9
 python -m ai_desk screen --tickers MSFT AAPL COST V
 python -m ai_desk screen --min-roic 0.15 --max-forward-pe 35 --weight value=0.35
+python -m ai_desk screen --no-gates            # rank everything, not just great businesses
 ```
 
 The first run downloads about 4 years of statements per company from Yahoo,
@@ -176,7 +177,19 @@ which takes a while. After that, results are cached for a week. Each run
 writes `output/screen_<date>.md`, a ranked shortlist explaining *why* each
 company scored as it did, plus a CSV with every metric for every company.
 
-Each company is compared with the rest of the universe. Every metric becomes
+Before ranking, companies have to pass the **great-business gates**, which
+are on by default:
+- an average ROIC of at least 12%
+- no year with negative ROIC
+- revenue rising in most years
+- positive free cash flow
+- at least 75% of the metrics available
+
+These keep out businesses at a cyclical peak (miners in a commodity boom,
+for example) and turnarounds, which would otherwise rank high on one hot
+year.
+
+Each company is then compared with the rest of the universe. Every metric becomes
 a percentile (100 = best), the metrics average into categories, and the
 categories average into the overall score:
 
@@ -189,10 +202,16 @@ categories average into the overall score:
 | **momentum** (10%) | 12-month price change, skipping the latest month |
 
 Notes on the method:
-- ROIC = EBIT × (1 − tax rate) ÷ average (debt + equity). It's left blank when
-  invested capital is negative, which happens at some heavy buyback companies.
-- Banks, insurers, brokers and REITs are excluded, because these metrics don't
-  apply to them. Payment networks and exchanges stay in.
+- ROIC = EBIT × (1 − tax rate) ÷ average operating invested capital. Operating
+  invested capital is total assets, minus cash, minus non-debt current
+  liabilities. This version still works when buybacks have pushed
+  shareholders' equity negative, as at McDonald's or AutoZone.
+- Banks, lenders, insurers, asset managers and REITs are excluded, because
+  these metrics don't apply to them. Payment networks, exchanges, data
+  providers and insurance brokers stay in, as long as they report normal
+  operating statements.
+- When Yahoo throttles, it sometimes returns empty data. The downloader
+  retries, and never caches an incomplete company.
 - **This is a screener, not a backtest.** Yahoo has about 4 years of history
   and no delisted companies, so it can't show how the screen would have
   performed in the past. That needs point-in-time data from SEC EDGAR, which

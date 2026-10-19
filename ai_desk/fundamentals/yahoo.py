@@ -39,11 +39,20 @@ def _cache_path(symbol: str, cache_dir: Path) -> Path:
     return cache_dir / f"{symbol.upper()}.json"
 
 
+def _complete(raw: dict) -> bool:
+    """yfinance often returns EMPTY tables instead of raising when Yahoo
+    throttles. A record without statements or a market cap is a failed
+    download, not a company with no data - never cache or trust it."""
+    return bool(raw.get("income") and raw.get("balance") and (raw.get("info") or {}).get("marketCap"))
+
+
 def load_cached(symbol: str, cache_dir: Path = CACHE, max_age_days: float = 7) -> dict | None:
     p = _cache_path(symbol, cache_dir)
     if not p.exists():
         return None
     raw = json.loads(p.read_text())
+    if not _complete(raw):
+        return None
     age = datetime.now(timezone.utc) - datetime.fromisoformat(raw["fetched"])
     if age.days > max_age_days:
         return None
@@ -63,20 +72,26 @@ def fetch_company(symbol: str, cache_dir: Path = CACHE, max_age_days: float = 7)
     if cached is not None:
         return cached
 
-    import yfinance as yf
-
-    t = yf.Ticker(symbol)
-    raw = {"symbol": symbol.upper(), "fetched": datetime.now(timezone.utc).isoformat(timespec="seconds")}
-    info = with_retry(lambda: t.info) or {}
-    raw["info"] = {k: info.get(k) for k in INFO_FIELDS}
-    for key, attr in STATEMENTS.items():
-        df = with_retry(lambda attr=attr: getattr(t, attr))
-        raw[key] = df.to_json(orient="split", date_format="iso") if df is not None and not df.empty else None
-
+    raw = with_retry(lambda: _download(symbol))
     p = _cache_path(symbol, cache_dir)
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(raw))
     return _decode(raw)
+
+
+def _download(symbol: str) -> dict:
+    import yfinance as yf
+
+    t = yf.Ticker(symbol)
+    raw = {"symbol": symbol.upper(), "fetched": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    info = t.info or {}
+    raw["info"] = {k: info.get(k) for k in INFO_FIELDS}
+    for key, attr in STATEMENTS.items():
+        df = getattr(t, attr)
+        raw[key] = df.to_json(orient="split", date_format="iso") if df is not None and not df.empty else None
+    if not _complete(raw):
+        raise RuntimeError(f"incomplete data for {symbol} (Yahoo throttling?)")
+    return raw
 
 
 def fetch_many(symbols: list[str], cache_dir: Path = CACHE, max_age_days: float = 7,

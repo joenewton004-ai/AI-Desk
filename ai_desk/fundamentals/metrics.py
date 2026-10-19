@@ -43,19 +43,41 @@ def cagr(s: pd.Series) -> float:
     return (s.iloc[-1] / s.iloc[0]) ** (1 / years) - 1 if years > 0.5 else np.nan
 
 
+def invested_capital(balance: pd.DataFrame) -> pd.Series:
+    """Operating invested capital: the money tied up in running the business.
+
+        total assets - cash & short-term investments
+                     - (current liabilities - short-term debt)
+
+    i.e. operating assets net of what suppliers/customers fund for free
+    (payables, deferred revenue). Unlike "debt + equity" it still works when
+    buybacks have pushed shareholders' equity negative (McDonald's, AutoZone).
+    Falls back to debt + equity if those lines are missing.
+    """
+    assets = line(balance, "Total Assets")
+    cash = line(balance, "Cash Cash Equivalents And Short Term Investments", "Cash And Cash Equivalents")
+    cur_liab = line(balance, "Current Liabilities")
+    cur_debt = line(balance, "Current Debt And Capital Lease Obligation", "Current Debt")
+    if len(assets) and len(cur_liab):
+        return (assets - cash.reindex(assets.index).fillna(0)
+                - (cur_liab - cur_debt.reindex(cur_liab.index).fillna(0))).dropna()
+    ic = line(balance, "Invested Capital")
+    if ic.empty:
+        ic = line(balance, "Total Debt").add(line(balance, "Stockholders Equity"), fill_value=0)
+    return ic
+
+
 def roic_by_year(income: pd.DataFrame, balance: pd.DataFrame) -> pd.Series:
     """Return on invested capital = NOPAT / invested capital.
 
     NOPAT (profit from operations after tax) = EBIT x (1 - tax rate).
-    Invested capital = debt + shareholders' equity, averaged over the year.
-    Years where invested capital is <= 0 at either end (e.g. big buybacks
-    pushed equity negative) are left blank - the ratio means nothing there.
+    Invested capital: see `invested_capital`, averaged over the year.
+    Years where it is <= 0 at either end are left blank - the ratio means
+    nothing there.
     """
     ebit = line(income, "EBIT", "Operating Income")
     tax = line(income, "Tax Rate For Calcs").clip(0, 0.35).reindex(ebit.index).fillna(DEFAULT_TAX)
-    ic = line(balance, "Invested Capital")
-    if ic.empty:
-        ic = line(balance, "Total Debt").add(line(balance, "Stockholders Equity"), fill_value=0)
+    ic = invested_capital(balance)
     prior = ic.shift(1)
     ic_avg = ((ic + prior) / 2).fillna(ic)
     # an average across a sign flip (e.g. +300 -> -40) would look positive and mislead

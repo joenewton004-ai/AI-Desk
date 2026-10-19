@@ -266,14 +266,10 @@ def cmd_fetch(a) -> None:
         print(f"  {symbol}: {len(df)} days {df.index[0].date()} -> {df.index[-1].date()}  saved {path}")
 
 
-# balance-sheet businesses where ROIC, gross margin and FCF don't mean the usual thing.
-# Matched on industry, so asset-light financials (Visa, exchanges, data providers) stay in.
-EXCLUDED_INDUSTRIES = ("Banks", "Insurance", "Capital Markets", "Mortgage Finance", "REIT")
-
-
 def cmd_screen(a) -> None:
     from datetime import date
 
+    from ai_desk.fundamentals import filters
     from ai_desk.fundamentals.metrics import compute_all
     from ai_desk.fundamentals.scoring import score
     from ai_desk.fundamentals.universe import large_caps
@@ -288,22 +284,14 @@ def cmd_screen(a) -> None:
     companies = fetch_many(symbols, max_age_days=0 if a.refresh else 7, workers=a.workers)
     df = compute_all(companies)
 
-    notes = []
-    if not a.include_financials:
-        bank_like = df["industry"].fillna("").str.startswith(EXCLUDED_INDUSTRIES)
-        df = df[~bank_like]
-        notes.append(f"excluded {int(bank_like.sum())} banks/insurers/brokers/REITs "
-                     "(ROIC and margins don't apply; use --include-financials)")
-    thin = df["years_of_data"] < 3
-    df = df[~thin]
-    if thin.any():
-        notes.append(f"excluded {int(thin.sum())} with under 3 years of statements")
-    if a.min_roic is not None:
-        df = df[df["roic_avg"] >= a.min_roic]
-        notes.append(f"kept only average ROIC >= {a.min_roic:.0%}")
+    gates = None if a.no_gates else ({"min_roic_avg": a.min_roic} if a.min_roic is not None else {})
+    df, notes = filters.apply(df, gates)
     if a.max_forward_pe is not None:
         df = df[df["forward_pe"] <= a.max_forward_pe]
         notes.append(f"kept only forward P/E <= {a.max_forward_pe:g}")
+    if gates is not None:
+        notes.append("gates: avg ROIC >= {min_roic_avg:.0%}, no negative-ROIC year, revenue up in most years, "
+                     "positive FCF (--no-gates to rank everything)".format(**{**filters.DEFAULT_GATES, **gates}))
 
     print("Fetching 12-month price momentum ...")
     df["momentum_12_1"] = price_momentum(df.index.tolist()).reindex(df.index)
@@ -405,11 +393,12 @@ def build_parser() -> argparse.ArgumentParser:
     sc.add_argument("--top", type=int, default=25)
     sc.add_argument("--weight", action="append",
                     help="category weight, e.g. quality=0.5 (categories: quality growth value strength momentum)")
-    sc.add_argument("--min-roic", type=float, default=None, help="hard filter, e.g. 0.12")
+    sc.add_argument("--min-roic", type=float, default=None, help="minimum average ROIC gate (default 0.12)")
+    sc.add_argument("--no-gates", action="store_true",
+                    help="rank every company, not just ones passing the great-business gates")
     sc.add_argument("--max-forward-pe", type=float, default=None, help="hard filter, e.g. 35")
-    sc.add_argument("--include-financials", action="store_true")
     sc.add_argument("--refresh", action="store_true", help="ignore the cache and re-download")
-    sc.add_argument("--workers", type=int, default=3, help="parallel downloads (Yahoo throttles above ~4)")
+    sc.add_argument("--workers", type=int, default=2, help="parallel downloads (Yahoo throttles above ~4)")
     sc.add_argument("--out", default="output")
     sc.set_defaults(func=cmd_screen)
 

@@ -88,3 +88,59 @@ def test_clean_universe_drops_duplicates_and_foreign_reporters():
          "financial_currency": "TWD", "avg_volume": 10e6},
     ])
     assert clean_universe(df)["symbol"].tolist() == ["GOOGL"]
+
+
+def test_operating_invested_capital_works_with_negative_equity():
+    from ai_desk.fundamentals.metrics import invested_capital
+
+    bal = statements({"Total Assets": [1000] * 4, "Cash Cash Equivalents And Short Term Investments": [100] * 4,
+                      "Current Liabilities": [300] * 4, "Current Debt": [50] * 4,
+                      "Stockholders Equity": [-200] * 4, "Total Debt": [900] * 4})
+    assert (invested_capital(bal) == 1000 - 100 - (300 - 50)).all()
+
+
+def test_incomplete_downloads_are_never_trusted(tmp_path):
+    from ai_desk.fundamentals.yahoo import _complete, load_cached
+
+    empty = {"symbol": "X", "fetched": "2099-01-01T00:00:00+00:00", "info": {"marketCap": None},
+             "income": None, "balance": None, "cashflow": None, "q_income": None}
+    assert not _complete(empty)
+    (tmp_path / "X.json").write_text(json.dumps(empty))
+    assert load_cached("X", tmp_path) is None
+
+
+def _row(symbol, sector, industry, roic_avg=0.2, **kw):
+    base = {"sector": sector, "industry": industry, "roic_avg": roic_avg, "roic_min": 0.1,
+            "years_of_data": 4, "rev_up_years": 1.0, "fcf_margin": 0.2}
+    return pd.Series({**base, **kw}, name=symbol)
+
+
+def test_business_type_filter_keeps_payment_networks_drops_lenders():
+    from ai_desk.fundamentals.filters import business_type_mask
+
+    df = pd.DataFrame([
+        _row("V", "Financial Services", "Credit Services"),
+        _row("COF", "Financial Services", "Credit Services", roic_avg=np.nan),
+        _row("JPM", "Financial Services", "Banks - Diversified"),
+        _row("CME", "Financial Services", "Financial Data & Stock Exchanges"),
+        _row("O", "Real Estate", "REIT - Retail"),
+        _row("MSFT", "Technology", "Software - Infrastructure"),
+    ])
+    assert list(df.index[business_type_mask(df)]) == ["V", "CME", "MSFT"]
+
+
+def test_gates_drop_cyclical_and_cash_burning():
+    from ai_desk.fundamentals import filters
+
+    df = pd.DataFrame([
+        _row("GREAT", "Technology", "Software"),
+        _row("CYCLICAL", "Basic Materials", "Gold", roic_min=-0.09),
+        _row("LOWRETURN", "Utilities", "Utilities", roic_avg=0.06),
+        _row("BURNER", "Technology", "Software", fcf_margin=-0.1),
+        _row("SHRINKING", "Technology", "Software", rev_up_years=1 / 3),
+    ])
+    for m in filters.METRICS:   # give everyone full data coverage
+        df[m] = df.get(m, 1.0)
+    kept, notes = filters.apply(df, {})
+    assert list(kept.index) == ["GREAT"]
+    assert len(notes) == 4
