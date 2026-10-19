@@ -8,6 +8,7 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Tests: `python -m pytest -q`
 - Offline demo: `python -m ai_desk backtest --strategy all --source synthetic`
 - Real data: `python -m ai_desk fetch SPY QQQ IWM GLD TLT IEF ^VIX ^IRX` (to `market_data/`, git-ignored)
+- Stock screener: `python -m ai_desk screen` (Yahoo, cached a week in `data/fundamentals/`)
 - Full robustness research: `python research/edges.py`, then update `research/FINDINGS.md` by hand
 
 ## Non-negotiables
@@ -29,3 +30,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   Add new series to `EXTRA_SERIES` in `data.py`.
 - Today's bar is incomplete while the US market is open. Research runs pin an
   `END` date to the last full trading day.
+- The screener ranks TODAY's companies. Never present its output as a
+  backtest. Historical tests of a fundamental screen need point-in-time data
+  (filing dates, delisted companies) - SEC EDGAR, not Yahoo.
+- Yahoo throttles with HTTP 401/429. Route every Yahoo call through
+  `fundamentals.yahoo.with_retry`, and keep downloads to a few workers.

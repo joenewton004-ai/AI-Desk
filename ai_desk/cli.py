@@ -266,6 +266,87 @@ def cmd_fetch(a) -> None:
         print(f"  {symbol}: {len(df)} days {df.index[0].date()} -> {df.index[-1].date()}  saved {path}")
 
 
+# balance-sheet businesses where ROIC, gross margin and FCF don't mean the usual thing.
+# Matched on industry, so asset-light financials (Visa, exchanges, data providers) stay in.
+EXCLUDED_INDUSTRIES = ("Banks", "Insurance", "Capital Markets", "Mortgage Finance", "REIT")
+
+
+def cmd_screen(a) -> None:
+    from datetime import date
+
+    from ai_desk.fundamentals.metrics import compute_all
+    from ai_desk.fundamentals.scoring import score
+    from ai_desk.fundamentals.universe import large_caps
+    from ai_desk.fundamentals.yahoo import fetch_many, price_momentum
+
+    if a.tickers:
+        symbols = [t.upper() for t in a.tickers]
+    else:
+        print(f"Building universe: US-listed companies above ${a.min_cap / 1e9:.0f}B ...")
+        symbols = large_caps(a.min_cap)["symbol"].tolist()
+    print(f"Fetching fundamentals for {len(symbols)} companies (cached for a week) ...")
+    companies = fetch_many(symbols, max_age_days=0 if a.refresh else 7, workers=a.workers)
+    df = compute_all(companies)
+
+    notes = []
+    if not a.include_financials:
+        bank_like = df["industry"].fillna("").str.startswith(EXCLUDED_INDUSTRIES)
+        df = df[~bank_like]
+        notes.append(f"excluded {int(bank_like.sum())} banks/insurers/brokers/REITs "
+                     "(ROIC and margins don't apply; use --include-financials)")
+    thin = df["years_of_data"] < 3
+    df = df[~thin]
+    if thin.any():
+        notes.append(f"excluded {int(thin.sum())} with under 3 years of statements")
+    if a.min_roic is not None:
+        df = df[df["roic_avg"] >= a.min_roic]
+        notes.append(f"kept only average ROIC >= {a.min_roic:.0%}")
+    if a.max_forward_pe is not None:
+        df = df[df["forward_pe"] <= a.max_forward_pe]
+        notes.append(f"kept only forward P/E <= {a.max_forward_pe:g}")
+
+    print("Fetching 12-month price momentum ...")
+    df["momentum_12_1"] = price_momentum(df.index.tolist()).reindex(df.index)
+    ranked = score(df, parse_params(a.weight))
+
+    out = Path(a.out)
+    out.mkdir(parents=True, exist_ok=True)
+    stem = out / f"screen_{date.today().isoformat()}"
+    ranked.to_csv(f"{stem}.csv")
+    md = screen_report(ranked.head(a.top), len(ranked), notes)
+    Path(f"{stem}.md").write_text(md)
+    print("\n" + md)
+    print(f"Full results ({len(ranked)} companies, every metric): {stem}.csv")
+
+
+def screen_report(top: pd.DataFrame, n_total: int, notes: list[str]) -> str:
+    def pct(v):
+        return f"{v:.0%}" if pd.notna(v) else "n/a"
+
+    lines = [f"# Stock screen - {pd.Timestamp.today().date()}", "",
+             f"Top {len(top)} of {n_total} companies. Scores are percentiles vs the universe (100 = best).", ""]
+    lines += [f"- {n}" for n in notes] + [""]
+    lines += ["| # | symbol | name | score | quality | growth | value | strength | momentum | "
+              "avg ROIC | revenue growth | fwd P/E | FCF yield |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    for i, (sym, r) in enumerate(top.iterrows(), 1):
+        pe = f"{r['forward_pe']:.0f}" if pd.notna(r["forward_pe"]) else "n/a"
+        lines.append(f"| {i} | {sym} | {str(r['name'])[:28]} | {r['score']:.0f} | {r['quality_score']:.0f} | "
+                     f"{r['growth_score']:.0f} | {r['value_score']:.0f} | {r['strength_score']:.0f} | "
+                     f"{r['momentum_score']:.0f} | {pct(r['roic_avg'])} | {pct(r['rev_cagr'])} | {pe} | "
+                     f"{pct(r['fcf_yield'])} |")
+    lines += ["", "## Why each company ranks where it does", ""]
+    for i, (sym, r) in enumerate(top.iterrows(), 1):
+        lines.append(f"**{i}. {sym} - {r['name']}** ({r['industry']})")
+        lines.append(f"- strengths: {r['strengths'] or 'none in the top 20%'}")
+        lines.append(f"- weaknesses: {r['weaknesses'] or 'none in the bottom 20%'}")
+        if r["data_coverage"] < 0.8:
+            lines.append(f"- note: only {r['data_coverage']:.0%} of metrics available")
+        lines.append("")
+    lines.append("_A research shortlist, not buy recommendations. Check each business yourself._")
+    return "\n".join(lines)
+
+
 def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(prog="ai_desk", description="Rules-based trading desk")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -317,6 +398,20 @@ def build_parser() -> argparse.ArgumentParser:
     o.add_argument("--rate", type=float, default=0.04)
     o.add_argument("--div", type=float, default=0.013)
     o.set_defaults(func=cmd_options)
+
+    sc = sub.add_parser("screen", help="rank companies on quality, growth, value, strength, momentum")
+    sc.add_argument("--min-cap", type=float, default=10e9, help="minimum market cap in $ (default 10e9)")
+    sc.add_argument("--tickers", nargs="+", help="screen these symbols instead of the universe")
+    sc.add_argument("--top", type=int, default=25)
+    sc.add_argument("--weight", action="append",
+                    help="category weight, e.g. quality=0.5 (categories: quality growth value strength momentum)")
+    sc.add_argument("--min-roic", type=float, default=None, help="hard filter, e.g. 0.12")
+    sc.add_argument("--max-forward-pe", type=float, default=None, help="hard filter, e.g. 35")
+    sc.add_argument("--include-financials", action="store_true")
+    sc.add_argument("--refresh", action="store_true", help="ignore the cache and re-download")
+    sc.add_argument("--workers", type=int, default=3, help="parallel downloads (Yahoo throttles above ~4)")
+    sc.add_argument("--out", default="output")
+    sc.set_defaults(func=cmd_screen)
 
     f = sub.add_parser("fetch", help="download daily prices to CSV files you can commit")
     f.add_argument("symbols", nargs="+", help="e.g. SPY QQQ TLT GLD ^VIX")
