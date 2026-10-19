@@ -144,3 +144,47 @@ def test_gates_drop_cyclical_and_cash_burning():
     kept, notes = filters.apply(df, {})
     assert list(kept.index) == ["GREAT"]
     assert len(notes) == 4
+
+
+def _history(growth, margin, roic):
+    n = len(growth)
+    return pd.DataFrame({"revenue_$bn": [1.0] * n, "revenue_growth": growth,
+                         "operating_margin": margin, "roic_pretax": roic},
+                        index=[str(2016 + i) for i in range(n)])
+
+
+@pytest.mark.parametrize("name, hist, expected", [
+    ("steady grower", _history([np.nan] + [0.1] * 9, [0.2] * 10, [0.3] * 10), "pass"),
+    ("one bad year is fine", _history([np.nan] + [0.1] * 9, [-0.01] + [0.2] * 9, [-0.01] + [0.3] * 9), "pass"),
+    ("commodity cycle: 3 revenue drops", _history([np.nan, .2, -.1, .3, -.2, .1, -.1, .1, .1, .1], [0.3] * 10,
+                                                  [0.2] * 10), "fail"),
+    ("low returns most years", _history([np.nan] + [0.05] * 9, [0.1] * 10, [0.05] * 7 + [0.3] * 3), "fail"),
+    ("loss-making for years", _history([np.nan] + [0.3] * 9, [-0.5] * 4 + [0.4] * 6, [np.nan] * 10), "fail"),
+    ("young company", _history([np.nan] + [0.3] * 4, [0.2] * 5, [0.3] * 5), "short history"),
+    ("no filings", None, "no SEC data"),
+])
+def test_long_run_check(name, hist, expected):
+    from ai_desk.fundamentals.filters import long_run_check
+
+    status, detail = long_run_check(hist)
+    assert status == expected, (name, detail)
+
+
+def test_apply_long_run_drops_only_failures():
+    from ai_desk.fundamentals.filters import apply_long_run
+
+    df = pd.DataFrame(index=["GOOD", "CYCLICAL", "NEW", "FOREIGN"])
+    histories = {"GOOD": _history([np.nan] + [0.1] * 9, [0.2] * 10, [0.3] * 10),
+                 "CYCLICAL": _history([np.nan, -.1, -.1, -.1, .1, .1, .1, .1, .1, .1], [0.3] * 10, [0.2] * 10),
+                 "NEW": _history([np.nan, 0.5], [0.2] * 2, [0.3] * 2)}
+    kept, notes = apply_long_run(df, histories)
+    assert list(kept.index) == ["GOOD", "NEW", "FOREIGN"]
+    assert "1 failed" in notes[0]
+
+
+def test_ticker_header_parsing():
+    from ai_desk.fundamentals.edgar import _HEADER
+
+    head = '{"cik":"0001652044","entityType":"operating","name":"Alphabet Inc.","tickers":["GOOGL","GOOG"],"exchanges"'
+    m = _HEADER.search(head)
+    assert m["name"] == "Alphabet Inc." and '"GOOGL","GOOG"' in m["tickers"]

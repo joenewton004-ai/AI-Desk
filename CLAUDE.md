@@ -8,7 +8,8 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Tests: `python -m pytest -q`
 - Offline demo: `python -m ai_desk backtest --strategy all --source synthetic`
 - Real data: `python -m ai_desk fetch SPY QQQ IWM GLD TLT IEF ^VIX ^IRX` (to `market_data/`, git-ignored)
-- Stock screener: `python -m ai_desk screen` (Yahoo, cached a week in `data/fundamentals/`)
+- Stock screener: `python -m ai_desk screen` (Yahoo, cached a week in `data/fundamentals/`; the
+  10-year check reads SEC filings, cached in `data/sec/`; `--no-history` skips it)
 - Full robustness research: `python research/edges.py`, then update `research/FINDINGS.md` by hand
 
 ## Non-negotiables
@@ -41,3 +42,7 @@ changes plainly and be honest about whether a strategy has a real edge.
 - EDGAR: only data.sec.gov is reachable here. Ticker->CIK must be verified
   via data.sec.gov/submissions. Never put the user's email in SEC_USER_AGENT
   without asking - it comes from .env.
+- The 10-year check's thresholds live in `filters.LONG_RUN_RULES`. They were
+  calibrated against the 10 researched companies; if you change them, re-run
+  `long_run_check` on those and explain any verdict that flips.
+- SEC requests go through `edgar._get` (shared rate limit, 8/s across threads).

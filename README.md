@@ -170,6 +170,7 @@ python -m ai_desk screen --top 50 --min-cap 50e9
 python -m ai_desk screen --tickers MSFT AAPL COST V
 python -m ai_desk screen --min-roic 0.15 --max-forward-pe 35 --weight value=0.35
 python -m ai_desk screen --no-gates            # rank everything, not just great businesses
+python -m ai_desk screen --no-history          # skip the 10-year SEC check (faster)
 ```
 
 The first run downloads about 4 years of statements per company from Yahoo,
@@ -188,6 +189,19 @@ are on by default:
 These keep out businesses at a cyclical peak (miners in a commodity boom,
 for example) and turnarounds, which would otherwise rank high on one hot
 year.
+
+Then comes the **10-year check**. Yahoo's 4 years can sit entirely inside a
+boom, so the screen also reads each company's last 10 years of SEC filings.
+A company fails, and is excluded, if:
+- it made an operating loss in more than 2 of the 10 years
+- its revenue fell in more than 2 years
+- its pre-tax ROIC was under 10% in more than 3 of the years where it can be measured
+
+Companies with under 7 years of filings ("short history") or no SEC data
+(often foreign IFRS filers) are kept but flagged as unverified. The first
+run builds a ticker-to-SEC-ID map and downloads the filings, which takes
+several minutes. After that, everything is cached. `--no-history` skips the
+check.
 
 Each company is then compared with the rest of the universe. Every metric becomes
 a percentile (100 = best), the metrics average into categories, and the
