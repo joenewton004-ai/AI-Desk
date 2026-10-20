@@ -19,13 +19,26 @@ from pathlib import Path
 import pandas as pd
 
 
+# Broad, diversified funds. A 50% SPY sleeve is by design (research/THESIS.md),
+# so these get their own, higher caps instead of the single-stock ones.
+INDEX_FUNDS = ("SPY", "VOO", "IVV", "VTI", "QQQ", "IWM", "DIA", "TLT", "IEF", "GLD", "BIL", "SHY", "SGOV")
+
+
 @dataclass
 class Limits:
-    max_position: float = 0.10       # no single holding above 10% of equity (long or short)
+    max_position: float = 0.10       # no single stock above 10% of equity (long or short)
     max_gross: float = 1.0           # sum of |weights|; 1.0 = no leverage
-    max_order: float = 0.25          # refuse any single order above 25% of equity
+    max_order: float = 0.25          # refuse any single stock order above 25% of equity
     min_trade: float = 0.005         # skip resizes smaller than 0.5% of equity (closing always trades)
     allow_short: bool = False
+    max_fund_position: float = 0.60  # cap for INDEX_FUNDS (position and order size)
+    funds: tuple = INDEX_FUNDS
+
+    def position_cap(self, symbol: str) -> float:
+        return self.max_fund_position if symbol in self.funds else self.max_position
+
+    def order_cap(self, symbol: str) -> float:
+        return self.max_fund_position if symbol in self.funds else self.max_order
 
 
 @dataclass
@@ -61,9 +74,11 @@ def apply_limits(targets: pd.Series, limits: Limits) -> tuple[pd.Series, list[st
     if not limits.allow_short and (t < 0).any():
         notes.append(f"shorting disabled: dropped short targets {sorted(t[t < 0].index)}")
         t = t[t > 0]
-    capped = t.clip(-limits.max_position, limits.max_position)
+    caps = pd.Series({s: limits.position_cap(s) for s in t.index}, dtype=float)
+    capped = t.clip(-caps, caps)
     if (capped != t).any():
-        notes.append(f"capped at {limits.max_position:.0%} per position: {sorted(t.index[capped != t])}")
+        notes.append(f"capped at {limits.max_position:.0%} per stock / {limits.max_fund_position:.0%} per index "
+                     f"fund: {sorted(t.index[capped != t])}")
     gross = capped.abs().sum()
     if gross > limits.max_gross:
         capped *= limits.max_gross / gross
@@ -102,8 +117,8 @@ def plan_orders(targets: pd.Series, positions: dict[str, float], prices: pd.Seri
             opens_short = target_qty < 0 and why in ("open", "resize") and qty < 0
             if opens_short and shortable is not None and not shortable.get(sym, False):
                 order.blocked = "not shortable at the broker"
-            elif order.notional > limits.max_order * equity:
-                order.blocked = f"order ${order.notional:,.0f} is over {limits.max_order:.0%} of equity"
+            elif order.notional > limits.order_cap(sym) * equity:
+                order.blocked = f"order ${order.notional:,.0f} is over {limits.order_cap(sym):.0%} of equity"
             plan.orders.append(order)
     # sells first: they free up cash for the buys
     plan.orders.sort(key=lambda o: (o.side != "sell", o.symbol))

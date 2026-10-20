@@ -187,7 +187,7 @@ python -m ai_desk portfolio run  --method thesis --execute    # sends them to Al
 ```
 
 Executor safety rules:
-- At most 10% of equity in any position (`--max-position`), no leverage
+- At most 10% of equity in any single stock (`--max-position`) and 60% in a broad index fund like SPY (`--max-fund-position`). No leverage
   (`--max-gross 1.0`), and no single order above 25% of equity.
 - Resizes under 0.5% of equity are skipped. Closing a position always trades.
 - Shorts are only allowed if the method needs them, and only for shares the

@@ -395,7 +395,8 @@ def cmd_portfolio(a) -> None:
         return
 
     limits = executor.Limits(max_position=a.max_position, max_gross=a.max_gross, max_order=a.max_order_pct,
-                             allow_short=method.can_short and not a.no_short)
+                             allow_short=method.can_short and not a.no_short,
+                             max_fund_position=a.max_fund_position)
     plan = executor.run(method, limits, execute=(a.action == "run" and a.execute), source=a.source)
     for note in plan.notes:
         print(f"  - {note}")
@@ -493,7 +494,9 @@ def build_parser() -> argparse.ArgumentParser:
     _common(pf)
     pf.set_defaults(source="yahoo", start="2005-01-01")
     pf.add_argument("--split", default=None, help="backtest: also report before/after this date")
-    pf.add_argument("--max-position", type=float, default=0.10, help="largest single holding (fraction)")
+    pf.add_argument("--max-position", type=float, default=0.10, help="largest single stock (fraction)")
+    pf.add_argument("--max-fund-position", type=float, default=0.60,
+                    help="largest holding in a broad index fund like SPY (fraction)")
     pf.add_argument("--max-gross", type=float, default=1.0, help="max sum of |weights| (1.0 = no leverage)")
     pf.add_argument("--max-order-pct", type=float, default=0.25, help="largest single order (fraction)")
     pf.add_argument("--no-short", action="store_true", help="never open short positions")

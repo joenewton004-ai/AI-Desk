@@ -142,3 +142,11 @@ def test_executor_refuses_to_stack_on_pending_orders(tmp_path, monkeypatch):
     plan = executor.run(build(["sma_crossover"], {"symbols": "AA"}), execute=True, source="synthetic",
                         max_data_age_days=None, broker=broker)
     assert not broker.sent and all(o.blocked for o in plan.orders)
+
+
+def test_index_funds_get_their_own_cap():
+    prices = pd.Series({"SPY": 500.0, "AAA": 100.0})
+    plan = plan_orders(pd.Series({"SPY": 0.50, "AAA": 0.50}), {}, prices, 100_000)
+    o = by_symbol(plan)
+    assert o[("SPY", "buy")].qty == 100 and not o[("SPY", "buy")].blocked      # 50% allowed for SPY
+    assert o[("AAA", "buy")].qty == 100                                         # stock capped at 10%
