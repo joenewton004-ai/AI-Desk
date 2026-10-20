@@ -18,6 +18,8 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Index rotation vs the SPY sleeve: `python research/index_rotation.py` -> `research/INDEX_ROTATION.md`
 - Winners study (what top performers looked like before their run): `python research/winners.py` ->
   `research/WINNERS.md`. Universe = top 750 at each date, survivors only: say so when quoting it.
+- Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
+  market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
   write-up in `research/THESIS.md` - update its numbers if the backtest changes
 

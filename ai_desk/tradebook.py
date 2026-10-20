@@ -79,6 +79,8 @@ def record_orders(plan, method, sleeves: dict[str, pd.Series], signal_date, resp
             "exit_reason": method.exit_reason(o.symbol) if o.side == "sell" else None,
             "rationale": method.rationale(o.symbol) if not closing else {},
             "method": method.describe(), "order_id": responses.get(o.symbol, {}).get("id"),
+            "order_type": responses.get(o.symbol, {}).get("type", "market"),
+            "limit_price": responses.get(o.symbol, {}).get("limit_price"),
             "status": "submitted", "filled_qty": None, "fill_price": None, "filled_utc": None,
         }
         _append("trades.jsonl", row)

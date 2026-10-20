@@ -36,6 +36,8 @@ class Limits:
     fractional: bool = True          # fractional shares for longs where the broker allows them
     cash_buffer: float = 0.01        # keep 1% in cash so market orders that fill a bit higher
                                      # than the last close don't push the account onto margin
+    limit_cap: float | None = None   # e.g. 0.02: send limit orders capped 2% beyond the last close instead of
+                                     # market orders (research/LIMIT_ORDERS.md: free on average, stops big-gap fills)
 
     def position_cap(self, symbol: str) -> float:
         return self.max_fund_position if symbol in self.funds else self.max_position
@@ -159,6 +161,13 @@ def plan_orders(targets: pd.Series, positions: dict[str, float], prices: pd.Seri
 JOURNAL = Path("logs/portfolio_journal.csv")
 
 
+def limit_price(last_close: float, side: str, cap: float) -> float:
+    """Cap `cap` beyond the last close, rounded to a price Alpaca accepts, never past the cap."""
+    raw = last_close * (1 + cap) if side == "buy" else last_close * (1 - cap)
+    step = 0.01 if raw >= 1 else 0.0001
+    return round((math.floor(raw / step) if side == "buy" else math.ceil(raw / step)) * step, 4)
+
+
 def journal(plan: Plan, method: str, status: str, equity: float, path: str | Path | None = None) -> None:
     """One row per order (or one 'no changes' row), so every run is on record."""
     p = Path(path or JOURNAL)
@@ -234,7 +243,12 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
     if execute:
         responses = {}
         for o in plan.sendable:
-            resp = broker.submit_market_order(o.symbol, o.qty, o.side)
+            if limits.limit_cap:
+                lim = limit_price(o.price, o.side, limits.limit_cap)
+                resp = broker.submit_limit_order(o.symbol, o.qty, o.side, lim)
+                resp = {**resp, "type": "limit", "limit_price": lim}
+            else:
+                resp = {**broker.submit_market_order(o.symbol, o.qty, o.side), "type": "market"}
             responses[o.symbol] = resp
             o.reason += f" [order {resp.get('id', '?')}]"
         status = "submitted"

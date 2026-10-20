@@ -1,6 +1,7 @@
 [
  {
   "symbol": "ADBE",
+  "name": "Adobe Inc.",
   "sleeve": "quality_screen",
   "shares": 8.0132,
   "price": 252.445,
@@ -18,6 +19,7 @@
  },
  {
   "symbol": "AMD",
+  "name": "Advanced Micro Devices, Inc.",
   "sleeve": "bottleneck",
   "shares": 2.6634,
   "price": 541.875,
@@ -35,6 +37,7 @@
  },
  {
   "symbol": "ANET",
+  "name": "Arista Networks, Inc.",
   "sleeve": "quality_screen",
   "shares": 10.8226,
   "price": 181.585,
@@ -52,6 +55,7 @@
  },
  {
   "symbol": "BKNG",
+  "name": "Booking Holdings Inc.",
   "sleeve": "quality_screen",
   "shares": 12.1771,
   "price": 163.11,
@@ -69,6 +73,7 @@
  },
  {
   "symbol": "COP",
+  "name": "ConocoPhillips",
   "sleeve": "bottleneck",
   "shares": 20.4358,
   "price": 145.13,
@@ -86,6 +91,7 @@
  },
  {
   "symbol": "CPAY",
+  "name": "Corpay, Inc.",
   "sleeve": "quality_screen",
   "shares": 4.9185,
   "price": 407.75,
@@ -103,6 +109,7 @@
  },
  {
   "symbol": "DECK",
+  "name": "Deckers Outdoor Corporation",
   "sleeve": "quality_screen",
   "shares": 22.696,
   "price": 86.7675,
@@ -120,6 +127,7 @@
  },
  {
   "symbol": "DVN",
+  "name": "Devon Energy Corporation",
   "sleeve": "bottleneck",
   "shares": 52.4473,
   "price": 50.67,
@@ -137,6 +145,7 @@
  },
  {
   "symbol": "EME",
+  "name": "EMCOR Group, Inc.",
   "sleeve": "quality_screen",
   "shares": 2.7623,
   "price": 703.44,
@@ -154,6 +163,7 @@
  },
  {
   "symbol": "EOG",
+  "name": "EOG Resources, Inc.",
   "sleeve": "bottleneck",
   "shares": 17.151,
   "price": 157.58,
@@ -171,6 +181,7 @@
  },
  {
   "symbol": "EQNR",
+  "name": "Equinor ASA",
   "sleeve": "bottleneck",
   "shares": 49.9194,
   "price": 45.845,
@@ -188,6 +199,7 @@
  },
  {
   "symbol": "FICO",
+  "name": "Fair Isaac Corporation",
   "sleeve": "quality_screen",
   "shares": 2.5349,
   "price": 799.96,
@@ -205,6 +217,7 @@
  },
  {
   "symbol": "FIX",
+  "name": "Comfort Systems USA, Inc.",
   "sleeve": "quality_screen",
   "shares": 1.3523,
   "price": 1412.945,
@@ -222,6 +235,7 @@
  },
  {
   "symbol": "FTNT",
+  "name": "Fortinet, Inc.",
   "sleeve": "quality_screen",
   "shares": 11.5451,
   "price": 172.39,
@@ -239,6 +253,7 @@
  },
  {
   "symbol": "GOOGL",
+  "name": "Alphabet Inc.",
   "sleeve": "quality_screen",
   "shares": 5.7528,
   "price": 343.965,
@@ -256,6 +271,7 @@
  },
  {
   "symbol": "INCY",
+  "name": "Incyte Corporation",
   "sleeve": "quality_screen",
   "shares": 17.4834,
   "price": 116.11,
@@ -273,6 +289,7 @@
  },
  {
   "symbol": "KLAC",
+  "name": "KLA Corporation",
   "sleeve": "quality_screen",
   "shares": 11.899,
   "price": 163.025,
@@ -290,6 +307,7 @@
  },
  {
   "symbol": "LLY",
+  "name": "Eli Lilly and Company",
   "sleeve": "quality_screen",
   "shares": 1.5963,
   "price": 1300.5,
@@ -307,6 +325,7 @@
  },
  {
   "symbol": "LRCX",
+  "name": "Lam Research Corporation",
   "sleeve": "quality_screen",
   "shares": 7.274,
   "price": 267.065,
@@ -324,6 +343,7 @@
  },
  {
   "symbol": "MA",
+  "name": "Mastercard Incorporated",
   "sleeve": "quality_screen",
   "shares": 3.2121,
   "price": 621.445,
@@ -341,6 +361,7 @@
  },
  {
   "symbol": "MEDP",
+  "name": "Medpace Holdings, Inc.",
   "sleeve": "quality_screen",
   "shares": 3.1953,
   "price": 628.755,
@@ -358,6 +379,7 @@
  },
  {
   "symbol": "META",
+  "name": "Meta Platforms, Inc.",
   "sleeve": "quality_screen",
   "shares": 2.8067,
   "price": 688.75,
@@ -375,6 +397,7 @@
  },
  {
   "symbol": "MSCI",
+  "name": "MSCI Inc.",
   "sleeve": "quality_screen",
   "shares": 3.5138,
   "price": 595.52,
@@ -392,6 +415,7 @@
  },
  {
   "symbol": "NVDA",
+  "name": "NVIDIA Corporation",
   "sleeve": "quality_screen",
   "shares": 9.1206,
   "price": 217.03,
@@ -409,6 +433,7 @@
  },
  {
   "symbol": "NXT",
+  "name": "Nextpower Inc.",
   "sleeve": "quality_screen",
   "shares": 24.8431,
   "price": 78.9,
@@ -426,6 +451,7 @@
  },
  {
   "symbol": "OVV",
+  "name": "Ovintiv Inc.",
   "sleeve": "bottleneck",
   "shares": 35.7702,
   "price": 69.85,
@@ -443,6 +469,7 @@
  },
  {
   "symbol": "OXY",
+  "name": "Occidental Petroleum Corporation",
   "sleeve": "bottleneck",
   "shares": 44.2834,
   "price": 62.745,
@@ -460,6 +487,7 @@
  },
  {
   "symbol": "PAYX",
+  "name": "Paychex, Inc.",
   "sleeve": "quality_screen",
   "shares": 17.8781,
   "price": 112.0,
@@ -477,6 +505,7 @@
  },
  {
   "symbol": "PM",
+  "name": "Philip Morris International Inc.",
   "sleeve": "quality_screen",
   "shares": 9.8482,
   "price": 200.875,
@@ -494,6 +523,7 @@
  },
  {
   "symbol": "PR",
+  "name": "Permian Resources Corporation",
   "sleeve": "bottleneck",
   "shares": 98.296,
   "price": 24.9,
@@ -511,6 +541,7 @@
  },
  {
   "symbol": "SPY",
+  "name": "SPDR S&P 500 ETF Trust",
   "sleeve": "index_momentum",
   "shares": 38.7485,
   "price": 769.36,
@@ -528,6 +559,7 @@
  },
  {
   "symbol": "UTHR",
+  "name": "United Therapeutics Corporation",
   "sleeve": "quality_screen",
   "shares": 3.6454,
   "price": 559.8745,
@@ -545,6 +577,7 @@
  },
  {
   "symbol": "V",
+  "name": "Visa Inc.",
   "sleeve": "quality_screen",
   "shares": 4.9141,
   "price": 407.25,
@@ -562,6 +595,7 @@
  },
  {
   "symbol": "WES",
+  "name": "Western Midstream Partners, LP",
   "sleeve": "quality_screen",
   "shares": 44.6348,
   "price": 44.46,

@@ -178,7 +178,7 @@ def fill_quality(trades: list[dict], opens: pd.DataFrame) -> list[dict]:
         op = opens.at[day, t["symbol"]] if day in opens.index and t["symbol"] in opens.columns else None
         out.append({
             "id": t["id"], "date": day.date().isoformat(), "symbol": t["symbol"], "side": t["side"],
-            "sleeve": t.get("sleeve") or "", "signal_close": t["est_price"], "day_open": op,
+            "sleeve": t.get("sleeve") or "", "order_type": t.get("order_type") or "market", "signal_close": t["est_price"], "day_open": op,
             "fill": t["fill_price"], "notional": round(float(t["fill_price"]) * float(t.get("filled_qty") or 0), 2),
             "vs_close_bps": round(sign * (t["fill_price"] / t["est_price"] - 1) * 1e4, 1),
             "vs_open_bps": round(sign * (t["fill_price"] / op - 1) * 1e4, 1) if op and op == op else None,

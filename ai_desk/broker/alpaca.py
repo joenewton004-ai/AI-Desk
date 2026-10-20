@@ -32,6 +32,11 @@ def format_qty(qty: float) -> str:
     return f"{qty:.6f}".rstrip("0").rstrip(".")
 
 
+def format_limit(price: float) -> str:
+    """Alpaca accepts whole cents at $1 and above, and 4 decimals below $1."""
+    return f"{price:.2f}" if price >= 1 else f"{price:.4f}"
+
+
 class AlpacaPaper:
     def __init__(self, key_id: str | None = None, secret: str | None = None, timeout: float = 15):
         load_dotenv()
@@ -117,6 +122,14 @@ class AlpacaPaper:
     def asset(self, symbol: str) -> dict:
         """Tradability flags, e.g. {"tradable": True, "shortable": True, "easy_to_borrow": True}."""
         return self._request("GET", f"/assets/{symbol}") or {}
+
+    def submit_limit_order(self, symbol: str, qty: float, side: str, limit_price: float) -> dict:
+        """Limit order, good for the day (expires unfilled at the close). Used as a price cap:
+        a buy fills at the open or better as long as the price stays under `limit_price`."""
+        return self._request("POST", "/orders", json={
+            "symbol": symbol, "qty": format_qty(qty), "side": side, "type": "limit",
+            "limit_price": format_limit(limit_price), "time_in_force": "day",
+        })
 
     def submit_market_order(self, symbol: str, qty: float, side: str) -> dict:
         """Market order, good for the day. Submitted after the close, Alpaca

@@ -73,6 +73,17 @@ def _brief(r: dict) -> str:
     return " · ".join(f"{k} {v}" for k, v in parts if v is not None)
 
 
+FUND_NAMES = {"SPY": "SPDR S&P 500 ETF Trust", "RSP": "Invesco S&P 500 Equal Weight ETF",
+              "QQQ": "Invesco QQQ Trust (Nasdaq-100)", "IWM": "iShares Russell 2000 ETF",
+              "DIA": "SPDR Dow Jones Industrial Average ETF", "EFA": "iShares MSCI EAFE ETF",
+              "EEM": "iShares MSCI Emerging Markets ETF"}
+
+
+def _read_json_list(name: str) -> list:
+    p = tradebook.DIR / name
+    return json.loads(p.read_text()) if p.exists() else []
+
+
 def _read_json(name: str) -> dict:
     p = tradebook.DIR / name
     return json.loads(p.read_text()) if p.exists() else {}
@@ -174,8 +185,12 @@ def tables() -> dict[str, list[dict]]:
         for sl, x in (r.get("rationale") or {}).items():
             if isinstance(x, dict) and x.get("forward_pe") == x.get("forward_pe") and x.get("forward_pe") is not None:
                 pe[r["symbol"]] = (x["forward_pe"], f"forward P/E from the {str(x.get('source_file', ''))[-14:-4] or 'screen'} scan")
+    names = dict(FUND_NAMES)
+    for c in _read_json_list("watchlist.json"):
+        names.update({r["symbol"]: r["name"] for r in c.get("rows", []) if r.get("name")})
+    names.update({sym: h["name"] for sym, h in (last.get("holdings") or {}).items() if h.get("name")})
     holdings = [{
-        "symbol": sym, "sleeve": h.get("sleeve") or "", "shares": h.get("qty"), "price": h.get("price"),
+        "symbol": sym, "name": names.get(sym, ""), "sleeve": h.get("sleeve") or "", "shares": h.get("qty"), "price": h.get("price"),
         "avg_cost": h.get("avg_cost"), "market_value": h.get("market_value"), "cost_basis": h.get("cost_basis"),
         "unrealized_pl": h.get("unrealized_pl"), "unrealized_pct": h.get("unrealized_pct"),
         "day_pl": h.get("day_pl"), "day_pct": h.get("day_pct"), "last_close": h.get("last_close"),
