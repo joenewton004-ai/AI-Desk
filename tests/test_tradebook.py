@@ -82,6 +82,18 @@ def test_execute_records_trades_with_sleeve_and_reason(tmp_path, monkeypatch):
     assert rows["CC"]["side"] == "sell" and "dropped it" in rows["CC"]["exit_reason"]
     assert tradebook.sync_fills(broker) == 3 and all(r["fill_price"] for r in tradebook.trades())
 
+    # the plan snapshot and dashboard tables
+    from ai_desk import dashboard
+    plan = {r["symbol"]: r for r in tradebook._read_plan()["rows"]}
+    assert plan["AA"]["sleeve"] == "stocks" and plan["CC"]["side"] == "sell"
+    tradebook.add_note(rows["AA"]["id"], "bought on the screen")
+    t = dashboard.tables()
+    assert {r["symbol"] for r in t["trades"]} == {"AA", "BB", "CC"}
+    assert next(r for r in t["trades"] if r["symbol"] == "AA")["notes"] == "bought on the screen"
+    assert t["summary"][0]["trades_filled"] == 3
+    assert {r["sleeve"] for r in t["sleeves"]} >= {"stocks", "index"}
+    assert dashboard.export()["trades"] == 3 and (tradebook.DIR / "dashboard" / "methods.json").exists()
+
 
 def _fill(sym, side, qty, price, when, sleeve="bottleneck", reason="x"):
     tradebook._append("trades.jsonl", {

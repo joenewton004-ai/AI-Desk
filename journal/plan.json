@@ -1,0 +1,1187 @@
+{
+ "created_utc": "2026-10-20T10:33:19+00:00",
+ "signal_date": "2026-10-19",
+ "equity": 100000.0,
+ "status": "dry_run",
+ "method": "50% quality_screen(top=25, rebalance=False, max_age_days=10, screen_glob=output/screen_*.csv, lock_path=data/portfolio/quality_screen.json, rebalance_months=3) + 20% bottleneck(top=8, rebalance=False, max_age_days=3, screen_glob=output/bottleneck_*.csv, lock_path=data/portfolio/bottleneck.json, rebalance_days=14, exit_ma=0) + 30% index_momentum(symbol=SPY, lookback=252)",
+ "notes": [
+  "signals from the close of 2026-10-19; equity $100,000",
+  "quality_screen: first pick - top 25 from screen_2026-10-19.csv. Holdings are locked when orders are sent",
+  "bottleneck: first pick - top 8 from bottleneck_2026-10-20.csv. Holdings are locked when orders are sent",
+  "bottleneck: exit rule = close below the 100-day average; re-pick every 14 days",
+  "kept a 1% cash buffer: long positions scaled to 99% of equity"
+ ],
+ "rows": [
+  {
+   "symbol": "ADBE",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 8.0132,
+   "notional": 1979.98,
+   "price": 247.09,
+   "reason": "open: +0 -> +8.0132 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 4,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 69.4513,
+     "quality_score": 89.8486,
+     "growth_score": 48.5541,
+     "value_score": 97.7941,
+     "strength_score": 51.3047,
+     "momentum_score": 11.7647,
+     "industry": "Software - Application",
+     "roic_avg": 0.4362,
+     "rev_cagr": 0.1052,
+     "forward_pe": 8.9826,
+     "fcf_yield": 0.1024,
+     "strengths": "forward P/E 9 (top 1%); FCF yield 10.2% (top 1%); gross margin 89% (top 1%)",
+     "weaknesses": "stock comp 8.2% of revenue (bottom 5%); 12-1 month price change -25% (bottom 12%); growing -4%/yr vs industry peers (bottom 15%)"
+    }
+   }
+  },
+  {
+   "symbol": "AMD",
+   "sleeve": "bottleneck",
+   "target": 0.01433,
+   "target_by_sleeve": {
+    "bottleneck": 0.01448
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 2.6634,
+   "notional": 1433.04,
+   "price": 538.05,
+   "reason": "open: +0 -> +2.6634 shares (target +1.4%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "bottleneck": {
+     "rank": 2,
+     "source_file": "bottleneck_2026-10-20.csv",
+     "score": 70.8548,
+     "flow_score": 64.7059,
+     "bottleneck_score": 69.6691,
+     "asymmetry_score": 91.1765,
+     "industry": "Semiconductors",
+     "segment": "compute",
+     "source": "theme",
+     "rev_growth": 0.5011,
+     "gm_change": 0.1397,
+     "backlog_growth": 0.0183,
+     "rs_6m": 0.8699,
+     "forward_pe": 34.1357
+    }
+   }
+  },
+  {
+   "symbol": "ANET",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 10.8226,
+   "notional": 1979.99,
+   "price": 182.95,
+   "reason": "open: +0 -> +10.8226 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 9,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 64.3988,
+     "quality_score": 83.7445,
+     "growth_score": 82.9675,
+     "value_score": 7.91,
+     "strength_score": 40.8786,
+     "momentum_score": 86.7647,
+     "industry": "Computer Hardware",
+     "roic_avg": 0.7745,
+     "rev_cagr": 0.2714,
+     "forward_pe": 35.0319,
+     "fcf_yield": 0.0184,
+     "strengths": "net debt/EBITDA -2.7x (top 1%); revenue growth 27%/yr (top 3%); avg ROIC 77% (top 4%)",
+     "weaknesses": "EV/EBIT 54 (bottom 2%); forward P/E 35 (bottom 7%); share count +0.3%/yr (bottom 11%)"
+    }
+   }
+  },
+  {
+   "symbol": "BKNG",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 12.1771,
+   "notional": 1980.0,
+   "price": 162.6,
+   "reason": "open: +0 -> +12.1771 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 3,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 69.8842,
+     "quality_score": 94.3015,
+     "growth_score": 45.5882,
+     "value_score": 86.3785,
+     "strength_score": 61.4706,
+     "momentum_score": 20.5882,
+     "industry": "Travel Services",
+     "roic_avg": 1.282,
+     "rev_cagr": 0.1634,
+     "forward_pe": 13.1418,
+     "fcf_yield": 0.0744,
+     "strengths": "avg ROIC 128% (top 1%); worst-year ROIC 67% (top 1%); share count -6.6%/yr (top 1%)",
+     "weaknesses": "growing -5%/yr vs industry peers (bottom 10%)"
+    }
+   }
+  },
+  {
+   "symbol": "COP",
+   "sleeve": "bottleneck",
+   "target": 0.02968,
+   "target_by_sleeve": {
+    "bottleneck": 0.02998
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 20.4358,
+   "notional": 2968.1,
+   "price": 145.24,
+   "reason": "open: +0 -> +20.4358 shares (target +3.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "bottleneck": {
+     "rank": 6,
+     "source_file": "bottleneck_2026-10-20.csv",
+     "score": 61.0508,
+     "flow_score": 71.5686,
+     "bottleneck_score": 67.6471,
+     "asymmetry_score": 47.9286,
+     "industry": "Oil & Gas E&P",
+     "source": "flow",
+     "rev_growth": 0.3683,
+     "gm_change": 0.1166,
+     "rs_6m": 0.1779,
+     "forward_pe": 13.6408
+    }
+   }
+  },
+  {
+   "symbol": "CPAY",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 4.9185,
+   "notional": 1979.99,
+   "price": 402.56,
+   "reason": "open: +0 -> +4.9185 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 20,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 60.177,
+     "quality_score": 57.6076,
+     "growth_score": 47.2234,
+     "value_score": 77.8149,
+     "strength_score": 38.9555,
+     "momentum_score": 87.5,
+     "industry": "Software - Infrastructure",
+     "roic_avg": 0.1251,
+     "rev_cagr": 0.0973,
+     "forward_pe": 12.7531,
+     "fcf_yield": 0.0492,
+     "strengths": "FCF/net income 1.40x (top 7%); operating margin 43% (top 10%); 12-1 month price change +39% (top 12%)",
+     "weaknesses": "avg ROIC 13% (bottom 3%); net debt/EBITDA 3.2x (bottom 6%); growing -6%/yr vs industry peers (bottom 9%)"
+    }
+   }
+  },
+  {
+   "symbol": "DECK",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 22.696,
+   "notional": 1980.0,
+   "price": 87.24,
+   "reason": "open: +0 -> +22.696 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 2,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 72.1788,
+     "quality_score": 74.6027,
+     "growth_score": 69.8337,
+     "value_score": 97.2742,
+     "strength_score": 76.8401,
+     "momentum_score": 14.7059,
+     "industry": "Footwear & Accessories",
+     "roic_avg": 0.8007,
+     "rev_cagr": 0.1469,
+     "forward_pe": 10.4568,
+     "fcf_yield": 0.0924,
+     "strengths": "EV/EBIT 8 (top 2%); FCF yield 9.2% (top 3%); forward P/E 10 (top 3%)",
+     "weaknesses": "12-1 month price change -21% (bottom 15%)"
+    }
+   }
+  },
+  {
+   "symbol": "DVN",
+   "sleeve": "bottleneck",
+   "target": 0.02671,
+   "target_by_sleeve": {
+    "bottleneck": 0.02698
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 52.4473,
+   "notional": 2670.62,
+   "price": 50.92,
+   "reason": "open: +0 -> +52.4473 shares (target +2.7%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "bottleneck": {
+     "rank": 7,
+     "source_file": "bottleneck_2026-10-20.csv",
+     "score": 61.0052,
+     "flow_score": 61.7647,
+     "bottleneck_score": 77.451,
+     "asymmetry_score": 43.8247,
+     "industry": "Oil & Gas E&P",
+     "source": "flow",
+     "rev_growth": 0.7313,
+     "gm_change": 0.1086,
+     "rs_6m": 0.0615,
+     "forward_pe": 9.5078
+    }
+   }
+  },
+  {
+   "symbol": "EME",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 2.7623,
+   "notional": 1979.99,
+   "price": 716.79,
+   "reason": "open: +0 -> +2.7623 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 21,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 60.0615,
+     "quality_score": 42.5241,
+     "growth_score": 74.2016,
+     "value_score": 59.1355,
+     "strength_score": 86.2406,
+     "momentum_score": 61.7647,
+     "industry": "Engineering & Construction",
+     "roic_avg": 0.3308,
+     "rev_cagr": 0.1532,
+     "forward_pe": 19.1787,
+     "fcf_yield": 0.0376,
+     "strengths": "stock comp 0.1% of revenue (top 2%); share count -3.4%/yr (top 14%); revenue growth 15%/yr (top 16%)",
+     "weaknesses": "gross margin 19% (bottom 8%); operating margin 9% (bottom 10%)"
+    }
+   }
+  },
+  {
+   "symbol": "EOG",
+   "sleeve": "bottleneck",
+   "target": 0.02704,
+   "target_by_sleeve": {
+    "bottleneck": 0.02731
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 17.151,
+   "notional": 2703.86,
+   "price": 157.65,
+   "reason": "open: +0 -> +17.151 shares (target +2.7%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "bottleneck": {
+     "rank": 8,
+     "source_file": "bottleneck_2026-10-20.csv",
+     "score": 60.1961,
+     "flow_score": 63.7255,
+     "bottleneck_score": 67.6471,
+     "asymmetry_score": 52.3531,
+     "industry": "Oil & Gas E&P",
+     "source": "flow",
+     "rev_growth": 0.5862,
+     "gm_change": 0.0728,
+     "rs_6m": 0.1509,
+     "forward_pe": 9.9565
+    }
+   }
+  },
+  {
+   "symbol": "EQNR",
+   "sleeve": "bottleneck",
+   "target": 0.02304,
+   "target_by_sleeve": {
+    "bottleneck": 0.02327
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 49.9194,
+   "notional": 2303.78,
+   "price": 46.15,
+   "reason": "open: +0 -> +49.9194 shares (target +2.3%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "bottleneck": {
+     "rank": 3,
+     "source_file": "bottleneck_2026-10-20.csv",
+     "score": 63.4683,
+     "flow_score": 76.4706,
+     "bottleneck_score": 66.6667,
+     "asymmetry_score": 54.0691,
+     "industry": "Oil & Gas Integrated",
+     "source": "flow",
+     "rev_growth": 0.3738,
+     "gm_change": 0.1028,
+     "rs_6m": 0.2203,
+     "forward_pe": 9.7056
+    }
+   }
+  },
+  {
+   "symbol": "FICO",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 2.5349,
+   "notional": 1979.93,
+   "price": 781.07,
+   "reason": "open: +0 -> +2.5349 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 12,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 63.4641,
+     "quality_score": 87.9148,
+     "growth_score": 67.2053,
+     "value_score": 62.2549,
+     "strength_score": 30.0038,
+     "momentum_score": 4.4118,
+     "industry": "Software - Application",
+     "roic_avg": 0.5013,
+     "rev_cagr": 0.1307,
+     "forward_pe": 15.8706,
+     "fcf_yield": 0.0438,
+     "strengths": "operating margin 47% (top 6%); gross margin 82% (top 9%); worst-year ROIC 42% (top 10%)",
+     "weaknesses": "12-1 month price change -41% (bottom 4%); stock comp 7.9% of revenue (bottom 7%); net debt/EBITDA 3.1x (bottom 8%)"
+    }
+   }
+  },
+  {
+   "symbol": "FIX",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 1.3523,
+   "notional": 1979.86,
+   "price": 1464.0699,
+   "reason": "open: +0 -> +1.3523 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 18,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 60.2486,
+     "quality_score": 44.7454,
+     "growth_score": 95.1877,
+     "value_score": 20.9225,
+     "strength_score": 68.2692,
+     "momentum_score": 97.7941,
+     "industry": "Engineering & Construction",
+     "roic_avg": 0.3193,
+     "rev_cagr": 0.3002,
+     "forward_pe": 24.3102,
+     "fcf_yield": 0.02,
+     "strengths": "revenue growth 30%/yr (top 2%); 12-1 month price change +100% (top 2%); latest-quarter revenue +50% y/y (top 3%)",
+     "weaknesses": "EV/EBIT 38 (bottom 12%); gross margin 24% (bottom 13%); FCF yield 2.0% (bottom 16%)"
+    }
+   }
+  },
+  {
+   "symbol": "FTNT",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 11.5451,
+   "notional": 1979.98,
+   "price": 171.5,
+   "reason": "open: +0 -> +11.5451 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 6,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 66.2413,
+     "quality_score": 90.1141,
+     "growth_score": 72.9203,
+     "value_score": 5.3996,
+     "strength_score": 55.3846,
+     "momentum_score": 98.5294,
+     "industry": "Software - Infrastructure",
+     "roic_avg": 1.112,
+     "rev_cagr": 0.1546,
+     "forward_pe": 45.3952,
+     "fcf_yield": 0.0177,
+     "strengths": "worst-year ROIC 95% (top 1%); avg ROIC 111% (top 1%); 12-1 month price change +104% (top 1%)",
+     "weaknesses": "forward P/E 45 (bottom 1%); EV/EBIT 52 (bottom 4%); FCF yield 1.8% (bottom 12%)"
+    }
+   }
+  },
+  {
+   "symbol": "GOOGL",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 5.7528,
+   "notional": 1980.0,
+   "price": 344.18,
+   "reason": "open: +0 -> +5.7528 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 25,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 59.116,
+     "quality_score": 64.6093,
+     "growth_score": 64.6345,
+     "value_score": 31.0532,
+     "strength_score": 55.3054,
+     "momentum_score": 86.0294,
+     "industry": "Internet Content & Information",
+     "roic_avg": 0.3839,
+     "rev_cagr": 0.1251,
+     "forward_pe": 22.5078,
+     "fcf_yield": 0.0174,
+     "strengths": "12-1 month price change +38% (top 14%); latest-quarter revenue +24% y/y (top 17%); worst-year ROIC 33% (top 17%)",
+     "weaknesses": "FCF yield 1.7% (bottom 10%); stock comp 6.2% of revenue (bottom 11%); FCF/net income 0.75x (bottom 14%)"
+    }
+   }
+  },
+  {
+   "symbol": "INCY",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 17.4834,
+   "notional": 1980.0,
+   "price": 113.25,
+   "reason": "open: +0 -> +17.4834 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 1,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 73.0059,
+     "quality_score": 71.9096,
+     "growth_score": 58.5327,
+     "value_score": 88.3467,
+     "strength_score": 65.6448,
+     "momentum_score": 89.7059,
+     "industry": "Biotechnology",
+     "roic_avg": 0.3669,
+     "rev_cagr": 0.1484,
+     "forward_pe": 13.0499,
+     "fcf_yield": 0.0579,
+     "strengths": "gross margin 93% (top 1%); net debt/EBITDA -2.0x (top 4%); EV/EBIT 11 (top 6%)",
+     "weaknesses": "stock comp 4.8% of revenue (bottom 14%)"
+    }
+   }
+  },
+  {
+   "symbol": "KLAC",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 11.899,
+   "notional": 1979.99,
+   "price": 166.4,
+   "reason": "open: +0 -> +11.899 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 17,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 61.3218,
+     "quality_score": 76.532,
+     "growth_score": 65.2683,
+     "value_score": 17.2089,
+     "strength_score": 52.9148,
+     "momentum_score": 94.8529,
+     "industry": "Semiconductor Equipment & Materials",
+     "roic_avg": 0.539,
+     "rev_cagr": 0.0896,
+     "forward_pe": 24.687,
+     "fcf_yield": 0.0173,
+     "strengths": "12-1 month price change +61% (top 5%); worst-year ROIC 43% (top 9%); avg ROIC 54% (top 11%)",
+     "weaknesses": "FCF yield 1.7% (bottom 8%); EV/EBIT 37 (bottom 13%)"
+    }
+   }
+  },
+  {
+   "symbol": "LLY",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 1.5963,
+   "notional": 1979.95,
+   "price": 1240.34,
+   "reason": "open: +0 -> +1.5963 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 14,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 62.0707,
+     "quality_score": 61.4486,
+     "growth_score": 96.2933,
+     "value_score": 10.4872,
+     "strength_score": 52.0173,
+     "momentum_score": 91.9118,
+     "industry": "Drug Manufacturers - General",
+     "roic_avg": 0.2816,
+     "rev_cagr": 0.3168,
+     "forward_pe": 26.273,
+     "fcf_yield": 0.0054,
+     "strengths": "growing +29%/yr vs industry peers (top 1%); revenue growth 32%/yr (top 1%); latest-quarter revenue +48% y/y (top 4%)",
+     "weaknesses": "FCF/net income 0.18x (bottom 1%); FCF yield 0.5% (bottom 2%); EV/EBIT 39 (bottom 10%)"
+    }
+   }
+  },
+  {
+   "symbol": "LRCX",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 7.274,
+   "notional": 1979.98,
+   "price": 272.2,
+   "reason": "open: +0 -> +7.274 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 7,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 65.0387,
+     "quality_score": 71.3301,
+     "growth_score": 81.0305,
+     "value_score": 18.5309,
+     "strength_score": 61.8288,
+     "momentum_score": 99.2647,
+     "industry": "Semiconductor Equipment & Materials",
+     "roic_avg": 0.5614,
+     "rev_cagr": 0.1005,
+     "forward_pe": 23.1351,
+     "fcf_yield": 0.0144,
+     "strengths": "12-1 month price change +104% (top 1%); worst-year ROIC 44% (top 7%); gross margin +5.8% over the period (top 10%)",
+     "weaknesses": "FCF yield 1.4% (bottom 4%); EV/EBIT 39 (bottom 11%)"
+    }
+   }
+  },
+  {
+   "symbol": "MA",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 3.2121,
+   "notional": 1979.94,
+   "price": 616.4,
+   "reason": "open: +0 -> +3.2121 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 11,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 63.5551,
+     "quality_score": 87.162,
+     "growth_score": 66.5606,
+     "value_score": 28.8399,
+     "strength_score": 54.1968,
+     "momentum_score": 52.2059,
+     "industry": "Credit Services",
+     "roic_avg": 0.6673,
+     "rev_cagr": 0.1382,
+     "forward_pe": 26.7028,
+     "fcf_yield": 0.0304,
+     "strengths": "worst-year ROIC 59% (top 1%); operating margin 60% (top 2%); avg ROIC 67% (top 7%)",
+     "weaknesses": "forward P/E 27 (bottom 17%)"
+    }
+   }
+  },
+  {
+   "symbol": "MEDP",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 3.1953,
+   "notional": 1980.0,
+   "price": 619.66,
+   "reason": "open: +0 -> +3.1953 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 10,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 63.9978,
+     "quality_score": 71.0887,
+     "growth_score": 75.3265,
+     "value_score": 29.5232,
+     "strength_score": 72.4811,
+     "momentum_score": 71.3235,
+     "industry": "Diagnostics & Research",
+     "roic_avg": 0.9557,
+     "rev_cagr": 0.2011,
+     "forward_pe": 32.0812,
+     "fcf_yield": 0.0394,
+     "strengths": "avg ROIC 96% (top 2%); growing +18%/yr vs industry peers (top 4%); FCF/net income 1.45x (top 4%)",
+     "weaknesses": "forward P/E 32 (bottom 11%)"
+    }
+   }
+  },
+  {
+   "symbol": "META",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 2.8067,
+   "notional": 1979.96,
+   "price": 705.44,
+   "reason": "open: +0 -> +2.8067 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 15,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 62.0154,
+     "quality_score": 67.9126,
+     "growth_score": 83.9223,
+     "value_score": 46.8434,
+     "strength_score": 42.2021,
+     "momentum_score": 36.7647,
+     "industry": "Internet Content & Information",
+     "roic_avg": 0.3061,
+     "rev_cagr": 0.1989,
+     "forward_pe": 20.3586,
+     "fcf_yield": 0.0257,
+     "strengths": "revenue growth 20%/yr (top 7%); gross margin 82% (top 10%); operating margin 41% (top 12%)",
+     "weaknesses": "stock comp 10.2% of revenue (bottom 3%)"
+    }
+   }
+  },
+  {
+   "symbol": "MSCI",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 3.5138,
+   "notional": 1979.99,
+   "price": 563.49,
+   "reason": "open: +0 -> +3.5138 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 19,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 60.2378,
+     "quality_score": 86.7406,
+     "growth_score": 55.4708,
+     "value_score": 36.2968,
+     "strength_score": 30.8974,
+     "momentum_score": 56.6176,
+     "industry": "Financial Data & Stock Exchanges",
+     "roic_avg": 0.3857,
+     "rev_cagr": 0.1171,
+     "forward_pe": 25.0935,
+     "fcf_yield": 0.0356,
+     "strengths": "operating margin 55% (top 3%); gross margin 82% (top 8%); worst-year ROIC 36% (top 13%)",
+     "weaknesses": "net debt/EBITDA 3.0x (bottom 10%); stock comp 3.6% of revenue (bottom 18%)"
+    }
+   }
+  },
+  {
+   "symbol": "NVDA",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 9.1206,
+   "notional": 1979.99,
+   "price": 217.09,
+   "reason": "open: +0 -> +9.1206 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 5,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 68.4663,
+     "quality_score": 67.5878,
+     "growth_score": 99.8134,
+     "value_score": 38.0867,
+     "strength_score": 48.1335,
+     "momentum_score": 74.2647,
+     "industry": "Semiconductors",
+     "roic_avg": 1.137,
+     "rev_cagr": 1.0001,
+     "forward_pe": 13.6409,
+     "fcf_yield": 0.0184,
+     "strengths": "revenue growth 100%/yr (top 1%); growing +94%/yr vs industry peers (top 1%); latest-quarter revenue +106% y/y (top 1%)",
+     "weaknesses": "EV/EBIT 36 (bottom 14%); FCF yield 1.8% (bottom 15%)"
+    },
+    "bottleneck": {
+     "rank": 13,
+     "source_file": "bottleneck_2026-10-20.csv",
+     "score": 58.9565,
+     "flow_score": 28.4314,
+     "bottleneck_score": 63.0515,
+     "asymmetry_score": 89.1225,
+     "industry": "Semiconductors",
+     "segment": "compute",
+     "source": "theme",
+     "rev_growth": 1.0585,
+     "gm_change": 0.0255,
+     "backlog_growth": 0.6842,
+     "rs_6m": -0.0101,
+     "forward_pe": 13.6409
+    }
+   }
+  },
+  {
+   "symbol": "NXT",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 24.8431,
+   "notional": 1979.99,
+   "price": 79.7,
+   "reason": "open: +0 -> +24.8431 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 16,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 61.3572,
+     "quality_score": 51.6923,
+     "growth_score": 83.2721,
+     "value_score": 75.8244,
+     "strength_score": 37.5264,
+     "momentum_score": 35.2941,
+     "industry": "Solar",
+     "roic_avg": 0.3652,
+     "rev_cagr": 0.2322,
+     "forward_pe": 13.961,
+     "fcf_yield": 0.0419,
+     "strengths": "gross margin +17.5% over the period (top 1%); growing +21%/yr vs industry peers (top 2%); revenue growth 23%/yr (top 4%)",
+     "weaknesses": "share count +1.5%/yr (bottom 1%); stock comp 3.4% of revenue (bottom 18%)"
+    }
+   }
+  },
+  {
+   "symbol": "OVV",
+   "sleeve": "bottleneck",
+   "target": 0.02505,
+   "target_by_sleeve": {
+    "bottleneck": 0.02531
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 35.7702,
+   "notional": 2505.34,
+   "price": 70.04,
+   "reason": "open: +0 -> +35.7702 shares (target +2.5%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "bottleneck": {
+     "rank": 5,
+     "source_file": "bottleneck_2026-10-20.csv",
+     "score": 61.64,
+     "flow_score": 81.8627,
+     "bottleneck_score": 56.8627,
+     "asymmetry_score": 55.0894,
+     "industry": "Oil & Gas E&P",
+     "source": "flow",
+     "rev_growth": 0.2998,
+     "gm_change": 0.0752,
+     "rs_6m": 0.2364,
+     "forward_pe": 8.8367
+    }
+   }
+  },
+  {
+   "symbol": "OXY",
+   "sleeve": "bottleneck",
+   "target": 0.02777,
+   "target_by_sleeve": {
+    "bottleneck": 0.02806
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 44.2834,
+   "notional": 2777.45,
+   "price": 62.72,
+   "reason": "open: +0 -> +44.2834 shares (target +2.8%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "bottleneck": {
+     "rank": 4,
+     "source_file": "bottleneck_2026-10-20.csv",
+     "score": 61.7446,
+     "flow_score": 49.0196,
+     "bottleneck_score": 91.1765,
+     "asymmetry_score": 40.3118,
+     "industry": "Oil & Gas E&P",
+     "source": "flow",
+     "rev_growth": 0.5339,
+     "gm_change": 0.2229,
+     "rs_6m": 0.0749,
+     "forward_pe": 12.9537
+    }
+   }
+  },
+  {
+   "symbol": "PAYX",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 17.8781,
+   "notional": 1980.0,
+   "price": 110.75,
+   "reason": "open: +0 -> +17.8781 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 13,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 62.1266,
+     "quality_score": 78.0334,
+     "growth_score": 48.7983,
+     "value_score": 75.3936,
+     "strength_score": 34.1893,
+     "momentum_score": 41.1765,
+     "industry": "Software - Application",
+     "roic_avg": 0.3849,
+     "rev_cagr": 0.0915,
+     "forward_pe": 17.3357,
+     "fcf_yield": 0.0589,
+     "strengths": "operating margin 39% (top 13%); FCF yield 5.9% (top 15%); gross margin 74% (top 19%)",
+     "weaknesses": "growing -5%/yr vs industry peers (bottom 10%)"
+    }
+   }
+  },
+  {
+   "symbol": "PM",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 9.8482,
+   "notional": 1979.98,
+   "price": 201.05,
+   "reason": "open: +0 -> +9.8482 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 24,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 59.2348,
+     "quality_score": 71.396,
+     "growth_score": 63.485,
+     "value_score": 46.2864,
+     "strength_score": 14.7059,
+     "momentum_score": 76.4706,
+     "industry": "Tobacco",
+     "roic_avg": 0.2623,
+     "rev_cagr": 0.0857,
+     "forward_pe": 21.9079,
+     "fcf_yield": 0.034,
+     "strengths": "growing +8%/yr vs industry peers (top 15%); operating margin 37% (top 15%)",
+     "weaknesses": "share count +0.1%/yr (bottom 12%); net debt/EBITDA 2.5x (bottom 17%)"
+    }
+   }
+  },
+  {
+   "symbol": "PR",
+   "sleeve": "bottleneck",
+   "target": 0.02438,
+   "target_by_sleeve": {
+    "bottleneck": 0.02462
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 98.296,
+   "notional": 2437.74,
+   "price": 24.8,
+   "reason": "open: +0 -> +98.296 shares (target +2.4%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "bottleneck": {
+     "rank": 1,
+     "source_file": "bottleneck_2026-10-20.csv",
+     "score": 72.7549,
+     "flow_score": 80.8824,
+     "bottleneck_score": 93.1373,
+     "asymmetry_score": 49.7449,
+     "industry": "Oil & Gas E&P",
+     "source": "flow",
+     "rev_growth": 0.5515,
+     "gm_change": 0.2353,
+     "rs_6m": 0.1975,
+     "forward_pe": 10.7254
+    }
+   }
+  },
+  {
+   "symbol": "SPY",
+   "sleeve": "index_momentum",
+   "target": 0.297,
+   "target_by_sleeve": {
+    "index_momentum": 0.3
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 38.7485,
+   "notional": 29699.95,
+   "price": 766.48,
+   "reason": "open: +0 -> +38.7485 shares (target +29.7%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "index_momentum": {
+     "trailing_12m_return": 0.1727,
+     "signal": 1.0
+    }
+   }
+  },
+  {
+   "symbol": "UTHR",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 3.6454,
+   "notional": 1980.0,
+   "price": 543.15,
+   "reason": "open: +0 -> +3.6454 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 23,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 59.2873,
+     "quality_score": 59.5522,
+     "growth_score": 47.6295,
+     "value_score": 77.1836,
+     "strength_score": 41.8816,
+     "momentum_score": 69.1176,
+     "industry": "Drug Manufacturers - Specialty & Generic",
+     "roic_avg": 0.2084,
+     "rev_cagr": 0.1801,
+     "forward_pe": 16.0738,
+     "fcf_yield": 0.0444,
+     "strengths": "gross margin 88% (top 2%); operating margin 48% (top 4%); EV/EBIT 12 (top 7%)",
+     "weaknesses": "latest-quarter revenue -2% y/y (bottom 3%); gross margin -4.2% over the period (bottom 5%); stock comp 4.6% of revenue (bottom 15%)"
+    }
+   }
+  },
+  {
+   "symbol": "V",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 4.9141,
+   "notional": 1979.99,
+   "price": 402.92,
+   "reason": "open: +0 -> +4.9141 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 22,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 59.7949,
+     "quality_score": 84.0825,
+     "growth_score": 50.8505,
+     "value_score": 27.3619,
+     "strength_score": 60.7805,
+     "momentum_score": 61.0294,
+     "industry": "Credit Services",
+     "roic_avg": 0.3831,
+     "rev_cagr": 0.1092,
+     "forward_pe": 26.82,
+     "fcf_yield": 0.0285,
+     "strengths": "operating margin 66% (top 1%); share count -5.0%/yr (top 6%); gross margin 80% (top 12%)",
+     "weaknesses": "forward P/E 27 (bottom 16%)"
+    }
+   }
+  },
+  {
+   "symbol": "WES",
+   "sleeve": "quality_screen",
+   "target": 0.0198,
+   "target_by_sleeve": {
+    "quality_screen": 0.02
+   },
+   "held_qty": 0.0,
+   "side": "buy",
+   "qty": 44.6348,
+   "notional": 1980.0,
+   "price": 44.36,
+   "reason": "open: +0 -> +44.6348 shares (target +2.0%)",
+   "blocked": "",
+   "exit_reason": null,
+   "rationale": {
+    "quality_screen": {
+     "rank": 8,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 64.8539,
+     "quality_score": 51.7164,
+     "growth_score": 71.4854,
+     "value_score": 86.4602,
+     "strength_score": 30.6033,
+     "momentum_score": 85.2941,
+     "industry": "Oil & Gas Midstream",
+     "roic_avg": 0.1451,
+     "rev_cagr": 0.0573,
+     "forward_pe": 11.584,
+     "fcf_yield": 0.0815,
+     "strengths": "gross margin +7.0% over the period (top 6%); forward P/E 12 (top 6%); FCF yield 8.2% (top 8%)",
+     "weaknesses": "net debt/EBITDA 3.4x (bottom 5%); avg ROIC 15% (bottom 10%)"
+    }
+   }
+  }
+ ]
+}

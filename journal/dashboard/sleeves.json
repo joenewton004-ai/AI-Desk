@@ -1,0 +1,35 @@
+[
+ {
+  "sleeve": "quality_screen",
+  "allocation": 0.5,
+  "planned_weight": 0.5,
+  "open_positions": 0,
+  "invested": 0.0,
+  "unrealized_pnl": 0.0,
+  "realized_pnl": 0.0,
+  "closed_trades": 0,
+  "win_rate": null
+ },
+ {
+  "sleeve": "bottleneck",
+  "allocation": 0.2,
+  "planned_weight": 0.2,
+  "open_positions": 0,
+  "invested": 0.0,
+  "unrealized_pnl": 0.0,
+  "realized_pnl": 0.0,
+  "closed_trades": 0,
+  "win_rate": null
+ },
+ {
+  "sleeve": "index_momentum",
+  "allocation": 0.3,
+  "planned_weight": 0.3,
+  "open_positions": 0,
+  "invested": 0.0,
+  "unrealized_pnl": 0.0,
+  "realized_pnl": 0.0,
+  "closed_trades": 0,
+  "win_rate": null
+ }
+]

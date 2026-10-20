@@ -227,11 +227,11 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
         for o in plan.orders:
             o.blocked = o.blocked or "orders still pending at the broker - not stacking more"
 
+    from ai_desk import tradebook
+
+    sleeves = method.sleeves(closes)              # computed BEFORE locks change, for attribution
     status = "dry_run"
     if execute:
-        from ai_desk import tradebook
-
-        sleeves = method.sleeves(closes)          # computed BEFORE locks change, for attribution
         responses = {}
         for o in plan.sendable:
             resp = broker.submit_market_order(o.symbol, o.qty, o.side)
@@ -241,5 +241,6 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
         tradebook.record_orders(plan, method, sleeves, closes.index[-1].date(), responses)
         if not any(o.blocked for o in plan.orders):
             method.on_executed()       # e.g. lock in the new stock picks
+    tradebook.save_plan(plan, method, sleeves, closes.index[-1].date(), equity, positions, status)
     journal(plan, method.describe(), status, equity)
     return plan

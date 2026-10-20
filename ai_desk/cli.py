@@ -485,6 +485,10 @@ def cmd_journal(a) -> None:
             print(f"{s:16} {v['open_positions']:>5} {v['invested']:>11,.0f} {v['unrealized_pnl']:>+11,.0f} "
                   f"{v['realized_pnl']:>+10,.0f} {v['closed_trades']:>7} {wr:>9}")
         print("\nSaved journal/review.json and journal/methods.json")
+    elif a.action == "export":
+        from ai_desk import dashboard
+        counts = dashboard.export()
+        print("Saved journal/dashboard/: " + ", ".join(f"{k} ({v} rows)" for k, v in counts.items()))
     elif a.action == "note":
         row = tradebook.add_note(a.target, a.text, author=a.author)
         print(f"note {row['id']} added to {a.target}")
@@ -617,7 +621,7 @@ def build_parser() -> argparse.ArgumentParser:
     bn.set_defaults(func=cmd_bottleneck)
 
     jn = sub.add_parser("journal", help="trade journal, notes, methodology register and amendments")
-    jn.add_argument("action", choices=["sync", "review", "note", "methods", "propose", "decide", "amendments"])
+    jn.add_argument("action", choices=["sync", "review", "note", "methods", "propose", "decide", "amendments", "export"])
     jn.add_argument("target", nargs="?", help="note: trade id / symbol / method; propose: method; decide: amendment id")
     jn.add_argument("text", nargs="?", help="note text, proposal text, or decision evidence")
     jn.add_argument("--rationale", help="propose: why")

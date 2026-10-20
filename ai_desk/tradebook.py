@@ -6,6 +6,7 @@ Files (committed to git - cloud sessions are temporary, the record isn't):
                          decision time, then fills synced from Alpaca
   journal/notes.jsonl    notes on trades or methods, from you or Claude
   journal/review.json    latest review: lots, P&L by sleeve (feeds the dashboard)
+  journal/plan.json      the latest plan (dry run or executed): targets by sleeve, orders
 
 Flow:  portfolio run --execute  -> orders recorded automatically
        journal sync             -> fill prices from Alpaca
@@ -51,6 +52,11 @@ def trades() -> list[dict]:
     return _read("trades.jsonl")
 
 
+def _read_plan() -> dict:
+    p = DIR / "plan.json"
+    return json.loads(p.read_text()) if p.exists() else {}
+
+
 def notes() -> list[dict]:
     return _read("notes.jsonl")
 
@@ -78,6 +84,33 @@ def record_orders(plan, method, sleeves: dict[str, pd.Series], signal_date, resp
         _append("trades.jsonl", row)
         rows.append(row)
     return rows
+
+
+def save_plan(plan, method, sleeves: dict[str, pd.Series], signal_date, equity, positions, status) -> dict:
+    """Snapshot of the latest plan, so the dashboard shows what the desk wants to own."""
+    orders = {o.symbol: o for o in plan.orders}
+    symbols = sorted(set(plan.targets.index if plan.targets is not None else []) | set(orders)
+                     | {s for s, q in positions.items() if q})
+    rows = []
+    for sym in symbols:
+        by_sleeve = {n: round(float(w.get(sym, 0.0)), 5) for n, w in sleeves.items()
+                     if abs(float(w.get(sym, 0.0))) > 1e-9}
+        o = orders.get(sym)
+        rows.append({
+            "symbol": sym, "sleeve": max(by_sleeve, key=lambda k: abs(by_sleeve[k])) if by_sleeve else None,
+            "target": round(float(plan.targets.get(sym, 0.0)), 5) if plan.targets is not None else None,
+            "target_by_sleeve": by_sleeve, "held_qty": float(positions.get(sym, 0.0)),
+            "side": o.side if o else None, "qty": o.qty if o else 0.0,
+            "notional": round(o.notional, 2) if o else 0.0, "price": round(o.price, 4) if o else None,
+            "reason": o.reason.split(" [order")[0] if o else "", "blocked": o.blocked if o else "",
+            "exit_reason": method.exit_reason(sym) if o and o.side == "sell" else None,
+            "rationale": method.rationale(sym) if by_sleeve else {},
+        })
+    out = {"created_utc": _now(), "signal_date": str(signal_date), "equity": equity, "status": status,
+           "method": method.describe(), "notes": plan.notes, "rows": rows}
+    DIR.mkdir(parents=True, exist_ok=True)
+    (DIR / "plan.json").write_text(json.dumps(out, indent=1, default=str))
+    return out
 
 
 def _sleeve_of_open_lot(symbol: str) -> str | None:
