@@ -11,6 +11,8 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Stock screener: `python -m ai_desk screen` (Yahoo, cached a week in `data/fundamentals/`; the
   10-year check reads SEC filings, cached in `data/sec/`; `--no-history` skips it)
 - Full robustness research: `python research/edges.py`, then update `research/FINDINGS.md` by hand
+- Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
+  write-up in `research/THESIS.md` - update its numbers if the backtest changes
 
 ## Non-negotiables
 - No lookahead: a strategy's exposure at day t may use data up to t's close
@@ -46,3 +48,6 @@ changes plainly and be honest about whether a strategy has a real edge.
   calibrated against the 10 researched companies; if you change them, re-run
   `long_run_check` on those and explain any verdict that flips.
 - SEC requests go through `edgar._get` (shared rate limit, 8/s across threads).
+- Screen backtest: compare the screen with the equal-weight universe first
+  (same survivorship bias), SPY second. Prices are survivors-only - always
+  say so when quoting results.
