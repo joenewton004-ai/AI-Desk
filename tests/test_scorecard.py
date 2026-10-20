@@ -93,3 +93,20 @@ def test_build_writes_scorecard_and_is_early():
     t = dashboard.tables()
     assert t["score_headline"][0]["days"] == 9 and len(t["scorecard"]) == len(out["scorecard"])
     assert not math.isnan(out["curve"][-1]["desk"])
+
+
+def test_snapshot_keeps_alpaca_position_details_for_fact_sheets():
+    class B(FakeBroker):
+        def position_details(self):
+            return [{"symbol": "SPY", "qty": "40", "current_price": "701", "avg_entry_price": "700",
+                     "lastday_price": "699", "market_value": "28040", "cost_basis": "28000", "unrealized_pl": "40",
+                     "unrealized_plpc": "0.00143", "unrealized_intraday_pl": "80", "unrealized_intraday_plpc": "0.0029"}]
+
+    tradebook._append("trades.jsonl", {"id": "y", "created_utc": "2026-10-19T22:00:00Z", "signal_date": "2026-10-19",
+                                       "symbol": "SPY", "side": "buy", "qty": 40, "est_price": 700.0,
+                                       "sleeve": "index_momentum"})
+    h = scorecard.snapshot(B(pd.bdate_range("2026-10-20", periods=2)), date="2026-10-20")["holdings"]["SPY"]
+    assert h["avg_cost"] == 700 and h["day_pl"] == 80 and h["sleeve"] == "index_momentum" and h["qty"] == 40
+    from ai_desk import dashboard
+    row = dashboard.tables()["holdings"][0]
+    assert row["symbol"] == "SPY" and row["unrealized_pl"] == 40 and row["pe"] is None

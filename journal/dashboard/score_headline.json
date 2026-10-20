@@ -11,8 +11,8 @@
   "sharpe_high": NaN,
   "max_drawdown": 0.0,
   "current_drawdown": 0.0,
-  "flags": 0,
-  "watch": 1,
+  "flags": 1,
+  "watch": 0,
   "criteria_as_of": "2026-10-20"
  }
 ]

@@ -77,10 +77,20 @@ def snapshot(broker, date: str | None = None) -> dict:
     """Record today's account value and holdings by sleeve. Re-running on the
     same date replaces that day's line."""
     acct = broker.account()
-    prices = broker.latest_prices()
     sleeves = sleeve_map()
-    holdings = {s: {"qty": q, "price": prices.get(s), "sleeve": sleeves.get(s)}
-                for s, q in broker.positions().items() if q}
+    if hasattr(broker, "position_details"):
+        f = lambda p, k: float(p[k]) if p.get(k) not in (None, "") else None  # noqa: E731
+        holdings = {p["symbol"]: {
+            "qty": f(p, "qty"), "price": f(p, "current_price"), "sleeve": sleeves.get(p["symbol"]),
+            "avg_cost": f(p, "avg_entry_price"), "last_close": f(p, "lastday_price"),
+            "market_value": f(p, "market_value"), "cost_basis": f(p, "cost_basis"),
+            "unrealized_pl": f(p, "unrealized_pl"), "unrealized_pct": f(p, "unrealized_plpc"),
+            "day_pl": f(p, "unrealized_intraday_pl"), "day_pct": f(p, "unrealized_intraday_plpc"),
+        } for p in broker.position_details() if float(p.get("qty") or 0)}
+    else:
+        prices = broker.latest_prices()
+        holdings = {s: {"qty": q, "price": prices.get(s), "sleeve": sleeves.get(s)}
+                    for s, q in broker.positions().items() if q}
     row = {"date": date or pd.Timestamp.now(tz="America/New_York").date().isoformat(), "utc": _now(),
            "equity": float(acct["equity"]), "cash": float(acct["cash"]), "holdings": holdings}
     rows = [r for r in tradebook._read("snapshots.jsonl") if r["date"] != row["date"]]

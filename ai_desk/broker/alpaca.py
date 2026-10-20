@@ -96,6 +96,11 @@ class AlpacaPaper:
         """{symbol: shares}; negative = short."""
         return {p["symbol"]: float(p["qty"]) for p in self._request("GET", "/positions") or []}
 
+    def position_details(self) -> list[dict]:
+        """Every open position as Alpaca reports it: qty, avg_entry_price, current_price,
+        lastday_price, market_value, cost_basis, unrealized_pl, unrealized_intraday_pl, ..."""
+        return self._request("GET", "/positions") or []
+
     def get_order(self, order_id: str) -> dict:
         """One order's status and fill (filled_avg_price, filled_qty, filled_at)."""
         return self._request("GET", f"/orders/{order_id}") or {}
