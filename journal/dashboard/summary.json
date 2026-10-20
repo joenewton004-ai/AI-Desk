@@ -10,7 +10,7 @@
   "trades_logged": 34,
   "trades_filled": 0,
   "notes": 0,
-  "open_amendments": 0,
+  "open_amendments": 1,
   "unrealized_pnl": 0,
   "realized_pnl": 0,
   "plan_utc": "2026-10-20T10:38:01+00:00",

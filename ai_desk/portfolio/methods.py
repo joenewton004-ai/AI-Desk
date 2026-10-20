@@ -123,6 +123,58 @@ class IndexMomentum(Method):
 
 
 @dataclass
+class IndexRotation(Method):
+    """Index rotation ("dual momentum"): each month, rank major index funds by
+    their 12-month return and hold the best `top`, in equal slices - but only
+    those whose own 12-month return is positive; a failing slot sits in cash
+    (earning T-bills). With symbols=SPY and top=1 this is index_momentum."""
+
+    name = "index_rotation"
+    symbols_: list = field(default_factory=lambda: ["SPY", "QQQ", "IWM", "DIA", "EFA", "EEM"])
+    top: int = 1
+    lookback: int = 252
+
+    def __post_init__(self):
+        self.symbols_ = _parse_symbols(self.symbols_)
+
+    def symbols(self):
+        return self.symbols_
+
+    def weights(self, closes):
+        c = closes[self.symbols_]
+        ret = c / c.shift(self.lookback) - 1
+        rank = ret.rank(axis=1, ascending=False, method="first")
+        hold = (rank <= self.top) & (ret > 0)
+        w = hold.astype(float) / self.top
+        # decide on the first trading day of each month only (like index_momentum)
+        idx = c.index
+        new_month = pd.Series(idx.month, index=idx).diff().fillna(1) != 0
+        w = w.where(new_month, np.nan).ffill().fillna(0.0)
+        last = ret.iloc[-1]
+        self._last = {"returns_12m": {k: round(float(v), 4) for k, v in last.dropna().items()},
+                      "held": [k for k in w.columns if w[k].iloc[-1] > 0]}
+        return w
+
+    def rationale(self, symbol):
+        last = getattr(self, "_last", {})
+        if symbol not in self.symbols_:
+            return {}
+        r = last.get("returns_12m", {})
+        ranked = sorted(r, key=r.get, reverse=True)
+        return {"trailing_12m_return": r.get(symbol),
+                "rank": ranked.index(symbol) + 1 if symbol in ranked else None, "of": len(ranked)}
+
+    def exit_reason(self, symbol):
+        last = getattr(self, "_last", {})
+        if symbol not in self.symbols_ or symbol in last.get("held", [symbol]):
+            return None
+        r = last.get("returns_12m", {}).get(symbol)
+        if r is not None and r <= 0:
+            return f"momentum switch off: {symbol} 12-month return {r:+.1%}"
+        return f"rotation: {symbol} no longer in the top {self.top} by 12-month return"
+
+
+@dataclass
 class SMACrossoverMethod(Method):
     """Moving-average crossover on each symbol. Each gets an equal slice
     (1/N of the account) and holds it while its fast average is above its
@@ -453,7 +505,7 @@ class Bottleneck(LockedScreen):
 
 
 METHODS: dict[str, type[Method]] = {
-    m.name: m for m in (IndexMomentum, SMACrossoverMethod, PairsMethod, QualityScreen, Bottleneck)
+    m.name: m for m in (IndexMomentum, IndexRotation, SMACrossoverMethod, PairsMethod, QualityScreen, Bottleneck)
 }
 # shorthands: `thesis` is the 50/50 structure in research/THESIS.md; `aggressive`
 # tilts to the stock screen (70/30) - more return and bigger drawdowns in the backtest

@@ -46,6 +46,13 @@ EVIDENCE = {
         "docs": ["research/FINDINGS.md"],
         "status": "proven as crash insurance",
     },
+    "index_rotation": {
+        "summary": "2004-2026, 6 indices (SPY QQQ IWM DIA EFA EEM): top 2 11.6%/yr, Sharpe 0.60 vs the SPY sleeve "
+                   "9.4%, 0.58 - more risk, same Sharpe; gains all from 2004-12, relies on QQQ, fragile to "
+                   "lookback; walk-forward 8.3% (0.45) vs 10.2% (0.61). No improvement inside the desk.",
+        "docs": ["research/INDEX_ROTATION.md", "research/output/index_rotation.md"],
+        "status": "tested, no edge over SPY sleeve",
+    },
     "sma_crossover": {
         "summary": "50/200 on SPY: same insurance as momentum, near-identical results. Not in the live mix.",
         "docs": ["research/METHODS.md"], "status": "works, redundant",

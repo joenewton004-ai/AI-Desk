@@ -1,1 +1,13 @@
-[]
+[
+ {
+  "id": "38a2df13",
+  "date": "2026-10-20",
+  "method": "index_momentum",
+  "proposal": "Replace the SPY-only momentum sleeve with index rotation: each month hold the top 1-2 of SPY, QQQ, IWM, DIA, EFA, EEM by 12-month return (only if positive, else cash).",
+  "rationale": "Compare other major indices instead of only SPY; capture leadership shifts (e.g. emerging markets, small caps).",
+  "author": "you",
+  "status": "testing",
+  "evidence": "Backtested 2004-2026 in research/INDEX_ROTATION.md: same Sharpe (0.60 vs 0.58) at higher volatility, walk-forward 8.3%/yr (Sharpe 0.45) vs live 10.2% (0.61), desk Sharpe 0.86 vs 0.89. Claude recommends reject; awaiting your decision.",
+  "decided": ""
+ }
+]

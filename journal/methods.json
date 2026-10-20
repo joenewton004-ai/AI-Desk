@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-20T10:38:12+00:00",
+ "generated_utc": "2026-10-20T10:47:53+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -56,6 +56,43 @@
    "evidence_summary": "SPY 1994-2026: 10.6%/yr vs 10.8% buy & hold, worst drop -34% vs -55%; robust across periods, markets and costs. Cost ~1%/yr in 2014-2026 (fast rebounds).",
    "docs": [
     "research/FINDINGS.md"
+   ],
+   "amendments": [
+    {
+     "id": "38a2df13",
+     "created_utc": "2026-10-20T10:47:53+00:00",
+     "method": "index_momentum",
+     "proposal": "Replace the SPY-only momentum sleeve with index rotation: each month hold the top 1-2 of SPY, QQQ, IWM, DIA, EFA, EEM by 12-month return (only if positive, else cash).",
+     "rationale": "Compare other major indices instead of only SPY; capture leadership shifts (e.g. emerging markets, small caps).",
+     "author": "you",
+     "status": "testing",
+     "evidence": "Backtested 2004-2026 in research/INDEX_ROTATION.md: same Sharpe (0.60 vs 0.58) at higher volatility, walk-forward 8.3%/yr (Sharpe 0.45) vs live 10.2% (0.61), desk Sharpe 0.86 vs 0.89. Claude recommends reject; awaiting your decision.",
+     "decided_utc": null
+    }
+   ]
+  },
+  {
+   "name": "index_rotation",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Index rotation (\"dual momentum\"): each month, rank major index funds by their 12-month return and hold the best `top`, in equal slices - but only those whose own 12-month return is positive; a failing slot sits in cash (earning T-bills). With symbols=SPY and top=1 this is index_momentum.",
+   "parameters": {
+    "symbols": [
+     "SPY",
+     "QQQ",
+     "IWM",
+     "DIA",
+     "EFA",
+     "EEM"
+    ],
+    "top": 1,
+    "lookback": 252
+   },
+   "status": "tested, no edge over SPY sleeve",
+   "evidence_summary": "2004-2026, 6 indices (SPY QQQ IWM DIA EFA EEM): top 2 11.6%/yr, Sharpe 0.60 vs the SPY sleeve 9.4%, 0.58 - more risk, same Sharpe; gains all from 2004-12, relies on QQQ, fragile to lookback; walk-forward 8.3% (0.45) vs 10.2% (0.61). No improvement inside the desk.",
+   "docs": [
+    "research/INDEX_ROTATION.md",
+    "research/output/index_rotation.md"
    ],
    "amendments": []
   },

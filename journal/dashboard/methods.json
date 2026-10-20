@@ -8,6 +8,18 @@
   "evidence": "SPY 1994-2026: 10.6%/yr vs 10.8% buy & hold, worst drop -34% vs -55%; robust across periods, markets and costs. Cost ~1%/yr in 2014-2026 (fast rebounds).",
   "parameters": "symbol=SPY; lookback=252",
   "docs": "research/FINDINGS.md",
+  "open_amendments": 1,
+  "notes": ""
+ },
+ {
+  "method": "index_rotation",
+  "live": false,
+  "allocation": 0.0,
+  "status": "tested, no edge over SPY sleeve",
+  "description": "Index rotation (\"dual momentum\"): each month, rank major index funds by their 12-month return and hold the best `top`, in equal slices - but only those whose own 12-month return is positive; a failing slot sits in cash (earning T-bills). With symbols=SPY and top=1 this is index_momentum.",
+  "evidence": "2004-2026, 6 indices (SPY QQQ IWM DIA EFA EEM): top 2 11.6%/yr, Sharpe 0.60 vs the SPY sleeve 9.4%, 0.58 - more risk, same Sharpe; gains all from 2004-12, relies on QQQ, fragile to lookback; walk-forward 8.3% (0.45) vs 10.2% (0.61). No improvement inside the desk.",
+  "parameters": "symbols=['SPY', 'QQQ', 'IWM', 'DIA', 'EFA', 'EEM']; top=1; lookback=252",
+  "docs": "research/INDEX_ROTATION.md, research/output/index_rotation.md",
   "open_amendments": 0,
   "notes": ""
  },
