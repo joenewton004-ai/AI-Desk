@@ -396,7 +396,8 @@ def cmd_portfolio(a) -> None:
 
     limits = executor.Limits(max_position=a.max_position, max_gross=a.max_gross, max_order=a.max_order_pct,
                              allow_short=method.can_short and not a.no_short,
-                             max_fund_position=a.max_fund_position, fractional=not a.whole_shares)
+                             max_fund_position=a.max_fund_position, fractional=not a.whole_shares,
+                             cash_buffer=a.cash_buffer)
     plan = executor.run(method, limits, execute=(a.action == "run" and a.execute), source=a.source)
     for note in plan.notes:
         print(f"  - {note}")
@@ -537,6 +538,8 @@ def build_parser() -> argparse.ArgumentParser:
     pf.add_argument("--max-order-pct", type=float, default=0.25, help="largest single order (fraction)")
     pf.add_argument("--no-short", action="store_true", help="never open short positions")
     pf.add_argument("--whole-shares", action="store_true", help="don't use fractional shares")
+    pf.add_argument("--cash-buffer", type=float, default=0.01,
+                    help="fraction of equity always left in cash (default 0.01 = 1%%)")
     pf.add_argument("--execute", action="store_true", help="with `run`: actually submit to Alpaca PAPER")
     pf.set_defaults(func=cmd_portfolio)
 

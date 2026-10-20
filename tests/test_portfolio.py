@@ -186,3 +186,13 @@ def test_live_keys_refused(monkeypatch):
     monkeypatch.setattr("ai_desk.broker.alpaca.load_dotenv", lambda *a, **k: None)
     injected = AlpacaPaper()                      # cloud: keys added by the network secret
     assert injected.injected and "APCA-API-KEY-ID" not in injected.session.headers
+
+
+def test_cash_buffer_scales_full_investment_to_99_percent():
+    prices = pd.Series({"SPY": 500.0, "AAA": 100.0})
+    plan = plan_orders(pd.Series({"SPY": 0.50, "AAA": 0.50}), {}, prices, 100_000,
+                       Limits(max_position=0.5))
+    assert sum(o.notional for o in plan.orders) == pytest.approx(99_000, abs=1)
+    assert any("cash buffer" in n for n in plan.notes)
+    small = plan_orders(pd.Series({"AAA": 0.50}), {}, prices, 100_000, Limits(max_position=0.5))
+    assert small.orders[0].notional == pytest.approx(50_000)          # under 99%: untouched

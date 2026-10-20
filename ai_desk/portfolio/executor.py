@@ -34,6 +34,8 @@ class Limits:
     max_fund_position: float = 0.60  # cap for INDEX_FUNDS (position and order size)
     funds: tuple = INDEX_FUNDS
     fractional: bool = True          # fractional shares for longs where the broker allows them
+    cash_buffer: float = 0.01        # keep 1% in cash so market orders that fill a bit higher
+                                     # than the last close don't push the account onto margin
 
     def position_cap(self, symbol: str) -> float:
         return self.max_fund_position if symbol in self.funds else self.max_position
@@ -84,6 +86,11 @@ def apply_limits(targets: pd.Series, limits: Limits) -> tuple[pd.Series, list[st
     if gross > limits.max_gross:
         capped *= limits.max_gross / gross
         notes.append(f"scaled down from {gross:.0%} to {limits.max_gross:.0%} gross exposure")
+    longs = capped[capped > 0].sum()
+    max_long = 1 - limits.cash_buffer
+    if longs > max_long:
+        capped[capped > 0] *= max_long / longs
+        notes.append(f"kept a {limits.cash_buffer:.0%} cash buffer: long positions scaled to {max_long:.0%} of equity")
     return capped, notes
 
 
