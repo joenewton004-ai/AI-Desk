@@ -80,7 +80,10 @@ def simulate(picks: dict[pd.Timestamp, list[str]], ret: pd.DataFrame, cost: floa
     out = {}
     for d, nxt in zip(dates, dates[1:]):
         p = picks[d]
-        target = pd.Series(1 / len(p), index=p) if p else pd.Series(dtype=float)
+        if isinstance(p, dict):              # explicit weights (the rest sits in cash)
+            target = pd.Series(p, dtype=float)
+        else:
+            target = pd.Series(1 / len(p), index=p) if p else pd.Series(dtype=float)
         turnover = target.sub(w, fill_value=0).abs().sum()
         if turnover_log is not None:
             turnover_log.append(turnover)
@@ -91,16 +94,25 @@ def simulate(picks: dict[pd.Timestamp, list[str]], ret: pd.DataFrame, cost: floa
     return pd.Series(out)
 
 
-def momentum_book(px, snaps, f, lookback=26, n=20, ma_filter=True, every=1) -> dict:
-    """Momentum picks (lookback weeks, skipping the latest), re-picked every `every` weeks."""
+def momentum_book(px, snaps, f, lookback=26, n=20, ma_filter=True, every=1, exit_ma: int | None = None,
+                  universe: list[str] | None = None) -> dict:
+    """Momentum picks (lookback weeks, skipping the latest), re-picked every `every` weeks.
+    exit_ma: between re-picks, sell any holding that closes below its `exit_ma`-week average; its
+    slice stays in cash until the next re-pick (the live bottleneck rule).
+    universe: a fixed list of symbols instead of the point-in-time top 750."""
     mom = px.shift(1) / px.shift(lookback + 1) - 1
-    book, last = {}, []
+    ma_x = px.rolling(exit_ma, min_periods=exit_ma).mean() if exit_ma else None
+    book, last, held = {}, [], {}
     for i, d in enumerate(f["dates"]):
         if i % every == 0 or not last:
-            mem = [s for s in members_at(snaps, d) if s in px.columns and pd.notna(px.at[d, s])]
+            pool = universe if universe is not None else members_at(snaps, d)
+            mem = [s for s in pool if s in px.columns and pd.notna(px.at[d, s])]
             above = f["above"].loc[d, mem] if ma_filter else pd.Series(True, index=mem)
             last = pick_momentum(mom.loc[d, mem], above, n)
-        book[d] = last
+            held = {s: 1 / len(last) for s in last} if last else {}
+        elif ma_x is not None:
+            held = {s: w for s, w in held.items() if pd.notna(px.at[d, s]) and px.at[d, s] >= ma_x.at[d, s]}
+        book[d] = dict(held) if exit_ma else last
     return book
 
 

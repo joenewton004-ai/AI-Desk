@@ -20,6 +20,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   `research/WINNERS.md`. Universe = top 750 at each date, survivors only: say so when quoting it.
 - Weekly strategies (reversal, pullback, momentum on the top 750): `python research/weekly.py` ->
   `research/WEEKLY.md`. Survivors-only prices and close-to-close fills: both flatter it - say so.
+- Plain momentum vs the bottleneck engine inside the desk: `python research/momentum_sleeve.py` ->
+  `research/MOMENTUM_SLEEVE.md` (an open amendment until the user decides).
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
