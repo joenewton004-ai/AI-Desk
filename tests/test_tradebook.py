@@ -211,3 +211,12 @@ def test_buy_only_cap_leaves_sells_as_market_orders(tmp_path, monkeypatch):
                  max_data_age_days=None, broker=broker)
     by = {t["symbol"]: t for t in tradebook.trades()}
     assert by["AA"]["order_type"] == "limit" and by["BB"]["order_type"] == "market"
+
+
+def test_momentum_explainer_tables():
+    from ai_desk import dashboard
+    t = dashboard.tables()
+    keys = {r["key"] for r in t["explainer_text"]}
+    assert len(keys) == len(t["explainer_text"])                      # unique row keys
+    assert any(r["section"] == "picks" for r in t["explainer_text"])
+    assert {r["label"] for r in t["explainer_backtest"]} >= {"Whole desk with momentum"}

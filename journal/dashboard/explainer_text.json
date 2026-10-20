@@ -1,0 +1,191 @@
+[
+ {
+  "key": "momentum:title:0",
+  "sleeve": "momentum",
+  "section": "title",
+  "order": 0,
+  "col1": "Momentum sleeve - replaces Bottleneck as the 20% sleeve",
+  "col2": "Accepted 2026-10-20 (amendment 00e1f2b8); live from the 2026-11-03 re-pick",
+  "col3": ""
+ },
+ {
+  "key": "momentum:idea:0",
+  "sleeve": "momentum",
+  "section": "idea",
+  "order": 0,
+  "col1": "Own the 20 large US companies whose shares have risen most over the last 6 months, and get out of any that start to fall. Shares that have risen strongly over 6-12 months tend to keep outperforming for a while ('momentum') - one of the most researched patterns in investing.",
+  "col2": "",
+  "col3": ""
+ },
+ {
+  "key": "momentum:picks:0",
+  "sleeve": "momentum",
+  "section": "picks",
+  "order": 0,
+  "col1": "Universe",
+  "col2": "US-listed companies worth more than $10B (about 780 today)",
+  "col3": ""
+ },
+ {
+  "key": "momentum:picks:1",
+  "sleeve": "momentum",
+  "section": "picks",
+  "order": 1,
+  "col1": "Trend check",
+  "col2": "Price above its 200-day average - the stock is in an uptrend",
+  "col3": ""
+ },
+ {
+  "key": "momentum:picks:2",
+  "sleeve": "momentum",
+  "section": "picks",
+  "order": 2,
+  "col1": "Rank",
+  "col2": "By share-price gain over the last 6 months, ignoring the most recent week (very short-term moves tend to reverse)",
+  "col3": ""
+ },
+ {
+  "key": "momentum:picks:3",
+  "sleeve": "momentum",
+  "section": "picks",
+  "order": 3,
+  "col1": "Buy",
+  "col2": "The top 20, equal weight (about 1% of the account each)",
+  "col3": ""
+ },
+ {
+  "key": "momentum:holds:0",
+  "sleeve": "momentum",
+  "section": "holds",
+  "order": 0,
+  "col1": "Every 4 weeks",
+  "col2": "A fresh scan re-picks the top 20: stocks that dropped out are sold, new ones bought",
+  "col3": ""
+ },
+ {
+  "key": "momentum:holds:1",
+  "sleeve": "momentum",
+  "section": "holds",
+  "order": 1,
+  "col1": "Every evening in between",
+  "col2": "A holding that closes below its 100-day average is sold the next morning and stays out until the next re-pick",
+  "col3": ""
+ },
+ {
+  "key": "momentum:holds:2",
+  "sleeve": "momentum",
+  "section": "holds",
+  "order": 2,
+  "col1": "Orders",
+  "col2": "Buys capped 2% above the last close; sells always go through",
+  "col3": ""
+ },
+ {
+  "key": "momentum:compare:0",
+  "sleeve": "momentum",
+  "section": "compare",
+  "order": 0,
+  "col1": "Picks from",
+  "col2": "Hottest industries, theme map, fundamentals, insider buying",
+  "col3": "Price strength only"
+ },
+ {
+  "key": "momentum:compare:1",
+  "sleeve": "momentum",
+  "section": "compare",
+  "order": 1,
+  "col1": "Holdings",
+  "col2": "8, sized by volatility",
+  "col3": "20, equal weight"
+ },
+ {
+  "key": "momentum:compare:2",
+  "sleeve": "momentum",
+  "section": "compare",
+  "order": 2,
+  "col1": "Re-pick",
+  "col2": "Every 2 weeks",
+  "col3": "Every 4 weeks"
+ },
+ {
+  "key": "momentum:compare:3",
+  "sleeve": "momentum",
+  "section": "compare",
+  "order": 3,
+  "col1": "Sell rule",
+  "col2": "Below the 100-day average",
+  "col3": "Same"
+ },
+ {
+  "key": "momentum:compare:4",
+  "sleeve": "momentum",
+  "section": "compare",
+  "order": 4,
+  "col1": "Tested",
+  "col2": "Only partly (theme and fundamentals can't be backtested)",
+  "col3": "Fully, point-in-time"
+ },
+ {
+  "key": "momentum:expectations:0",
+  "sleeve": "momentum",
+  "section": "expectations",
+  "order": 0,
+  "col1": "The gain for the whole desk is small: most of the improvement is inside the sleeve - smoother returns and a much smaller worst drop. A desk Sharpe difference of 0.04 is within normal noise.",
+  "col2": "",
+  "col3": ""
+ },
+ {
+  "key": "momentum:expectations:1",
+  "sleeve": "momentum",
+  "section": "expectations",
+  "order": 1,
+  "col1": "It's volatile and can be badly wrong when market leadership suddenly changes (as in 2021-22). The 100-day sell rule is there to limit that.",
+  "col2": "",
+  "col3": ""
+ },
+ {
+  "key": "momentum:expectations:2",
+  "sleeve": "momentum",
+  "section": "expectations",
+  "order": 2,
+  "col1": "It follows whatever is strongest, not a theme - today mostly tech and software, not the energy names the bottleneck sleeve holds.",
+  "col2": "",
+  "col3": ""
+ },
+ {
+  "key": "momentum:timeline:0",
+  "sleeve": "momentum",
+  "section": "timeline",
+  "order": 0,
+  "col1": "Until 2 Nov",
+  "col2": "Nothing changes: the bottleneck sleeve keeps its 8 stocks and its sell rule",
+  "col3": ""
+ },
+ {
+  "key": "momentum:timeline:1",
+  "sleeve": "momentum",
+  "section": "timeline",
+  "order": 1,
+  "col1": "2026-11-03 evening",
+  "col2": "First momentum scan; buys the top 20 and sells bottleneck holdings not in the new list ('switched to momentum')",
+  "col3": ""
+ },
+ {
+  "key": "momentum:timeline:2",
+  "sleeve": "momentum",
+  "section": "timeline",
+  "order": 2,
+  "col1": "Then",
+  "col2": "Re-picks every 4 weeks; judged against SPY on the scorecard",
+  "col3": ""
+ },
+ {
+  "key": "momentum:backtest_note:0",
+  "sleeve": "momentum",
+  "section": "backtest_note",
+  "order": 0,
+  "col1": "2014-2026, 0.10% per trade, cash at T-bills. Prices include only companies that still exist, which flatters both engines.",
+  "col2": "",
+  "col3": ""
+ }
+]
