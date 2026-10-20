@@ -25,7 +25,7 @@ Other simplifications:
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
@@ -103,6 +103,8 @@ def load_prices(tickers: list[str], start: str = "2012-01-01", batch: int = 100)
     for k in out:
         out[k].index = out[k].index.to_period("M").to_timestamp("M")
         out[k] = out[k].loc[:, ~out[k].columns.duplicated()]
+        # Yahoo can add a row for today inside the current month: keep one row per month
+        out[k] = out[k].groupby(level=0).last() if k != "splits" else out[k].groupby(level=0).max()
     return out
 
 
@@ -200,36 +202,41 @@ def passes_gates(df: pd.DataFrame) -> pd.Series:
 
 # --- simulation ---------------------------------------------------------------
 
-@dataclass
-class BacktestRun:
-    returns: pd.DataFrame                       # monthly returns per portfolio
-    holdings: dict[pd.Timestamp, list[str]] = field(default_factory=dict)
-    counts: pd.DataFrame | None = None
-
-
-def run(u: Universe, prices: dict[str, pd.DataFrame], start: str = "2014-03-31", top_n: int = 25,
-        rebalance_month: int = 3, cost: float = 0.001, progress: bool = True) -> BacktestRun:
-    adj = prices["adj"]
-    monthly = adj.pct_change(fill_method=None)
-    dates = [d for d in adj.index if d >= pd.Timestamp(start) and d.month == rebalance_month]
-    end = adj.index[-1]
-    books = {"screen_top": {}, "gates_only": {}, "universe_ew": {}}
-    holdings, counts = {}, []
+def snapshots(u: Universe, prices: dict[str, pd.DataFrame], dates: list[pd.Timestamp],
+              progress: bool = True) -> dict[pd.Timestamp, pd.DataFrame]:
+    """The screen's view of the market at each date (the slow part - cache it)."""
+    out = {}
     for d in dates:
         snap = snapshot(u, prices, d)
-        ok = snap[passes_gates(snap)]
-        ranked = score(ok) if len(ok) else ok
-        top = list(ranked.index[:top_n])
-        holdings[d] = top
-        books["screen_top"][d] = top
-        books["gates_only"][d] = list(ok.index)
-        books["universe_ew"][d] = list(snap.index)
-        counts.append({"date": d.date(), "universe": len(snap), "pass_gates": len(ok)})
+        snap["passes_gates"] = passes_gates(snap)
+        out[d] = snap
         if progress:
-            print(f"  {d.date()}: universe {len(snap)}, pass gates {len(ok)}, top {top_n}: {', '.join(top[:8])} ...")
+            print(f"  {d.date()}: universe {len(snap)}, pass gates {int(snap['passes_gates'].sum())}")
+    return out
 
-    rets = {name: _simulate(book, monthly, end, cost) for name, book in books.items()}
-    return BacktestRun(pd.DataFrame(rets), holdings, pd.DataFrame(counts))
+
+def rebalance_dates(prices: dict[str, pd.DataFrame], start: str, month: int, end: str) -> list[pd.Timestamp]:
+    idx = prices["adj"].loc[start:end].index
+    return [d for d in idx if d.month == month]
+
+
+def books(snaps: dict[pd.Timestamp, pd.DataFrame], top_n: int = 25) -> dict[str, dict[pd.Timestamp, list[str]]]:
+    """What each portfolio holds at each rebalance date."""
+    out = {"screen_top": {}, "gates_only": {}, "universe_ew": {}}
+    for d, snap in snaps.items():
+        ok = snap[snap["passes_gates"]]
+        ranked = score(ok.drop(columns="passes_gates")) if len(ok) else ok
+        out["screen_top"][d] = list(ranked.index[:top_n])
+        out["gates_only"][d] = list(ok.index)
+        out["universe_ew"][d] = list(snap.index)
+    return out
+
+
+def simulate(portfolios: dict[str, dict[pd.Timestamp, list[str]]], prices: dict[str, pd.DataFrame],
+             end: str, cost: float = 0.001) -> pd.DataFrame:
+    monthly = prices["adj"].loc[:end].pct_change(fill_method=None)
+    last = monthly.index[-1]
+    return pd.DataFrame({name: _simulate(book, monthly, last, cost) for name, book in portfolios.items()})
 
 
 def _simulate(book: dict[pd.Timestamp, list[str]], monthly: pd.DataFrame, end: pd.Timestamp,

@@ -26,6 +26,7 @@ from ai_desk.metrics import max_drawdown  # noqa: E402
 CACHE = ROOT / "data" / "backtest"
 OUT = Path(__file__).resolve().parent / "output"
 START = "2014-03-31"
+END = "2026-09-30"     # last complete month when this was run (October 2026 was still in progress)
 lines: list[str] = []
 
 
@@ -80,18 +81,25 @@ def main() -> None:
     print(f"  {len(u.tickers)} companies; downloading monthly prices ...")
     tickers = sorted(set(u.tickers.values()))
     prices = cached("prices", lambda: sb.load_prices(tickers + ["SPY"]))
+    for k in prices:   # one row per month (older caches can hold a duplicate current-month row)
+        prices[k] = prices[k].groupby(level=0).last() if k != "splits" else prices[k].groupby(level=0).max()
+
+    def snaps(month):
+        dates = sb.rebalance_dates(prices, START, month, END)
+        return cached(f"snapshots_m{month}", lambda: sb.snapshots(u, prices, dates))
 
     rf_annual = load_cash_rate(str(ROOT / "market_data" / "SPY.csv"))
     rf = (rf_annual.resample("ME").last() / 12).shift(1)       # earned over the following month
-    spy = prices["adj"]["SPY"].pct_change(fill_method=None)
+    spy = prices["adj"]["SPY"].loc[:END].pct_change(fill_method=None)
 
-    base = cached(f"run_top25_m3", lambda: sb.run(u, prices, START, 25, 3))
-    r = base.returns.copy()
+    march = snaps(3)
+    base_books = sb.books(march, 25)
+    r = sb.simulate(base_books, prices, END)
     r["SPY"] = spy.reindex(r.index)
     # market-momentum overlay from research/edges.py: hold the screen while SPY's
     # 12-month return is positive, otherwise T-bills (decided at month-end, applied next month)
-    spy_px = prices["adj"]["SPY"]
-    risk_on = (spy_px / spy_px.shift(12) - 1 > 0).shift(1).reindex(r.index).fillna(True)
+    spy_px = prices["adj"]["SPY"].loc[:END]
+    risk_on = (spy_px / spy_px.shift(12) - 1 > 0).shift(1).reindex(r.index).fillna(True).astype(bool)
     r["screen_top + momentum"] = r["screen_top"].where(risk_on, rf.reindex(r.index).fillna(0))
 
     names = {"screen_top": "Screen: top 25", "screen_top + momentum": "Top 25 + market momentum",
@@ -115,13 +123,13 @@ def main() -> None:
     emit("\n## 3. Robustness\n")
     rows = {}
     for n in (10, 25, 50):
-        run = base if n == 25 else cached(f"run_top{n}_m3", lambda n=n: sb.run(u, prices, START, n, 3, progress=False))
-        rows[f"top {n}, March"] = stats(run.returns["screen_top"], rf)
+        rows[f"top {n}, March"] = stats(sb.simulate({"t": sb.books(march, n)["screen_top"]}, prices, END)["t"], rf)
     for m, label in ((6, "June"), (9, "September"), (12, "December")):
-        run = cached(f"run_top25_m{m}", lambda m=m: sb.run(u, prices, START, 25, m, progress=False))
-        rows[f"top 25, {label}"] = stats(run.returns["screen_top"], rf)
-    rows["costs x5 (0.5%/trade)"] = stats(cached("run_top25_m3_cost5", lambda: sb.run(
-        u, prices, START, 25, 3, cost=0.005, progress=False)).returns["screen_top"], rf)
+        other = sb.books(snaps(m), 25)
+        rows[f"top 25, {label}"] = stats(sb.simulate({"t": other["screen_top"]}, prices, END)["t"], rf)
+        rows[f"universe, {label}"] = stats(sb.simulate({"t": other["universe_ew"]}, prices, END)["t"], rf)
+    rows["top 25, costs x5 (0.5%/trade)"] = stats(sb.simulate({"t": base_books["screen_top"]}, prices, END,
+                                                               cost=0.005)["t"], rf)
     emit(table(rows))
     for a, b in (("2014", "2019"), ("2020", "2026")):
         sl = r.loc[a:b]
@@ -129,9 +137,8 @@ def main() -> None:
              f"{stats(sl['universe_ew'], rf)['CAGR']:.1%} vs SPY {stats(sl['SPY'], rf)['CAGR']:.1%}")
 
     emit("\n## 4. Universe and holdings\n")
-    emit(table({str(row["date"]): {"universe": str(row["universe"]), "pass gates": str(row["pass_gates"]),
-                                   "top 25": ", ".join(base.holdings[pd.Timestamp(row["date"])][:25])}
-                for _, row in base.counts.iterrows()}))
+    emit(table({f"{d.date()}": {"universe": str(len(snap)), "pass gates": str(int(snap["passes_gates"].sum())),
+                                "top 25": ", ".join(base_books["screen_top"][d])} for d, snap in march.items()}))
 
     (OUT / "screen_backtest.md").write_text("# Screen backtest - generated tables\n\n" + "\n".join(lines) + "\n")
     r.to_csv(OUT / "screen_backtest_returns.csv")
