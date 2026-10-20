@@ -1,0 +1,24 @@
+{
+ "with_rows": [
+  "amendments",
+  "curve",
+  "fills",
+  "holdings",
+  "methods",
+  "notes",
+  "positions",
+  "score_headline",
+  "scorecard",
+  "sleeve_guide",
+  "sleeves",
+  "summary",
+  "trades",
+  "watch_summary",
+  "watchlist"
+ ],
+ "empty": [
+  "closed",
+  "exits",
+  "sleeve_perf"
+ ]
+}

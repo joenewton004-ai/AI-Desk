@@ -176,3 +176,17 @@ def test_limit_cap_sends_capped_limit_orders(tmp_path, monkeypatch):
     t = tradebook.trades()[0]
     assert t["order_type"] == "limit" and broker.limits["AA"] == t["limit_price"]
     assert t["limit_price"] <= t["est_price"] * 1.02 + 1e-9
+
+
+def test_export_never_writes_nan_and_lists_empty_tables():
+    import json
+    import math
+
+    from ai_desk import dashboard
+    (tradebook.DIR).mkdir(parents=True, exist_ok=True)
+    (tradebook.DIR / "scorecard.json").write_text(json.dumps({"desk": {"sharpe": math.nan, "days": 0}}))
+    dashboard.export()
+    text = (tradebook.DIR / "dashboard" / "score_headline.json").read_text()
+    assert "NaN" not in text and json.loads(text)[0]["sharpe"] is None
+    m = json.loads((tradebook.DIR / "dashboard" / "_manifest.json").read_text())
+    assert "closed" in m["empty"] and "methods" in m["with_rows"]

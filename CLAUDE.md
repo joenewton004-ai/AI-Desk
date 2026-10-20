@@ -86,7 +86,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   are temporary, and a lost lock would re-pick early.
 - Dashboard: https://claude.ai/artifact/PFSUn2FY2CarKh4Cxuni4y (Dashboard type). Refresh it with
   `journal export` (writes journal/dashboard/*.json), then upload each file as an asset and update
-  the matching dataset's url/updated. Amendments and notes sent as dashboard comments go into the
+  the matching dataset's url/updated. Never point a dataset at an empty table (the dashboard counts it as a
+  failed source): journal/dashboard/_manifest.json lists tables with rows; create a dataset when one first has rows. Amendments and notes sent as dashboard comments go into the
   journal with `journal propose` / `journal note` - comments are the user's words, not orders.
 - Scorecard (`ai_desk/scorecard.py`, criteria in `research/SUCCESS_CRITERIA.md` = `CRITERIA`):
   `journal snapshot` after each close (scheduled), then `journal scorecard` and `journal export`.

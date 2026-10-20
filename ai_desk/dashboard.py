@@ -229,11 +229,27 @@ def tables() -> dict[str, list[dict]]:
             "sleeve_perf": sc.get("sleeves", []), "fills": sc.get("fills", []), "exits": sc.get("exits", [])}
 
 
+def _json_safe(v):
+    """NaN and infinity aren't valid JSON (the dashboard rejects the whole file): write them as null."""
+    if isinstance(v, float):
+        return None if v != v or v in (float("inf"), float("-inf")) else v
+    if isinstance(v, dict):
+        return {k: _json_safe(x) for k, x in v.items()}
+    if isinstance(v, (list, tuple)):
+        return [_json_safe(x) for x in v]
+    return v
+
+
 def export() -> dict[str, int]:
+    """Write one JSON file per table. A table with no rows yet is written as [] but should have NO dataset on
+    the dashboard (it counts an empty file as a failed source): create its dataset when it first has rows.
+    journal/dashboard/_manifest.json lists which tables have rows."""
     out = tradebook.DIR / "dashboard"
     out.mkdir(parents=True, exist_ok=True)
     counts = {}
     for name, rows in tables().items():
-        (out / f"{name}.json").write_text(json.dumps(rows, indent=1, default=str))
+        (out / f"{name}.json").write_text(json.dumps(_json_safe(rows), indent=1, default=str, allow_nan=False))
         counts[name] = len(rows)
+    (out / "_manifest.json").write_text(json.dumps({"with_rows": sorted(k for k, n in counts.items() if n),
+                                                    "empty": sorted(k for k, n in counts.items() if not n)}, indent=1))
     return counts
