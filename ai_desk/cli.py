@@ -480,6 +480,16 @@ def cmd_bottleneck(a) -> None:
     print(f"Saved {path} and {path.with_suffix('.csv')}")
 
 
+def cmd_momentum(a) -> None:
+    from ai_desk.momentum_scan import report, run_scan
+
+    print("Momentum scan ...")
+    df = run_scan(min_cap=a.min_cap)
+    path = report(df, top=a.top)
+    print("\n" + path.read_text())
+    print(f"Saved {path} and {path.with_suffix('.csv')}")
+
+
 def cmd_journal(a) -> None:
     from ai_desk import register, tradebook
 
@@ -683,6 +693,12 @@ def build_parser() -> argparse.ArgumentParser:
     bn.add_argument("--theme-only", action="store_true",
                     help="only pick companies in the theme map (money-flow industries are still reported)")
     bn.set_defaults(func=cmd_bottleneck)
+
+    mo = sub.add_parser("momentum", help="rank large US companies by 6-month price momentum (the momentum sleeve)")
+    mo.add_argument("action", choices=["scan"])
+    mo.add_argument("--min-cap", type=float, default=10e9)
+    mo.add_argument("--top", type=int, default=20)
+    mo.set_defaults(func=cmd_momentum)
 
     jn = sub.add_parser("journal", help="trade journal, notes, methodology register and amendments")
     jn.add_argument("action", choices=["sync", "review", "note", "methods", "propose", "decide", "amendments", "export",

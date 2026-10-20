@@ -540,17 +540,72 @@ class Bottleneck(LockedScreen):
         return set(last.index[(last < avg) & avg.notna()])
 
 
+@dataclass
+class Momentum(Bottleneck):
+    """Top 20 large companies by 6-month price gain (skipping the latest week), above their
+    200-day average, equal weight (python -m ai_desk momentum scan).
+
+    * re-picked every 4 weeks (research/WEEKLY.md: monthly beat weekly re-picks)
+    * EXIT RULE, checked on every run: a holding that closes below its 100-day average is
+      sold and stays out until the next re-pick (the bottleneck sleeve's rule, kept by choice)
+    * replaced the bottleneck sleeve's engine - amendment 00e1f2b8, accepted 2026-10-20
+      (research/MOMENTUM_SLEEVE.md)
+    """
+
+    name = "momentum"
+    scan_command = "python -m ai_desk momentum scan"
+    top: int = 20
+    rebalance_days: int = 28
+    exit_ma: int = 100
+    max_age_days: int = 3
+    screen_glob: str = "output/momentum_*.csv"
+    lock_path: str = "data/portfolio/momentum.json"
+    replaces_lock: str = "data/portfolio/bottleneck.json"
+
+    def _target_weights(self, picks, closes):
+        return pd.Series(1 / len(picks), index=picks)
+
+    def _fresh_picks(self):
+        picks, src = super()._fresh_picks()
+        path = Path(self.screen_glob).parent / src
+        df = pd.read_csv(path, index_col=0)
+        if "passes" in df:                         # only stocks above their 200-day average
+            df = df[df["passes"].astype(bool)]
+        return list(df.index[:self.top]), src
+
+    def exit_reason(self, symbol):
+        own = super().exit_reason(symbol)
+        if own:
+            return own
+        old = Path(self.replaces_lock)
+        if old.exists() and symbol in json.loads(old.read_text()).get("picks", []) and symbol not in self._picks():
+            return "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)"
+        return None
+
+
 METHODS: dict[str, type[Method]] = {
-    m.name: m for m in (IndexMomentum, IndexRotation, SMACrossoverMethod, PairsMethod, QualityScreen, Bottleneck)
+    m.name: m for m in (IndexMomentum, IndexRotation, SMACrossoverMethod, PairsMethod, QualityScreen, Bottleneck,
+                        Momentum)
 }
 # shorthands: `thesis` is the 50/50 structure in research/THESIS.md; `aggressive`
 # tilts to the stock screen (70/30) - more return and bigger drawdowns in the backtest
 PRESETS = {
     "thesis": [("quality_screen", 0.5), ("index_momentum", 0.5)],
     "aggressive": [("quality_screen", 0.7), ("index_momentum", 0.3)],
-    # the live desk: quality compounders + bottleneck momentum + SPY with crash insurance
-    "desk": [("quality_screen", 0.5), ("bottleneck", 0.2), ("index_momentum", 0.3)],
+    # the live desk: quality compounders + a momentum sleeve + SPY with crash insurance
+    "desk": [("quality_screen", 0.5), ("momentum", 0.2), ("index_momentum", 0.3)],
 }
+# Amendment 00e1f2b8 (accepted 2026-10-20): the 20% sleeve's engine changes from bottleneck to plain
+# momentum at the bottleneck sleeve's next scheduled re-pick, so its current picks aren't sold early.
+DESK_SWITCH = {"date": "2026-11-03", "before": [("quality_screen", 0.5), ("bottleneck", 0.2), ("index_momentum", 0.3)]}
+
+
+def preset(name: str, today: pd.Timestamp | None = None) -> list[tuple[str, float]]:
+    """A preset's parts as of `today` (the desk switches sleeves on DESK_SWITCH['date'])."""
+    today = (today or pd.Timestamp.today()).normalize()
+    if name == "desk" and today < pd.Timestamp(DESK_SWITCH["date"]):
+        return list(DESK_SWITCH["before"])
+    return list(PRESETS[name])
 
 
 @dataclass
@@ -625,7 +680,7 @@ def build(specs: list[str], params: dict | None = None) -> Method:
     for spec in specs:
         name, _, share = spec.partition(":")
         if name in PRESETS:
-            expanded += [(n, w * (float(share) if share else 1.0)) for n, w in PRESETS[name]]
+            expanded += [(n, w * (float(share) if share else 1.0)) for n, w in preset(name)]
         else:
             expanded.append((name, float(share) if share else None))
     if len(expanded) == 1 and expanded[0][1] is None:

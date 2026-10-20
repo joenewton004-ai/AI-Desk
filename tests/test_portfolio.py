@@ -317,9 +317,14 @@ def test_bottleneck_repicks_weekly_and_exits_stay_out(tmp_path):
     assert "re-pick due" in _bn(tmp_path).status()[0]    # a week later: fresh picks
 
 
-def test_desk_preset():
-    m = build(["desk"])
-    assert [(p.name, w) for p, w in m.parts] == [("quality_screen", 0.5), ("bottleneck", 0.2), ("index_momentum", 0.3)]
+def test_desk_preset_switches_to_momentum_on_the_bottleneck_repick_date():
+    from ai_desk.portfolio.methods import DESK_SWITCH, preset
+    before = preset("desk", pd.Timestamp(DESK_SWITCH["date"]) - pd.Timedelta(days=1))
+    after = preset("desk", pd.Timestamp(DESK_SWITCH["date"]))
+    assert before == [("quality_screen", 0.5), ("bottleneck", 0.2), ("index_momentum", 0.3)]
+    assert after == [("quality_screen", 0.5), ("momentum", 0.2), ("index_momentum", 0.3)]
+    names = [p.name for p, _ in build(["desk"]).parts]
+    assert names[0] == "quality_screen" and names[1] in ("bottleneck", "momentum")
 
 
 def test_bottleneck_exit_uses_the_scans_moving_average(tmp_path):
@@ -373,3 +378,40 @@ def test_repick_status_and_buy_only_cap(tmp_path, monkeypatch):
     assert due["due"] and due["needs_scan"] and due["scan_command"].startswith("python -m ai_desk bottleneck scan")
     (tmp_path / "bottleneck_2026-11-03.csv").write_text("symbol,score\nBB,1\n")
     assert not m.repick_status(pd.Timestamp("2026-11-03"))["needs_scan"]       # today's scan is already there
+
+
+# --- momentum sleeve (replaces the bottleneck engine, amendment 00e1f2b8) -----------------------
+
+def test_momentum_rank_skips_the_latest_week_and_filters_by_trend():
+    from ai_desk.momentum_scan import rank
+    idx = pd.bdate_range("2025-01-01", periods=260)
+    up = pd.Series(np.linspace(100, 200, 260), index=idx)
+    jump = up.copy()
+    jump.iloc[-3:] *= 3                      # a spike in the last week must not count
+    down = pd.Series(np.linspace(200, 100, 260), index=idx)
+    df = rank(pd.DataFrame({"UP": up, "JUMP": jump * 0.9, "DOWN": down}))
+    assert df.loc["DOWN", "passes"] == False and df.loc["UP", "passes"] == True  # noqa: E712
+    assert abs(df.loc["JUMP", "mom_6m"] - df.loc["UP", "mom_6m"]) < 1e-12       # same, the spike is skipped
+    assert df.index[-1] == "DOWN" and df.loc["UP", "rank"] in (1, 2) and np.isnan(df.loc["DOWN", "rank"])
+    # uses only the past: the ranking on the first 200 days is unchanged by what came later
+    short = rank(pd.DataFrame({"UP": up, "DOWN": down}).iloc[:200], trend=100)
+    again = rank(pd.DataFrame({"UP": up, "DOWN": down * 5}).iloc[:200], trend=100)
+    assert short.loc["UP", "mom_6m"] == again.loc["UP", "mom_6m"]
+
+
+def test_momentum_sleeve_equal_weight_trend_passers_and_exit(tmp_path):
+    import json
+
+    from ai_desk.portfolio.methods import Momentum
+    pd.DataFrame({"mom_6m": [0.5, 0.4, 0.3, 0.9], "passes": [True, True, True, False], "ma_days": 100},
+                 index=pd.Index(["AAA", "BBB", "CCC", "ZZZ"], name="symbol")) \
+        .to_csv(tmp_path / f"momentum_{pd.Timestamp.today().date()}.csv")
+    old = tmp_path / "bn.json"
+    old.write_text(json.dumps({"picks": ["OLD"], "screen_file": "x", "locked_on": "2026-10-20"}))
+    m = Momentum(top=3, screen_glob=str(tmp_path / "momentum_*.csv"), lock_path=str(tmp_path / "mo.json"),
+                 replaces_lock=str(old))
+    w = m.latest(_trend_closes(down=("CCC",)))
+    assert "ZZZ" not in w.index                          # failed the 200-day filter, even with the best gain
+    assert w["AAA"] == pytest.approx(w["BBB"]) and w["CCC"] == 0   # equal weight; CCC below its 100-day avg
+    assert "momentum" in m.exit_reason("OLD") and "amendment" in m.exit_reason("OLD")
+    assert m.repick_status()["scan_command"].startswith("python -m ai_desk momentum scan")

@@ -32,6 +32,7 @@ KEEP = {
                        "strength_score", "momentum_score", "roic_avg", "rev_cagr", "forward_pe", "fcf_yield"],
     "bottleneck": ["name", "sector", "industry", "source", "score", "flow_score", "bottleneck_score",
                    "asymmetry_score", "rs_6m", "rev_growth", "gm_change", "above_ma", "passes", "forward_pe"],
+    "momentum": ["name", "sector", "industry", "score", "mom_6m", "above_200", "passes", "market_cap"],
 }
 
 
@@ -80,7 +81,7 @@ def build_cohort(sleeve: str, scan: pd.DataFrame, picks: list[str], locked_on: s
                  screen_file: str, top: int) -> dict:
     """Pure: turn a scan + the chosen picks into a cohort of picks and near misses."""
     scan = scan.copy()
-    if sleeve == "bottleneck" and "passes" in scan:
+    if "passes" in scan and sleeve in ("bottleneck", "momentum"):
         passed = scan["passes"].astype(bool)
         scan["rank"] = scan["score"].where(passed).rank(ascending=False, method="first")
     else:
@@ -94,7 +95,8 @@ def build_cohort(sleeve: str, scan: pd.DataFrame, picks: list[str], locked_on: s
         elif r["rank"] == r["rank"]:
             status, reason = "near miss", f"ranked #{int(r['rank'])} - only the top {top} are bought"
         else:
-            status, reason = "failed a gate", bottleneck_reason(r)
+            status, reason = "failed a gate", ("below its 200-day average" if sleeve == "momentum"
+                                               else bottleneck_reason(r))
         rows.append({"symbol": sym, "rank": _clean(r["rank"]), "status": status, "reason": reason,
                      **{k: _clean(r.get(k)) for k in KEEP.get(sleeve, []) if k in r}})
     return {"id": f"{sleeve}:{locked_on}", "sleeve": sleeve, "locked_on": locked_on, "ref_date": ref_date,

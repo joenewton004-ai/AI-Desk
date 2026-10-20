@@ -36,7 +36,8 @@ CRITERIA = {
     # the desk's backtest, 50% quality screen + 20% bottleneck + 30% SPY momentum, monthly 2014-2026
     # (research/BOTTLENECK.md). Survivors-only prices: expect less in practice.
     "backtest": {"cagr": 0.163, "volatility": 0.165, "sharpe": 0.89, "max_drawdown": -0.23},
-    "benchmarks": {"desk": "SPY", "quality_screen": "RSP", "bottleneck": "SPY", "index_momentum": "SPY"},
+    "benchmarks": {"desk": "SPY", "quality_screen": "RSP", "bottleneck": "SPY", "momentum": "SPY",
+                   "index_momentum": "SPY"},     # momentum: the bottleneck sleeve's replacement (amendment 00e1f2b8)
     "min_days": {"behaviour": 63, "edge": 252},       # a quarter; a year
     "red_flags": {
         "drawdown_warn": -0.15,          # the executor halts all trading at -20% from the peak
