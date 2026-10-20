@@ -12,7 +12,7 @@ Step 2 - CANDIDATES: companies in the top flow industries, plus every company
 Step 3 - BOTTLENECK FINGERPRINTS (must pass all):
   * demand: revenue up 10%+ year on year (last two quarters vs a year earlier)
   * pricing power: gross margin not falling (a real bottleneck can raise prices)
-  * money still flowing: price above its 200-day average
+  * money still flowing: price above its moving average (--ma, default 200 days)
 
 Step 4 - SCORE (percentiles among candidates, 100 = best):
   * flow (25%): relative strength 6m and 12m, closeness to the 52-week high
@@ -74,19 +74,21 @@ def daily_closes(symbols: list[str], period: str = "15mo", batch: int = 100) -> 
     return out.loc[:, ~out.columns.duplicated()]
 
 
-def price_signals(close: pd.Series, spy: pd.Series) -> dict:
+def price_signals(close: pd.Series, spy: pd.Series, ma_days: int = 200) -> dict:
+    """ma_days: the trend line used to buy (price must be above it) - the
+    bottleneck sleeve sells on a close below the same line."""
     s = close.dropna()
-    if len(s) < 210:
+    if len(s) < max(210, ma_days + 10):
         return {}
     ret = lambda x, n, skip=0: x.iloc[-1 - skip] / x.iloc[-1 - n] - 1 if len(x) > n else np.nan  # noqa: E731
-    sma200 = s.rolling(200).mean().iloc[-1]
+    trend = s.rolling(ma_days).mean().iloc[-1]
     spy = spy.reindex(s.index).ffill()
     return {
         "rs_6m": ret(s, 126) - ret(spy, 126),
         "rs_12m": ret(s, 252, 21) - ret(spy, 252, 21),          # skip the latest month, as in momentum
         "near_high": s.iloc[-1] / s.iloc[-252:].max(),
-        "extension": s.iloc[-1] / sma200 - 1,                   # how far above its 200-day average
-        "above_200d": bool(s.iloc[-1] > sma200),
+        "extension": s.iloc[-1] / trend - 1,                    # how far above its trend line
+        "above_ma": bool(s.iloc[-1] > trend),
         "vol_3m": s.pct_change().iloc[-63:].std() * np.sqrt(252),
     }
 
@@ -140,7 +142,7 @@ def industry_flow(df: pd.DataFrame, min_members: int = 3) -> pd.DataFrame:
         "members": g.size(),
         "rs_6m": g["rs_6m"].median(),
         "rs_12m": g["rs_12m"].median(),
-        "breadth": g["above_200d"].mean(),
+        "breadth": g["above_ma"].mean(),
         "rev_growth": g["rev_growth"].median(),
         "gm_change": g["gm_change"].median(),
     })
@@ -168,12 +170,12 @@ def score(cands: pd.DataFrame) -> pd.DataFrame:
 def gates(df: pd.DataFrame) -> pd.Series:
     g = GATES
     return ((df["rev_growth"] >= g["min_rev_growth"]) & (df["gm_change"].fillna(0) >= g["min_gm_change"])
-            & df["above_200d"] & (df["market_cap"] >= g["min_market_cap"]))
+            & df["above_ma"] & (df["market_cap"] >= g["min_market_cap"]))
 
 
 def run_scan(theme: str | None = "ai_datacenter", top_industries: int = 8, min_cap: float = 10e9,
              with_backlog: bool = True, with_smart_money: bool = True, theme_only: bool = False,
-             progress: bool = True) -> dict:
+             ma_days: int = 200, progress: bool = True) -> dict:
     """theme_only: only companies in the theme map can be picked; the money-flow
     ranking is still reported, so new flows (e.g. energy) stay visible."""
     from ai_desk.fundamentals.universe import large_caps
@@ -193,7 +195,7 @@ def run_scan(theme: str | None = "ai_datacenter", top_industries: int = 8, min_c
     for sym, c in companies.items():
         if sym not in closes:
             continue
-        ps = price_signals(closes[sym], spy)
+        ps = price_signals(closes[sym], spy, ma_days)
         if not ps:
             continue
         base = base_metrics(c)
@@ -222,7 +224,8 @@ def run_scan(theme: str | None = "ai_datacenter", top_industries: int = 8, min_c
             print(f"  insider/congress activity for {len(passing)} companies ...")
         passing = passing.join(smart_money(list(passing.index), passing["market_cap"]))
     ranked = score(passing)
-    return {"flow": flow, "candidates": cands, "ranked": ranked, "theme": theme,
+    ranked["ma_days"] = ma_days                       # the sleeve sells below this same line
+    return {"flow": flow, "candidates": cands, "ranked": ranked, "theme": theme, "ma_days": ma_days,
             "industry_of_hot": hot, "asof": closes.index[-1]}
 
 
@@ -271,10 +274,10 @@ def report(result: dict, top: int = 15, out_dir: str = "output") -> Path:
             lines.append(f"| {seg} | {len(c)} | {len(p)} | {', '.join(p.index[:4]) or '-'} |")
     lines += ["", f"## Top {top} bottleneck candidates", "",
               f"{int(cands['passes'].sum())} of {len(cands)} candidates show all three fingerprints "
-              "(revenue +10%, margins not falling, price above its 200-day average).", "",
+              f"(revenue +10%, margins not falling, price above its {result['ma_days']}-day average).", "",
               "| # | symbol | name | segment / industry | score | flow | bottleneck | asymmetry | smart money | "
               "rev growth | gross margin chg | backlog growth | rel. strength 6m | insiders buying (6m) | "
-              "Congress net buyers (90d) | fwd P/E | PEG | above 200-day |",
+              "Congress net buyers (90d) | fwd P/E | PEG | above trend |",
               "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for i, (s, r) in enumerate(ranked.head(top).iterrows(), 1):
         where = r["segment"] if isinstance(r["segment"], str) else r["industry"]

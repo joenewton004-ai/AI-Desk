@@ -301,6 +301,9 @@ class LockedScreen(Method):
         new_exits = self._cache.get("exits", set()) - self._cache.get("exited", set())
         if new_exits:
             notes.append(f"{self.name}: selling {', '.join(sorted(new_exits))} - price below its moving average")
+        if hasattr(self, "_ma_days"):
+            notes.append(f"{self.name}: exit rule = close below the {self._ma_days()}-day average; "
+                         f"re-pick every {getattr(self, 'rebalance_days', '?')} days")
         if self._cache.get("exited"):
             notes.append(f"{self.name}: {', '.join(sorted(self._cache['exited']))} already sold by the exit rule; "
                          "out until the next re-pick")
@@ -344,14 +347,15 @@ class Bottleneck(LockedScreen):
     * sized by inverse volatility - calmer stocks get more, wilder ones less -
       capped at 2x an equal share, so one stock can't dominate the sleeve
     * EXIT RULE, checked on every run: any holding whose price closes below
-      its `exit_ma`-day average is sold, even between re-picks
+      its moving average is sold, even between re-picks. The average is the
+      one the scan used to buy (saved with the picks); exit_ma overrides it.
     """
 
     name = "bottleneck"
     scan_command = "python -m ai_desk bottleneck scan"
     top: int = 8
     rebalance_days: int = 7
-    exit_ma: int = 200
+    exit_ma: int = 0                  # 0 = use the scan's moving average (stored with the picks)
     max_age_days: int = 3
     screen_glob: str = "output/bottleneck_*.csv"
     lock_path: str = "data/portfolio/bottleneck.json"
@@ -373,8 +377,20 @@ class Bottleneck(LockedScreen):
             w[~over] += spare * w[~over] / w[~over].sum()
         return w
 
+    def _ma_days(self) -> int:
+        if self.exit_ma:
+            return self.exit_ma
+        src = (self._cache or {}).get("src") or (self._lock() or {}).get("screen_file")
+        path = Path(self.screen_glob).parent / src if src else None
+        if path and path.exists():
+            cols = pd.read_csv(path, index_col=0, nrows=1)
+            if "ma_days" in cols:
+                return int(cols["ma_days"].iloc[0])
+        return 200
+
     def _exits(self, picks, closes):
-        avg = closes[picks].rolling(self.exit_ma, min_periods=self.exit_ma).mean().iloc[-1]
+        n = self._ma_days()
+        avg = closes[picks].rolling(n, min_periods=n).mean().iloc[-1]
         last = closes[picks].iloc[-1]
         return set(last.index[(last < avg) & avg.notna()])
 

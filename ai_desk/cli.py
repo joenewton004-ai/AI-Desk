@@ -458,7 +458,7 @@ def cmd_bottleneck(a) -> None:
     theme = None if a.theme == "none" else a.theme
     print(f"Bottleneck scan (theme: {theme or 'none - money flow only'}) ...")
     result = run_scan(theme=theme, top_industries=a.top_industries, min_cap=a.min_cap,
-                      with_backlog=not a.no_backlog, theme_only=a.theme_only)
+                      with_backlog=not a.no_backlog, theme_only=a.theme_only, ma_days=a.ma)
     path = report(result, top=a.top)
     print("\n" + path.read_text())
     print(f"Saved {path} and {path.with_suffix('.csv')}")
@@ -567,6 +567,8 @@ def build_parser() -> argparse.ArgumentParser:
     bn.add_argument("--min-cap", type=float, default=10e9)
     bn.add_argument("--top", type=int, default=15)
     bn.add_argument("--no-backlog", action="store_true", help="skip SEC backlog data (faster)")
+    bn.add_argument("--ma", type=int, default=200,
+                    help="moving average (days) a stock must be above to buy; the sleeve sells below it")
     bn.add_argument("--theme-only", action="store_true",
                     help="only pick companies in the theme map (money-flow industries are still reported)")
     bn.set_defaults(func=cmd_bottleneck)

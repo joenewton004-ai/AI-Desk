@@ -67,6 +67,48 @@ That was tested point-in-time on weekly prices from 2014 to 2026.
 - **Survivorship flatters it.** Momentum stocks that collapsed and delisted
   are missing from the data.
 
+### Parameter experiment: moving average × re-pick frequency
+
+The moving average is used both to buy (price must be above it) and to sell
+(a close below it). The exit is checked weekly throughout.
+
+| MA | re-pick | return/yr | Sharpe | worst drop | 2014-19 | 2020-26 | at 3× costs |
+|---|---|---|---|---|---|---|---|
+| 50-day | weekly | 8.9% | 0.37 | −45% | −2.8% | 20.4% | −1.9% |
+| 50-day | 2 weeks | 12.3% | 0.48 | −45% | 1.1% | 23.2% | 4.1% |
+| 50-day | 4 weeks | 13.5% | 0.50 | −50% | 2.6% | 24.0% | 7.2% |
+| 100-day | weekly | 9.8% | 0.40 | −47% | 2.1% | 17.1% | 0.2% |
+| **100-day** | **2 weeks** | **17.0%** | **0.60** | −46% | 9.7% | 23.8% | 10.2% |
+| 100-day | 4 weeks | 13.0% | 0.49 | −44% | 6.3% | 19.3% | 8.4% |
+| 200-day | weekly | 11.8% | 0.45 | −61% | 5.3% | 17.9% | 3.4% |
+| 200-day | 2 weeks | 14.1% | 0.51 | −63% | 10.2% | 17.7% | 8.8% |
+| 200-day | 4 weeks | 13.3% | 0.49 | −68% | 6.5% | 19.6% | 9.6% |
+
+SPY: 13.7%/yr (Sharpe 0.75); 12.1% in 2014-19 and 15.0% in 2020-26.
+
+What's robust and what isn't:
+- **Weekly re-picks are the worst choice with every moving average.** Every
+  2 or 4 weeks beats weekly in all three rows, because weekly churn and its
+  costs eat the edge. That's the most dependable finding here.
+- **Shorter averages cut the worst drawdown** (50-day and 100-day: −44% to −50%;
+  200-day: −61% to −68%). They exit sooner.
+- **The 50-day is too twitchy in sideways markets.** It made roughly nothing
+  in 2014-2019, and it did best only in the strongly trending 2020-2026.
+- **100-day every 2 weeks is the best cell**, and it's the only setting that
+  did reasonably in *both* halves. But its neighbours (100-day weekly 9.8%,
+  100-day every 4 weeks 13.0%) are well below it. A lone peak like that is
+  partly luck, so expect less in practice.
+- **No setting beats SPY's Sharpe (0.75)** on the rotation alone. The
+  sleeve's case rests on diversifying the quality screen.
+
+**In the desk** with 100-day / 2 weeks: 16.3%/yr, Sharpe 0.88, worst drop
+−22.8%. That compares with 15.5%, 0.85 and −24.0% for 200-day weekly, and
+15.8%, 0.89 and −27.6% for 70/30 with no bottleneck sleeve.
+
+Settings: `python -m ai_desk bottleneck scan --ma 100`. The sleeve's sell rule
+automatically uses the same average. Set the re-pick frequency with
+`--param bottleneck.rebalance_days=14`.
+
 **In the desk (monthly, 2014-2026):**
 
 | | Return/yr | Sharpe | Worst drop |

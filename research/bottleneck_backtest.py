@@ -72,14 +72,16 @@ def clean_returns(px: pd.DataFrame) -> pd.DataFrame:
 
 
 def flow_rotation(px: pd.DataFrame, industry: pd.Series, spy: pd.Series, top_industries=8, n=8,
-                  cost=0.001, start="2014-01-01", repick_weeks=1) -> tuple[pd.Series, pd.DataFrame]:
+                  cost=0.001, start="2014-01-01", repick_weeks=1, ma_weeks=40) -> tuple[pd.Series, pd.DataFrame]:
     """repick_weeks > 1: re-pick every N weeks, but still drop any holding that
-    closes below its 40-week average in between (the live exit rule)."""
+    closes below its moving average in between (the live exit rule).
+    ma_weeks: the moving average used both to buy (must be above it) and to
+    sell (closes below it): 10 weeks ~ 50 days, 20 ~ 100 days, 40 ~ 200 days."""
     ret = clean_returns(px)
     rs26 = px / px.shift(26) - 1 - (spy / spy.shift(26) - 1).values[:, None]
     rs52 = px.shift(4) / px.shift(52) - 1 - (spy.shift(4) / spy.shift(52) - 1).values[:, None]
-    ma40 = px.rolling(40, min_periods=40).mean()
-    above = px > ma40
+    ma = px.rolling(ma_weeks, min_periods=ma_weeks).mean()
+    above = px > ma
     vol = ret.rolling(13, min_periods=10).std()
     dates = px.loc[start:END].index
     weights, out = pd.Series(dtype=float), {}
@@ -176,6 +178,29 @@ def main():
     emit(f"\nBeat SPY in {int((yearly['rotation'] > yearly['SPY']).sum())} of {len(yearly)} calendar years. "
          f"Worst year: {yearly['rotation'].min():+.1%} ({yearly['rotation'].idxmin()}). "
          f"Average weekly turnover: about {picks['picks'].str.split(', ').map(len).mean():.0f} names held.")
+
+    emit("\n### Parameter grid: moving average x re-pick frequency (exit checked weekly)\n")
+    emit("Each cell: return/yr, Sharpe, worst drawdown. Then the same for 2014-2019 | 2020-2026, "
+         "and the return at 3x costs.\n")
+    grid_rows = []
+    best = None
+    for ma_w, ma_label in ((10, "50-day"), (20, "100-day"), (40, "200-day")):
+        for every, every_label in ((1, "weekly"), (2, "every 2 weeks"), (4, "every 4 weeks")):
+            r, _ = flow_rotation(stocks, industry, spy, repick_weeks=every, ma_weeks=ma_w)
+            r3, _ = flow_rotation(stocks, industry, spy, repick_weeks=every, ma_weeks=ma_w, cost=0.003)
+            full, a, b = stats(r, rf_w, 52), stats(r.loc[:"2019"], rf_w, 52), stats(r.loc["2020":], rf_w, 52)
+            grid_rows.append({"MA": ma_label, "re-pick": every_label, "full": full, "a": a, "b": b,
+                              "cost3": stats(r3, rf_w, 52)["CAGR"],
+                              "turnover": None})
+    emit("| MA | re-pick | return/yr | Sharpe | worst drop | 2014-19 return (Sharpe) | 2020-26 return (Sharpe) "
+         "| return at 3x costs |\n|---|---|---|---|---|---|---|---|")
+    for g in grid_rows:
+        f, a, b = g["full"], g["a"], g["b"]
+        emit(f"| {g['MA']} | {g['re-pick']} | {f['CAGR']:.1%} | {f['Sharpe']:.2f} | {f['max drawdown']:.0%} | "
+             f"{a['CAGR']:.1%} ({a['Sharpe']:.2f}) | {b['CAGR']:.1%} ({b['Sharpe']:.2f}) | {g['cost3']:.1%} |")
+    emit(f"\nFor comparison: SPY {stats(spy_r, rf_w, 52)['CAGR']:.1%}/yr (Sharpe {stats(spy_r, rf_w, 52)['Sharpe']:.2f}); "
+         f"equal-weight universe {stats(universe, rf_w, 52)['CAGR']:.1%} ({stats(universe, rf_w, 52)['Sharpe']:.2f}); "
+         f"2014-19 SPY {stats(spy_r.loc[:'2019'], rf_w, 52)['CAGR']:.1%}, 2020-26 SPY {stats(spy_r.loc['2020':], rf_w, 52)['CAGR']:.1%}")
 
     emit("\n## 2. The full desk, monthly: 50% quality screen (quarterly) + 20% flow rotation + 30% SPY momentum\n")
     scr = pd.read_csv(OUT / "screen_backtest_returns.csv", index_col=0, parse_dates=True)

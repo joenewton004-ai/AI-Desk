@@ -318,3 +318,12 @@ def test_bottleneck_repicks_weekly_and_exits_stay_out(tmp_path):
 def test_desk_preset():
     m = build(["desk"])
     assert [(p.name, w) for p, w in m.parts] == [("quality_screen", 0.5), ("bottleneck", 0.2), ("index_momentum", 0.3)]
+
+
+def test_bottleneck_exit_uses_the_scans_moving_average(tmp_path):
+    pd.DataFrame({"score": [3, 2, 1], "ma_days": 100}, index=pd.Index(["AAA", "BBB", "CCC"], name="symbol")) \
+        .to_csv(tmp_path / f"bottleneck_{pd.Timestamp.today().date()}.csv")
+    m = _bn(tmp_path)
+    m.symbols()
+    assert m._ma_days() == 100
+    assert _bn(tmp_path, exit_ma=50)._ma_days() == 50          # explicit override wins
