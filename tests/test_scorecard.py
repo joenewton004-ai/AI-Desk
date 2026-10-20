@@ -110,3 +110,19 @@ def test_snapshot_keeps_alpaca_position_details_for_fact_sheets():
     from ai_desk import dashboard
     row = dashboard.tables()["holdings"][0]
     assert row["symbol"] == "SPY" and row["unrealized_pl"] == 40 and row["pe"] is None
+
+
+def test_plan_rows_carry_return_and_day_move_from_holdings():
+    import json
+
+    from ai_desk import dashboard
+    tradebook.DIR.mkdir(parents=True, exist_ok=True)
+    (tradebook.DIR / "plan.json").write_text(json.dumps({"equity": 1000, "rows": [{
+        "symbol": "SPY", "sleeve": "index_momentum", "target": 0.3, "held_qty": 0, "side": "buy", "qty": 1,
+        "notional": 300, "reason": "", "blocked": "", "exit_reason": None, "target_by_sleeve": {},
+        "rationale": {"index_momentum": {"trailing_12m_return": 0.17, "signal": 1.0}}}]}))
+    tradebook._write("snapshots.jsonl", [{"date": "2026-10-20", "utc": "x", "equity": 1, "cash": 0, "holdings": {
+        "SPY": {"qty": 1, "price": 101, "sleeve": "index_momentum", "unrealized_pct": 0.01, "day_pct": 0.002}}}])
+    t = dashboard.tables()
+    assert t["positions"][0]["return"] == 0.01 and t["positions"][0]["day"] == 0.002
+    assert "trend on" in t["holdings"][0]["why"]
