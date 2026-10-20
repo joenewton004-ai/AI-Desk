@@ -138,9 +138,30 @@ write-up is in `research/FINDINGS.md`.
 
 ## 5. Paper trading (Alpaca)
 
-1. Create a free account at [alpaca.markets](https://alpaca.markets) and open **Paper Trading**.
-2. Generate API keys, copy `.env.example` to `.env`, and paste the keys in.
-3. After the US market close, run:
+### Connect the broker (one time)
+
+1. Create a free account at [alpaca.markets](https://alpaca.markets) and
+   switch to **Paper Trading**. You get a simulated account with $100k.
+2. On the paper dashboard, generate API keys. Paper key IDs start with
+   **PK**. The desk refuses live keys, which start with AK.
+3. Give the keys to the desk:
+   - **On your computer:** copy `.env.example` to `.env` and fill in
+     `APCA_API_KEY_ID` and `APCA_API_SECRET_KEY`. `.env` is git-ignored.
+   - **In a Claude Code cloud session:** add them as environment secrets with
+     those same names, and add `paper-api.alpaca.markets` to the allowed
+     network domains. Never paste keys into a chat.
+4. Check the connection:
+
+```bash
+python -m ai_desk broker status    # account, equity, buying power, market clock, positions
+```
+
+If it fails, the message says why: missing keys, live keys, rejected keys
+or network blocked.
+
+### Single-symbol strategies
+
+After the US market close, run:
 
 ```bash
 python -m ai_desk paper --strategy trend              # dry run: shows the order it WOULD place
@@ -196,6 +217,10 @@ Executor safety rules:
 - It refuses to trade on stale prices, while orders are still pending, or
   when the account is 20% below its peak.
 - Every planned order is logged to `logs/portfolio_journal.csv`.
+- **Fractional shares** are used for long positions where Alpaca allows
+  them, so a 2% slot in a $1,240 stock buys 1.61 shares, not 1. Shorts, and
+  stocks Alpaca marks as not fractionable, use whole shares.
+  `--whole-shares` turns this off.
 
 How the new methods did on real data: [`research/METHODS.md`](research/METHODS.md).
 

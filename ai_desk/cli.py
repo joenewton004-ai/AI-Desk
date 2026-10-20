@@ -396,7 +396,7 @@ def cmd_portfolio(a) -> None:
 
     limits = executor.Limits(max_position=a.max_position, max_gross=a.max_gross, max_order=a.max_order_pct,
                              allow_short=method.can_short and not a.no_short,
-                             max_fund_position=a.max_fund_position)
+                             max_fund_position=a.max_fund_position, fractional=not a.whole_shares)
     plan = executor.run(method, limits, execute=(a.action == "run" and a.execute), source=a.source)
     for note in plan.notes:
         print(f"  - {note}")
@@ -404,12 +404,40 @@ def cmd_portfolio(a) -> None:
         print("  no orders needed - the account already matches the targets")
     for o in plan.orders:
         flag = f"  BLOCKED: {o.blocked}" if o.blocked else ""
-        print(f"  {o.side:4} {o.qty:>6} {o.symbol:6} ~${o.notional:>11,.0f}   {o.reason}{flag}")
+        print(f"  {o.side:4} {o.qty:>10g} {o.symbol:6} ~${o.notional:>11,.0f}   {o.reason}{flag}")
     sent = a.action == "run" and a.execute
     print(f"\n{'SUBMITTED' if sent else 'DRY RUN - nothing sent'} ({len(plan.sendable)} orders). "
           f"Logged to {executor.JOURNAL}")
     if not sent:
         print("To send them to your Alpaca PAPER account: add  run --execute")
+
+
+def cmd_broker(a) -> None:
+    """Check the Alpaca PAPER connection and explain any failure in plain terms."""
+    import requests
+
+    from ai_desk.broker.alpaca import PAPER_URL, AlpacaPaper
+
+    try:
+        s = AlpacaPaper().status()
+    except RuntimeError as e:                        # missing or live keys
+        sys.exit(f"Not connected: {e}")
+    except requests.HTTPError as e:
+        code = e.response.status_code if e.response is not None else "?"
+        hint = ("the keys were rejected - check they are PAPER keys (start with 'PK') and were copied whole; "
+                "regenerating them in the Alpaca dashboard invalidates old ones" if code in (401, 403)
+                else "unexpected response from Alpaca")
+        sys.exit(f"Not connected (HTTP {code}): {hint}")
+    except requests.RequestException as e:
+        sys.exit(f"Not connected: can't reach {PAPER_URL.split('/v2')[0]} ({type(e).__name__}). If this is a cloud "
+                 "session, add paper-api.alpaca.markets to the environment's allowed network domains.")
+    print(f"\nConnected to Alpaca PAPER account {s['account']} (status: {s['status']})")
+    print(f"  equity ${s['equity']:,.2f}   cash ${s['cash']:,.2f}   buying power ${s['buying_power']:,.2f}")
+    print(f"  shorting enabled: {s['shorting_enabled']}   trading blocked: {s['trading_blocked']}")
+    print(f"  market open now: {s['market_open']}   next open: {s['next_open']}")
+    print(f"  positions: {len(s['positions'])}   open orders: {s['open_orders']}")
+    for sym, qty in sorted(s["positions"].items()):
+        print(f"    {sym:6} {qty:+g}")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -500,8 +528,13 @@ def build_parser() -> argparse.ArgumentParser:
     pf.add_argument("--max-gross", type=float, default=1.0, help="max sum of |weights| (1.0 = no leverage)")
     pf.add_argument("--max-order-pct", type=float, default=0.25, help="largest single order (fraction)")
     pf.add_argument("--no-short", action="store_true", help="never open short positions")
+    pf.add_argument("--whole-shares", action="store_true", help="don't use fractional shares")
     pf.add_argument("--execute", action="store_true", help="with `run`: actually submit to Alpaca PAPER")
     pf.set_defaults(func=cmd_portfolio)
+
+    bk = sub.add_parser("broker", help="check the Alpaca paper connection")
+    bk.add_argument("action", choices=["status"])
+    bk.set_defaults(func=cmd_broker)
 
     f = sub.add_parser("fetch", help="download daily prices to CSV files you can commit")
     f.add_argument("symbols", nargs="+", help="e.g. SPY QQQ TLT GLD ^VIX")

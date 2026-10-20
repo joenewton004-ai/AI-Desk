@@ -58,3 +58,7 @@ changes plainly and be honest about whether a strategy has a real edge.
   `tests/test_portfolio.py`. Order rules live in `executor.plan_orders`
   (pure, unit-tested) - keep network calls out of it.
 - The executor never trades without `run --execute`, and stays on Alpaca PAPER.
+- Alpaca: only paper keys (PK...) are accepted; `AlpacaPaper` refuses live
+  keys (AK...). Check connectivity with `python -m ai_desk broker status`.
+  Never ask the user to paste keys into chat - they go in .env or the cloud
+  environment's secrets.

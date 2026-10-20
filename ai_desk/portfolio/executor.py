@@ -33,6 +33,7 @@ class Limits:
     allow_short: bool = False
     max_fund_position: float = 0.60  # cap for INDEX_FUNDS (position and order size)
     funds: tuple = INDEX_FUNDS
+    fractional: bool = True          # fractional shares for longs where the broker allows them
 
     def position_cap(self, symbol: str) -> float:
         return self.max_fund_position if symbol in self.funds else self.max_position
@@ -45,7 +46,7 @@ class Limits:
 class Order:
     symbol: str
     side: str            # buy | sell
-    qty: int
+    qty: float           # may be fractional (longs only)
     price: float
     reason: str = ""
     blocked: str = ""    # non-empty = will NOT be sent, and why
@@ -86,34 +87,52 @@ def apply_limits(targets: pd.Series, limits: Limits) -> tuple[pd.Series, list[st
     return capped, notes
 
 
+FRACTION_DP = 4     # fractional orders: 4 decimal places (Alpaca accepts up to 9)
+
+
+def _round_toward_zero(x: float, dp: int) -> float:
+    f = 10 ** dp
+    return math.trunc(x * f) / f
+
+
 def plan_orders(targets: pd.Series, positions: dict[str, float], prices: pd.Series, equity: float,
-                limits: Limits | None = None, shortable: dict[str, bool] | None = None) -> Plan:
-    """Turn target weights into whole-share orders. No network calls."""
+                limits: Limits | None = None, shortable: dict[str, bool] | None = None,
+                fractionable: dict[str, bool] | None = None) -> Plan:
+    """Turn target weights into orders. No network calls.
+
+    With limits.fractional, long positions use fractional shares (so a $2,000
+    slot buys 1.61 shares of a $1,240 stock instead of 1). Shorts, and stocks
+    the broker marks as not fractionable, use whole shares. Quantities round
+    toward zero, so a target is never overshot.
+    """
     limits = limits or Limits()
     t, notes = apply_limits(targets, limits)
     plan = Plan(notes=notes, targets=t)
     symbols = sorted(set(t.index) | {s for s, q in positions.items() if q})
     for sym in symbols:
         price = float(prices.get(sym, float("nan")))
-        current = int(positions.get(sym, 0))
+        current = float(positions.get(sym, 0.0))
         weight = float(t.get(sym, 0.0))
         if not price or math.isnan(price) or price <= 0:
             if current or weight:
                 plan.notes.append(f"{sym}: no price - left untouched")
             continue
-        target_qty = int(weight * equity / price)       # rounds toward zero: never overshoots
-        diff = target_qty - current
+        can_fraction = limits.fractional and (fractionable is None or fractionable.get(sym, False))
+        raw = weight * equity / price
+        target_qty = _round_toward_zero(raw, FRACTION_DP) if can_fraction and raw > 0 else float(math.trunc(raw))
+        diff = round(target_qty - current, FRACTION_DP)
         if diff == 0:
             continue
         closing = target_qty == 0
         if not closing and abs(diff) * price < limits.min_trade * equity:
             continue
         # crossing from long to short (or back) is sent as two orders: close, then open
-        legs = [(-current, "close"), (target_qty, "open")] if current and target_qty and \
-            (current > 0) != (target_qty > 0) else [(diff, "close" if closing else "resize" if current else "open")]
+        flip = current and target_qty and (current > 0) != (target_qty > 0)
+        legs = [(-current, "close"), (target_qty, "open")] if flip else \
+            [(diff, "close" if closing else "resize" if current else "open")]
         for qty, why in legs:
-            order = Order(sym, "buy" if qty > 0 else "sell", abs(qty), price,
-                          reason=f"{why}: {current:+d} -> {target_qty:+d} shares (target {weight:+.1%})")
+            order = Order(sym, "buy" if qty > 0 else "sell", round(abs(qty), FRACTION_DP), price,
+                          reason=f"{why}: {current:+g} -> {target_qty:+g} shares (target {weight:+.1%})")
             opens_short = target_qty < 0 and why in ("open", "resize") and qty < 0
             if opens_short and shortable is not None and not shortable.get(sym, False):
                 order.blocked = "not shortable at the broker"
@@ -178,7 +197,9 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
     equity = float(broker.account()["equity"])
     positions = broker.positions()
     shortable = {s: bool(broker.asset(s).get("shortable")) for s in targets.index[targets < 0]}
-    plan = plan_orders(targets, positions, closes.iloc[-1], equity, limits, shortable)
+    fractionable = ({s: bool(broker.asset(s).get("fractionable")) for s in targets.index[targets > 0]}
+                    if limits.fractional else None)
+    plan = plan_orders(targets, positions, closes.iloc[-1], equity, limits, shortable, fractionable)
     plan.notes.insert(0, f"signals from the close of {closes.index[-1].date()}; equity ${equity:,.0f}")
 
     peak = max(equity, journal_peak())

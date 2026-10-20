@@ -150,3 +150,34 @@ def test_index_funds_get_their_own_cap():
     o = by_symbol(plan)
     assert o[("SPY", "buy")].qty == 100 and not o[("SPY", "buy")].blocked      # 50% allowed for SPY
     assert o[("AAA", "buy")].qty == 100                                         # stock capped at 10%
+
+
+def test_fractional_longs_whole_shorts_and_non_fractionable():
+    prices = pd.Series({"LLY": 1240.0, "AAA": 100.0, "BBB": 50.0})
+    plan = plan_orders(pd.Series({"LLY": 0.02, "AAA": -0.05, "BBB": 0.0333}), {}, prices, 100_000,
+                       Limits(allow_short=True), shortable={"AAA": True}, fractionable={"LLY": True, "BBB": False})
+    o = by_symbol(plan)
+    assert o[("LLY", "buy")].qty == pytest.approx(1.6129)           # $2,000 / $1,240, 4 dp, rounded down
+    assert o[("AAA", "sell")].qty == 50                             # short: whole shares
+    assert o[("BBB", "buy")].qty == 66                              # not fractionable: whole shares
+    whole = plan_orders(pd.Series({"LLY": 0.02}), {}, prices, 100_000, Limits(fractional=False))
+    assert whole.orders[0].qty == 1
+
+
+def test_fractional_position_closes_exactly():
+    plan = plan_orders(pd.Series(dtype=float), {"LLY": 1.6129}, pd.Series({"LLY": 1240.0}), 100_000)
+    assert plan.orders[0].side == "sell" and plan.orders[0].qty == pytest.approx(1.6129)
+
+
+def test_qty_formatting_for_the_api():
+    from ai_desk.broker.alpaca import format_qty
+
+    assert format_qty(12) == "12" and format_qty(1.6129) == "1.6129" and format_qty(0.0001) == "0.0001"
+
+
+def test_live_keys_refused(monkeypatch):
+    from ai_desk.broker.alpaca import AlpacaPaper
+
+    with pytest.raises(RuntimeError, match="LIVE"):
+        AlpacaPaper(key_id="AKXXXX", secret="s")
+    assert AlpacaPaper(key_id="PKXXXX", secret="s").key_id == "PKXXXX"
