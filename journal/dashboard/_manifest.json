@@ -2,6 +2,8 @@
  "with_rows": [
   "amendments",
   "curve",
+  "explainer_backtest",
+  "explainer_text",
   "fills",
   "holdings",
   "methods",
