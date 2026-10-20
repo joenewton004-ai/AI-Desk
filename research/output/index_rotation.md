@@ -77,3 +77,71 @@ Top 1 changed holding 76 times in 269 months.
 | Desk with rotation, us only (4), top 2 | 16.3% | 17.1% | 0.86 | -23.7% |
 
 Monthly correlation with the quality screen: Live sleeve: SPY + 12- 0.71, Rotation, all 6, top 1 0.71, Rotation, all 6, top 2 0.74, Rotation, US only (4), 0.77
+
+## 8. Avoid the worst: hold all but the weakest, tilt toward the leaders
+
+Same absolute rule: an index with negative momentum is never held. 'Rank-weighted': with 4 slots the leader gets 40%, then 30%, 20%, 10%. '3/6/12m' ranks on the average of 3-, 6- and 12-month returns.
+
+| | cagr | volatility | sharpe | max_drawdown | trades |
+|---|---|---|---|---|---|
+| Live sleeve: SPY + 12-month switch | 9.4% | 14.4% | 0.58 | -33.7% | 17 |
+| Rotation, all 6, top 2 | 11.6% | 18.0% | 0.60 | -30.9% | 204 |
+| SPY buy & hold | 11.0% | 18.7% | 0.56 | -55.2% | 1 |
+| Drop worst 1 (hold 5), equal | 9.1% | 14.9% | 0.54 | -34.9% | 187 |
+| Drop worst 2 (hold 4), equal | 9.6% | 15.8% | 0.55 | -34.3% | 210 |
+| Drop worst 3 (hold 3), equal | 11.0% | 16.8% | 0.60 | -32.7% | 225 |
+| Drop worst 2, rank-weighted | 10.7% | 16.8% | 0.58 | -31.9% | 532 |
+| Drop worst 1, rank-weighted | 10.2% | 16.1% | 0.57 | -32.2% | 610 |
+| Top 2, rank-weighted | 11.8% | 18.7% | 0.59 | -29.9% | 286 |
+| Drop worst 2, equal, 3/6/12m | 8.9% | 15.6% | 0.51 | -35.6% | 288 |
+| Drop worst 2, rank-weighted, 3/6/12m | 9.8% | 16.6% | 0.54 | -32.7% | 610 |
+| Top 2, equal, 3/6/12m | 9.9% | 17.7% | 0.52 | -31.7% | 242 |
+
+### By era: return/yr (Sharpe), worst drop
+
+| | 2004-2012 | 2013-2019 | 2020-2026 |
+|---|---|---|---|
+| Live sleeve: SPY + 12-month switch | 5.7% (0.35), -25% | 12.0% (0.94), -19% | 11.1% (0.52), -34% |
+| Rotation, all 6, top 2 | 13.2% (0.65), -24% | 8.9% (0.62), -22% | 11.6% (0.51), -31% |
+| SPY buy & hold | 4.9% (0.25), -55% | 14.2% (1.04), -19% | 15.1% (0.66), -34% |
+| Drop worst 1 (hold 5), equal | 8.7% (0.50), -22% | 8.8% (0.72), -19% | 9.3% (0.44), -33% |
+| Drop worst 2 (hold 4), equal | 10.1% (0.56), -22% | 8.6% (0.66), -21% | 9.4% (0.43), -33% |
+| Drop worst 3 (hold 3), equal | 11.2% (0.59), -22% | 9.7% (0.71), -20% | 11.5% (0.52), -33% |
+| Drop worst 2, rank-weighted | 11.4% (0.60), -21% | 9.1% (0.66), -21% | 10.9% (0.49), -32% |
+| Drop worst 1, rank-weighted | 10.5% (0.57), -20% | 9.0% (0.68), -20% | 10.4% (0.48), -32% |
+| Top 2, rank-weighted | 13.2% (0.63), -24% | 9.0% (0.61), -22% | 12.2% (0.52), -30% |
+| Drop worst 2, equal, 3/6/12m | 9.8% (0.56), -18% | 7.2% (0.57), -21% | 8.9% (0.41), -33% |
+| Drop worst 2, rank-weighted, 3/6/12m | 11.2% (0.60), -21% | 7.0% (0.52), -21% | 10.4% (0.48), -32% |
+| Top 2, equal, 3/6/12m | 12.3% (0.61), -24% | 5.3% (0.39), -21% | 11.4% (0.51), -31% |
+
+### Robustness of the 'drop worst 2' family
+
+| | cagr | volatility | sharpe | max_drawdown | trades |
+|---|---|---|---|---|---|
+| Drop worst 2, equal - 6m returns | 8.1% | 14.9% | 0.48 | -32.5% | 328 |
+| Drop worst 2, equal - 9m returns | 7.9% | 15.4% | 0.46 | -34.5% | 276 |
+| Drop worst 2, equal - without QQQ (hold 3 of 5) | 7.8% | 15.8% | 0.45 | -40.8% | 197 |
+| Drop worst 2, rank - 6m returns | 8.6% | 16.0% | 0.49 | -31.4% | 670 |
+| Drop worst 2, rank - 9m returns | 8.3% | 16.4% | 0.46 | -33.5% | 601 |
+| Drop worst 2, rank - without QQQ | 8.4% | 16.7% | 0.46 | -39.5% | 391 |
+| Drop worst 2, rank-weighted - 3x costs | 10.5% | 16.8% | 0.57 | -31.9% | 532 |
+
+### Walk-forward across these 9 variants and the live sleeve
+
+| | cagr | volatility | sharpe | max_drawdown |
+|---|---|---|---|---|
+| Walk-forward pick (out of sample) | 8.0% | 17.8% | 0.44 | -32.7% |
+| Live sleeve, same years | 10.2% | 15.5% | 0.61 | -33.7% |
+
+Chosen: 2010: Top 2, equal, 3/6/12m; 2011: Top 2, equal, 3/6/12m; 2012: Top 2, rank-weighted; 2013: Top 2, rank-weighted; 2014: Drop worst 3 (hold 3), equal; 2015: Top 2, rank-weighted; 2016: Top 2, rank-weighted; 2017: Drop worst 3 (hold 3), equal; 2018: Drop worst 3 (hold 3), equal; 2019: Drop worst 3 (hold 3), equal; 2020: Drop worst 3 (hold 3), equal; 2021: Top 2, rank-weighted; 2022: Top 2, rank-weighted; 2023: Top 2, rank-weighted; 2024: Top 2, rank-weighted; 2025: Top 2, rank-weighted; 2026: Top 2, rank-weighted
+
+### In the desk (monthly, 2014-04 to 2026-09)
+
+| | cagr | volatility | sharpe | max_drawdown |
+|---|---|---|---|---|
+| Desk with live sleeve | 16.3% | 16.5% | 0.89 | -23.0% |
+| Desk with drop worst 2 (hold 4), equal | 15.6% | 16.8% | 0.84 | -23.1% |
+| Desk with drop worst 2, rank-weighted | 16.0% | 16.9% | 0.85 | -23.2% |
+| Desk with drop worst 2, rank-weighted, 3/6/12m | 15.5% | 16.8% | 0.84 | -23.3% |
+
+Monthly correlation with the quality screen: Live sleeve: SPY + 12- 0.71, Drop worst 2 (hold 4), 0.76, Drop worst 2, rank-wei 0.73

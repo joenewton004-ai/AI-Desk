@@ -49,7 +49,8 @@ EVIDENCE = {
     "index_rotation": {
         "summary": "2004-2026, 6 indices (SPY QQQ IWM DIA EFA EEM): top 2 11.6%/yr, Sharpe 0.60 vs the SPY sleeve "
                    "9.4%, 0.58 - more risk, same Sharpe; gains all from 2004-12, relies on QQQ, fragile to "
-                   "lookback; walk-forward 8.3% (0.45) vs 10.2% (0.61). No improvement inside the desk.",
+                   "lookback; walk-forward 8.3% (0.45) vs 10.2% (0.61). 'Avoid the worst' (drop_worst, rank weights): "
+                   "Sharpe 0.54-0.58, walk-forward 8.0% (0.44). No improvement inside the desk.",
         "docs": ["research/INDEX_ROTATION.md", "research/output/index_rotation.md"],
         "status": "tested, no edge over SPY sleeve",
     },

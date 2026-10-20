@@ -63,6 +63,45 @@ It also trades far more: 140-200 trades against 17 over 22 years, with
 the top-1 version switching holdings 76 times. Costs at 3x barely change the
 results, so costs aren't the problem. The signal is.
 
+## Follow-up: "hold the best, avoid the worst"
+
+The second idea: instead of holding only the top 1 or 2, hold everything
+*except* the weakest indices, optionally giving the leader the biggest slice.
+With 4 slots, rank-weighting splits it 40/30/20/10. The negative-momentum switch
+still applies. Code: `--param drop_worst=2 --param weighting=rank` (and
+`lookbacks=63,126,252` to rank on an average of 3-, 6- and 12-month returns).
+Tables are in §8 of `output/index_rotation.md`.
+
+| | Return/yr | Volatility | Sharpe | Worst drop |
+|---|---|---|---|---|
+| **Live sleeve: SPY + 12-month switch** | 9.4% | 14% | 0.58 | −34% |
+| Drop worst 1 (hold 5), equal | 9.1% | 15% | 0.54 | −35% |
+| Drop worst 2 (hold 4), equal | 9.6% | 16% | 0.55 | −34% |
+| Drop worst 2, rank-weighted | 10.7% | 17% | 0.58 | −32% |
+| Top 2, rank-weighted | 11.8% | 19% | 0.59 | −30% |
+| Drop worst 2, rank-weighted, 3/6/12m | 9.8% | 17% | 0.54 | −33% |
+
+- **Avoiding the worst didn't help.** The more indices it kept, the closer it
+  got to an equal mix of all six, and the further its Sharpe fell (0.54-0.55).
+  Over 2004-2026, small caps, international and emerging markets mostly
+  trailed the S&P 500. Spreading money across them diluted SPY rather than
+  protecting it.
+- **Rank-weighting helps a little** (Sharpe 0.58), but it only matches the live sleeve.
+  It also trades about 30 times as often (530 trades against 17), because the weights
+  shift every month.
+- **The faster 3/6/12-month ranking was worse** in every version.
+- **Same fragility as before.** With 6- or 9-month returns, or without QQQ,
+  every version falls to a Sharpe of 0.45-0.49.
+- **Walk-forward fails again.** Choosing among these nine variants (and the live sleeve) each
+  January using only past data gave 8.0%/yr (Sharpe 0.44), against the live sleeve's
+  10.2% (0.61).
+- **In the desk:** Sharpe 0.84-0.85 against 0.89 with the live sleeve.
+
+The underlying reason is that these six indices are all stocks, and they move
+together. In a crash they all fall at once, so the trend switch, which moves to
+cash, does the protecting. Picking *which* stock index to hold adds risk
+but not a reliable reward.
+
 ## Verdict
 
 **Keep the SPY sleeve.** Rotation is not a better crash-insurance sleeve.

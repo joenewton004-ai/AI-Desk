@@ -152,12 +152,88 @@ def main() -> None:
     except FileNotFoundError as e:
         emit(f"(skipped: {e} - run research/screen_backtest.py and research/bottleneck_backtest.py first)")
 
+    avoid_worst(run, res, cash)
+
     OUT.mkdir(exist_ok=True)
     (OUT / "index_rotation.md").write_text("\n".join(lines) + "\n")
     print(f"\nwrote {OUT / 'index_rotation.md'}")
 
 
-def desk_table(res, cash) -> str:
+def avoid_worst(run, res, cash) -> None:
+    """Variants that hold the leaders and avoid the laggards, rather than only the top 1-2."""
+    emit("\n## 8. Avoid the worst: hold all but the weakest, tilt toward the leaders\n")
+    emit("Same absolute rule: an index with negative momentum is never held. 'Rank-weighted': with 4 slots "
+         "the leader gets 40%, then 30%, 20%, 10%. '3/6/12m' ranks on the average of 3-, 6- and 12-month returns.\n")
+    blend = "63,126,252"
+    v = {
+        "Drop worst 1 (hold 5), equal": IndexRotation(symbols_=ALL6, drop_worst=1),
+        "Drop worst 2 (hold 4), equal": IndexRotation(symbols_=ALL6, drop_worst=2),
+        "Drop worst 3 (hold 3), equal": IndexRotation(symbols_=ALL6, drop_worst=3),
+        "Drop worst 2, rank-weighted": IndexRotation(symbols_=ALL6, drop_worst=2, weighting="rank"),
+        "Drop worst 1, rank-weighted": IndexRotation(symbols_=ALL6, drop_worst=1, weighting="rank"),
+        "Top 2, rank-weighted": IndexRotation(symbols_=ALL6, top=2, weighting="rank"),
+        "Drop worst 2, equal, 3/6/12m": IndexRotation(symbols_=ALL6, drop_worst=2, lookbacks=blend),
+        "Drop worst 2, rank-weighted, 3/6/12m": IndexRotation(symbols_=ALL6, drop_worst=2, weighting="rank",
+                                                              lookbacks=blend),
+        "Top 2, equal, 3/6/12m": IndexRotation(symbols_=ALL6, top=2, lookbacks=blend),
+    }
+    new = {k: run(m) for k, m in v.items()}
+    base = {k: res[k] for k in ("Live sleeve: SPY + 12-month switch", "Rotation, all 6, top 2", "SPY buy & hold")}
+    emit(table({k: r.metrics for k, r in {**base, **new}.items()}))
+
+    emit("\n### By era: return/yr (Sharpe), worst drop\n")
+    emit("| | " + " | ".join(f"{a[:4]}-{b[:4]}" for a, b in PERIODS) + " |\n|---|" + "---|" * len(PERIODS))
+    for k, r in {**base, **new}.items():
+        cells = []
+        for a, b in PERIODS:
+            m = period_stats(r.equity, cash, a, b)
+            cells.append(f"{m['cagr']:.1%} ({m['sharpe']:.2f}), {m['max_drawdown']:.0%}")
+        emit(f"| {k} | " + " | ".join(cells) + " |")
+
+    emit("\n### Robustness of the 'drop worst 2' family\n")
+    rob = {}
+    for label, kw in (("Drop worst 2, equal - 6m returns", {"lookback": 126}),
+                      ("Drop worst 2, equal - 9m returns", {"lookback": 189}),
+                      ("Drop worst 2, equal - without QQQ (hold 3 of 5)", {"symbols_": [s for s in ALL6 if s != "QQQ"]}),
+                      ("Drop worst 2, rank - 6m returns", {"lookback": 126, "weighting": "rank"}),
+                      ("Drop worst 2, rank - 9m returns", {"lookback": 189, "weighting": "rank"}),
+                      ("Drop worst 2, rank - without QQQ", {"symbols_": [s for s in ALL6 if s != "QQQ"],
+                                                            "weighting": "rank"})):
+        kw = {"symbols_": ALL6, "drop_worst": 2, **kw}
+        rob[label] = run(IndexRotation(**kw)).metrics
+    hi = CostModel(commission_bps=3, slippage_bps=6)
+    rob["Drop worst 2, rank-weighted - 3x costs"] = run(v["Drop worst 2, rank-weighted"], hi).metrics
+    emit(table(rob))
+
+    emit("\n### Walk-forward across these 9 variants and the live sleeve\n")
+    pool = {**{k: r for k, r in new.items()}, "Live sleeve": res["Live sleeve: SPY + 12-month switch"]}
+    daily = pd.DataFrame({k: r.equity.pct_change() for k, r in pool.items()})
+    rf_d = daily_rf(cash, daily.index)
+    stitched, chosen = [], []
+    for year in range(2010, int(END[:4]) + 1):
+        past = daily.loc[:f"{year - 1}-12-31"].dropna()
+        ex = past.sub(rf_d.reindex(past.index), axis=0)
+        best = (ex.mean() / ex.std()).idxmax()
+        chosen.append(f"{year}: {best}")
+        stitched.append(daily.loc[f"{year}-01-01":f"{year}-12-31", best])
+    oos = (1 + pd.concat(stitched).fillna(0)).cumprod()
+    live = res["Live sleeve: SPY + 12-month switch"].equity.loc[oos.index[0]:]
+    emit(table({"Walk-forward pick (out of sample)": summarize(oos, rf_daily=daily_rf(cash, oos.index)),
+                "Live sleeve, same years": summarize(live / live.iloc[0], rf_daily=daily_rf(cash, live.index))},
+               ("cagr", "volatility", "sharpe", "max_drawdown")))
+    emit("\nChosen: " + "; ".join(chosen))
+
+    emit("\n### In the desk (monthly, 2014-04 to 2026-09)\n")
+    try:
+        pick = {k: new[k] for k in ("Drop worst 2 (hold 4), equal", "Drop worst 2, rank-weighted",
+                                    "Drop worst 2, rank-weighted, 3/6/12m")}
+        emit(desk_table({"Live sleeve: SPY + 12-month switch": res["Live sleeve: SPY + 12-month switch"], **pick},
+                        cash, keys=["Live sleeve: SPY + 12-month switch", *pick]))
+    except FileNotFoundError as e:
+        emit(f"(skipped: {e})")
+
+
+def desk_table(res, cash, keys=None) -> str:
     """Swap the 30% sleeve inside the desk, using the sleeve backtests already on disk."""
     import pickle
 
@@ -180,8 +256,8 @@ def desk_table(res, cash) -> str:
     flow_m = (1 + flow).resample("ME").prod() - 1
     idx = screen.index.intersection(flow_m.index)
     monthly = {k: r.equity.resample("ME").last().pct_change().reindex(idx)
-               for k, r in res.items() if k in ("Live sleeve: SPY + 12-month switch", "Rotation, all 6, top 1",
-                                               "Rotation, all 6, top 2", "Rotation, US only (4), top 2")}
+               for k, r in res.items() if k in (keys or ("Live sleeve: SPY + 12-month switch", "Rotation, all 6, top 1",
+                                                       "Rotation, all 6, top 2", "Rotation, US only (4), top 2"))}
     rf_m = (cash.resample("ME").last() / 12).shift(1).reindex(idx).fillna(0)
     rows = {}
     for k, sleeve in monthly.items():
