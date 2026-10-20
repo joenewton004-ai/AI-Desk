@@ -419,19 +419,27 @@ def cmd_broker(a) -> None:
     from ai_desk.broker.alpaca import PAPER_URL, AlpacaPaper
 
     try:
-        s = AlpacaPaper().status()
-    except RuntimeError as e:                        # missing or live keys
+        client = AlpacaPaper()
+        s = client.status()
+    except RuntimeError as e:                        # live keys
         sys.exit(f"Not connected: {e}")
     except requests.HTTPError as e:
         code = e.response.status_code if e.response is not None else "?"
-        hint = ("the keys were rejected - check they are PAPER keys (start with 'PK') and were copied whole; "
-                "regenerating them in the Alpaca dashboard invalidates old ones" if code in (401, 403)
-                else "unexpected response from Alpaca")
+        if code in (401, 403) and client.injected:
+            hint = ("no keys reached Alpaca. Locally: set APCA_API_KEY_ID and APCA_API_SECRET_KEY in .env. "
+                    "In a cloud session: add a network secret for paper-api.alpaca.markets with headers "
+                    "APCA-API-KEY-ID and APCA-API-SECRET-KEY (no prefix), then start a new session")
+        elif code in (401, 403):
+            hint = ("the keys were rejected - check they are PAPER keys (start with 'PK') and were copied "
+                    "whole; regenerating them in the Alpaca dashboard invalidates old ones")
+        else:
+            hint = "unexpected response from Alpaca"
         sys.exit(f"Not connected (HTTP {code}): {hint}")
     except requests.RequestException as e:
         sys.exit(f"Not connected: can't reach {PAPER_URL.split('/v2')[0]} ({type(e).__name__}). If this is a cloud "
                  "session, add paper-api.alpaca.markets to the environment's allowed network domains.")
-    print(f"\nConnected to Alpaca PAPER account {s['account']} (status: {s['status']})")
+    via = "keys added by the environment's network secret" if client.injected else "keys from .env / environment"
+    print(f"\nConnected to Alpaca PAPER account {s['account']} (status: {s['status']}; {via})")
     print(f"  equity ${s['equity']:,.2f}   cash ${s['cash']:,.2f}   buying power ${s['buying_power']:,.2f}")
     print(f"  shorting enabled: {s['shorting_enabled']}   trading blocked: {s['trading_blocked']}")
     print(f"  market open now: {s['market_open']}   next open: {s['next_open']}")

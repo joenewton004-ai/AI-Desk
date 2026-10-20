@@ -181,3 +181,8 @@ def test_live_keys_refused(monkeypatch):
     with pytest.raises(RuntimeError, match="LIVE"):
         AlpacaPaper(key_id="AKXXXX", secret="s")
     assert AlpacaPaper(key_id="PKXXXX", secret="s").key_id == "PKXXXX"
+    monkeypatch.delenv("APCA_API_KEY_ID", raising=False)
+    monkeypatch.delenv("APCA_API_SECRET_KEY", raising=False)
+    monkeypatch.setattr("ai_desk.broker.alpaca.load_dotenv", lambda *a, **k: None)
+    injected = AlpacaPaper()                      # cloud: keys added by the network secret
+    assert injected.injected and "APCA-API-KEY-ID" not in injected.session.headers

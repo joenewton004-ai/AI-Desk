@@ -147,9 +147,12 @@ write-up is in `research/FINDINGS.md`.
 3. Give the keys to the desk:
    - **On your computer:** copy `.env.example` to `.env` and fill in
      `APCA_API_KEY_ID` and `APCA_API_SECRET_KEY`. `.env` is git-ignored.
-   - **In a Claude Code cloud session:** add them as environment secrets with
-     those same names, and add `paper-api.alpaca.markets` to the allowed
-     network domains. Never paste keys into a chat.
+   - **In a Claude Code cloud session:** add a **network secret** for host
+     `paper-api.alpaca.markets` with two custom headers and no prefix:
+     `APCA-API-KEY-ID` = your key ID and `APCA-API-SECRET-KEY` = your
+     secret (note the hyphens). The keys are then added on the way out and
+     never enter the session. Start a new session afterwards. Never paste
+     keys into a chat.
 4. Check the connection:
 
 ```bash

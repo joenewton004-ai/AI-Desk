@@ -37,17 +37,20 @@ class AlpacaPaper:
         load_dotenv()
         self.key_id = key_id or os.environ.get("APCA_API_KEY_ID")
         self.secret = secret or os.environ.get("APCA_API_SECRET_KEY")
-        if not self.key_id or not self.secret:
-            raise RuntimeError("Alpaca keys not found. Set APCA_API_KEY_ID and APCA_API_SECRET_KEY "
-                               "(in .env locally, or as environment secrets in a cloud session).")
-        if self.key_id.startswith("AK"):
+        # Without keys here, assume a cloud session's network secret adds the
+        # APCA-API-KEY-ID / APCA-API-SECRET-KEY headers on the way out (the keys
+        # never enter the session). If nothing adds them, Alpaca answers 401/403
+        # and `broker status` explains what to set up.
+        self.injected = not (self.key_id and self.secret)
+        if self.key_id and self.key_id.startswith("AK"):
             # Alpaca live-trading key IDs start with AK, paper ones with PK
             raise RuntimeError("These look like LIVE trading keys (they start with 'AK'). This desk only "
                                "trades paper - generate keys from the Paper Trading dashboard (they start with 'PK').")
         self.timeout = timeout
         self.session = requests.Session()
-        self.session.headers.update({"APCA-API-KEY-ID": self.key_id,
-                                     "APCA-API-SECRET-KEY": self.secret})
+        if not self.injected:
+            self.session.headers.update({"APCA-API-KEY-ID": self.key_id,
+                                         "APCA-API-SECRET-KEY": self.secret})
 
     def _request(self, method: str, path: str, **kwargs):
         r = self.session.request(method, f"{PAPER_URL}{path}", timeout=self.timeout, **kwargs)
