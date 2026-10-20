@@ -239,6 +239,18 @@ Notes on the method:
   performed in the past. That needs point-in-time data from SEC EDGAR, which
   is the next step.
 
+### Has the screen worked historically?
+
+```bash
+python research/screen_backtest.py       # first run ~30-40 minutes; cached afterwards
+```
+
+This rebuilds the screen at each past rebalance date, using only SEC filings
+that had been filed by then, and compares the result with SPY and with an
+equal-weighted portfolio of the same universe. Results are in
+`research/output/screen_backtest.md`. The overall strategy write-up, with
+what's proven and what isn't, is [`research/THESIS.md`](research/THESIS.md).
+
 ### Research notes on the shortlist
 
 `ai_desk/fundamentals/edgar.py` pulls 10+ years of reported financials from
