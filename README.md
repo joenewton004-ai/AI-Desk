@@ -162,6 +162,43 @@ weekdays. On Windows use Task Scheduler. On macOS or Linux use cron.
 (Power Automate Desktop can also run it.) Check the journal weekly and
 compare it to the backtest.
 
+## 5b. Multi-stock portfolios and the methodology switcher
+
+A **method** turns market data into target weights for many symbols. The
+**executor** compares those targets with your Alpaca paper account and
+works out the orders.
+
+| method | what it does |
+|---|---|
+| `index_momentum` | SPY while its 12-month return is positive, otherwise cash |
+| `sma_crossover` | each symbol held while its 50-day average is above its 200-day (`--param symbols=SPY,QQQ`) |
+| `pairs` | duopoly pairs trading: when two rivals' price gap is stretched, short the leader and buy the laggard (`--param mode=long_only` to avoid shorting) |
+| `quality_screen` | the latest stock screen's top 25, equal weight |
+| `thesis` | preset: 50% `quality_screen` + 50% `index_momentum` (see research/THESIS.md) |
+
+Blend methods with `name:share`, and set parameters with `--param`. Prefix a
+parameter with the method name to target one method in a blend.
+
+```bash
+python -m ai_desk portfolio backtest --method pairs --param pairs.entry_z=2.5 --split 2019-01-01
+python -m ai_desk portfolio backtest --method sma_crossover:0.5 --method index_momentum:0.5
+python -m ai_desk portfolio plan --method thesis              # dry run: shows the orders it would place
+python -m ai_desk portfolio run  --method thesis --execute    # sends them to Alpaca PAPER
+```
+
+Executor safety rules:
+- At most 10% of equity in any position (`--max-position`), no leverage
+  (`--max-gross 1.0`), and no single order above 25% of equity.
+- Resizes under 0.5% of equity are skipped. Closing a position always trades.
+- Shorts are only allowed if the method needs them, and only for shares the
+  broker says are shortable. Flipping from long to short is sent as two
+  orders.
+- It refuses to trade on stale prices, while orders are still pending, or
+  when the account is 20% below its peak.
+- Every planned order is logged to `logs/portfolio_journal.csv`.
+
+How the new methods did on real data: [`research/METHODS.md`](research/METHODS.md).
+
 ## 6. Stock screener: great businesses at reasonable prices
 
 ```bash
@@ -321,7 +358,8 @@ research/
   live.py            daily paper-trading run + journal
   broker/alpaca.py   Alpaca paper REST client
   options/           Black-Scholes, Greeks, implied vol, strategy payoffs
-  fundamentals/      stock screener: universe, Yahoo statements, metrics, scoring
+  fundamentals/      stock screener: universe, Yahoo statements, metrics, scoring, SEC data
+  portfolio/         multi-stock methods (switcher), multi-asset backtest, order executor
   cli.py             the `python -m ai_desk ...` commands
 tests/               pytest suite
 ```
