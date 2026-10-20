@@ -199,6 +199,24 @@ def sleeve_guide() -> list[dict]:
     return rows
 
 
+# Methods researched as rules but never built as tradeable code (no class in METHODS).
+RESEARCH_METHODS = {
+    "asymmetric_bets": {
+        "description": "Michael Sikand's 'asymmetric bets' style (Autopilot pilot), as testable rules: a stock in a hot "
+                       "industry, fast revenue growth, cheaper than its industry peers on price-to-sales, 30-75% off "
+                       "its 12-month high; hold the top 5 at 20% each, re-picked monthly.",
+        "parameters": {"theme": "industry in top quarter by 6-month momentum", "growth": "revenue growth top third, >15%",
+                       "discount": "P/S below industry median", "off_high": "30-75% below 12-month high",
+                       "holdings": 5, "rebalance": "monthly"},
+        "status": "tested, no edge (not in the live mix)",
+        "summary": "2014-2026 on the 750 largest US companies: 0.4%/yr, Sharpe 0.00 vs the average stock 11.1% (0.59) "
+                   "and SPY 13.6% (0.81); every variant lost to the average stock. Buying 30-75% off the high cost "
+                   "0.61%/month (52-week-high effect); only the industry-momentum rule helped. Survivors-only prices.",
+        "docs": ["research/ASYMMETRIC.md", "research/output/asymmetric.md"],
+    },
+}
+
+
 def _params(cls) -> dict:
     out = {}
     for f in dataclasses.fields(cls):
@@ -254,6 +272,10 @@ def register(write: bool = True) -> dict:
             "docs": EVIDENCE.get(name, {}).get("docs", []),
             "amendments": [a for a in amendments() if a["method"] == name],
         })
+    for name, m in RESEARCH_METHODS.items():
+        methods.append({"name": name, "in_live_mix": False, "allocation": 0.0, "description": m["description"],
+                        "parameters": m["parameters"], "status": m["status"], "evidence_summary": m["summary"],
+                        "docs": m["docs"], "amendments": [a for a in amendments() if a["method"] == name]})
     out = {"generated_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
            "live_preset": LIVE_PRESET, "live_allocation": live, "presets": PRESETS, "methods": methods}
     if write:
