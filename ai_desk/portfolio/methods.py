@@ -68,6 +68,19 @@ class Method(ABC):
     def on_executed(self) -> None:
         """Called after orders are actually sent (e.g. to save new holdings)."""
 
+    # --- for the trade journal ---
+    def sleeves(self, closes: pd.DataFrame) -> dict[str, pd.Series]:
+        """Target weights split by sleeve, so each trade can be attributed."""
+        return {self.name: self.latest(closes)}
+
+    def rationale(self, symbol: str) -> dict:
+        """The numbers behind wanting `symbol`, at decision time."""
+        return {}
+
+    def exit_reason(self, symbol: str) -> str | None:
+        """Why this method no longer wants `symbol` (None if it does, or never did)."""
+        return None
+
     def describe(self) -> str:
         args = ", ".join(f"{k}={v}" for k, v in asdict(self).items())
         return f"{self.name}({args})"
@@ -94,7 +107,19 @@ class IndexMomentum(Method):
     def weights(self, closes):
         px = pd.DataFrame({"close": closes[self.symbol]})
         w = TimeSeriesMomentum(lookback=self.lookback).target_exposure(px)
+        s = closes[self.symbol].dropna()
+        self._last = {"trailing_12m_return": round(float(s.iloc[-1] / s.iloc[-1 - self.lookback] - 1), 4)
+                      if len(s) > self.lookback else None, "signal": float(w.iloc[-1])}
         return w.to_frame(self.symbol)
+
+    def rationale(self, symbol):
+        return dict(getattr(self, "_last", {})) if symbol == self.symbol else {}
+
+    def exit_reason(self, symbol):
+        last = getattr(self, "_last", {})
+        if symbol == self.symbol and last.get("signal") == 0:
+            return f"momentum switch off: {self.symbol} 12-month return {last.get('trailing_12m_return'):+.1%}"
+        return None
 
 
 @dataclass
@@ -309,6 +334,37 @@ class LockedScreen(Method):
                          "out until the next re-pick")
         return notes
 
+    RATIONALE_COLS = ("score", "quality_score", "growth_score", "value_score", "strength_score", "momentum_score",
+                      "flow_score", "bottleneck_score", "asymmetry_score", "smart_money_score", "industry", "segment",
+                      "source", "roic_avg", "rev_cagr", "rev_growth", "gm_change", "backlog_growth", "rs_6m",
+                      "forward_pe", "fcf_yield", "insider_buyers", "strengths", "weaknesses")
+
+    def rationale(self, symbol):
+        self._picks()
+        src = self._cache.get("src") or (self._lock() or {}).get("screen_file")
+        path = Path(self.screen_glob).parent / src if src else None
+        if not path or not path.exists():
+            return {}
+        df = pd.read_csv(path, index_col=0)
+        if symbol not in df.index:
+            return {}
+        row = df.loc[symbol]
+        out = {"rank": int(df.index.get_loc(symbol)) + 1, "source_file": src}
+        for c in self.RATIONALE_COLS:
+            if c in row and pd.notna(row[c]):
+                v = row[c]
+                out[c] = round(float(v), 4) if isinstance(v, (int, float, np.floating, np.integer)) else str(v)
+        return out
+
+    def exit_reason(self, symbol):
+        self._picks()
+        if symbol in self._cache.get("exits", set()):
+            return f"exit rule: closed below its {getattr(self, '_ma_days', lambda: 0)()}-day average"
+        lock = self._lock()
+        if self._cache["due"] and lock and symbol in lock["picks"] and symbol not in self._cache["picks"]:
+            return f"dropped out of the top {self.top} at the scheduled re-pick"
+        return None
+
     def on_executed(self):
         if self._cache and not self._cache["due"] and self._cache.get("exits"):
             lock = self._lock()
@@ -444,6 +500,16 @@ class Blend(Method):
     def on_executed(self):
         for m, _ in self.parts:
             m.on_executed()
+
+    def sleeves(self, closes):
+        return {m.name: m.latest(closes) * share for m, share in self.parts}
+
+    def rationale(self, symbol):
+        return {m.name: r for m, _ in self.parts if (r := m.rationale(symbol))}
+
+    def exit_reason(self, symbol):
+        reasons = [r for m, _ in self.parts if (r := m.exit_reason(symbol))]
+        return "; ".join(reasons) or None
 
 
 def _make(name: str, params: dict) -> Method:

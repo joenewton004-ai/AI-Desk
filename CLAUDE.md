@@ -74,3 +74,10 @@ changes plainly and be honest about whether a strategy has a real edge.
 - The bottleneck sleeve re-picks every 2 weeks and exits below its 100-day average
   (the scan's --ma, stored with the picks);
   an exited stock stays out until the next re-pick (recorded in its lock).
+- Trade journal (`ai_desk/tradebook.py`, files in journal/, COMMITTED to git):
+  every executed order is recorded with sleeve, rationale and exit reason;
+  `python -m ai_desk journal sync|review|note|methods|propose|decide|amendments`.
+  Commit journal/ after each trading session - containers are temporary.
+- Methodology changes go through register.py amendments: proposed -> testing
+  (backtest it) -> accepted/rejected by the user. Never change live method
+  parameters without an accepted amendment.

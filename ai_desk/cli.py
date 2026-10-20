@@ -464,6 +464,49 @@ def cmd_bottleneck(a) -> None:
     print(f"Saved {path} and {path.with_suffix('.csv')}")
 
 
+def cmd_journal(a) -> None:
+    from ai_desk import register, tradebook
+
+    if a.action == "sync":
+        from ai_desk.broker.alpaca import AlpacaPaper
+        n = tradebook.sync_fills(AlpacaPaper())
+        print(f"Updated {n} orders from Alpaca. {sum(1 for t in tradebook.trades() if t.get('fill_price'))} "
+              f"of {len(tradebook.trades())} trades have fills.")
+    elif a.action == "review":
+        from ai_desk.broker.alpaca import AlpacaPaper
+        broker = AlpacaPaper()
+        tradebook.sync_fills(broker)
+        r = tradebook.review(broker.latest_prices(), float(broker.account()["equity"]))
+        register.register()
+        print(f"\nEquity ${r['equity']:,.2f} | {r['trades_logged']} trades logged | {r['notes']} notes")
+        print(f"{'sleeve':16} {'open':>5} {'invested':>11} {'unrealized':>11} {'realized':>10} {'closed':>7} {'win rate':>9}")
+        for s, v in r["by_sleeve"].items():
+            wr = "n/a" if v["win_rate"] is None else f"{v['win_rate']:.0%}"
+            print(f"{s:16} {v['open_positions']:>5} {v['invested']:>11,.0f} {v['unrealized_pnl']:>+11,.0f} "
+                  f"{v['realized_pnl']:>+10,.0f} {v['closed_trades']:>7} {wr:>9}")
+        print("\nSaved journal/review.json and journal/methods.json")
+    elif a.action == "note":
+        row = tradebook.add_note(a.target, a.text, author=a.author)
+        print(f"note {row['id']} added to {a.target}")
+    elif a.action == "methods":
+        reg = register.register()
+        print(f"Live mix ({reg['live_preset']}): " + ", ".join(f"{k} {v:.0%}" for k, v in reg["live_allocation"].items()))
+        for m in reg["methods"]:
+            print(f"\n{m['name']} [{m['status']}]{' - LIVE ' + format(m['allocation'], '.0%') if m['in_live_mix'] else ''}")
+            print(f"  {m['description']}")
+            print(f"  parameters: {m['parameters']}")
+            print(f"  evidence: {m['evidence_summary']}")
+    elif a.action == "propose":
+        row = register.propose(a.target, a.text, a.rationale or "", author=a.author)
+        print(f"amendment {row['id']} proposed for {a.target}")
+    elif a.action == "decide":
+        row = register.decide(a.target, a.status, a.text or "")
+        print(f"amendment {row['id']} -> {row['status']}")
+    elif a.action == "amendments":
+        for r in register.amendments():
+            print(f"{r['id']} [{r['status']:8}] {r['method']}: {r['proposal']}  ({r['author']}, {r['created_utc'][:10]})")
+
+
 def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(prog="ai_desk", description="Rules-based trading desk")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -572,6 +615,15 @@ def build_parser() -> argparse.ArgumentParser:
     bn.add_argument("--theme-only", action="store_true",
                     help="only pick companies in the theme map (money-flow industries are still reported)")
     bn.set_defaults(func=cmd_bottleneck)
+
+    jn = sub.add_parser("journal", help="trade journal, notes, methodology register and amendments")
+    jn.add_argument("action", choices=["sync", "review", "note", "methods", "propose", "decide", "amendments"])
+    jn.add_argument("target", nargs="?", help="note: trade id / symbol / method; propose: method; decide: amendment id")
+    jn.add_argument("text", nargs="?", help="note text, proposal text, or decision evidence")
+    jn.add_argument("--rationale", help="propose: why")
+    jn.add_argument("--status", choices=["proposed", "testing", "accepted", "rejected"], help="decide: new status")
+    jn.add_argument("--author", default="you")
+    jn.set_defaults(func=cmd_journal)
 
     bk = sub.add_parser("broker", help="check the Alpaca paper connection")
     bk.add_argument("action", choices=["status"])

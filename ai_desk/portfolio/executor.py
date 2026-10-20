@@ -196,18 +196,21 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
     # two years covers the longest signal (200-day average, 12-month momentum);
     # the synthetic demo data is old, so it uses everything
     start = "2000-01-01" if source == "synthetic" else (pd.Timestamp.today() - pd.DateOffset(years=2)).date().isoformat()
-    prices = load_many(method.symbols(), start, source=source)
+    broker = broker or AlpacaPaper()
+    positions = broker.positions()
+    # prices for what we hold too - otherwise a stock the methods have dropped
+    # would have no price and could never be sold
+    wanted = list(dict.fromkeys(method.symbols() + [s for s, q in positions.items() if q]))
+    prices = load_many(wanted, start, source=source)
     closes = drop_incomplete_bar(prices["close"])
     if len(closes) < 260:
-        raise RuntimeError(f"only {len(closes)} days of prices for {method.symbols()} - need about a year")
+        raise RuntimeError(f"only {len(closes)} days of prices for {wanted} - need about a year")
     age = (pd.Timestamp.today().normalize() - closes.index[-1]).days
     if max_data_age_days is not None and age > max_data_age_days:
         raise RuntimeError(f"latest prices are from {closes.index[-1].date()} ({age} days old) - not trading")
     targets = method.latest(closes)
 
-    broker = broker or AlpacaPaper()
     equity = float(broker.account()["equity"])
-    positions = broker.positions()
     shortable = {s: bool(broker.asset(s).get("shortable")) for s in targets.index[targets < 0]}
     fractionable = ({s: bool(broker.asset(s).get("fractionable")) for s in targets.index[targets > 0]}
                     if limits.fractional else None)
@@ -226,10 +229,16 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
 
     status = "dry_run"
     if execute:
+        from ai_desk import tradebook
+
+        sleeves = method.sleeves(closes)          # computed BEFORE locks change, for attribution
+        responses = {}
         for o in plan.sendable:
             resp = broker.submit_market_order(o.symbol, o.qty, o.side)
+            responses[o.symbol] = resp
             o.reason += f" [order {resp.get('id', '?')}]"
         status = "submitted"
+        tradebook.record_orders(plan, method, sleeves, closes.index[-1].date(), responses)
         if not any(o.blocked for o in plan.orders):
             method.on_executed()       # e.g. lock in the new stock picks
     journal(plan, method.describe(), status, equity)

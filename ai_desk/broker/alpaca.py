@@ -96,6 +96,14 @@ class AlpacaPaper:
         """{symbol: shares}; negative = short."""
         return {p["symbol"]: float(p["qty"]) for p in self._request("GET", "/positions") or []}
 
+    def get_order(self, order_id: str) -> dict:
+        """One order's status and fill (filled_avg_price, filled_qty, filled_at)."""
+        return self._request("GET", f"/orders/{order_id}") or {}
+
+    def latest_prices(self) -> dict[str, float]:
+        """Current price of every held position."""
+        return {p["symbol"]: float(p["current_price"]) for p in self._request("GET", "/positions") or []}
+
     def asset(self, symbol: str) -> dict:
         """Tradability flags, e.g. {"tradable": True, "shortable": True, "easy_to_borrow": True}."""
         return self._request("GET", f"/assets/{symbol}") or {}
