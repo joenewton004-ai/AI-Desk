@@ -30,6 +30,10 @@ class Broker:
         self.pos[symbol] = self.pos.get(symbol, 0) + (qty if side == "buy" else -qty)
         return {"id": oid}
 
+    def submit_limit_order(self, symbol, qty, side, limit_price):
+        self.limits = getattr(self, "limits", {}) | {symbol: limit_price}
+        return self.submit_market_order(symbol, qty, side)
+
     def get_order(self, oid):
         o = self.orders[oid]
         return {"status": "filled", "filled_avg_price": str(self.prices[o["symbol"]]),
@@ -151,3 +155,38 @@ def test_watchlist_cohort_and_compare():
     watchlist._save([c])
     out = watchlist.review(closes)
     assert out["summary"][0]["current"] and len(out["rows"]) == 4
+
+
+def test_limit_cap_sends_capped_limit_orders(tmp_path, monkeypatch):
+    from ai_desk.portfolio.methods import Method
+
+    class One(Method):
+        name = "one"
+
+        def symbols(self):
+            return ["AA"]
+
+        def weights(self, closes):
+            return pd.DataFrame({"AA": 0.5}, index=closes.index)
+
+    monkeypatch.setattr(executor, "JOURNAL", tmp_path / "plan.csv")
+    broker = Broker({"AA": 100.0})
+    executor.run(One(), executor.Limits(limit_cap=0.02), execute=True, source="synthetic", max_data_age_days=None,
+                 broker=broker)
+    t = tradebook.trades()[0]
+    assert t["order_type"] == "limit" and broker.limits["AA"] == t["limit_price"]
+    assert t["limit_price"] <= t["est_price"] * 1.02 + 1e-9
+
+
+def test_export_never_writes_nan_and_lists_empty_tables():
+    import json
+    import math
+
+    from ai_desk import dashboard
+    (tradebook.DIR).mkdir(parents=True, exist_ok=True)
+    (tradebook.DIR / "scorecard.json").write_text(json.dumps({"desk": {"sharpe": math.nan, "days": 0}}))
+    dashboard.export()
+    text = (tradebook.DIR / "dashboard" / "score_headline.json").read_text()
+    assert "NaN" not in text and json.loads(text)[0]["sharpe"] is None
+    m = json.loads((tradebook.DIR / "dashboard" / "_manifest.json").read_text())
+    assert "closed" in m["empty"] and "methods" in m["with_rows"]

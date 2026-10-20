@@ -400,7 +400,7 @@ def cmd_portfolio(a) -> None:
     limits = executor.Limits(max_position=a.max_position, max_gross=a.max_gross, max_order=a.max_order_pct,
                              allow_short=method.can_short and not a.no_short,
                              max_fund_position=a.max_fund_position, fractional=not a.whole_shares,
-                             cash_buffer=a.cash_buffer)
+                             cash_buffer=a.cash_buffer, limit_cap=a.limit_cap)
     plan = executor.run(method, limits, execute=(a.action == "run" and a.execute), source=a.source)
     for note in plan.notes:
         print(f"  - {note}")
@@ -645,6 +645,9 @@ def build_parser() -> argparse.ArgumentParser:
     pf.add_argument("--whole-shares", action="store_true", help="don't use fractional shares")
     pf.add_argument("--cash-buffer", type=float, default=0.01,
                     help="fraction of equity always left in cash (default 0.01 = 1%%)")
+    pf.add_argument("--limit-cap", type=float, default=None,
+                    help="send limit orders capped this far beyond the last close (e.g. 0.02 = 2%%) instead of "
+                         "market orders; unfilled ones expire at the close and are re-planned next run")
     pf.add_argument("--execute", action="store_true", help="with `run`: actually submit to Alpaca PAPER")
     pf.add_argument("--rebalance", action="store_true",
                     help="re-pick the screen's stocks now instead of waiting for the quarterly date")

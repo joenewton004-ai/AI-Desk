@@ -73,6 +73,17 @@ def _brief(r: dict) -> str:
     return " · ".join(f"{k} {v}" for k, v in parts if v is not None)
 
 
+FUND_NAMES = {"SPY": "SPDR S&P 500 ETF Trust", "RSP": "Invesco S&P 500 Equal Weight ETF",
+              "QQQ": "Invesco QQQ Trust (Nasdaq-100)", "IWM": "iShares Russell 2000 ETF",
+              "DIA": "SPDR Dow Jones Industrial Average ETF", "EFA": "iShares MSCI EAFE ETF",
+              "EEM": "iShares MSCI Emerging Markets ETF"}
+
+
+def _read_json_list(name: str) -> list:
+    p = tradebook.DIR / name
+    return json.loads(p.read_text()) if p.exists() else []
+
+
 def _read_json(name: str) -> dict:
     p = tradebook.DIR / name
     return json.loads(p.read_text()) if p.exists() else {}
@@ -174,8 +185,12 @@ def tables() -> dict[str, list[dict]]:
         for sl, x in (r.get("rationale") or {}).items():
             if isinstance(x, dict) and x.get("forward_pe") == x.get("forward_pe") and x.get("forward_pe") is not None:
                 pe[r["symbol"]] = (x["forward_pe"], f"forward P/E from the {str(x.get('source_file', ''))[-14:-4] or 'screen'} scan")
+    names = dict(FUND_NAMES)
+    for c in _read_json_list("watchlist.json"):
+        names.update({r["symbol"]: r["name"] for r in c.get("rows", []) if r.get("name")})
+    names.update({sym: h["name"] for sym, h in (last.get("holdings") or {}).items() if h.get("name")})
     holdings = [{
-        "symbol": sym, "sleeve": h.get("sleeve") or "", "shares": h.get("qty"), "price": h.get("price"),
+        "symbol": sym, "name": names.get(sym, ""), "sleeve": h.get("sleeve") or "", "shares": h.get("qty"), "price": h.get("price"),
         "avg_cost": h.get("avg_cost"), "market_value": h.get("market_value"), "cost_basis": h.get("cost_basis"),
         "unrealized_pl": h.get("unrealized_pl"), "unrealized_pct": h.get("unrealized_pct"),
         "day_pl": h.get("day_pl"), "day_pct": h.get("day_pct"), "last_close": h.get("last_close"),
@@ -214,11 +229,27 @@ def tables() -> dict[str, list[dict]]:
             "sleeve_perf": sc.get("sleeves", []), "fills": sc.get("fills", []), "exits": sc.get("exits", [])}
 
 
+def _json_safe(v):
+    """NaN and infinity aren't valid JSON (the dashboard rejects the whole file): write them as null."""
+    if isinstance(v, float):
+        return None if v != v or v in (float("inf"), float("-inf")) else v
+    if isinstance(v, dict):
+        return {k: _json_safe(x) for k, x in v.items()}
+    if isinstance(v, (list, tuple)):
+        return [_json_safe(x) for x in v]
+    return v
+
+
 def export() -> dict[str, int]:
+    """Write one JSON file per table. A table with no rows yet is written as [] but should have NO dataset on
+    the dashboard (it counts an empty file as a failed source): create its dataset when it first has rows.
+    journal/dashboard/_manifest.json lists which tables have rows."""
     out = tradebook.DIR / "dashboard"
     out.mkdir(parents=True, exist_ok=True)
     counts = {}
     for name, rows in tables().items():
-        (out / f"{name}.json").write_text(json.dumps(rows, indent=1, default=str))
+        (out / f"{name}.json").write_text(json.dumps(_json_safe(rows), indent=1, default=str, allow_nan=False))
         counts[name] = len(rows)
+    (out / "_manifest.json").write_text(json.dumps({"with_rows": sorted(k for k, n in counts.items() if n),
+                                                    "empty": sorted(k for k, n in counts.items() if not n)}, indent=1))
     return counts

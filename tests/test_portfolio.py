@@ -348,3 +348,13 @@ def test_index_rotation_holds_the_strongest_with_positive_momentum():
     one = build(["index_rotation"], {"symbols": "UP", "top": 1}).weights(closes)["UP"]
     spy = build(["index_momentum"], {"symbol": "UP"}).weights(closes)["UP"]
     pd.testing.assert_series_equal(one, spy, check_names=False)
+
+
+def test_limit_price_is_capped_and_rounded_to_cents():
+    from ai_desk.broker.alpaca import format_limit
+    from ai_desk.portfolio.executor import limit_price
+    assert limit_price(100.0, "buy", 0.02) == 102.0
+    assert limit_price(33.337, "buy", 0.02) == 34.0                  # 34.00374 -> rounded DOWN, never past the cap
+    assert limit_price(33.337, "sell", 0.02) == 32.68                # 32.67026 -> rounded UP for a sell
+    assert limit_price(0.5, "buy", 0.02) == 0.51 and format_limit(0.51) == "0.5100"
+    assert format_limit(102.0) == "102.00"
