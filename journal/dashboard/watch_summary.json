@@ -1,0 +1,40 @@
+[
+ {
+  "cohort": "bottleneck:2026-10-20",
+  "sleeve": "bottleneck",
+  "locked_on": "2026-10-20",
+  "ref_date": "2026-10-19",
+  "asof": "2026-10-19",
+  "days": 0,
+  "picks": 8,
+  "watching": 26,
+  "picks_avg": 0.0,
+  "near_miss_avg": 0.0,
+  "failed_gate_avg": null,
+  "watch_avg": 0.0,
+  "spy": 0.0,
+  "watch_beating_picks": 0,
+  "best_symbol": "VLO",
+  "best_return": 0.0,
+  "current": true
+ },
+ {
+  "cohort": "quality_screen:2026-10-20",
+  "sleeve": "quality_screen",
+  "locked_on": "2026-10-20",
+  "ref_date": "2026-10-19",
+  "asof": "2026-10-19",
+  "days": 0,
+  "picks": 25,
+  "watching": 111,
+  "picks_avg": 0.0,
+  "near_miss_avg": 0.0,
+  "failed_gate_avg": null,
+  "watch_avg": 0.0,
+  "spy": 0.0,
+  "watch_beating_picks": 0,
+  "best_symbol": "LULU",
+  "best_return": 0.0,
+  "current": true
+ }
+]

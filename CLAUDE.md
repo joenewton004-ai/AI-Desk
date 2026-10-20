@@ -90,6 +90,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   `journal snapshot` after each close (scheduled), then `journal scorecard` and `journal export`.
   The criteria were written before results came in - change them only via an amendment
   ("criteria"), never to make results look better. Always show Sharpe with its uncertainty range.
+- Watchlist (`ai_desk/watchlist.py`): each new lock saves the rest of that scan as a cohort in
+  journal/watchlist.json (output/ isn't committed), measured from the same decision close as the
+  picks. `journal watchlist` captures + reviews (daily task). Judge cohorts at their re-pick, not daily.
 - Methodology changes go through register.py amendments: proposed -> testing
   (backtest it) -> accepted/rejected by the user. Never change live method
   parameters without an accepted amendment.

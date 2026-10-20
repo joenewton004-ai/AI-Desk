@@ -119,6 +119,14 @@ def tables() -> dict[str, list[dict]]:
     note_rows = [{"id": n["id"], "date": n["created_utc"][:10], "target": n["target"], "author": n["author"],
                   "kind": n["kind"], "text": n["text"]} for n in notes]
 
+    wl = _read_json("watchlist_review.json")
+    watch_summary = [x for x in wl.get("summary", []) if x.get("current")]
+    watch_rows = [{**{k: r.get(k) for k in ("cohort", "sleeve", "symbol", "name", "industry", "sector", "rank", "status",
+                                            "reason", "score", "return", "vs_picks")},
+                   "details": _compact({k: v for k, v in r.items() if k not in (
+                       "cohort", "sleeve", "symbol", "name", "industry", "sector", "rank", "status", "reason", "score",
+                       "return", "vs_picks")})} for r in wl.get("rows", [])]
+
     sc = _read_json("scorecard.json")
     d = sc.get("desk", {})
     headline = [{
@@ -134,7 +142,7 @@ def tables() -> dict[str, list[dict]]:
 
     return {"summary": summary, "sleeves": sleeves, "positions": positions, "trades": trade_rows,
             "closed": closed, "methods": methods, "amendments": amendments, "notes": note_rows,
-            "sleeve_guide": register.sleeve_guide(), "score_headline": headline, "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
+            "sleeve_guide": register.sleeve_guide(), "watch_summary": watch_summary, "watchlist": watch_rows, "score_headline": headline, "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
             "sleeve_perf": sc.get("sleeves", []), "fills": sc.get("fills", []), "exits": sc.get("exits", [])}
 
 

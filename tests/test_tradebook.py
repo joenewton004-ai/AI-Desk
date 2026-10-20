@@ -128,3 +128,26 @@ def test_notes_and_amendment_lifecycle():
     bn = next(m for m in reg["methods"] if m["name"] == "bottleneck")
     assert bn["in_live_mix"] and bn["allocation"] == 0.2 and bn["amendments"][0]["status"] == "accepted"
     assert bn["parameters"]["rebalance_days"] == 14
+
+
+def test_watchlist_cohort_and_compare():
+    from ai_desk import watchlist
+
+    scan = pd.DataFrame({"symbol": ["AA", "BB", "CC", "DD"], "score": [90, 80, 70, 95], "name": list("abcd"),
+                         "passes": [True, True, True, False], "rev_growth": [0.3, 0.2, 0.15, 0.05],
+                         "gm_change": [0.01, 0.0, 0.02, 0.01], "above_ma": [True, True, True, True],
+                         "market_cap": [5e10] * 4, "ma_days": [100] * 4})
+    c = watchlist.build_cohort("bottleneck", scan, ["AA"], "2026-10-20", "2026-10-19", "x.csv", top=1)
+    by = {r["symbol"]: r for r in c["rows"]}
+    assert by["AA"]["status"] == "picked" and by["BB"]["status"] == "near miss" and by["BB"]["rank"] == 2
+    assert by["DD"]["status"] == "failed a gate" and "revenue growth" in by["DD"]["reason"]
+    idx = pd.bdate_range("2026-10-15", periods=8)
+    closes = pd.DataFrame({"AA": 100.0, "BB": 100.0, "CC": 100.0, "DD": 100.0, "SPY": 100.0}, index=idx)
+    closes.loc[idx[-1]] = [110, 130, 90, 100, 105]
+    rows, s = watchlist.compare(c, closes)
+    assert s["picks_avg"] == pytest.approx(0.10) and s["watch_beating_picks"] == 1 and s["best_symbol"] == "BB"
+    assert s["spy"] == pytest.approx(0.05) and s["days"] == len(closes.loc["2026-10-19":]) - 1
+    assert {r["symbol"]: r["vs_picks"] for r in rows}["BB"] == pytest.approx(0.20)
+    watchlist._save([c])
+    out = watchlist.review(closes)
+    assert out["summary"][0]["current"] and len(out["rows"]) == 4

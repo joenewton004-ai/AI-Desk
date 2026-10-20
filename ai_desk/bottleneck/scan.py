@@ -301,4 +301,8 @@ def report(result: dict, top: int = 15, out_dir: str = "output") -> Path:
     md = out / f"bottleneck_{date.today().isoformat()}.md"
     md.write_text("\n".join(lines) + "\n")
     ranked.to_csv(out / f"bottleneck_{date.today().isoformat()}.csv")
+    # every candidate, including those that failed a gate, for the watchlist (a subfolder, so the
+    # sleeve's "output/bottleneck_*.csv" never mistakes it for a scan)
+    (out / "candidates").mkdir(exist_ok=True)
+    cands.assign(ma_days=result["ma_days"]).to_csv(out / "candidates" / f"bottleneck_{date.today().isoformat()}.csv")
     return md

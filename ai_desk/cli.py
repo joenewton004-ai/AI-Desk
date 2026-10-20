@@ -511,6 +511,23 @@ def cmd_journal(a) -> None:
                                              f"{v:.1f}" if r["format"] in ("bps", "num") else f"{v:g}")
             print(f"  [{r['status']:9}] {r['tier']:11} {r['metric']:45} {shown:>9}  target {r['target']}")
         print("\nSaved journal/scorecard.json")
+    elif a.action == "watchlist":
+        from ai_desk import watchlist
+        from ai_desk.portfolio.methods import build
+        new = watchlist.sync(build(["desk"]))
+        for c in new:
+            print(f"Saved cohort {c['id']}: {len(c['rows'])} companies from {c['screen_file']}")
+        out = watchlist.review()
+        for s in out["summary"]:
+            if not s.get("current"):
+                continue
+            f = lambda v: "n/a" if v is None else f"{v:+.2%}"  # noqa: E731
+            print(f"\n{s['cohort']} (from the {s['ref_date']} close, {s['days']} trading days)")
+            print(f"  picks ({s['picks']}) {f(s['picks_avg'])} | near misses {f(s['near_miss_avg'])} | "
+                  f"failed a gate {f(s['failed_gate_avg'])} | SPY {f(s['spy'])}")
+            print(f"  {s['watch_beating_picks']} of {s['watching']} watched stocks are beating the picks' average; "
+                  f"best: {s['best_symbol']} {f(s['best_return'])}")
+        print("\nSaved journal/watchlist.json and journal/watchlist_review.json")
     elif a.action == "export":
         from ai_desk import dashboard
         counts = dashboard.export()
@@ -648,7 +665,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     jn = sub.add_parser("journal", help="trade journal, notes, methodology register and amendments")
     jn.add_argument("action", choices=["sync", "review", "note", "methods", "propose", "decide", "amendments", "export",
-                                       "snapshot", "scorecard"])
+                                       "snapshot", "scorecard", "watchlist"])
     jn.add_argument("target", nargs="?", help="note: trade id / symbol / method; propose: method; decide: amendment id")
     jn.add_argument("text", nargs="?", help="note text, proposal text, or decision evidence")
     jn.add_argument("--rationale", help="propose: why")
