@@ -524,7 +524,7 @@ def build_parser() -> argparse.ArgumentParser:
     pf.add_argument("action", choices=["backtest", "plan", "run"],
                     help="backtest | plan (dry run vs your paper account) | run (add --execute to trade)")
     pf.add_argument("--method", action="append", required=True,
-                    help="index_momentum | sma_crossover | pairs | quality_screen | thesis; blend with "
+                    help="index_momentum | sma_crossover | pairs | quality_screen | thesis | aggressive; blend with "
                          "name:share, e.g. --method quality_screen:0.5 --method index_momentum:0.5")
     pf.add_argument("--param", action="append",
                     help="method settings, e.g. symbols=SPY,QQQ  pairs.entry_z=2.5  pairs=V/MA,KO/PEP")

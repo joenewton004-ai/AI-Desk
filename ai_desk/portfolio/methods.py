@@ -213,8 +213,12 @@ class QualityScreen(Method):
 METHODS: dict[str, type[Method]] = {
     m.name: m for m in (IndexMomentum, SMACrossoverMethod, PairsMethod, QualityScreen)
 }
-# --method thesis is shorthand for the 50/50 structure in research/THESIS.md
-PRESETS = {"thesis": [("quality_screen", 0.5), ("index_momentum", 0.5)]}
+# shorthands: `thesis` is the 50/50 structure in research/THESIS.md; `aggressive`
+# tilts to the stock screen (70/30) - more return and bigger drawdowns in the backtest
+PRESETS = {
+    "thesis": [("quality_screen", 0.5), ("index_momentum", 0.5)],
+    "aggressive": [("quality_screen", 0.7), ("index_momentum", 0.3)],
+}
 
 
 @dataclass

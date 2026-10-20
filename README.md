@@ -199,6 +199,7 @@ works out the orders.
 | `pairs` | duopoly pairs trading: when two rivals' price gap is stretched, short the leader and buy the laggard (`--param mode=long_only` to avoid shorting) |
 | `quality_screen` | the latest stock screen's top 25, equal weight |
 | `thesis` | preset: 50% `quality_screen` + 50% `index_momentum` (see research/THESIS.md) |
+| `aggressive` | preset: 70% `quality_screen` + 30% `index_momentum` - more return, bigger drawdowns |
 
 Blend methods with `name:share`, and set parameters with `--param`. Prefix a
 parameter with the method name to target one method in a blend.
