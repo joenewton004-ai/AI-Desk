@@ -104,6 +104,11 @@ class AlpacaPaper:
         """Current price of every held position."""
         return {p["symbol"]: float(p["current_price"]) for p in self._request("GET", "/positions") or []}
 
+    def portfolio_history(self, period: str = "1A") -> dict:
+        """Daily account equity: {"timestamp": [...], "equity": [...], ...}."""
+        return self._request("GET", "/account/portfolio/history",
+                             params={"period": period, "timeframe": "1D"}) or {}
+
     def asset(self, symbol: str) -> dict:
         """Tradability flags, e.g. {"tradable": True, "shortable": True, "easy_to_borrow": True}."""
         return self._request("GET", f"/assets/{symbol}") or {}

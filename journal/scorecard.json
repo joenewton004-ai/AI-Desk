@@ -1,0 +1,146 @@
+{
+ "asof_utc": "2026-10-20T12:05:56+00:00",
+ "launch": "2026-10-20",
+ "criteria_as_of": "2026-10-20",
+ "desk": {
+  "days": 0,
+  "total_return": 0.0,
+  "max_drawdown": 0.0,
+  "current_drawdown": 0.0,
+  "sharpe": NaN,
+  "sharpe_low": NaN,
+  "sharpe_high": NaN
+ },
+ "spy": {
+  "total_return": 0.0,
+  "max_drawdown": 0.0,
+  "sharpe": NaN
+ },
+ "rsp": {
+  "total_return": 0.0
+ },
+ "capture": {},
+ "sleeves": [],
+ "scorecard": [
+  {
+   "tier": "1 process",
+   "metric": "Slippage vs the open (bps, $-weighted)",
+   "value": null,
+   "format": "bps",
+   "target": "\u2264 10",
+   "status": "too early",
+   "note": "0 fills; the backtest assumes 3bps"
+  },
+  {
+   "tier": "1 process",
+   "metric": "Fill vs signal close (bps)",
+   "value": null,
+   "format": "bps",
+   "target": "info only",
+   "status": "too early",
+   "note": "overnight gap + slippage; the backtest includes the gap"
+  },
+  {
+   "tier": "1 process",
+   "metric": "Orders rejected, canceled or expired",
+   "value": 0.0,
+   "format": "count",
+   "target": "0",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "tier": "1 process",
+   "metric": "Orders waiting for a fill",
+   "value": 34.0,
+   "format": "count",
+   "target": "0 after the open",
+   "status": "watch",
+   "note": ""
+  },
+  {
+   "tier": "2 behaviour",
+   "metric": "Drawdown from peak (now)",
+   "value": 0.0,
+   "format": "pct",
+   "target": "above -15%",
+   "status": "ok",
+   "note": "trading halts automatically at -20%"
+  },
+  {
+   "tier": "2 behaviour",
+   "metric": "Inside the backtest's 90% range",
+   "value": null,
+   "format": "bool",
+   "target": "yes",
+   "status": "too early",
+   "note": "if no: find out why before changing anything"
+  },
+  {
+   "tier": "2 behaviour",
+   "metric": "Desk vs SPY, last 12 months",
+   "value": null,
+   "format": "pct",
+   "target": "above -10%",
+   "status": "too early",
+   "note": "evaluated once there are 12 months of history"
+  },
+  {
+   "tier": "2 behaviour",
+   "metric": "Bottleneck: return 20 days after an exit",
+   "value": null,
+   "format": "pct",
+   "target": "below +3%",
+   "status": "too early",
+   "note": "0 completed exits (need 10)"
+  },
+  {
+   "tier": "3 edge",
+   "metric": "Sharpe (above T-bills)",
+   "value": null,
+   "format": "num",
+   "target": "\u2265 SPY's",
+   "status": "too early",
+   "note": ""
+  },
+  {
+   "tier": "3 edge",
+   "metric": "Return vs SPY since launch",
+   "value": 0.0,
+   "format": "pct",
+   "target": "\u2265 0",
+   "status": "too early",
+   "note": ""
+  },
+  {
+   "tier": "3 edge",
+   "metric": "Worst drop vs SPY's",
+   "value": 0.0,
+   "format": "pct",
+   "target": "\u2265 0 (shallower)",
+   "status": "too early",
+   "note": "desk 0.0%, SPY 0.0%"
+  },
+  {
+   "tier": "3 edge",
+   "metric": "Upside capture",
+   "value": null,
+   "format": "pct",
+   "target": "\u2265 80%",
+   "status": "too early",
+   "note": ""
+  },
+  {
+   "tier": "3 edge",
+   "metric": "Downside capture",
+   "value": null,
+   "format": "pct",
+   "target": "\u2264 70%",
+   "status": "too early",
+   "note": ""
+  }
+ ],
+ "fills": [],
+ "exits": [],
+ "curve": []
+}

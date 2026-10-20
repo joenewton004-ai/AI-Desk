@@ -1,0 +1,18 @@
+[
+ {
+  "asof": "2026-10-20",
+  "launch": "2026-10-20",
+  "days": 0,
+  "desk_return": 0.0,
+  "spy_return": 0.0,
+  "rsp_return": 0.0,
+  "sharpe": NaN,
+  "sharpe_low": NaN,
+  "sharpe_high": NaN,
+  "max_drawdown": 0.0,
+  "current_drawdown": 0.0,
+  "flags": 0,
+  "watch": 1,
+  "criteria_as_of": "2026-10-20"
+ }
+]
