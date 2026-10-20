@@ -12,7 +12,8 @@ Step 2 - CANDIDATES: companies in the top flow industries, plus every company
 Step 3 - BOTTLENECK FINGERPRINTS (must pass all):
   * demand: revenue up 10%+ year on year (last two quarters vs a year earlier)
   * pricing power: gross margin not falling (a real bottleneck can raise prices)
-  * money still flowing: price above its moving average (--ma, default 200 days)
+  * money still flowing: price above its moving average (--ma, default 100 days -
+    chosen in research/BOTTLENECK.md's parameter experiment)
 
 Step 4 - SCORE (percentiles among candidates, 100 = best):
   * flow (25%): relative strength 6m and 12m, closeness to the 52-week high
@@ -175,7 +176,7 @@ def gates(df: pd.DataFrame) -> pd.Series:
 
 def run_scan(theme: str | None = "ai_datacenter", top_industries: int = 8, min_cap: float = 10e9,
              with_backlog: bool = True, with_smart_money: bool = True, theme_only: bool = False,
-             ma_days: int = 200, progress: bool = True) -> dict:
+             ma_days: int = 100, progress: bool = True) -> dict:
     """theme_only: only companies in the theme map can be picked; the money-flow
     ranking is still reported, so new flows (e.g. energy) stay visible."""
     from ai_desk.fundamentals.universe import large_caps

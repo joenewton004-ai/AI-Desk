@@ -30,13 +30,15 @@ the same four fingerprints:
    company in the theme map (`bottleneck/themes.py`): a dated, human-curated
    supply-chain map for the AI data-centre build-out.
 3. **Must pass all three:** revenue up 10% or more year on year, gross margin
-   not falling, and price above its 200-day average.
+   not falling, and price above its 100-day average.
 4. **Score:** flow 25%, bottleneck 35%, asymmetry 25%, smart money 15%.
 5. **Hold** the top 8, sized by inverse volatility and capped at 2× an equal
    share.
-6. **Re-pick weekly.** **Sell** any holding that closes below its 200-day
-   average, checked on every run. A sold stock stays out until the next
-   re-pick, so it doesn't bounce in and out.
+6. **Re-pick every 2 weeks.** **Sell** any holding that closes below its
+   100-day average, checked on every run. A sold stock stays out until the
+   next re-pick, so it doesn't bounce in and out. These settings were chosen
+   in the parameter experiment below; the original was weekly with a 200-day
+   average.
 
 `--theme-only` restricts buying to the theme map. Money-flow industries are
 still shown in the report.

@@ -200,7 +200,7 @@ works out the orders.
 | `quality_screen` | the stock screen's top 25, equal weight, **re-picked every quarter**. Picks are locked when bought: in between, only other methods trade and the stocks drift. When a re-pick is due, run `python -m ai_desk screen` first; `--rebalance` re-picks early |
 | `thesis` | preset: 50% `quality_screen` + 50% `index_momentum` (see research/THESIS.md) |
 | `aggressive` | preset: 70% `quality_screen` + 30% `index_momentum` - more return, bigger drawdowns |
-| `bottleneck` | top 8 of the bottleneck scan (`python -m ai_desk bottleneck scan`), sized by volatility, re-picked weekly, sold if below its 200-day average |
+| `bottleneck` | top 8 of the bottleneck scan (`python -m ai_desk bottleneck scan`), sized by volatility, re-picked every 2 weeks, sold if below its 100-day average |
 | `desk` | preset: 50% `quality_screen` + 20% `bottleneck` + 30% `index_momentum` |
 
 Blend methods with `name:share`, and set parameters with `--param`. Prefix a

@@ -567,7 +567,7 @@ def build_parser() -> argparse.ArgumentParser:
     bn.add_argument("--min-cap", type=float, default=10e9)
     bn.add_argument("--top", type=int, default=15)
     bn.add_argument("--no-backlog", action="store_true", help="skip SEC backlog data (faster)")
-    bn.add_argument("--ma", type=int, default=200,
+    bn.add_argument("--ma", type=int, default=100,
                     help="moving average (days) a stock must be above to buy; the sleeve sells below it")
     bn.add_argument("--theme-only", action="store_true",
                     help="only pick companies in the theme map (money-flow industries are still reported)")

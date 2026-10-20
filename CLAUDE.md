@@ -71,5 +71,6 @@ changes plainly and be honest about whether a strategy has a real edge.
   `as_of` current and never present theme results as hindsight-free.
 - Insider signal = open-market purchases only (Yahoo's "purchases" include
   grants). Congress data only from data/congress/trades.csv; say when absent.
-- The bottleneck sleeve re-picks weekly and exits below its 200-day average;
+- The bottleneck sleeve re-picks every 2 weeks and exits below its 100-day average
+  (the scan's --ma, stored with the picks);
   an exited stock stays out until the next re-pick (recorded in its lock).

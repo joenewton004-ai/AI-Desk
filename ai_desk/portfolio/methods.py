@@ -343,7 +343,8 @@ class QualityScreen(LockedScreen):
 class Bottleneck(LockedScreen):
     """Top 8 of the bottleneck scan (python -m ai_desk bottleneck scan).
 
-    * re-picked every `rebalance_days` (default weekly) from a fresh scan
+    * re-picked every `rebalance_days` (default 14: every 2 weeks beat weekly for
+      every moving average tested - research/BOTTLENECK.md) from a fresh scan
     * sized by inverse volatility - calmer stocks get more, wilder ones less -
       capped at 2x an equal share, so one stock can't dominate the sleeve
     * EXIT RULE, checked on every run: any holding whose price closes below
@@ -354,7 +355,7 @@ class Bottleneck(LockedScreen):
     name = "bottleneck"
     scan_command = "python -m ai_desk bottleneck scan"
     top: int = 8
-    rebalance_days: int = 7
+    rebalance_days: int = 14
     exit_ma: int = 0                  # 0 = use the scan's moving average (stored with the picks)
     max_age_days: int = 3
     screen_glob: str = "output/bottleneck_*.csv"
@@ -386,7 +387,7 @@ class Bottleneck(LockedScreen):
             cols = pd.read_csv(path, index_col=0, nrows=1)
             if "ma_days" in cols:
                 return int(cols["ma_days"].iloc[0])
-        return 200
+        return 100
 
     def _exits(self, picks, closes):
         n = self._ma_days()
