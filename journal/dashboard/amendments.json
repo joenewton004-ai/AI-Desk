@@ -28,8 +28,8 @@
   "proposal": "Replace the bottleneck sleeve's engine with plain stock momentum: the 20 large companies with the best 6-month return (skipping the latest week), above their 40-week average, re-picked every 4 weeks; optionally keep the 100-day sell rule between re-picks.",
   "rationale": "Weekly-strategy experiment (research/WEEKLY.md) found 6-12 month momentum beat the average stock in 11 of 13 years; it is simpler and better tested than the flow rotation.",
   "author": "claude",
-  "status": "testing",
-  "evidence": "research/MOMENTUM_SLEEVE.md: sleeve Sharpe 0.86 vs 0.63 (3x costs 22.1% vs 11.0%/yr), better in both halves; desk 17.6%/yr Sharpe 0.94 vs 16.3% 0.88, worst drop -25.1% vs -22.8%, better in 10 of 13 years, walk-forward picked it every year. With the 100-day exit: desk 0.92, sleeve worst drop -30%. Awaiting the owner's decision.",
-  "decided": ""
+  "status": "accepted",
+  "evidence": "Owner chose option 2 on 2026-10-20: plain momentum (top 20 by 6-month return, above the 200-day average, re-picked every 4 weeks) WITH the 100-day sell rule between re-picks. Backtest: sleeve 19.8%/yr, Sharpe 0.76, worst drop -30%; desk Sharpe 0.92 vs 0.88. Goes live at the bottleneck sleeve's 2026-11-03 re-pick (methods.DESK_SWITCH) so current picks aren't sold early.",
+  "decided": "2026-10-20"
  }
 ]

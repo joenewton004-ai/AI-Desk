@@ -14,7 +14,7 @@
   "label": "Bottleneck (money-flow rotation)",
   "allocation": 0.2,
   "line": "Bottleneck (money-flow rotation) - 20% - top 8, re-pick every 14 days, exit below the 100-day average; Industries ranked by money flow (relative strength vs SPY); stocks above $10B (theme-map companies from $2B) must pass: revenue +10% year on year, gross margin not falling, price above its 100-day average. Score: bottleneck 35%, flow 25%, asymmetry 25%, insider buying 15%. Weighted by inverse volatility.",
-  "plain": "Finds where money is flowing and holds the 8 best stocks there, especially the scarce suppliers (e.g. power for AI data centres). Refreshes every 2 weeks and sells any stock that closes below its 100-day average.",
+  "plain": "Being replaced by plain momentum at its 2026-11-03 re-pick (amendment 00e1f2b8, accepted 2026-10-20). Finds where money is flowing and holds the 8 best stocks there, especially the scarce suppliers (e.g. power for AI data centres). Refreshes every 2 weeks and sells any stock that closes below its 100-day average.",
   "screen": "Industries ranked by money flow (relative strength vs SPY); stocks above $10B (theme-map companies from $2B) must pass: revenue +10% year on year, gross margin not falling, price above its 100-day average. Score: bottleneck 35%, flow 25%, asymmetry 25%, insider buying 15%. Weighted by inverse volatility.",
   "metrics": "Return vs SPY after costs. Backtest (price flows only): 17.0%/yr, Sharpe 0.60, worst drop -46%. An isolated best setting - expect less.",
   "watch": "Do stocks keep falling after the 100-day exit? Does it beat SPY after its higher trading costs?"

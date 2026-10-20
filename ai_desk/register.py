@@ -21,7 +21,7 @@ import uuid
 from datetime import datetime, timezone
 
 from ai_desk import tradebook
-from ai_desk.portfolio.methods import METHODS, PRESETS
+from ai_desk.portfolio.methods import DESK_SWITCH, METHODS, PRESETS, preset
 
 LIVE_PRESET = "desk"
 STATUSES = ("proposed", "testing", "accepted", "rejected")
@@ -53,6 +53,13 @@ EVIDENCE = {
                    "Sharpe 0.54-0.58, walk-forward 8.0% (0.44). No improvement inside the desk.",
         "docs": ["research/INDEX_ROTATION.md", "research/output/index_rotation.md"],
         "status": "tested, no edge over SPY sleeve",
+    },
+    "momentum": {
+        "summary": "2014-2026, top 20 of the 750 largest by 6-month return, re-picked every 4 weeks, with the 100-day "
+                   "exit: 19.8%/yr, Sharpe 0.76, worst drop -30% as a sleeve (vs the flow rotation's 17.8%, 0.63, -45%); "
+                   "desk 16.5%/yr, Sharpe 0.92 vs 0.88. Survivors-only prices.",
+        "docs": ["research/MOMENTUM_SLEEVE.md", "research/WEEKLY.md"],
+        "status": "accepted 2026-10-20 (amendment 00e1f2b8); live from 2026-11-03",
     },
     "sma_crossover": {
         "summary": "50/200 on SPY: same insurance as momentum, near-identical results. Not in the live mix.",
@@ -87,6 +94,14 @@ SLEEVE_TEXT = {
         "metrics": "Return vs SPY after costs. Backtest (price flows only): 17.0%/yr, Sharpe 0.60, worst drop -46%. An isolated best setting - expect less.",
         "watch": "Do stocks keep falling after the 100-day exit? Does it beat SPY after its higher trading costs?",
     },
+    "momentum": {
+        "label": "Momentum",
+        "plain": "Holds the 20 large US companies whose shares rose most over the last 6 months, equal weight, refreshed every 4 weeks. Any holding that closes below its 100-day average is sold and stays out until the next refresh.",
+        "screen": ("US companies above $10B, trading above their 200-day average, ranked by their 6-month price gain "
+                   "(skipping the latest week). Top 20, equal weight."),
+        "metrics": "Return vs SPY after costs. Backtest 2014-2026: 19.8%/yr, Sharpe 0.76, worst drop -30%; replaced the bottleneck flow rotation (17.8%, 0.63, -45%).",
+        "watch": "Does it keep beating SPY after costs? How often does the 100-day exit fire, and do exited stocks keep falling?",
+    },
     "index_momentum": {
         "label": "SPY momentum (crash insurance)",
         "plain": "Holds SPY while its 12-month return is positive; moves to cash (earning T-bills) when it turns negative. Checked monthly, so it trades about once a year.",
@@ -99,14 +114,18 @@ SLEEVE_TEXT = {
 
 def sleeve_guide() -> list[dict]:
     """One row per live sleeve: 'name - allocation - screening parameters', plus a plain description and its metrics."""
-    live = dict(PRESETS[LIVE_PRESET])
+    live = dict(preset(LIVE_PRESET))
     rows = []
     for name, share in live.items():
         t = SLEEVE_TEXT[name]
         p = _params(METHODS[name])
         facts = {"quality_screen": lambda: f"top {p['top']}, re-pick every {p['rebalance_months']} months",
                  "bottleneck": lambda: f"top {p['top']}, re-pick every {p['rebalance_days']} days, exit below the 100-day average",
+                 "momentum": lambda: f"top {p['top']}, re-pick every {p['rebalance_days']} days, exit below the {p['exit_ma']}-day average",
                  "index_momentum": lambda: f"{p['symbol']}, {p['lookback']}-day momentum, checked monthly"}[name]()
+        if name == "bottleneck":
+            t = {**t, "plain": f"Being replaced by plain momentum at its {DESK_SWITCH['date']} re-pick (amendment "
+                               "00e1f2b8, accepted 2026-10-20). " + t["plain"]}
         rows.append({"sleeve": name, "label": t["label"], "allocation": share,
                      "line": f"{t['label']} - {share:.0%} - {facts}; {t['screen']}",
                      "plain": t["plain"], "screen": t["screen"], "metrics": t["metrics"], "watch": t["watch"]})
@@ -157,7 +176,7 @@ def decide(amendment_id: str, status: str, evidence: str = "") -> dict:
 
 
 def register(write: bool = True) -> dict:
-    live = dict(PRESETS[LIVE_PRESET])
+    live = dict(preset(LIVE_PRESET))
     methods = []
     for name, cls in METHODS.items():
         methods.append({
