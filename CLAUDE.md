@@ -11,6 +11,8 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Stock screener: `python -m ai_desk screen` (Yahoo, cached a week in `data/fundamentals/`; the
   10-year check reads SEC filings, cached in `data/sec/`; `--no-history` skips it)
 - Full robustness research: `python research/edges.py`, then update `research/FINDINGS.md` by hand
+- Portfolio methods: `python -m ai_desk portfolio backtest|plan|run --method <name>[:share]`;
+  evaluation of sma_crossover/pairs in `python research/methods.py` -> `research/METHODS.md`
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
   write-up in `research/THESIS.md` - update its numbers if the backtest changes
 
@@ -51,3 +53,8 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Screen backtest: compare the screen with the equal-weight universe first
   (same survivorship bias), SPY second. Prices are survivors-only - always
   say so when quoting results.
+- Portfolio methods (`portfolio/methods.py`) return target weights decided at
+  each close; every method in METHODS needs a no-lookahead test in
+  `tests/test_portfolio.py`. Order rules live in `executor.plan_orders`
+  (pure, unit-tested) - keep network calls out of it.
+- The executor never trades without `run --execute`, and stays on Alpaca PAPER.

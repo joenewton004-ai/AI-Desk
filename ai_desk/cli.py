@@ -368,6 +368,50 @@ def screen_report(top: pd.DataFrame, n_total: int, notes: list[str]) -> str:
     return "\n".join(lines)
 
 
+def cmd_portfolio(a) -> None:
+    from ai_desk.data import load_many
+    from ai_desk.portfolio import executor
+    from ai_desk.portfolio.backtest import buy_and_hold, run_portfolio_backtest
+    from ai_desk.portfolio.methods import build
+
+    method = build(a.method, parse_params(a.param))
+    print(f"\nmethod: {method.describe()}")
+
+    if a.action == "backtest":
+        prices = load_many(method.symbols(), a.start, a.end, a.source)
+        start = prices["close"].index[min(260, len(prices["close"]) - 2)]   # let long averages warm up
+        kw = dict(costs=_costs(a), cash_rate=_cash(a), start=start)
+        res = run_portfolio_backtest(method, prices, **kw)
+        bench = buy_and_hold(method.symbols(), prices, **kw)
+        rows = {"method": res.metrics, "buy & hold (same symbols)": bench.metrics}
+        if a.split:
+            for label, sl in (("in-sample", slice(None, a.split)), ("out-of-sample", slice(a.split, None))):
+                from ai_desk.metrics import daily_rf, summarize
+                for name, r in (("method", res), ("buy & hold", bench)):
+                    eq = r.equity.loc[sl]
+                    rows[f"{name}, {label}"] = summarize(eq, rf_daily=daily_rf(_cash(a), eq.index))
+        print(f"{len(method.symbols())} symbols, {a.source}, costs {a.commission_bps + a.slippage_bps:.1f}bps\n")
+        print(format_table(rows))
+        return
+
+    limits = executor.Limits(max_position=a.max_position, max_gross=a.max_gross, max_order=a.max_order_pct,
+                             allow_short=method.can_short and not a.no_short,
+                             max_fund_position=a.max_fund_position)
+    plan = executor.run(method, limits, execute=(a.action == "run" and a.execute), source=a.source)
+    for note in plan.notes:
+        print(f"  - {note}")
+    if not plan.orders:
+        print("  no orders needed - the account already matches the targets")
+    for o in plan.orders:
+        flag = f"  BLOCKED: {o.blocked}" if o.blocked else ""
+        print(f"  {o.side:4} {o.qty:>6} {o.symbol:6} ~${o.notional:>11,.0f}   {o.reason}{flag}")
+    sent = a.action == "run" and a.execute
+    print(f"\n{'SUBMITTED' if sent else 'DRY RUN - nothing sent'} ({len(plan.sendable)} orders). "
+          f"Logged to {executor.JOURNAL}")
+    if not sent:
+        print("To send them to your Alpaca PAPER account: add  run --execute")
+
+
 def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(prog="ai_desk", description="Rules-based trading desk")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -438,6 +482,26 @@ def build_parser() -> argparse.ArgumentParser:
     sc.add_argument("--workers", type=int, default=2, help="parallel downloads (Yahoo throttles above ~4)")
     sc.add_argument("--out", default="output")
     sc.set_defaults(func=cmd_screen)
+
+    pf = sub.add_parser("portfolio", help="multi-stock methods: backtest, plan or run on Alpaca paper")
+    pf.add_argument("action", choices=["backtest", "plan", "run"],
+                    help="backtest | plan (dry run vs your paper account) | run (add --execute to trade)")
+    pf.add_argument("--method", action="append", required=True,
+                    help="index_momentum | sma_crossover | pairs | quality_screen | thesis; blend with "
+                         "name:share, e.g. --method quality_screen:0.5 --method index_momentum:0.5")
+    pf.add_argument("--param", action="append",
+                    help="method settings, e.g. symbols=SPY,QQQ  pairs.entry_z=2.5  pairs=V/MA,KO/PEP")
+    _common(pf)
+    pf.set_defaults(source="yahoo", start="2005-01-01")
+    pf.add_argument("--split", default=None, help="backtest: also report before/after this date")
+    pf.add_argument("--max-position", type=float, default=0.10, help="largest single stock (fraction)")
+    pf.add_argument("--max-fund-position", type=float, default=0.60,
+                    help="largest holding in a broad index fund like SPY (fraction)")
+    pf.add_argument("--max-gross", type=float, default=1.0, help="max sum of |weights| (1.0 = no leverage)")
+    pf.add_argument("--max-order-pct", type=float, default=0.25, help="largest single order (fraction)")
+    pf.add_argument("--no-short", action="store_true", help="never open short positions")
+    pf.add_argument("--execute", action="store_true", help="with `run`: actually submit to Alpaca PAPER")
+    pf.set_defaults(func=cmd_portfolio)
 
     f = sub.add_parser("fetch", help="download daily prices to CSV files you can commit")
     f.add_argument("symbols", nargs="+", help="e.g. SPY QQQ TLT GLD ^VIX")

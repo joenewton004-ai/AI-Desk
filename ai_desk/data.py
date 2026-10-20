@@ -145,3 +145,44 @@ def add_required_columns(prices: pd.DataFrame, columns, source: str = "yahoo",
             series = extra["close"]
         out[col] = series.reindex(out.index).ffill()
     return out
+
+
+def load_many(symbols: list[str], start: str = "2005-01-01", end: str | None = None,
+              source: str = "yahoo") -> dict[str, pd.DataFrame]:
+    """Daily bars for several symbols as wide tables {"open": df, "close": df},
+    one column per symbol, on the dates where every symbol traded.
+
+    source: yahoo (one batched download, with retries) | synthetic |
+            a folder of <SYMBOL>.csv files (e.g. market_data/)
+    """
+    symbols = list(dict.fromkeys(s.upper() for s in symbols))
+    if source == "yahoo":
+        import yfinance as yf
+
+        from ai_desk.fundamentals.yahoo import with_retry
+
+        raw = with_retry(lambda: yf.download(symbols, start=start, end=end, auto_adjust=True,
+                                             progress=False, threads=True))
+        if raw.empty:
+            raise RuntimeError(f"no data returned for {symbols}")
+        opens, closes = raw["Open"], raw["Close"]
+        if isinstance(opens, pd.Series):              # a single symbol comes back flat
+            opens, closes = opens.to_frame(symbols[0]), closes.to_frame(symbols[0])
+        opens.index = closes.index = pd.to_datetime(closes.index).tz_localize(None)
+    else:
+        frames = {}
+        for i, s in enumerate(symbols):
+            if source == "synthetic":
+                df = synthetic_prices(seed=7 + i)
+            else:
+                df = load_csv(Path(source) / f"{s.lstrip('^')}.csv")
+            frames[s] = df
+        opens = pd.DataFrame({s: f["open"] for s, f in frames.items()})
+        closes = pd.DataFrame({s: f["close"] for s, f in frames.items()})
+    missing = [s for s in symbols if s not in closes.columns or closes[s].isna().all()]
+    if missing:
+        raise RuntimeError(f"no price data for {missing}")
+    both = closes[symbols].dropna().index.intersection(opens[symbols].dropna().index)
+    opens, closes = opens.loc[both, symbols], closes.loc[both, symbols]
+    sl = slice(start, end)
+    return {"open": opens.loc[sl], "close": closes.loc[sl]}

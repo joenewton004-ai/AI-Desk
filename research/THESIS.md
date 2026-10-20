@@ -197,9 +197,8 @@ Decide these *before* starting, so a bad run isn't explained away:
 
 ## 7. The plan from here
 
-1. **Build the portfolio executor.** `live.py` trades one symbol today. It
-   needs a multi-stock rebalancer: target weights in, the minimal set of
-   paper orders out, with the same guards. *This is the main missing piece.*
+1. ~~**Build the portfolio executor.**~~ Done: `python -m ai_desk portfolio`
+   (see `research/METHODS.md` and the README).
 2. **Paper trade for at least 12 months.** Run both sleeves on Alpaca paper
    and log every decision to the journal.
 3. **Monthly review.** Compare paper results with the backtest and the
@@ -213,6 +212,18 @@ Decide these *before* starting, so a bad run isn't explained away:
    tax-advantaged account if possible.
 
 ---
+
+## 7b. Methods tested since (see `research/METHODS.md`)
+
+- **50/200 moving-average crossover:** the same crash insurance as momentum,
+  with near-identical results on SPY. An acceptable alternative switch for
+  the index sleeve, not an extra edge.
+- **Duopoly pairs trading:** market-neutral (correlation 0.08), but only
+  about 1%/yr above T-bills, and that halves with higher costs. It stays in
+  research until hedge ratios, reversion tests and pair-retirement rules are
+  added.
+- **The executor now exists:** `python -m ai_desk portfolio plan --method thesis`
+  shows the orders for the 50/50 structure against the paper account.
 
 ## 8. Bottom line
 
