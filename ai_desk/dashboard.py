@@ -134,7 +134,7 @@ def tables() -> dict[str, list[dict]]:
 
     return {"summary": summary, "sleeves": sleeves, "positions": positions, "trades": trade_rows,
             "closed": closed, "methods": methods, "amendments": amendments, "notes": note_rows,
-            "score_headline": headline, "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
+            "sleeve_guide": register.sleeve_guide(), "score_headline": headline, "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
             "sleeve_perf": sc.get("sleeves", []), "fills": sc.get("fills", []), "exits": sc.get("exits", [])}
 
 
