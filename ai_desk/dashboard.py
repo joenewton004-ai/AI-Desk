@@ -165,6 +165,24 @@ def tables() -> dict[str, list[dict]]:
     note_rows = [{"id": n["id"], "date": n["created_utc"][:10], "target": n["target"], "author": n["author"],
                   "kind": n["kind"], "text": n["text"]} for n in notes]
 
+    # fact sheets: the latest snapshot of each Alpaca position, plus its sleeve and P/E at decision time
+    from ai_desk import scorecard
+    snaps = scorecard.snapshots()
+    last = snaps[-1] if snaps else {}
+    pe = {}
+    for r in plan.get("rows", []):
+        for sl, x in (r.get("rationale") or {}).items():
+            if isinstance(x, dict) and x.get("forward_pe") == x.get("forward_pe") and x.get("forward_pe") is not None:
+                pe[r["symbol"]] = (x["forward_pe"], f"forward P/E from the {str(x.get('source_file', ''))[-14:-4] or 'screen'} scan")
+    holdings = [{
+        "symbol": sym, "sleeve": h.get("sleeve") or "", "shares": h.get("qty"), "price": h.get("price"),
+        "avg_cost": h.get("avg_cost"), "market_value": h.get("market_value"), "cost_basis": h.get("cost_basis"),
+        "unrealized_pl": h.get("unrealized_pl"), "unrealized_pct": h.get("unrealized_pct"),
+        "day_pl": h.get("day_pl"), "day_pct": h.get("day_pct"), "last_close": h.get("last_close"),
+        "pe": pe.get(sym, (None, ""))[0], "pe_note": pe.get(sym, (None, "an index fund - no single P/E"))[1],
+        "as_of": last.get("utc"),
+    } for sym, h in sorted((last.get("holdings") or {}).items())]
+
     wl = _read_json("watchlist_review.json")
     watch_summary = [x for x in wl.get("summary", []) if x.get("current")]
     watch_rows = [{**{k: r.get(k) for k in ("cohort", "sleeve", "symbol", "name", "industry", "sector", "rank", "status",
@@ -192,7 +210,7 @@ def tables() -> dict[str, list[dict]]:
 
     return {"summary": summary, "sleeves": sleeves, "positions": positions, "trades": trade_rows,
             "closed": closed, "methods": methods, "amendments": amendments, "notes": note_rows,
-            "sleeve_guide": register.sleeve_guide(), "watch_summary": watch_summary, "watchlist": watch_rows, "score_headline": headline, "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
+            "holdings": holdings, "sleeve_guide": register.sleeve_guide(), "watch_summary": watch_summary, "watchlist": watch_rows, "score_headline": headline, "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
             "sleeve_perf": sc.get("sleeves", []), "fills": sc.get("fills", []), "exits": sc.get("exits", [])}
 
 

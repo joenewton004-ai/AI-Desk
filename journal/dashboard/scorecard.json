@@ -2,19 +2,19 @@
  {
   "tier": "1 process",
   "metric": "Slippage vs the open (bps, $-weighted)",
-  "value": null,
+  "value": 10.870108147611212,
   "format": "bps",
   "target": "\u2264 10",
-  "status": "too early",
-  "note": "0 fills; the backtest assumes 3bps"
+  "status": "flag",
+  "note": "34 fills; the backtest assumes 3bps"
  },
  {
   "tier": "1 process",
   "metric": "Fill vs signal close (bps)",
-  "value": null,
+  "value": 50.03235294117647,
   "format": "bps",
   "target": "info only",
-  "status": "too early",
+  "status": "info",
   "note": "overnight gap + slippage; the backtest includes the gap"
  },
  {
@@ -29,10 +29,10 @@
  {
   "tier": "1 process",
   "metric": "Orders waiting for a fill",
-  "value": 34.0,
+  "value": 0.0,
   "format": "count",
   "target": "0 after the open",
-  "status": "watch",
+  "status": "ok",
   "note": ""
  },
  {

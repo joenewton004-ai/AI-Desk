@@ -1,23 +1,23 @@
 {
- "asof_utc": "2026-10-20T13:14:50+00:00",
+ "asof_utc": "2026-10-20T14:16:51+00:00",
  "summary": [
   {
    "cohort": "bottleneck:2026-10-20",
    "sleeve": "bottleneck",
    "locked_on": "2026-10-20",
    "ref_date": "2026-10-19",
-   "asof": "2026-10-19",
-   "days": 0,
+   "asof": "2026-10-20",
+   "days": 1,
    "picks": 8,
    "watching": 26,
-   "picks_avg": 0.0,
-   "near_miss_avg": 0.0,
+   "picks_avg": -0.0019775,
+   "near_miss_avg": -0.001704230769230769,
    "failed_gate_avg": null,
-   "watch_avg": 0.0,
-   "spy": 0.0,
-   "watch_beating_picks": 0,
-   "best_symbol": "VLO",
-   "best_return": 0.0,
+   "watch_avg": -0.001704230769230769,
+   "spy": 0.003724874199793504,
+   "watch_beating_picks": 15,
+   "best_symbol": "FRO",
+   "best_return": 0.00789,
    "current": true
   },
   {
@@ -25,18 +25,18 @@
    "sleeve": "quality_screen",
    "locked_on": "2026-10-20",
    "ref_date": "2026-10-19",
-   "asof": "2026-10-19",
-   "days": 0,
+   "asof": "2026-10-20",
+   "days": 1,
    "picks": 25,
    "watching": 111,
-   "picks_avg": 0.0,
-   "near_miss_avg": 0.0,
+   "picks_avg": 0.005563600000000001,
+   "near_miss_avg": 0.004342432432432431,
    "failed_gate_avg": null,
-   "watch_avg": 0.0,
-   "spy": 0.0,
-   "watch_beating_picks": 0,
-   "best_symbol": "LULU",
-   "best_return": 0.0,
+   "watch_avg": 0.004342432432432431,
+   "spy": 0.003724874199793504,
+   "watch_beating_picks": 47,
+   "best_symbol": "NOC",
+   "best_return": 0.06506,
    "current": true
   }
  ],
@@ -62,8 +62,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 10.72544,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00323,
+   "vs_picks": 0.00521
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -86,8 +86,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 34.1357,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00627,
+   "vs_picks": 0.00825
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -110,8 +110,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 9.70557,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00845,
+   "vs_picks": -0.00647
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -134,8 +134,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 12.9537,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00128,
+   "vs_picks": 0.0007
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -158,8 +158,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 8.83666,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00443,
+   "vs_picks": -0.00245
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -182,8 +182,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 13.64082,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00138,
+   "vs_picks": 0.0006
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -206,8 +206,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 9.5078,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00648,
+   "vs_picks": -0.0045
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -230,8 +230,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 9.95649,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.0033,
+   "vs_picks": -0.00132
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -254,8 +254,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 9.10228,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00261,
+   "vs_picks": -0.00063
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -278,8 +278,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 8.35479,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00585,
+   "vs_picks": -0.00387
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -302,8 +302,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 14.73189,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00013,
+   "vs_picks": 0.00185
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -326,8 +326,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 9.67544,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00789,
+   "vs_picks": 0.00987
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -350,8 +350,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 13.64093,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00041,
+   "vs_picks": 0.00239
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -374,8 +374,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 11.86507,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00197,
+   "vs_picks": 1e-05
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -398,8 +398,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 10.6456,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00546,
+   "vs_picks": -0.00348
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -422,8 +422,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 11.33161,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.0116,
+   "vs_picks": -0.00962
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -446,8 +446,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 8.52651,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00321,
+   "vs_picks": 0.00519
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -470,8 +470,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 23.94094,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00475,
+   "vs_picks": 0.00673
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -494,8 +494,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 9.70055,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00231,
+   "vs_picks": -0.00033
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -518,8 +518,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 26.69779,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.0002,
+   "vs_picks": 0.00178
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -542,8 +542,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 12.4428,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.01131,
+   "vs_picks": -0.00933
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -566,8 +566,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 13.77815,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00155,
+   "vs_picks": 0.00043
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -590,8 +590,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 8.80249,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00303,
+   "vs_picks": -0.00105
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -614,8 +614,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 9.75817,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00706,
+   "vs_picks": 0.00904
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -638,8 +638,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 11.4892,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.02174,
+   "vs_picks": -0.01976
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -662,8 +662,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 16.85603,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00564,
+   "vs_picks": 0.00762
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -686,8 +686,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 7.85758,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.006,
+   "vs_picks": 0.00798
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -710,8 +710,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 6.31077,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00088,
+   "vs_picks": 0.00286
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -734,8 +734,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 30.20992,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00242,
+   "vs_picks": 0.0044
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -758,8 +758,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 23.61729,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00308,
+   "vs_picks": 0.00506
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -782,8 +782,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 25.88301,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00825,
+   "vs_picks": -0.00627
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -806,8 +806,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 24.94674,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00815,
+   "vs_picks": -0.00617
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -830,8 +830,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 8.32962,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00129,
+   "vs_picks": 0.00327
   },
   {
    "cohort": "bottleneck:2026-10-20",
@@ -854,8 +854,8 @@
    "above_ma": true,
    "passes": true,
    "forward_pe": 16.36739,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00278,
+   "vs_picks": -0.0008
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -877,8 +877,8 @@
    "rev_cagr": 0.14836,
    "forward_pe": 13.04987,
    "fcf_yield": 0.05792,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.02525,
+   "vs_picks": 0.01969
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -900,8 +900,8 @@
    "rev_cagr": 0.14687,
    "forward_pe": 10.45683,
    "fcf_yield": 0.09236,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00504,
+   "vs_picks": -0.0106
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -923,8 +923,8 @@
    "rev_cagr": 0.16345,
    "forward_pe": 13.14177,
    "fcf_yield": 0.07438,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00234,
+   "vs_picks": -0.00322
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -946,8 +946,8 @@
    "rev_cagr": 0.1052,
    "forward_pe": 8.98262,
    "fcf_yield": 0.10245,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.0226,
+   "vs_picks": 0.01704
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -969,8 +969,8 @@
    "rev_cagr": 1.00013,
    "forward_pe": 13.64093,
    "fcf_yield": 0.01844,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00041,
+   "vs_picks": -0.00515
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -992,8 +992,8 @@
    "rev_cagr": 0.15458,
    "forward_pe": 45.39523,
    "fcf_yield": 0.01769,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00525,
+   "vs_picks": -0.00031
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1015,8 +1015,8 @@
    "rev_cagr": 0.10053,
    "forward_pe": 23.13507,
    "fcf_yield": 0.01436,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.018,
+   "vs_picks": -0.02356
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1038,8 +1038,8 @@
    "rev_cagr": 0.05729,
    "forward_pe": 11.584,
    "fcf_yield": 0.08155,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00316,
+   "vs_picks": -0.0024
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1061,8 +1061,8 @@
    "rev_cagr": 0.2714,
    "forward_pe": 35.03192,
    "fcf_yield": 0.01843,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00937,
+   "vs_picks": -0.01493
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1084,8 +1084,8 @@
    "rev_cagr": 0.20112,
    "forward_pe": 32.08123,
    "fcf_yield": 0.03942,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01751,
+   "vs_picks": 0.01195
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1107,8 +1107,8 @@
    "rev_cagr": 0.13819,
    "forward_pe": 26.70279,
    "fcf_yield": 0.03043,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00946,
+   "vs_picks": 0.0039
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1130,8 +1130,8 @@
    "rev_cagr": 0.13065,
    "forward_pe": 15.87056,
    "fcf_yield": 0.04383,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.02399,
+   "vs_picks": 0.01843
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1153,8 +1153,8 @@
    "rev_cagr": 0.09153,
    "forward_pe": 17.33568,
    "fcf_yield": 0.05889,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01291,
+   "vs_picks": 0.00735
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1176,8 +1176,8 @@
    "rev_cagr": 0.31679,
    "forward_pe": 26.273,
    "fcf_yield": 0.00539,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.0481,
+   "vs_picks": 0.04254
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1199,8 +1199,8 @@
    "rev_cagr": 0.19889,
    "forward_pe": 20.35857,
    "fcf_yield": 0.02566,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.02282,
+   "vs_picks": -0.02838
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1222,8 +1222,8 @@
    "rev_cagr": 0.23223,
    "forward_pe": 13.961,
    "fcf_yield": 0.04195,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.01117,
+   "vs_picks": -0.01673
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1245,8 +1245,8 @@
    "rev_cagr": 0.08963,
    "forward_pe": 24.687,
    "fcf_yield": 0.01735,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.02212,
+   "vs_picks": -0.02768
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1268,8 +1268,8 @@
    "rev_cagr": 0.30017,
    "forward_pe": 24.31021,
    "fcf_yield": 0.02002,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.03612,
+   "vs_picks": -0.04168
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1291,8 +1291,8 @@
    "rev_cagr": 0.11705,
    "forward_pe": 25.09353,
    "fcf_yield": 0.03561,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.05757,
+   "vs_picks": 0.05201
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1314,8 +1314,8 @@
    "rev_cagr": 0.09731,
    "forward_pe": 12.75312,
    "fcf_yield": 0.04915,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01268,
+   "vs_picks": 0.00712
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1337,8 +1337,8 @@
    "rev_cagr": 0.15316,
    "forward_pe": 19.17872,
    "fcf_yield": 0.03762,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.01897,
+   "vs_picks": -0.02453
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1360,8 +1360,8 @@
    "rev_cagr": 0.10919,
    "forward_pe": 26.81998,
    "fcf_yield": 0.02853,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.0109,
+   "vs_picks": 0.00534
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1383,8 +1383,8 @@
    "rev_cagr": 0.18012,
    "forward_pe": 16.07378,
    "fcf_yield": 0.04444,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.03079,
+   "vs_picks": 0.02523
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1406,8 +1406,8 @@
    "rev_cagr": 0.08568,
    "forward_pe": 21.90791,
    "fcf_yield": 0.03403,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.0005,
+   "vs_picks": -0.00606
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1429,8 +1429,8 @@
    "rev_cagr": 0.12509,
    "forward_pe": 22.50775,
    "fcf_yield": 0.01741,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00028,
+   "vs_picks": -0.00528
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1452,8 +1452,8 @@
    "rev_cagr": 0.11032,
    "forward_pe": 11.32306,
    "fcf_yield": 0.0814,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00501,
+   "vs_picks": -0.00055
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1475,8 +1475,8 @@
    "rev_cagr": 0.14284,
    "forward_pe": 12.08515,
    "fcf_yield": 0.09903,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.02669,
+   "vs_picks": 0.02113
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1498,8 +1498,8 @@
    "rev_cagr": 0.03233,
    "forward_pe": 22.34121,
    "fcf_yield": 0.01738,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.01544,
+   "vs_picks": -0.021
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1521,8 +1521,8 @@
    "rev_cagr": 0.19045,
    "forward_pe": 30.20992,
    "fcf_yield": 0.02539,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00242,
+   "vs_picks": -0.00314
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1544,8 +1544,8 @@
    "rev_cagr": 0.09535,
    "forward_pe": 35.74265,
    "fcf_yield": 0.02117,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00994,
+   "vs_picks": 0.00438
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1567,8 +1567,8 @@
    "rev_cagr": 0.05364,
    "forward_pe": 12.31249,
    "fcf_yield": 0.08268,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01112,
+   "vs_picks": 0.00556
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1590,8 +1590,8 @@
    "rev_cagr": 0.10124,
    "forward_pe": 26.69779,
    "fcf_yield": 0.02011,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.0002,
+   "vs_picks": -0.00576
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1613,8 +1613,8 @@
    "rev_cagr": 0.1021,
    "forward_pe": 18.12527,
    "fcf_yield": 0.0483,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01435,
+   "vs_picks": 0.00879
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1636,8 +1636,8 @@
    "rev_cagr": 0.22301,
    "forward_pe": 24.07608,
    "fcf_yield": 0.02212,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00785,
+   "vs_picks": -0.01341
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1659,8 +1659,8 @@
    "rev_cagr": 0.14262,
    "forward_pe": 18.11685,
    "fcf_yield": 0.03539,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.023,
+   "vs_picks": 0.01744
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1682,8 +1682,8 @@
    "rev_cagr": 0.0217,
    "forward_pe": 17.71124,
    "fcf_yield": 0.06347,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.0013,
+   "vs_picks": -0.00426
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1705,8 +1705,8 @@
    "rev_cagr": 0.05865,
    "forward_pe": 12.67745,
    "fcf_yield": 0.08959,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.03271,
+   "vs_picks": 0.02715
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1728,8 +1728,8 @@
    "rev_cagr": 0.05619,
    "forward_pe": 12.62816,
    "fcf_yield": 0.04676,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.02248,
+   "vs_picks": 0.01692
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1751,8 +1751,8 @@
    "rev_cagr": 0.12059,
    "forward_pe": 16.39172,
    "fcf_yield": 0.028,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.02869,
+   "vs_picks": -0.03425
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1774,8 +1774,8 @@
    "rev_cagr": 0.14026,
    "forward_pe": 30.90539,
    "fcf_yield": 0.02759,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.0029,
+   "vs_picks": -0.00266
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1797,8 +1797,8 @@
    "rev_cagr": 0.13388,
    "forward_pe": 19.97814,
    "fcf_yield": 0.04592,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00826,
+   "vs_picks": 0.0027
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1820,8 +1820,8 @@
    "rev_cagr": 0.04292,
    "forward_pe": 22.8495,
    "fcf_yield": 0.04881,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00037,
+   "vs_picks": -0.00519
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1843,8 +1843,8 @@
    "rev_cagr": 0.06807,
    "forward_pe": 21.41642,
    "fcf_yield": 0.04199,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01141,
+   "vs_picks": 0.00585
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1866,8 +1866,8 @@
    "rev_cagr": 0.12171,
    "forward_pe": 25.57533,
    "fcf_yield": 0.0309,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.0042,
+   "vs_picks": -0.00136
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1889,8 +1889,8 @@
    "rev_cagr": 0.06675,
    "forward_pe": 18.43787,
    "fcf_yield": 0.04222,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01391,
+   "vs_picks": 0.00835
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1912,8 +1912,8 @@
    "rev_cagr": 0.07197,
    "forward_pe": 25.4321,
    "fcf_yield": 0.0299,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00852,
+   "vs_picks": -0.01408
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1935,8 +1935,8 @@
    "rev_cagr": 0.07159,
    "forward_pe": 21.73583,
    "fcf_yield": 0.0484,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01834,
+   "vs_picks": 0.01278
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1958,8 +1958,8 @@
    "rev_cagr": 0.07867,
    "forward_pe": 14.21761,
    "fcf_yield": 0.07811,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.016,
+   "vs_picks": 0.01044
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1981,8 +1981,8 @@
    "rev_cagr": 0.05421,
    "forward_pe": 12.15396,
    "fcf_yield": 0.06942,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00415,
+   "vs_picks": -0.00971
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2004,8 +2004,8 @@
    "rev_cagr": 0.07521,
    "forward_pe": 15.8819,
    "fcf_yield": 0.05188,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00113,
+   "vs_picks": -0.00669
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2027,8 +2027,8 @@
    "rev_cagr": 0.15549,
    "forward_pe": 23.35984,
    "fcf_yield": 0.02147,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00846,
+   "vs_picks": -0.01402
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2050,8 +2050,8 @@
    "rev_cagr": 0.06144,
    "forward_pe": null,
    "fcf_yield": 0.00135,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00267,
+   "vs_picks": -0.00289
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2073,8 +2073,8 @@
    "rev_cagr": 0.08632,
    "forward_pe": 23.61729,
    "fcf_yield": 0.03387,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00308,
+   "vs_picks": -0.00248
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2096,8 +2096,8 @@
    "rev_cagr": 0.23735,
    "forward_pe": null,
    "fcf_yield": 0.0117,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.0223,
+   "vs_picks": 0.01674
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2119,8 +2119,8 @@
    "rev_cagr": 0.1612,
    "forward_pe": 22.49129,
    "fcf_yield": 0.01691,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00465,
+   "vs_picks": -0.01021
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2142,8 +2142,8 @@
    "rev_cagr": 0.02113,
    "forward_pe": 17.0046,
    "fcf_yield": 0.05329,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00143,
+   "vs_picks": -0.00413
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2165,8 +2165,8 @@
    "rev_cagr": 0.12637,
    "forward_pe": 18.37989,
    "fcf_yield": 0.03253,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00633,
+   "vs_picks": 0.00077
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2188,8 +2188,8 @@
    "rev_cagr": 0.15874,
    "forward_pe": null,
    "fcf_yield": 0.02058,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.02974,
+   "vs_picks": -0.0353
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2211,8 +2211,8 @@
    "rev_cagr": 0.11764,
    "forward_pe": 17.34778,
    "fcf_yield": 0.03526,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.02186,
+   "vs_picks": 0.0163
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2234,8 +2234,8 @@
    "rev_cagr": 0.06962,
    "forward_pe": 21.77926,
    "fcf_yield": 0.05014,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.02049,
+   "vs_picks": 0.01493
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2257,8 +2257,8 @@
    "rev_cagr": 0.07982,
    "forward_pe": 13.97139,
    "fcf_yield": 0.05726,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.02188,
+   "vs_picks": 0.01632
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2280,8 +2280,8 @@
    "rev_cagr": 0.09897,
    "forward_pe": 15.71443,
    "fcf_yield": 0.0483,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.02999,
+   "vs_picks": -0.03555
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2303,8 +2303,8 @@
    "rev_cagr": 0.38897,
    "forward_pe": 32.71251,
    "fcf_yield": 0.11551,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00883,
+   "vs_picks": 0.00327
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2326,8 +2326,8 @@
    "rev_cagr": 0.02875,
    "forward_pe": 14.79468,
    "fcf_yield": 0.06684,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.02046,
+   "vs_picks": 0.0149
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2349,8 +2349,8 @@
    "rev_cagr": 0.14232,
    "forward_pe": 25.70067,
    "fcf_yield": 0.0247,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00337,
+   "vs_picks": -0.00219
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2372,8 +2372,8 @@
    "rev_cagr": 0.01785,
    "forward_pe": 15.67869,
    "fcf_yield": 0.0534,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00768,
+   "vs_picks": 0.00212
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2395,8 +2395,8 @@
    "rev_cagr": 0.19843,
    "forward_pe": 24.63104,
    "fcf_yield": 0.01774,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01426,
+   "vs_picks": 0.0087
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2418,8 +2418,8 @@
    "rev_cagr": 0.17602,
    "forward_pe": 23.48138,
    "fcf_yield": 0.02876,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00584,
+   "vs_picks": -0.0114
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2441,8 +2441,8 @@
    "rev_cagr": 0.0852,
    "forward_pe": 33.1403,
    "fcf_yield": 0.02383,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00322,
+   "vs_picks": -0.00878
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2464,8 +2464,8 @@
    "rev_cagr": 0.11245,
    "forward_pe": 14.33321,
    "fcf_yield": 0.05236,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01619,
+   "vs_picks": 0.01063
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2487,8 +2487,8 @@
    "rev_cagr": 0.0523,
    "forward_pe": 16.1006,
    "fcf_yield": 0.03573,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01752,
+   "vs_picks": 0.01196
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2510,8 +2510,8 @@
    "rev_cagr": 0.04156,
    "forward_pe": 20.97683,
    "fcf_yield": 0.0414,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01344,
+   "vs_picks": 0.00788
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2533,8 +2533,8 @@
    "rev_cagr": 0.04193,
    "forward_pe": 14.90753,
    "fcf_yield": 0.075,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01186,
+   "vs_picks": 0.0063
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2556,8 +2556,8 @@
    "rev_cagr": 0.20605,
    "forward_pe": 16.64271,
    "fcf_yield": 0.00023,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00971,
+   "vs_picks": -0.01527
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2579,8 +2579,8 @@
    "rev_cagr": 0.04631,
    "forward_pe": 24.9381,
    "fcf_yield": 0.03551,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00266,
+   "vs_picks": -0.0029
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2602,8 +2602,8 @@
    "rev_cagr": 0.06985,
    "forward_pe": 19.33109,
    "fcf_yield": 0.04728,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01571,
+   "vs_picks": 0.01015
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2625,8 +2625,8 @@
    "rev_cagr": 0.07259,
    "forward_pe": 24.37476,
    "fcf_yield": 0.02211,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00685,
+   "vs_picks": 0.00129
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2648,8 +2648,8 @@
    "rev_cagr": 0.15858,
    "forward_pe": 35.65312,
    "fcf_yield": 0.01077,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00388,
+   "vs_picks": -0.00168
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2671,8 +2671,8 @@
    "rev_cagr": 0.10061,
    "forward_pe": 26.33995,
    "fcf_yield": 0.02748,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.02292,
+   "vs_picks": -0.02848
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2694,8 +2694,8 @@
    "rev_cagr": 0.06425,
    "forward_pe": 9.78161,
    "fcf_yield": 0.1151,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00938,
+   "vs_picks": 0.00382
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2717,8 +2717,8 @@
    "rev_cagr": 0.1035,
    "forward_pe": 24.82734,
    "fcf_yield": 0.0251,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01836,
+   "vs_picks": 0.0128
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2740,8 +2740,8 @@
    "rev_cagr": 0.0676,
    "forward_pe": 26.59769,
    "fcf_yield": 0.02884,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 4e-05,
+   "vs_picks": -0.00552
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2763,8 +2763,8 @@
    "rev_cagr": 0.02611,
    "forward_pe": 11.99169,
    "fcf_yield": 0.04637,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00329,
+   "vs_picks": -0.00885
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2786,8 +2786,8 @@
    "rev_cagr": 0.01427,
    "forward_pe": 22.86098,
    "fcf_yield": 0.04878,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00693,
+   "vs_picks": -0.01249
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2809,8 +2809,8 @@
    "rev_cagr": 0.11736,
    "forward_pe": 25.64646,
    "fcf_yield": 0.04137,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00842,
+   "vs_picks": 0.00286
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2832,8 +2832,8 @@
    "rev_cagr": 0.1414,
    "forward_pe": 34.05834,
    "fcf_yield": 0.01768,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00885,
+   "vs_picks": -0.01441
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2855,8 +2855,8 @@
    "rev_cagr": 0.05618,
    "forward_pe": 25.81253,
    "fcf_yield": 0.02144,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00608,
+   "vs_picks": 0.00052
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2878,8 +2878,8 @@
    "rev_cagr": 0.05598,
    "forward_pe": 21.84549,
    "fcf_yield": 0.03158,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.02116,
+   "vs_picks": 0.0156
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2901,8 +2901,8 @@
    "rev_cagr": 0.02002,
    "forward_pe": 21.33411,
    "fcf_yield": 0.04136,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00431,
+   "vs_picks": -0.00125
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2924,8 +2924,8 @@
    "rev_cagr": 0.04019,
    "forward_pe": 25.28665,
    "fcf_yield": 0.03755,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.01728,
+   "vs_picks": -0.02284
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2947,8 +2947,8 @@
    "rev_cagr": 0.00899,
    "forward_pe": 31.40821,
    "fcf_yield": 0.02605,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00211,
+   "vs_picks": -0.00767
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2970,8 +2970,8 @@
    "rev_cagr": 0.02655,
    "forward_pe": 10.35056,
    "fcf_yield": 0.08277,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01569,
+   "vs_picks": 0.01013
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2993,8 +2993,8 @@
    "rev_cagr": 0.02802,
    "forward_pe": 10.53951,
    "fcf_yield": 0.08626,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01333,
+   "vs_picks": 0.00777
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3016,8 +3016,8 @@
    "rev_cagr": 0.07247,
    "forward_pe": 15.12954,
    "fcf_yield": 0.06236,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01719,
+   "vs_picks": 0.01163
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3039,8 +3039,8 @@
    "rev_cagr": 0.11361,
    "forward_pe": 21.82145,
    "fcf_yield": 0.03832,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00553,
+   "vs_picks": -3e-05
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3062,8 +3062,8 @@
    "rev_cagr": 0.02193,
    "forward_pe": 9.55318,
    "fcf_yield": 0.08494,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.018,
+   "vs_picks": 0.01244
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3085,8 +3085,8 @@
    "rev_cagr": 0.08512,
    "forward_pe": 34.45892,
    "fcf_yield": 0.02232,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00466,
+   "vs_picks": -0.0009
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3108,8 +3108,8 @@
    "rev_cagr": 0.07996,
    "forward_pe": 17.44442,
    "fcf_yield": 0.04447,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00227,
+   "vs_picks": -0.00783
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3131,8 +3131,8 @@
    "rev_cagr": 0.05514,
    "forward_pe": 36.17747,
    "fcf_yield": 0.01795,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00637,
+   "vs_picks": 0.00081
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3154,8 +3154,8 @@
    "rev_cagr": 0.02713,
    "forward_pe": 15.05084,
    "fcf_yield": 0.05322,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00281,
+   "vs_picks": -0.00837
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3177,8 +3177,8 @@
    "rev_cagr": 0.1077,
    "forward_pe": 25.77888,
    "fcf_yield": 0.02655,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00189,
+   "vs_picks": -0.00367
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3200,8 +3200,8 @@
    "rev_cagr": 0.05707,
    "forward_pe": 20.16896,
    "fcf_yield": 0.03561,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.02439,
+   "vs_picks": -0.02995
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3223,8 +3223,8 @@
    "rev_cagr": -0.03802,
    "forward_pe": 12.72369,
    "fcf_yield": 0.03965,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00918,
+   "vs_picks": -0.01474
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3246,8 +3246,8 @@
    "rev_cagr": 0.03732,
    "forward_pe": 17.98095,
    "fcf_yield": 0.03361,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00344,
+   "vs_picks": -0.009
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3269,8 +3269,8 @@
    "rev_cagr": 0.09198,
    "forward_pe": 16.45383,
    "fcf_yield": 0.05559,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.0105,
+   "vs_picks": 0.00494
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3292,8 +3292,8 @@
    "rev_cagr": 0.04383,
    "forward_pe": 16.79915,
    "fcf_yield": 0.0546,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.004,
+   "vs_picks": -0.00156
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3315,8 +3315,8 @@
    "rev_cagr": 0.10431,
    "forward_pe": 17.21241,
    "fcf_yield": 0.04943,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00362,
+   "vs_picks": -0.00194
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3338,8 +3338,8 @@
    "rev_cagr": -0.00277,
    "forward_pe": 24.10351,
    "fcf_yield": 0.0224,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00354,
+   "vs_picks": -0.0091
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3361,8 +3361,8 @@
    "rev_cagr": 0.09768,
    "forward_pe": 24.0655,
    "fcf_yield": 0.02337,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.02922,
+   "vs_picks": -0.03478
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3384,8 +3384,8 @@
    "rev_cagr": 0.04085,
    "forward_pe": 24.31047,
    "fcf_yield": 0.03205,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.02578,
+   "vs_picks": -0.03134
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3407,8 +3407,8 @@
    "rev_cagr": 0.02527,
    "forward_pe": 24.94674,
    "fcf_yield": 0.03665,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00815,
+   "vs_picks": -0.01371
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3430,8 +3430,8 @@
    "rev_cagr": 0.03471,
    "forward_pe": 15.22781,
    "fcf_yield": 0.04829,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00362,
+   "vs_picks": -0.00194
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3453,8 +3453,8 @@
    "rev_cagr": 0.17382,
    "forward_pe": 35.74986,
    "fcf_yield": 0.01628,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00304,
+   "vs_picks": -0.00252
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3476,8 +3476,8 @@
    "rev_cagr": 0.06529,
    "forward_pe": 25.52342,
    "fcf_yield": 0.03033,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00071,
+   "vs_picks": -0.00627
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3499,8 +3499,8 @@
    "rev_cagr": 0.1165,
    "forward_pe": 10.93401,
    "fcf_yield": 0.02825,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00709,
+   "vs_picks": -0.01265
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3522,8 +3522,8 @@
    "rev_cagr": 0.021,
    "forward_pe": 24.52172,
    "fcf_yield": 0.03297,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00305,
+   "vs_picks": -0.00251
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3545,8 +3545,8 @@
    "rev_cagr": 0.11123,
    "forward_pe": 33.19851,
    "fcf_yield": 0.02496,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.02107,
+   "vs_picks": 0.01551
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3568,8 +3568,8 @@
    "rev_cagr": 0.13546,
    "forward_pe": 21.93693,
    "fcf_yield": 0.03007,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00076,
+   "vs_picks": -0.0048
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3591,8 +3591,8 @@
    "rev_cagr": 0.02499,
    "forward_pe": 17.78409,
    "fcf_yield": 0.03661,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.01325,
+   "vs_picks": -0.01881
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3614,8 +3614,8 @@
    "rev_cagr": 0.11349,
    "forward_pe": 17.5159,
    "fcf_yield": 0.04402,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.02316,
+   "vs_picks": 0.0176
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3637,8 +3637,8 @@
    "rev_cagr": 0.03917,
    "forward_pe": 16.96434,
    "fcf_yield": 0.05213,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.0079,
+   "vs_picks": 0.00234
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3660,8 +3660,8 @@
    "rev_cagr": 0.01518,
    "forward_pe": 19.38021,
    "fcf_yield": 0.0409,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01304,
+   "vs_picks": 0.00748
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3683,8 +3683,8 @@
    "rev_cagr": 0.00761,
    "forward_pe": 12.02048,
    "fcf_yield": 0.08676,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.01955,
+   "vs_picks": 0.01399
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3706,8 +3706,8 @@
    "rev_cagr": 0.06639,
    "forward_pe": 39.79544,
    "fcf_yield": 0.01776,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00235,
+   "vs_picks": -0.00321
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3729,8 +3729,8 @@
    "rev_cagr": -0.00161,
    "forward_pe": 22.1174,
    "fcf_yield": 0.04412,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00932,
+   "vs_picks": 0.00376
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3752,8 +3752,8 @@
    "rev_cagr": 0.02825,
    "forward_pe": 15.46178,
    "fcf_yield": 0.04215,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00322,
+   "vs_picks": -0.00234
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3775,8 +3775,8 @@
    "rev_cagr": 0.02116,
    "forward_pe": 38.4147,
    "fcf_yield": 0.01736,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.0063,
+   "vs_picks": 0.00074
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3798,8 +3798,8 @@
    "rev_cagr": 0.06603,
    "forward_pe": 28.04431,
    "fcf_yield": 0.02734,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00149,
+   "vs_picks": -0.00407
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3821,8 +3821,8 @@
    "rev_cagr": 0.03004,
    "forward_pe": 16.0202,
    "fcf_yield": 0.04332,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00488,
+   "vs_picks": -0.00068
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3844,8 +3844,8 @@
    "rev_cagr": -0.03239,
    "forward_pe": 23.30957,
    "fcf_yield": 0.03952,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00296,
+   "vs_picks": -0.0026
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3867,8 +3867,8 @@
    "rev_cagr": 0.03567,
    "forward_pe": 20.41486,
    "fcf_yield": 0.02531,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00166,
+   "vs_picks": -0.0039
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3890,8 +3890,8 @@
    "rev_cagr": 0.04653,
    "forward_pe": 16.8152,
    "fcf_yield": 0.04559,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.06506,
+   "vs_picks": 0.0595
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3913,8 +3913,8 @@
    "rev_cagr": 0.15183,
    "forward_pe": null,
    "fcf_yield": 0.01549,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.01218,
+   "vs_picks": -0.01774
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3936,8 +3936,8 @@
    "rev_cagr": 0.12724,
    "forward_pe": 25.97067,
    "fcf_yield": 0.02373,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": -0.00361,
+   "vs_picks": -0.00917
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3959,8 +3959,8 @@
    "rev_cagr": 0.04859,
    "forward_pe": 31.28336,
    "fcf_yield": 0.02189,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.0165,
+   "vs_picks": 0.01094
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3982,8 +3982,8 @@
    "rev_cagr": 0.05271,
    "forward_pe": 36.7892,
    "fcf_yield": 0.0158,
-   "return": 0.0,
-   "vs_picks": 0.0
+   "return": 0.00198,
+   "vs_picks": -0.00358
   }
  ]
 }
