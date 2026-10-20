@@ -104,13 +104,16 @@ def _round_toward_zero(x: float, dp: int) -> float:
 
 def plan_orders(targets: pd.Series, positions: dict[str, float], prices: pd.Series, equity: float,
                 limits: Limits | None = None, shortable: dict[str, bool] | None = None,
-                fractionable: dict[str, bool] | None = None) -> Plan:
+                fractionable: dict[str, bool] | None = None, frozen: set[str] | None = None) -> Plan:
     """Turn target weights into orders. No network calls.
 
     With limits.fractional, long positions use fractional shares (so a $2,000
     slot buys 1.61 shares of a $1,240 stock instead of 1). Shorts, and stocks
     the broker marks as not fractionable, use whole shares. Quantities round
     toward zero, so a target is never overshot.
+
+    frozen: symbols already held whose size must not change this run (stocks
+    between scheduled re-picks); they can still be closed if no longer targeted.
     """
     limits = limits or Limits()
     t, notes = apply_limits(targets, limits)
@@ -130,6 +133,8 @@ def plan_orders(targets: pd.Series, positions: dict[str, float], prices: pd.Seri
         diff = round(target_qty - current, FRACTION_DP)
         if diff == 0:
             continue
+        if frozen and sym in frozen and current and target_qty and (current > 0) == (target_qty > 0):
+            continue    # held until its next scheduled re-pick: let it drift
         closing = target_qty == 0
         if not closing and abs(diff) * price < limits.min_trade * equity:
             continue
@@ -206,8 +211,10 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
     shortable = {s: bool(broker.asset(s).get("shortable")) for s in targets.index[targets < 0]}
     fractionable = ({s: bool(broker.asset(s).get("fractionable")) for s in targets.index[targets > 0]}
                     if limits.fractional else None)
-    plan = plan_orders(targets, positions, closes.iloc[-1], equity, limits, shortable, fractionable)
-    plan.notes.insert(0, f"signals from the close of {closes.index[-1].date()}; equity ${equity:,.0f}")
+    plan = plan_orders(targets, positions, closes.iloc[-1], equity, limits, shortable, fractionable,
+                       frozen=method.frozen())
+    plan.notes[:0] = [f"signals from the close of {closes.index[-1].date()}; equity ${equity:,.0f}",
+                      *method.status()]
 
     peak = max(equity, journal_peak())
     if equity / peak - 1 <= -account_dd_halt:
@@ -223,5 +230,7 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
             resp = broker.submit_market_order(o.symbol, o.qty, o.side)
             o.reason += f" [order {resp.get('id', '?')}]"
         status = "submitted"
+        if not any(o.blocked for o in plan.orders):
+            method.on_executed()       # e.g. lock in the new stock picks
     journal(plan, method.describe(), status, equity)
     return plan

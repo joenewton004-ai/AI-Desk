@@ -13,6 +13,7 @@ Method and registering it in METHODS.
 from __future__ import annotations
 
 import glob
+import json
 from abc import ABC, abstractmethod
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
@@ -54,6 +55,18 @@ class Method(ABC):
 
     def latest(self, closes: pd.DataFrame) -> pd.Series:
         return self.weights(closes).iloc[-1]
+
+    def frozen(self) -> set[str]:
+        """Symbols whose existing positions must not be resized this run
+        (e.g. stocks held until their next scheduled re-pick)."""
+        return set()
+
+    def status(self) -> list[str]:
+        """Plain-English notes about the method's state, shown in the plan."""
+        return []
+
+    def on_executed(self) -> None:
+        """Called after orders are actually sent (e.g. to save new holdings)."""
 
     def describe(self) -> str:
         args = ", ".join(f"{k}={v}" for k, v in asdict(self).items())
@@ -180,27 +193,72 @@ class PairsMethod(Method):
 
 @dataclass
 class QualityScreen(Method):
-    """Top N of the latest stock screen (output/screen_*.csv), equal weight.
+    """Top N of the stock screen, equal weight, re-picked every quarter.
+
+    Picks are LOCKED when orders are sent (saved in `lock_path` with the
+    date). Until `rebalance_months` have passed, later runs keep the same
+    stocks and leave their sizes alone - they drift with the market, as in
+    the backtest. When a re-pick is due (or with rebalance=True), the latest
+    screen (no older than `max_age_days`) supplies a new top N: stocks that
+    dropped out are sold, new ones bought, and all are re-levelled.
 
     Not backtestable here: the screen's history needs point-in-time SEC data -
-    see research/screen_backtest.py for that test."""
+    see research/screen_backtest.py (which also tests quarterly re-picks).
+    """
 
     name = "quality_screen"
     backtestable = False
     top: int = 25
+    rebalance_months: int = 3
+    rebalance: bool = False
     max_age_days: int = 10
     screen_glob: str = "output/screen_*.csv"
+    lock_path: str = "data/portfolio/quality_screen.json"
 
-    def _picks(self) -> list[str]:
+    def __post_init__(self):
+        self._cache = None
+
+    def _lock(self) -> dict | None:
+        p = Path(self.lock_path)
+        return json.loads(p.read_text()) if p.exists() else None
+
+    def _next_repick(self, lock: dict) -> pd.Timestamp:
+        return pd.Timestamp(lock["locked_on"]) + pd.DateOffset(months=self.rebalance_months)
+
+    def _fresh_picks(self) -> tuple[list[str], str]:
         files = sorted(glob.glob(self.screen_glob))
         if not files:
-            raise RuntimeError("no screen results found - run: python -m ai_desk screen")
+            raise RuntimeError(("a quarterly re-pick is due but " if self._lock() else "") +
+                               "no screen results were found - run: python -m ai_desk screen")
         path = Path(files[-1])
         date = pd.Timestamp(path.stem.removeprefix("screen_"))
         if (pd.Timestamp.today().normalize() - date).days > self.max_age_days:
-            raise RuntimeError(f"latest screen is from {date.date()} - rerun `python -m ai_desk screen` "
-                               f"(older than {self.max_age_days} days)")
-        return list(pd.read_csv(path, index_col=0).index[:self.top])
+            raise RuntimeError(f"a quarterly re-pick is due but the latest screen is from {date.date()} - "
+                               f"run `python -m ai_desk screen` first (must be under {self.max_age_days} days old)")
+        return list(pd.read_csv(path, index_col=0).index[:self.top]), path.name
+
+    def _picks(self) -> list[str]:
+        if self._cache is not None:
+            return self._cache["picks"]
+        lock = self._lock()
+        today = pd.Timestamp.today().normalize()
+        if lock and not self.rebalance and today < self._next_repick(lock):
+            self._cache = {"picks": lock["picks"], "due": False,
+                           "note": f"quality_screen: holding the {len(lock['picks'])} stocks picked on "
+                                   f"{lock['locked_on']} (from {lock['screen_file']}); next re-pick due "
+                                   f"{self._next_repick(lock).date()} - their sizes are left to drift"}
+        else:
+            picks, src = self._fresh_picks()
+            why = "forced re-pick (--rebalance)" if self.rebalance and lock else \
+                "quarterly re-pick due" if lock else "first pick"
+            changes = ""
+            if lock:
+                out, new = sorted(set(lock["picks"]) - set(picks)), sorted(set(picks) - set(lock["picks"]))
+                changes = f"; selling {', '.join(out) or 'none'}; buying {', '.join(new) or 'none'}"
+            self._cache = {"picks": picks, "due": True, "src": src,
+                           "note": f"quality_screen: {why} - top {len(picks)} from {src}{changes}. "
+                                   "Holdings are locked when orders are sent"}
+        return self._cache["picks"]
 
     def symbols(self):
         return self._picks()
@@ -208,6 +266,21 @@ class QualityScreen(Method):
     def weights(self, closes):
         picks = self._picks()
         return pd.DataFrame(1 / len(picks), index=closes.index, columns=picks)
+
+    def frozen(self):
+        self._picks()
+        return set() if self._cache["due"] else set(self._cache["picks"])
+
+    def status(self):
+        self._picks()
+        return [self._cache["note"]]
+
+    def on_executed(self):
+        if self._cache and self._cache["due"]:
+            p = Path(self.lock_path)
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(json.dumps({"picks": self._cache["picks"], "screen_file": self._cache["src"],
+                                     "locked_on": str(pd.Timestamp.today().date())}, indent=1))
 
 
 METHODS: dict[str, type[Method]] = {
@@ -246,6 +319,16 @@ class Blend(Method):
 
     def describe(self):
         return " + ".join(f"{w:.0%} {m.describe()}" for m, w in self.parts)
+
+    def frozen(self):
+        return set().union(*(m.frozen() for m, _ in self.parts))
+
+    def status(self):
+        return [n for m, _ in self.parts for n in m.status()]
+
+    def on_executed(self):
+        for m, _ in self.parts:
+            m.on_executed()
 
 
 def _make(name: str, params: dict) -> Method:

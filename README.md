@@ -197,7 +197,7 @@ works out the orders.
 | `index_momentum` | SPY while its 12-month return is positive, otherwise cash |
 | `sma_crossover` | each symbol held while its 50-day average is above its 200-day (`--param symbols=SPY,QQQ`) |
 | `pairs` | duopoly pairs trading: when two rivals' price gap is stretched, short the leader and buy the laggard (`--param mode=long_only` to avoid shorting) |
-| `quality_screen` | the latest stock screen's top 25, equal weight |
+| `quality_screen` | the stock screen's top 25, equal weight, **re-picked every quarter**. Picks are locked when bought: in between, only other methods trade and the stocks drift. When a re-pick is due, run `python -m ai_desk screen` first; `--rebalance` re-picks early |
 | `thesis` | preset: 50% `quality_screen` + 50% `index_momentum` (see research/THESIS.md) |
 | `aggressive` | preset: 70% `quality_screen` + 30% `index_momentum` - more return, bigger drawdowns |
 

@@ -41,6 +41,9 @@
 | universe, September | 12.1% | 17.1% | 0.64 | -27.5% |
 | top 25, December | 13.8% | 19.1% | 0.67 | -31.9% |
 | universe, December | 11.8% | 17.2% | 0.62 | -27.3% |
+| top 25, QUARTERLY (Mar/Jun/Sep/Dec) | 17.9% | 18.4% | 0.89 | -33.4% |
+| top 25, quarterly, costs x5 | 16.8% | 18.4% | 0.84 | -33.9% |
+| universe, quarterly | 11.4% | 17.0% | 0.61 | -27.3% |
 | top 25, costs x5 (0.5%/trade) | 15.3% | 18.6% | 0.76 | -33.1% |
 
 2014-2019: screen 17.4%/yr vs universe 10.9% vs SPY 12.1%

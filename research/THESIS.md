@@ -170,7 +170,7 @@ lower return than holding SPY in a fast-recovering market.
 
 **Proposed rules for paper trading:**
 1. **50% "selection sleeve":** the screen's top 25, equal-weighted,
-   rebalanced once a year. Before buying, read the research note on each new
+   re-picked every quarter (see the update below). Before buying, read the research note on each new
    name. Drop any with a known expiry date (patent cliff, contract loss) or a
    data flag.
 2. **50% "index sleeve":** SPY when its 12-month return is positive,
@@ -212,6 +212,28 @@ Decide these *before* starting, so a bad run isn't explained away:
    tax-advantaged account if possible.
 
 ---
+
+## 7a. Update: quarterly re-picks and a 70/30 split
+
+- **Quarterly re-picks backtest better than annual.** Same rules, re-picked
+  every March, June, September and December:
+  - **17.9%/yr, Sharpe 0.89**, against 15.8% and 0.78 rebalanced annually
+  - still 16.8%/yr at 5× trading costs
+  - the universe earned 11.4%/yr
+  
+  About 6 of the 25 names change each quarter. Fresher picks, especially
+  momentum and the latest filings, seem to help. One caveat: this variant
+  was chosen after seeing the annual result, so treat the improvement as
+  likely, not proven.
+- **Live allocation chosen: 70% screen / 30% SPY with momentum**
+  (`--method aggressive`). In the backtest, the annual version of this split
+  earned 14.4%/yr, with a −27% worst drawdown and −22% in 2022. That's more
+  return and bigger drops than 50/50, with about the same Sharpe.
+- **How it runs:**
+  - Stock picks are locked when bought. Between quarterly re-picks only the
+    SPY momentum switch can trade, and the stocks drift as in the backtest.
+  - When a re-pick is due, run `python -m ai_desk screen` first. The
+    executor then sells the dropouts, buys the new names and re-levels.
 
 ## 7b. Methods tested since (see `research/METHODS.md`)
 

@@ -196,3 +196,64 @@ def test_cash_buffer_scales_full_investment_to_99_percent():
     assert any("cash buffer" in n for n in plan.notes)
     small = plan_orders(pd.Series({"AAA": 0.50}), {}, prices, 100_000, Limits(max_position=0.5))
     assert small.orders[0].notional == pytest.approx(50_000)          # under 99%: untouched
+
+
+# --- quarterly lock for the stock screen -------------------------------------------------
+
+def _screen(tmp_path, picks, date=None):
+    date = date or pd.Timestamp.today().date()
+    pd.DataFrame({"score": range(len(picks), 0, -1)}, index=pd.Index(picks, name="symbol")) \
+        .to_csv(tmp_path / f"screen_{date}.csv")
+
+
+def _qs(tmp_path, **kw):
+    from ai_desk.portfolio.methods import QualityScreen
+
+    return QualityScreen(top=3, screen_glob=str(tmp_path / "screen_*.csv"),
+                         lock_path=str(tmp_path / "lock.json"), **kw)
+
+
+def _write_lock(tmp_path, picks, days_ago):
+    import json
+
+    (tmp_path / "lock.json").write_text(json.dumps({
+        "picks": picks, "screen_file": "screen_old.csv",
+        "locked_on": str((pd.Timestamp.today() - pd.Timedelta(days=days_ago)).date())}))
+
+
+def test_first_pick_locks_only_after_execution(tmp_path):
+    _screen(tmp_path, ["AAA", "BBB", "CCC", "DDD"])
+    m = _qs(tmp_path)
+    assert m.symbols() == ["AAA", "BBB", "CCC"] and m.frozen() == set()
+    assert not (tmp_path / "lock.json").exists()          # a dry run commits to nothing
+    m.on_executed()
+    assert (tmp_path / "lock.json").exists()
+
+
+def test_between_repicks_holds_locked_stocks_even_without_a_fresh_screen(tmp_path):
+    _write_lock(tmp_path, ["AAA", "BBB", "CCC"], days_ago=30)
+    m = _qs(tmp_path)                                      # no screen file at all
+    assert m.symbols() == ["AAA", "BBB", "CCC"] and m.frozen() == {"AAA", "BBB", "CCC"}
+    assert "next re-pick due" in m.status()[0]
+
+
+def test_quarterly_repick_reports_changes_and_needs_a_fresh_screen(tmp_path):
+    _write_lock(tmp_path, ["AAA", "BBB", "CCC"], days_ago=100)
+    with pytest.raises(RuntimeError, match="re-pick is due"):
+        _qs(tmp_path).symbols()
+    _screen(tmp_path, ["AAA", "DDD", "EEE"])
+    m = _qs(tmp_path)
+    assert m.symbols() == ["AAA", "DDD", "EEE"] and m.frozen() == set()
+    assert "selling BBB, CCC; buying DDD, EEE" in m.status()[0]
+
+
+def test_forced_rebalance(tmp_path):
+    _write_lock(tmp_path, ["AAA", "BBB", "CCC"], days_ago=10)
+    _screen(tmp_path, ["XXX", "YYY", "ZZZ"])
+    assert _qs(tmp_path, rebalance=True).symbols() == ["XXX", "YYY", "ZZZ"]
+
+
+def test_frozen_positions_drift_but_dropped_ones_still_close():
+    prices = pd.Series({"AAA": 100.0, "BBB": 100.0})
+    plan = plan_orders(pd.Series({"AAA": 0.10}), {"AAA": 150, "BBB": 10}, prices, 100_000, frozen={"AAA"})
+    assert [(o.symbol, o.side) for o in plan.orders] == [("BBB", "sell")]   # AAA (15%) left to drift

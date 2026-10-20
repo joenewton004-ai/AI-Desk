@@ -374,7 +374,10 @@ def cmd_portfolio(a) -> None:
     from ai_desk.portfolio.backtest import buy_and_hold, run_portfolio_backtest
     from ai_desk.portfolio.methods import build
 
-    method = build(a.method, parse_params(a.param))
+    params = parse_params(a.param)
+    if getattr(a, "rebalance", False):
+        params["quality_screen.rebalance"] = True
+    method = build(a.method, params)
     print(f"\nmethod: {method.describe()}")
 
     if a.action == "backtest":
@@ -541,6 +544,8 @@ def build_parser() -> argparse.ArgumentParser:
     pf.add_argument("--cash-buffer", type=float, default=0.01,
                     help="fraction of equity always left in cash (default 0.01 = 1%%)")
     pf.add_argument("--execute", action="store_true", help="with `run`: actually submit to Alpaca PAPER")
+    pf.add_argument("--rebalance", action="store_true",
+                    help="re-pick the screen's stocks now instead of waiting for the quarterly date")
     pf.set_defaults(func=cmd_portfolio)
 
     bk = sub.add_parser("broker", help="check the Alpaca paper connection")

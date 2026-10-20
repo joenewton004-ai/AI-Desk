@@ -62,3 +62,6 @@ changes plainly and be honest about whether a strategy has a real edge.
   keys (AK...). Check connectivity with `python -m ai_desk broker status`.
   Never ask the user to paste keys into chat - they go in .env or the cloud
   environment's secrets.
+- quality_screen holdings are locked in data/portfolio/quality_screen.json
+  when orders are sent, and re-picked every 3 months (backtested: quarterly
+  beat annual). Never re-pick on a dry run; frozen positions aren't resized.
