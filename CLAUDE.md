@@ -16,6 +16,8 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Portfolio methods: `python -m ai_desk portfolio backtest|plan|run --method <name>[:share]`;
   evaluation of sma_crossover/pairs in `python research/methods.py` -> `research/METHODS.md`
 - Index rotation vs the SPY sleeve: `python research/index_rotation.py` -> `research/INDEX_ROTATION.md`
+- Winners study (what top performers looked like before their run): `python research/winners.py` ->
+  `research/WINNERS.md`. Universe = top 750 at each date, survivors only: say so when quoting it.
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
   write-up in `research/THESIS.md` - update its numbers if the backtest changes
 
@@ -88,6 +90,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   `journal snapshot` after each close (scheduled), then `journal scorecard` and `journal export`.
   The criteria were written before results came in - change them only via an amendment
   ("criteria"), never to make results look better. Always show Sharpe with its uncertainty range.
+- Watchlist (`ai_desk/watchlist.py`): each new lock saves the rest of that scan as a cohort in
+  journal/watchlist.json (output/ isn't committed), measured from the same decision close as the
+  picks. `journal watchlist` captures + reviews (daily task). Judge cohorts at their re-pick, not daily.
 - Methodology changes go through register.py amendments: proposed -> testing
   (backtest it) -> accepted/rejected by the user. Never change live method
   parameters without an accepted amendment.

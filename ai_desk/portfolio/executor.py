@@ -241,6 +241,13 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
         tradebook.record_orders(plan, method, sleeves, closes.index[-1].date(), responses)
         if not any(o.blocked for o in plan.orders):
             method.on_executed()       # e.g. lock in the new stock picks
+            from ai_desk import watchlist
+            try:                       # keep the stocks that missed the cut, to compare against the picks
+                for c in watchlist.sync(method, str(closes.index[-1].date())):
+                    plan.notes.append(f"watchlist: saved {len(c['rows']) - len([r for r in c['rows'] if r['status'] == 'picked'])} "
+                                      f"near misses for {c['id']}")
+            except Exception as e:  # noqa: BLE001 - never let the watchlist block trading records
+                plan.notes.append(f"watchlist: not saved ({e})")
     tradebook.save_plan(plan, method, sleeves, closes.index[-1].date(), equity, positions, status)
     journal(plan, method.describe(), status, equity)
     return plan
