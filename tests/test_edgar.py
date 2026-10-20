@@ -1,5 +1,6 @@
 from unittest.mock import patch
 
+import pandas as pd
 import pytest
 
 from ai_desk.fundamentals import edgar
@@ -43,3 +44,28 @@ def test_annual_history_parses_restatements_tag_switches_and_skips_quarters():
     assert h.loc["2024", "operating_margin"] == pytest.approx(0.2)
     assert h.loc["2024", "roic_pretax"] == pytest.approx(30 / (200 - 30 - 50))
     assert h["fcf_margin"].isna().all()          # no capex tagged -> blank, never overstated
+
+
+def test_as_of_ignores_later_filings_and_restatements():
+    with patch.object(edgar, "company_facts", return_value=FACTS):
+        before_restatement = edgar.annual_history(1, as_of="2024-06-30")
+        early = edgar.annual_history(1, as_of="2023-06-30")
+    # 2023 revenue as first reported (120), not the 2025 restatement (118); 2024 not yet filed
+    assert list(before_restatement.index) == ["2022", "2023"]
+    assert before_restatement.loc["2023", "revenue_$bn"] * 1e9 == pytest.approx(120)
+    assert list(early.index) == ["2022"]
+
+
+def test_share_count_fallbacks():
+    facts = {"facts": {"dei": {"EntityCommonStockSharesOutstanding": {"units": {"shares": [
+                 {"end": "2023-02-01", "val": 100, "filed": "2023-02-10", "form": "10-K", "accn": "a"}]}},
+             "EntityPublicFloat": {"units": {"USD": [
+                 {"end": "2023-06-30", "val": 5e9, "filed": "2024-02-10", "form": "10-K", "accn": "b"}]}}},
+             "us-gaap": {"WeightedAverageNumberOfDilutedSharesOutstanding": {"units": {"shares": [
+                 {"start": "2023-01-01", "end": "2023-12-31", "val": 90, "filed": "2024-02-10", "form": "10-K",
+                  "accn": "b"}]}}}}}
+    with patch.object(edgar, "company_facts", return_value=facts):
+        t = edgar.fact_table(1)
+    assert edgar.shares_outstanding(t, "2023-06-01") == (pd.Timestamp("2023-02-01"), 100)
+    assert edgar.shares_outstanding(t, "2022-06-01") == (None, pytest.approx(float("nan"), nan_ok=True))
+    assert edgar.public_float(t, "2024-03-01") == (pd.Timestamp("2023-06-30"), 5e9)
