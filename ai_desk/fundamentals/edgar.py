@@ -253,6 +253,11 @@ def fact_table(ciks: int | list[int]) -> pd.DataFrame:
                                                                    pd.Timestamp(e["start"])).days <= 380):
                     continue
                 rows.append(("shares", prio, e["end"], e["filed"], e.get("accn", ""), e["val"]))
+        # order backlog ("remaining performance obligations"), from every 10-K and 10-Q:
+        # backlog growing faster than revenue = demand outrunning supply
+        for e in _entries(facts, "RevenueRemainingPerformanceObligation"):
+            if e.get("form") in ANNUAL_FORMS + ("10-Q", "10-Q/A"):
+                rows.append(("backlog", 0, e["end"], e["filed"], e.get("accn", ""), e["val"]))
         # market value of shares held by outside investors (cover page of each 10-K): a
         # fallback for companies whose share counts are only reported per class (Visa)
         for e in _entries(facts, "EntityPublicFloat"):
@@ -304,6 +309,21 @@ def public_float(table: pd.DataFrame, as_of=None) -> tuple[pd.Timestamp | None, 
         return None, np.nan
     last = pf.sort_values(["filed", "end"]).iloc[-1]
     return last["end"], float(last["val"])
+
+
+def backlog_growth(table: pd.DataFrame, as_of=None) -> float:
+    """Year-on-year growth of reported order backlog (RPO), latest vs ~1 year earlier."""
+    b = table[table["item"] == "backlog"]
+    if as_of is not None:
+        b = b[b["filed"] <= pd.Timestamp(as_of)]
+    if b.empty:
+        return np.nan
+    s = b.sort_values("filed").groupby("end")["val"].last().sort_index()
+    latest_end = s.index[-1]
+    prior = s[(s.index <= latest_end - pd.Timedelta(days=330)) & (s.index >= latest_end - pd.Timedelta(days=400))]
+    if prior.empty or prior.iloc[-1] <= 0:
+        return np.nan
+    return float(s.iloc[-1] / prior.iloc[-1] - 1)
 
 
 def annual_history(ciks: int | list[int], years: int = 12, as_of=None,

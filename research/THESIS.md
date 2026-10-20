@@ -235,6 +235,19 @@ Decide these *before* starting, so a bad run isn't explained away:
   - When a re-pick is due, run `python -m ai_desk screen` first. The
     executor then sells the dropouts, buys the new names and re-levels.
 
+## 7c. Update: a bottleneck sleeve (see `research/BOTTLENECK.md`)
+
+- **The live mix is now `--method desk`:** 50% quality screen (re-picked
+  quarterly), 20% bottleneck sleeve (re-picked weekly, sold below the 200-day
+  average), 30% SPY with the momentum switch.
+- **Evidence is weak for the bottleneck sleeve.** Its testable part,
+  money-flow rotation, didn't beat SPY with weekly re-picks (11.8%/yr,
+  Sharpe 0.45, −61% worst drop). The desk with it earned 15.5%/yr (Sharpe
+  0.85, −24%) vs 15.8% (0.89, −28%) for 70/30. It's kept as a 20%
+  experiment because its fundamental filters (margin expansion, backlog,
+  insider buying) and the theme map can't be backtested. The kill criteria
+  in section 6 apply to it too.
+
 ## 7b. Methods tested since (see `research/METHODS.md`)
 
 - **50/200 moving-average crossover:** the same crash insurance as momentum,

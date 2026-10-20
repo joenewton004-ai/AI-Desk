@@ -452,6 +452,18 @@ def cmd_broker(a) -> None:
         print(f"    {sym:6} {qty:+g}")
 
 
+def cmd_bottleneck(a) -> None:
+    from ai_desk.bottleneck.scan import report, run_scan
+
+    theme = None if a.theme == "none" else a.theme
+    print(f"Bottleneck scan (theme: {theme or 'none - money flow only'}) ...")
+    result = run_scan(theme=theme, top_industries=a.top_industries, min_cap=a.min_cap,
+                      with_backlog=not a.no_backlog, theme_only=a.theme_only)
+    path = report(result, top=a.top)
+    print("\n" + path.read_text())
+    print(f"Saved {path} and {path.with_suffix('.csv')}")
+
+
 def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(prog="ai_desk", description="Rules-based trading desk")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -547,6 +559,17 @@ def build_parser() -> argparse.ArgumentParser:
     pf.add_argument("--rebalance", action="store_true",
                     help="re-pick the screen's stocks now instead of waiting for the quarterly date")
     pf.set_defaults(func=cmd_portfolio)
+
+    bn = sub.add_parser("bottleneck", help="find bottleneck stocks in themes money is flowing into")
+    bn.add_argument("action", choices=["scan"])
+    bn.add_argument("--theme", default="ai_datacenter", help="theme map in bottleneck/themes.py, or 'none'")
+    bn.add_argument("--top-industries", type=int, default=8, help="how many top money-flow industries to scan")
+    bn.add_argument("--min-cap", type=float, default=10e9)
+    bn.add_argument("--top", type=int, default=15)
+    bn.add_argument("--no-backlog", action="store_true", help="skip SEC backlog data (faster)")
+    bn.add_argument("--theme-only", action="store_true",
+                    help="only pick companies in the theme map (money-flow industries are still reported)")
+    bn.set_defaults(func=cmd_bottleneck)
 
     bk = sub.add_parser("broker", help="check the Alpaca paper connection")
     bk.add_argument("action", choices=["status"])

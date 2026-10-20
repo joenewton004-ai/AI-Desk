@@ -257,3 +257,64 @@ def test_frozen_positions_drift_but_dropped_ones_still_close():
     prices = pd.Series({"AAA": 100.0, "BBB": 100.0})
     plan = plan_orders(pd.Series({"AAA": 0.10}), {"AAA": 150, "BBB": 10}, prices, 100_000, frozen={"AAA"})
     assert [(o.symbol, o.side) for o in plan.orders] == [("BBB", "sell")]   # AAA (15%) left to drift
+
+
+# --- weekly bottleneck sleeve ----------------------------------------------------------------
+
+def _bn(tmp_path, **kw):
+    from ai_desk.portfolio.methods import Bottleneck
+
+    return Bottleneck(top=3, screen_glob=str(tmp_path / "bottleneck_*.csv"),
+                      lock_path=str(tmp_path / "bn.json"), **kw)
+
+
+def _bn_scan(tmp_path, picks):
+    pd.DataFrame({"score": range(len(picks), 0, -1)}, index=pd.Index(picks, name="symbol")) \
+        .to_csv(tmp_path / f"bottleneck_{pd.Timestamp.today().date()}.csv")
+
+
+def _trend_closes(down=("CCC",)):
+    idx = pd.bdate_range(end=pd.Timestamp.today(), periods=300)
+    up = np.linspace(100, 200, 300)
+    data = {s: (up[::-1] if s in down else up) * (1 + 0.01 * np.sin(np.arange(300) * (i + 1)))
+            for i, s in enumerate(["AAA", "BBB", "CCC"])}
+    return pd.DataFrame(data, index=idx)
+
+
+def test_bottleneck_inverse_vol_weights_capped(tmp_path):
+    _bn_scan(tmp_path, ["AAA", "BBB", "CCC"])
+    closes = _trend_closes(down=())
+    w = _bn(tmp_path).latest(closes)
+    assert w.sum() == pytest.approx(1.0) and w.max() <= 2 / 3 + 1e-9
+    assert w["AAA"] > w["CCC"]               # AAA wiggles least, so it gets the biggest share
+
+
+def test_bottleneck_exit_below_moving_average(tmp_path):
+    _bn_scan(tmp_path, ["AAA", "BBB", "CCC"])
+    m = _bn(tmp_path)
+    w = m.latest(_trend_closes(down=("CCC",)))
+    assert w["CCC"] == 0 and w["AAA"] > 0                # CCC is falling: below its 200-day average
+    assert any("below its moving average" in n for n in m.status())
+
+
+def test_bottleneck_repicks_weekly_and_exits_stay_out(tmp_path):
+    import json
+
+    (tmp_path / "bn.json").write_text(json.dumps({
+        "picks": ["AAA", "BBB", "CCC"], "screen_file": "x", "weights": {"AAA": .4, "BBB": .3, "CCC": .3},
+        "locked_on": str((pd.Timestamp.today() - pd.Timedelta(days=3)).date())}))
+    m = _bn(tmp_path)
+    closes = _trend_closes(down=("CCC",))
+    assert m.latest(closes)["CCC"] == 0 and m.frozen() == {"AAA", "BBB"}
+    m.on_executed()                                       # the sale went through: remember it
+    again = _bn(tmp_path)
+    assert again.latest(_trend_closes(down=()))["CCC"] == 0      # bounced, but stays out until re-pick
+    (tmp_path / "bn.json").write_text(json.dumps({
+        "picks": ["AAA"], "screen_file": "x", "locked_on": str((pd.Timestamp.today() - pd.Timedelta(days=8)).date())}))
+    _bn_scan(tmp_path, ["BBB", "CCC", "AAA"])
+    assert "re-pick due" in _bn(tmp_path).status()[0]    # a week later: fresh picks
+
+
+def test_desk_preset():
+    m = build(["desk"])
+    assert [(p.name, w) for p, w in m.parts] == [("quality_screen", 0.5), ("bottleneck", 0.2), ("index_momentum", 0.3)]

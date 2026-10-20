@@ -200,6 +200,8 @@ works out the orders.
 | `quality_screen` | the stock screen's top 25, equal weight, **re-picked every quarter**. Picks are locked when bought: in between, only other methods trade and the stocks drift. When a re-pick is due, run `python -m ai_desk screen` first; `--rebalance` re-picks early |
 | `thesis` | preset: 50% `quality_screen` + 50% `index_momentum` (see research/THESIS.md) |
 | `aggressive` | preset: 70% `quality_screen` + 30% `index_momentum` - more return, bigger drawdowns |
+| `bottleneck` | top 8 of the bottleneck scan (`python -m ai_desk bottleneck scan`), sized by volatility, re-picked weekly, sold if below its 200-day average |
+| `desk` | preset: 50% `quality_screen` + 20% `bottleneck` + 30% `index_momentum` |
 
 Blend methods with `name:share`, and set parameters with `--param`. Prefix a
 parameter with the method name to target one method in a blend.
@@ -227,6 +229,21 @@ Executor safety rules:
   `--whole-shares` turns this off.
 
 How the new methods did on real data: [`research/METHODS.md`](research/METHODS.md).
+
+## 5c. Bottleneck scan: where money is flowing, and who is the constraint
+
+```bash
+python -m ai_desk bottleneck scan               # theme map (AI data centres) + top money-flow industries
+python -m ai_desk bottleneck scan --theme-only  # only buy from the theme map
+python -m ai_desk portfolio plan --method desk  # 50% quality + 20% bottleneck + 30% SPY momentum
+```
+
+The scan ranks industries by money flow. It then looks for companies with a
+bottleneck's fingerprints: rising revenue, *expanding* margins, a growing
+backlog, insiders buying, and a price that's still trending up. Method,
+evidence and limits: [`research/BOTTLENECK.md`](research/BOTTLENECK.md).
+The price-flow part has been backtested; it is not a proven edge, so run it
+as an experiment.
 
 ## 6. Stock screener: great businesses at reasonable prices
 
