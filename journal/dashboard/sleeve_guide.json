@@ -1,0 +1,32 @@
+[
+ {
+  "sleeve": "quality_screen",
+  "label": "Quality screen",
+  "allocation": 0.5,
+  "line": "Quality screen - 50% - top 25, re-pick every 3 months; US companies above $10B; must pass: average ROIC 12%+, no year of negative ROIC, revenue up in 60%+ of years, positive free cash flow. Ranked by score: quality 35%, growth 25%, value 20%, financial strength 10%, momentum 10%.",
+  "plain": "Owns the 25 highest-scoring large, profitable, growing US companies, equal weight, and refreshes the list every quarter. Buy and hold between refreshes; no stop-loss (none was backtested).",
+  "screen": "US companies above $10B; must pass: average ROIC 12%+, no year of negative ROIC, revenue up in 60%+ of years, positive free cash flow. Ranked by score: quality 35%, growth 25%, value 20%, financial strength 10%, momentum 10%.",
+  "metrics": "Return vs the equal-weight S&P 500 (RSP) first, then SPY. Backtest: 17.9%/yr, Sharpe 0.89 vs same-universe 11.4%.",
+  "watch": "Each quarter's 25 picks vs RSP; whether the average pick is still cheap enough (forward P/E, FCF yield)."
+ },
+ {
+  "sleeve": "bottleneck",
+  "label": "Bottleneck (money-flow rotation)",
+  "allocation": 0.2,
+  "line": "Bottleneck (money-flow rotation) - 20% - top 8, re-pick every 14 days, exit below the 100-day average; Industries ranked by money flow (relative strength vs SPY); stocks above $10B (theme-map companies from $2B) must pass: revenue +10% year on year, gross margin not falling, price above its 100-day average. Score: bottleneck 35%, flow 25%, asymmetry 25%, insider buying 15%. Weighted by inverse volatility.",
+  "plain": "Finds where money is flowing and holds the 8 best stocks there, especially the scarce suppliers (e.g. power for AI data centres). Refreshes every 2 weeks and sells any stock that closes below its 100-day average.",
+  "screen": "Industries ranked by money flow (relative strength vs SPY); stocks above $10B (theme-map companies from $2B) must pass: revenue +10% year on year, gross margin not falling, price above its 100-day average. Score: bottleneck 35%, flow 25%, asymmetry 25%, insider buying 15%. Weighted by inverse volatility.",
+  "metrics": "Return vs SPY after costs. Backtest (price flows only): 17.0%/yr, Sharpe 0.60, worst drop -46%. An isolated best setting - expect less.",
+  "watch": "Do stocks keep falling after the 100-day exit? Does it beat SPY after its higher trading costs?"
+ },
+ {
+  "sleeve": "index_momentum",
+  "label": "SPY momentum (crash insurance)",
+  "allocation": 0.3,
+  "line": "SPY momentum (crash insurance) - 30% - SPY, 252-day momentum, checked monthly; Holds SPY while its 12-month return is above zero; otherwise cash.",
+  "plain": "Holds SPY while its 12-month return is positive; moves to cash (earning T-bills) when it turns negative. Checked monthly, so it trades about once a year.",
+  "screen": "Holds SPY while its 12-month return is above zero; otherwise cash.",
+  "metrics": "Worst drop vs SPY buy and hold. Backtest 1994-2026: 10.6%/yr vs 10.8%, worst drop -34% vs -55%.",
+  "watch": "It should lag in strong bull markets and justify itself in a long bear market. Judge it on the worst drop, not return."
+ }
+]

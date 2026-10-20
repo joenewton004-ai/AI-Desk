@@ -21,7 +21,7 @@ import pandas as pd
 
 # Broad, diversified funds. A 50% SPY sleeve is by design (research/THESIS.md),
 # so these get their own, higher caps instead of the single-stock ones.
-INDEX_FUNDS = ("SPY", "VOO", "IVV", "VTI", "QQQ", "IWM", "DIA", "TLT", "IEF", "GLD", "BIL", "SHY", "SGOV")
+INDEX_FUNDS = ("SPY", "VOO", "IVV", "VTI", "QQQ", "IWM", "DIA", "EFA", "EEM", "TLT", "IEF", "GLD", "BIL", "SHY", "SGOV")
 
 
 @dataclass

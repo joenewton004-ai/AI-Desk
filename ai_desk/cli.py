@@ -485,6 +485,32 @@ def cmd_journal(a) -> None:
             print(f"{s:16} {v['open_positions']:>5} {v['invested']:>11,.0f} {v['unrealized_pnl']:>+11,.0f} "
                   f"{v['realized_pnl']:>+10,.0f} {v['closed_trades']:>7} {wr:>9}")
         print("\nSaved journal/review.json and journal/methods.json")
+    elif a.action == "snapshot":
+        from ai_desk import scorecard
+        from ai_desk.broker.alpaca import AlpacaPaper
+        broker = AlpacaPaper()
+        n = tradebook.sync_fills(broker)
+        row = scorecard.snapshot(broker)
+        by = {}
+        for h in row["holdings"].values():
+            by[h["sleeve"] or "unassigned"] = by.get(h["sleeve"] or "unassigned", 0) + h["qty"] * (h["price"] or 0)
+        print(f"Snapshot {row['date']}: equity ${row['equity']:,.2f}, cash ${row['cash']:,.2f} "
+              f"({n} orders synced)")
+        for k, v in sorted(by.items()):
+            print(f"  {k:16} ${v:,.0f}")
+    elif a.action == "scorecard":
+        from ai_desk import scorecard
+        from ai_desk.broker.alpaca import AlpacaPaper
+        out = scorecard.build(AlpacaPaper())
+        d = out["desk"]
+        print(f"Since {out['launch']} ({d['days']} trading days): desk {d['total_return']:+.2%}, "
+              f"SPY {out['spy']['total_return']:+.2%}, equal-weight S&P {out['rsp']['total_return']:+.2%}")
+        for r in out["scorecard"]:
+            v = r["value"]
+            shown = "n/a" if v is None else (f"{v:+.2%}" if r["format"] == "pct" else
+                                             f"{v:.1f}" if r["format"] in ("bps", "num") else f"{v:g}")
+            print(f"  [{r['status']:9}] {r['tier']:11} {r['metric']:45} {shown:>9}  target {r['target']}")
+        print("\nSaved journal/scorecard.json")
     elif a.action == "export":
         from ai_desk import dashboard
         counts = dashboard.export()
@@ -621,7 +647,8 @@ def build_parser() -> argparse.ArgumentParser:
     bn.set_defaults(func=cmd_bottleneck)
 
     jn = sub.add_parser("journal", help="trade journal, notes, methodology register and amendments")
-    jn.add_argument("action", choices=["sync", "review", "note", "methods", "propose", "decide", "amendments", "export"])
+    jn.add_argument("action", choices=["sync", "review", "note", "methods", "propose", "decide", "amendments", "export",
+                                       "snapshot", "scorecard"])
     jn.add_argument("target", nargs="?", help="note: trade id / symbol / method; propose: method; decide: amendment id")
     jn.add_argument("text", nargs="?", help="note text, proposal text, or decision evidence")
     jn.add_argument("--rationale", help="propose: why")

@@ -46,6 +46,14 @@ EVIDENCE = {
         "docs": ["research/FINDINGS.md"],
         "status": "proven as crash insurance",
     },
+    "index_rotation": {
+        "summary": "2004-2026, 6 indices (SPY QQQ IWM DIA EFA EEM): top 2 11.6%/yr, Sharpe 0.60 vs the SPY sleeve "
+                   "9.4%, 0.58 - more risk, same Sharpe; gains all from 2004-12, relies on QQQ, fragile to "
+                   "lookback; walk-forward 8.3% (0.45) vs 10.2% (0.61). 'Avoid the worst' (drop_worst, rank weights): "
+                   "Sharpe 0.54-0.58, walk-forward 8.0% (0.44). No improvement inside the desk.",
+        "docs": ["research/INDEX_ROTATION.md", "research/output/index_rotation.md"],
+        "status": "tested, no edge over SPY sleeve",
+    },
     "sma_crossover": {
         "summary": "50/200 on SPY: same insurance as momentum, near-identical results. Not in the live mix.",
         "docs": ["research/METHODS.md"], "status": "works, redundant",
@@ -56,6 +64,53 @@ EVIDENCE = {
         "docs": ["research/METHODS.md"], "status": "weak",
     },
 }
+
+
+# Plain-English guide to the three live sleeves. Allocation comes from PRESETS (the live mix), the
+# top-N / re-pick / moving-average figures from the method classes, so they can't drift from the code.
+SLEEVE_TEXT = {
+    "quality_screen": {
+        "label": "Quality screen",
+        "plain": "Owns the 25 highest-scoring large, profitable, growing US companies, equal weight, and refreshes the list every quarter. Buy and hold between refreshes; no stop-loss (none was backtested).",
+        "screen": ("US companies above $10B; must pass: average ROIC 12%+, no year of negative ROIC, revenue up in 60%+ of "
+                   "years, positive free cash flow. Ranked by score: quality 35%, growth 25%, value 20%, financial "
+                   "strength 10%, momentum 10%."),
+        "metrics": "Return vs the equal-weight S&P 500 (RSP) first, then SPY. Backtest: 17.9%/yr, Sharpe 0.89 vs same-universe 11.4%.",
+        "watch": "Each quarter's 25 picks vs RSP; whether the average pick is still cheap enough (forward P/E, FCF yield).",
+    },
+    "bottleneck": {
+        "label": "Bottleneck (money-flow rotation)",
+        "plain": "Finds where money is flowing and holds the 8 best stocks there, especially the scarce suppliers (e.g. power for AI data centres). Refreshes every 2 weeks and sells any stock that closes below its 100-day average.",
+        "screen": ("Industries ranked by money flow (relative strength vs SPY); stocks above $10B (theme-map companies from $2B) must pass: revenue +10% "
+                   "year on year, gross margin not falling, price above its 100-day average. Score: bottleneck 35%, "
+                   "flow 25%, asymmetry 25%, insider buying 15%. Weighted by inverse volatility."),
+        "metrics": "Return vs SPY after costs. Backtest (price flows only): 17.0%/yr, Sharpe 0.60, worst drop -46%. An isolated best setting - expect less.",
+        "watch": "Do stocks keep falling after the 100-day exit? Does it beat SPY after its higher trading costs?",
+    },
+    "index_momentum": {
+        "label": "SPY momentum (crash insurance)",
+        "plain": "Holds SPY while its 12-month return is positive; moves to cash (earning T-bills) when it turns negative. Checked monthly, so it trades about once a year.",
+        "screen": "Holds SPY while its 12-month return is above zero; otherwise cash.",
+        "metrics": "Worst drop vs SPY buy and hold. Backtest 1994-2026: 10.6%/yr vs 10.8%, worst drop -34% vs -55%.",
+        "watch": "It should lag in strong bull markets and justify itself in a long bear market. Judge it on the worst drop, not return.",
+    },
+}
+
+
+def sleeve_guide() -> list[dict]:
+    """One row per live sleeve: 'name - allocation - screening parameters', plus a plain description and its metrics."""
+    live = dict(PRESETS[LIVE_PRESET])
+    rows = []
+    for name, share in live.items():
+        t = SLEEVE_TEXT[name]
+        p = _params(METHODS[name])
+        facts = {"quality_screen": lambda: f"top {p['top']}, re-pick every {p['rebalance_months']} months",
+                 "bottleneck": lambda: f"top {p['top']}, re-pick every {p['rebalance_days']} days, exit below the 100-day average",
+                 "index_momentum": lambda: f"{p['symbol']}, {p['lookback']}-day momentum, checked monthly"}[name]()
+        rows.append({"sleeve": name, "label": t["label"], "allocation": share,
+                     "line": f"{t['label']} - {share:.0%} - {facts}; {t['screen']}",
+                     "plain": t["plain"], "screen": t["screen"], "metrics": t["metrics"], "watch": t["watch"]})
+    return rows
 
 
 def _params(cls) -> dict:

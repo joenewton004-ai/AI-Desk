@@ -123,6 +123,80 @@ class IndexMomentum(Method):
 
 
 @dataclass
+class IndexRotation(Method):
+    """Index rotation ("dual momentum"): each month, rank major index funds by
+    momentum (12-month return, or a blend of lookbacks) and hold the best `top`
+    - or, with drop_worst=N, everything except the N weakest. Only funds with
+    positive momentum are held; a failing slot sits in cash (earning T-bills).
+    weighting: equal slices, or "rank" (the leader gets the biggest slice).
+    With symbols=SPY and top=1 this is index_momentum."""
+
+    name = "index_rotation"
+    symbols_: list = field(default_factory=lambda: ["SPY", "QQQ", "IWM", "DIA", "EFA", "EEM"])
+    top: int = 1
+    lookback: int = 252
+    drop_worst: int = 0          # >0: hold all but the N weakest (overrides top)
+    weighting: str = "equal"     # equal | rank
+    lookbacks: str = ""          # e.g. "63,126,252": average of 3-, 6- and 12-month returns
+
+    def __post_init__(self):
+        self.symbols_ = _parse_symbols(self.symbols_)
+        if self.weighting not in ("equal", "rank"):
+            raise ValueError("weighting must be equal or rank")
+        if self.drop_worst >= len(self.symbols_):
+            raise ValueError("drop_worst must leave at least one index")
+
+    def symbols(self):
+        return self.symbols_
+
+    def _slots(self) -> int:
+        return len(self.symbols_) - self.drop_worst if self.drop_worst > 0 else self.top
+
+    def _lookbacks(self) -> list[int]:
+        return [int(x) for x in str(self.lookbacks).split(",") if x.strip()] or [self.lookback]
+
+    def weights(self, closes):
+        c = closes[self.symbols_]
+        mom = sum(c / c.shift(lb) - 1 for lb in self._lookbacks()) / len(self._lookbacks())
+        k = self._slots()
+        rank = mom.rank(axis=1, ascending=False, method="first")
+        hold = (rank <= k) & (mom > 0)
+        if self.weighting == "rank":
+            slice_ = (k + 1 - rank).clip(lower=0) / (k * (k + 1) / 2)     # k, k-1, ... 1 parts of the whole
+        else:
+            slice_ = rank * 0 + 1 / k
+        w = slice_.where(hold, 0.0).fillna(0.0)
+        # decide on the first trading day of each month only (like index_momentum)
+        idx = c.index
+        new_month = pd.Series(idx.month, index=idx).diff().fillna(1) != 0
+        w = w.where(new_month, np.nan).ffill().fillna(0.0)
+        last = mom.iloc[-1]
+        self._last = {"momentum": {k_: round(float(v), 4) for k_, v in last.dropna().items()},
+                      "held": [k_ for k_ in w.columns if w[k_].iloc[-1] > 0]}
+        return w
+
+    def rationale(self, symbol):
+        last = getattr(self, "_last", {})
+        if symbol not in self.symbols_:
+            return {}
+        r = last.get("momentum", {})
+        ranked = sorted(r, key=r.get, reverse=True)
+        return {"momentum": r.get(symbol), "lookbacks": ",".join(map(str, self._lookbacks())),
+                "rank": ranked.index(symbol) + 1 if symbol in ranked else None, "of": len(ranked)}
+
+    def exit_reason(self, symbol):
+        last = getattr(self, "_last", {})
+        if symbol not in self.symbols_ or symbol in last.get("held", [symbol]):
+            return None
+        r = last.get("momentum", {}).get(symbol)
+        if r is not None and r <= 0:
+            return f"momentum switch off: {symbol} momentum {r:+.1%}"
+        if self.drop_worst:
+            return f"rotation: {symbol} is among the {self.drop_worst} weakest indices"
+        return f"rotation: {symbol} no longer in the top {self.top}"
+
+
+@dataclass
 class SMACrossoverMethod(Method):
     """Moving-average crossover on each symbol. Each gets an equal slice
     (1/N of the account) and holds it while its fast average is above its
@@ -453,7 +527,7 @@ class Bottleneck(LockedScreen):
 
 
 METHODS: dict[str, type[Method]] = {
-    m.name: m for m in (IndexMomentum, SMACrossoverMethod, PairsMethod, QualityScreen, Bottleneck)
+    m.name: m for m in (IndexMomentum, IndexRotation, SMACrossoverMethod, PairsMethod, QualityScreen, Bottleneck)
 }
 # shorthands: `thesis` is the 50/50 structure in research/THESIS.md; `aggressive`
 # tilts to the stock screen (70/30) - more return and bigger drawdowns in the backtest

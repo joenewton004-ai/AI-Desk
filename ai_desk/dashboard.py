@@ -119,8 +119,23 @@ def tables() -> dict[str, list[dict]]:
     note_rows = [{"id": n["id"], "date": n["created_utc"][:10], "target": n["target"], "author": n["author"],
                   "kind": n["kind"], "text": n["text"]} for n in notes]
 
+    sc = _read_json("scorecard.json")
+    d = sc.get("desk", {})
+    headline = [{
+        "asof": (sc.get("asof_utc") or "")[:10], "launch": sc.get("launch"), "days": d.get("days", 0),
+        "desk_return": d.get("total_return"), "spy_return": sc.get("spy", {}).get("total_return"),
+        "rsp_return": sc.get("rsp", {}).get("total_return"), "sharpe": d.get("sharpe"),
+        "sharpe_low": d.get("sharpe_low"), "sharpe_high": d.get("sharpe_high"),
+        "max_drawdown": d.get("max_drawdown"), "current_drawdown": d.get("current_drawdown"),
+        "flags": sum(1 for r in sc.get("scorecard", []) if r["status"] == "flag"),
+        "watch": sum(1 for r in sc.get("scorecard", []) if r["status"] == "watch"),
+        "criteria_as_of": sc.get("criteria_as_of"),
+    }] if sc else []
+
     return {"summary": summary, "sleeves": sleeves, "positions": positions, "trades": trade_rows,
-            "closed": closed, "methods": methods, "amendments": amendments, "notes": note_rows}
+            "closed": closed, "methods": methods, "amendments": amendments, "notes": note_rows,
+            "sleeve_guide": register.sleeve_guide(), "score_headline": headline, "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
+            "sleeve_perf": sc.get("sleeves", []), "fills": sc.get("fills", []), "exits": sc.get("exits", [])}
 
 
 def export() -> dict[str, int]:

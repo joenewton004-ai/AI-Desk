@@ -65,6 +65,8 @@ def prices():
 
 @pytest.mark.parametrize("spec, params", [
     ("index_momentum", {"symbol": "AA"}),
+    ("index_rotation", {"symbols": "AA,BB,CC,DD", "top": 2}),
+    ("index_rotation", {"symbols": "AA,BB,CC,DD", "drop_worst": 1, "weighting": "rank", "lookbacks": "63,126,252"}),
     ("sma_crossover", {"symbols": "AA,BB"}),
     ("pairs", {"pairs": "AA/BB,CC/DD"}),
     ("pairs", {"pairs": "AA/BB", "mode": "long_only"}),
@@ -327,3 +329,22 @@ def test_bottleneck_exit_uses_the_scans_moving_average(tmp_path):
     m.symbols()
     assert m._ma_days() == 100
     assert _bn(tmp_path, exit_ma=50)._ma_days() == 50          # explicit override wins
+
+
+def test_index_rotation_holds_the_strongest_with_positive_momentum():
+    idx = pd.bdate_range("2020-01-01", periods=600)
+    up = pd.Series(np.linspace(100, 200, 600), index=idx)
+    closes = pd.DataFrame({"UP": up, "FLAT": up * 0 + 100 + np.arange(600) * 0.01, "DOWN": up[::-1].to_numpy()},
+                          index=idx)
+    m = build(["index_rotation"], {"symbols": "UP,FLAT,DOWN", "top": 2})
+    w = m.weights(closes).iloc[-1]
+    assert w["UP"] == 0.5 and w["FLAT"] == 0.5 and w["DOWN"] == 0
+    assert m.rationale("UP")["rank"] == 1 and "switch off" in m.exit_reason("DOWN")
+    # avoid the worst: hold all but the weakest, the leader gets the biggest slice
+    r = build(["index_rotation"], {"symbols": "UP,FLAT,DOWN", "drop_worst": 1, "weighting": "rank"})
+    w = r.weights(closes).iloc[-1]
+    assert abs(w["UP"] - 2 / 3) < 1e-12 and abs(w["FLAT"] - 1 / 3) < 1e-12 and w["DOWN"] == 0
+    assert "weakest" in r.exit_reason("DOWN") or "switch off" in r.exit_reason("DOWN")
+    one = build(["index_rotation"], {"symbols": "UP", "top": 1}).weights(closes)["UP"]
+    spy = build(["index_momentum"], {"symbol": "UP"}).weights(closes)["UP"]
+    pd.testing.assert_series_equal(one, spy, check_names=False)

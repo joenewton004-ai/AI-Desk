@@ -11,6 +11,9 @@ Claude Code is the *engineer* here: it helps you write, test and review
 strategies. The strategies themselves are plain, deterministic rules you
 can backtest and explain. No LLM makes trade decisions.
 
+**Trading journal dashboard:** https://claude.ai/artifact/PFSUn2FY2CarKh4Cxuni4y
+(positions, trades with notes, methods and amendments; refreshed with `python -m ai_desk journal export`)
+
 > Educational software, not financial advice. Most strategies that look good
 > in a backtest fail live. Paper trade for months before risking money.
 

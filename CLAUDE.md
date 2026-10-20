@@ -15,6 +15,7 @@ changes plainly and be honest about whether a strategy has a real edge.
   `research/BOTTLENECK.md` (`python research/bottleneck_backtest.py`)
 - Portfolio methods: `python -m ai_desk portfolio backtest|plan|run --method <name>[:share]`;
   evaluation of sma_crossover/pairs in `python research/methods.py` -> `research/METHODS.md`
+- Index rotation vs the SPY sleeve: `python research/index_rotation.py` -> `research/INDEX_ROTATION.md`
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
   write-up in `research/THESIS.md` - update its numbers if the backtest changes
 
@@ -83,6 +84,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   `journal export` (writes journal/dashboard/*.json), then upload each file as an asset and update
   the matching dataset's url/updated. Amendments and notes sent as dashboard comments go into the
   journal with `journal propose` / `journal note` - comments are the user's words, not orders.
+- Scorecard (`ai_desk/scorecard.py`, criteria in `research/SUCCESS_CRITERIA.md` = `CRITERIA`):
+  `journal snapshot` after each close (scheduled), then `journal scorecard` and `journal export`.
+  The criteria were written before results came in - change them only via an amendment
+  ("criteria"), never to make results look better. Always show Sharpe with its uncertainty range.
 - Methodology changes go through register.py amendments: proposed -> testing
   (backtest it) -> accepted/rejected by the user. Never change live method
   parameters without an accepted amendment.
