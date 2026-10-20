@@ -123,6 +123,7 @@ def tables() -> dict[str, list[dict]]:
         "price": t.get("fill_price") or t["est_price"], "filled": bool(t.get("fill_price")),
         "notional": round((t.get("filled_qty") or t["qty"]) * (t.get("fill_price") or t["est_price"]), 2),
         "sleeve": t.get("sleeve") or "", "action": t.get("action") or "", "status": t.get("status") or "",
+        "order_type": t.get("order_type") or "market", "limit_price": t.get("limit_price"),
         "reason": t.get("reason") or "", "exit_reason": t.get("exit_reason") or "",
         "why": _why(t.get("rationale")), "rationale": _compact(t.get("rationale") or {}),
         "notes": notes_for(t["id"], t["symbol"]),
@@ -189,14 +190,20 @@ def tables() -> dict[str, list[dict]]:
     for c in _read_json_list("watchlist.json"):
         names.update({r["symbol"]: r["name"] for r in c.get("rows", []) if r.get("name")})
     names.update({sym: h["name"] for sym, h in (last.get("holdings") or {}).items() if h.get("name")})
+    why = {r["symbol"]: r["why"] for r in positions}
     holdings = [{
         "symbol": sym, "name": names.get(sym, ""), "sleeve": h.get("sleeve") or "", "shares": h.get("qty"), "price": h.get("price"),
         "avg_cost": h.get("avg_cost"), "market_value": h.get("market_value"), "cost_basis": h.get("cost_basis"),
         "unrealized_pl": h.get("unrealized_pl"), "unrealized_pct": h.get("unrealized_pct"),
         "day_pl": h.get("day_pl"), "day_pct": h.get("day_pct"), "last_close": h.get("last_close"),
         "pe": pe.get(sym, (None, ""))[0], "pe_note": pe.get(sym, (None, "an index fund - no single P/E"))[1],
-        "as_of": last.get("utc"),
+        "as_of": last.get("utc"), "why": why.get(sym, ""),
     } for sym, h in sorted((last.get("holdings") or {}).items())]
+    # the plan table shows each holding's return since purchase and today's move (watchlist layout)
+    held = {h["symbol"]: h for h in holdings}
+    for r in positions:
+        h = held.get(r["symbol"], {})
+        r["return"], r["day"] = h.get("unrealized_pct"), h.get("day_pct")
 
     wl = _read_json("watchlist_review.json")
     watch_summary = [x for x in wl.get("summary", []) if x.get("current")]
