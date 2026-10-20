@@ -31,6 +31,33 @@ def _compact(d: dict, depth: int = 0) -> str:
     return (" | " if depth == 0 else ", ").join(parts)
 
 
+def _why(rationale: dict | None) -> str:
+    """One short line on why a holding is wanted, e.g. '#4 · value 98, quality 90 · P/E 9'."""
+    out = []
+    for sleeve, r in (rationale or {}).items():
+        if not isinstance(r, dict):
+            continue
+        if sleeve == "index_momentum":
+            t = r.get("trailing_12m_return")
+            if t is not None:
+                out.append(f"12-month return {t:+.0%}: trend {'on' if r.get('signal') else 'off'}")
+            continue
+        names = ({"flow_score": "flow", "bottleneck_score": "bottleneck", "asymmetry_score": "asymmetry"}
+                 if sleeve == "bottleneck" else
+                 {"quality_score": "quality", "growth_score": "growth", "value_score": "value",
+                  "strength_score": "strength", "momentum_score": "momentum"})
+        scores = sorted(((r.get(k), v) for k, v in names.items() if r.get(k) == r.get(k) and r.get(k) is not None),
+                        reverse=True)[:2]
+        bits = [f"#{int(r['rank'])}"] if r.get("rank") is not None else []
+        if scores:
+            bits.append(", ".join(f"{v} {k:.0f}" for k, v in scores))
+        extra = r.get("rev_growth") if sleeve == "bottleneck" else r.get("forward_pe")
+        if extra is not None and extra == extra:
+            bits.append(f"revenue {extra:+.0%}" if sleeve == "bottleneck" else f"P/E {extra:.0f}")
+        out.append(" · ".join(bits))
+    return " / ".join(x for x in out if x)
+
+
 def _brief(r: dict) -> str:
     """One short line of the scores that decide the rank, e.g. 'Q 72 · G 59 · V 88 · M 90 · P/E 13'."""
     def n(k, fmt="{:.0f}"):
@@ -74,7 +101,8 @@ def tables() -> dict[str, list[dict]]:
         "target_usd": round((r["target"] or 0.0) * (plan.get("equity") or 0.0), 2),
         "held_qty": r["held_qty"], "order": f"{r['side']} {r['qty']:g}" if r["side"] else "",
         "order_usd": r["notional"], "reason": r["reason"], "blocked": r["blocked"],
-        "exit_reason": r["exit_reason"] or "", "rationale": _compact(r.get("rationale") or {}),
+        "exit_reason": r["exit_reason"] or "", "why": _why(r.get("rationale")),
+        "rationale": _compact(r.get("rationale") or {}),
         "notes": notes_for(r["symbol"]),
     } for r in plan.get("rows", [])]
 
@@ -85,7 +113,8 @@ def tables() -> dict[str, list[dict]]:
         "notional": round((t.get("filled_qty") or t["qty"]) * (t.get("fill_price") or t["est_price"]), 2),
         "sleeve": t.get("sleeve") or "", "action": t.get("action") or "", "status": t.get("status") or "",
         "reason": t.get("reason") or "", "exit_reason": t.get("exit_reason") or "",
-        "rationale": _compact(t.get("rationale") or {}), "notes": notes_for(t["id"], t["symbol"]),
+        "why": _why(t.get("rationale")), "rationale": _compact(t.get("rationale") or {}),
+        "notes": notes_for(t["id"], t["symbol"]),
     } for t in trades]
 
     closed = [{
