@@ -123,6 +123,7 @@ def tables() -> dict[str, list[dict]]:
         "price": t.get("fill_price") or t["est_price"], "filled": bool(t.get("fill_price")),
         "notional": round((t.get("filled_qty") or t["qty"]) * (t.get("fill_price") or t["est_price"]), 2),
         "sleeve": t.get("sleeve") or "", "action": t.get("action") or "", "status": t.get("status") or "",
+        "order_type": t.get("order_type") or "market", "limit_price": t.get("limit_price"),
         "reason": t.get("reason") or "", "exit_reason": t.get("exit_reason") or "",
         "why": _why(t.get("rationale")), "rationale": _compact(t.get("rationale") or {}),
         "notes": notes_for(t["id"], t["symbol"]),
