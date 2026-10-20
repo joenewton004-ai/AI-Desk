@@ -346,6 +346,20 @@ class LockedScreen(Method):
                                f"`{self.scan_command}` first (must be under {self.max_age_days} days old)")
         return list(pd.read_csv(path, index_col=0).index[:self.top]), path.name
 
+    def repick_status(self, today: pd.Timestamp | None = None) -> dict:
+        """Is a re-pick due, and does it need a fresh scan first? (For the scheduled evening run.)"""
+        today = (today or pd.Timestamp.today()).normalize()
+        lock = self._lock()
+        files = sorted(glob.glob(self.screen_glob))
+        scan_date = pd.Timestamp(Path(files[-1]).stem.split("_")[-1]) if files else None
+        due = lock is None or today >= self._next_repick(lock)
+        return {"sleeve": self.name, "due": bool(due),
+                "next_repick": None if lock is None else self._next_repick(lock).date().isoformat(),
+                "scan_date": None if scan_date is None else scan_date.date().isoformat(),
+                # re-pick from a scan run today, so it reflects the latest close
+                "needs_scan": bool(due and (scan_date is None or scan_date < today)),
+                "scan_command": self.scan_command}
+
     def _picks(self) -> list[str]:
         if self._cache is not None:
             return self._cache["picks"]

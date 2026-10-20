@@ -93,6 +93,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   `journal snapshot` after each close (scheduled), then `journal scorecard` and `journal export`.
   The criteria were written before results came in - change them only via an amendment
   ("criteria"), never to make results look better. Always show Sharpe with its uncertainty range.
+- Evening trading run (scheduled, weekdays 4:30pm New York, approved by the user 2026-10-20):
+  `portfolio prepare --method desk` (runs a scan only if a re-pick is due today), then
+  `portfolio run --method desk --execute --limit-cap 0.02 --limit-cap-side buy` (buys capped 2% above the
+  last close; sells always market so exits go through). Orders queue for the next open.
 - Watchlist (`ai_desk/watchlist.py`): each new lock saves the rest of that scan as a cohort in
   journal/watchlist.json (output/ isn't committed), measured from the same decision close as the
   picks. `journal watchlist` captures + reviews (daily task). Judge cohorts at their re-pick, not daily.

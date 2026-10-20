@@ -190,3 +190,24 @@ def test_export_never_writes_nan_and_lists_empty_tables():
     assert "NaN" not in text and json.loads(text)[0]["sharpe"] is None
     m = json.loads((tradebook.DIR / "dashboard" / "_manifest.json").read_text())
     assert "closed" in m["empty"] and "methods" in m["with_rows"]
+
+
+def test_buy_only_cap_leaves_sells_as_market_orders(tmp_path, monkeypatch):
+    from ai_desk.portfolio.methods import Method
+
+    class Flat(Method):
+        name = "flat"
+
+        def symbols(self):
+            return ["AA"]
+
+        def weights(self, closes):
+            return pd.DataFrame({"AA": 0.5}, index=closes.index)
+
+    monkeypatch.setattr(executor, "JOURNAL", tmp_path / "plan.csv")
+    broker = Broker({"AA": 100.0, "BB": 50.0})
+    broker.pos["BB"] = 10                                       # not wanted: will be sold
+    executor.run(Flat(), executor.Limits(limit_cap=0.02, limit_cap_side="buy"), execute=True, source="synthetic",
+                 max_data_age_days=None, broker=broker)
+    by = {t["symbol"]: t for t in tradebook.trades()}
+    assert by["AA"]["order_type"] == "limit" and by["BB"]["order_type"] == "market"

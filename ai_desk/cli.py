@@ -380,6 +380,22 @@ def cmd_portfolio(a) -> None:
     method = build(a.method, params)
     print(f"\nmethod: {method.describe()}")
 
+    if a.action == "prepare":
+        # before the evening run: run any scan a re-pick due today needs (re-picks need a scan from today)
+        import shlex
+        import subprocess
+        parts = [m for m, _ in getattr(method, "parts", [])] or [method]
+        for m in parts:
+            if not hasattr(m, "repick_status"):
+                continue
+            st = m.repick_status()
+            print(f"{st['sleeve']}: next re-pick {st['next_repick'] or 'now (first pick)'}; latest scan "
+                  f"{st['scan_date'] or 'none'}; {'re-pick DUE' if st['due'] else 'not due'}")
+            if st["needs_scan"]:
+                print(f"  running: {st['scan_command']}")
+                subprocess.run([sys.executable, *shlex.split(st["scan_command"])[1:]], check=True)
+        return
+
     if a.action == "backtest":
         prices = load_many(method.symbols(), a.start, a.end, a.source)
         start = prices["close"].index[min(260, len(prices["close"]) - 2)]   # let long averages warm up
@@ -400,7 +416,7 @@ def cmd_portfolio(a) -> None:
     limits = executor.Limits(max_position=a.max_position, max_gross=a.max_gross, max_order=a.max_order_pct,
                              allow_short=method.can_short and not a.no_short,
                              max_fund_position=a.max_fund_position, fractional=not a.whole_shares,
-                             cash_buffer=a.cash_buffer, limit_cap=a.limit_cap)
+                             cash_buffer=a.cash_buffer, limit_cap=a.limit_cap, limit_cap_side=a.limit_cap_side)
     plan = executor.run(method, limits, execute=(a.action == "run" and a.execute), source=a.source)
     for note in plan.notes:
         print(f"  - {note}")
@@ -626,7 +642,7 @@ def build_parser() -> argparse.ArgumentParser:
     sc.set_defaults(func=cmd_screen)
 
     pf = sub.add_parser("portfolio", help="multi-stock methods: backtest, plan or run on Alpaca paper")
-    pf.add_argument("action", choices=["backtest", "plan", "run"],
+    pf.add_argument("action", choices=["backtest", "plan", "run", "prepare"],
                     help="backtest | plan (dry run vs your paper account) | run (add --execute to trade)")
     pf.add_argument("--method", action="append", required=True,
                     help="index_momentum | sma_crossover | pairs | quality_screen | thesis | aggressive; blend with "
@@ -648,6 +664,8 @@ def build_parser() -> argparse.ArgumentParser:
     pf.add_argument("--limit-cap", type=float, default=None,
                     help="send limit orders capped this far beyond the last close (e.g. 0.02 = 2%%) instead of "
                          "market orders; unfilled ones expire at the close and are re-planned next run")
+    pf.add_argument("--limit-cap-side", choices=["buy", "both"], default="both",
+                    help="with --limit-cap: cap buys only (sells always go through) or both")
     pf.add_argument("--execute", action="store_true", help="with `run`: actually submit to Alpaca PAPER")
     pf.add_argument("--rebalance", action="store_true",
                     help="re-pick the screen's stocks now instead of waiting for the quarterly date")

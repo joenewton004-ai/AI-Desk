@@ -358,3 +358,18 @@ def test_limit_price_is_capped_and_rounded_to_cents():
     assert limit_price(33.337, "sell", 0.02) == 32.68                # 32.67026 -> rounded UP for a sell
     assert limit_price(0.5, "buy", 0.02) == 0.51 and format_limit(0.51) == "0.5100"
     assert format_limit(102.0) == "102.00"
+
+
+def test_repick_status_and_buy_only_cap(tmp_path, monkeypatch):
+    import json
+    from ai_desk.portfolio.methods import Bottleneck
+    lock = tmp_path / "lock.json"
+    lock.write_text(json.dumps({"picks": ["AA"], "screen_file": "bottleneck_2026-10-20.csv", "locked_on": "2026-10-20"}))
+    (tmp_path / "bottleneck_2026-10-20.csv").write_text("symbol,score\nAA,1\n")
+    m = Bottleneck(lock_path=str(lock), screen_glob=str(tmp_path / "bottleneck_*.csv"))
+    early = m.repick_status(pd.Timestamp("2026-10-27"))
+    assert not early["due"] and not early["needs_scan"] and early["next_repick"] == "2026-11-03"
+    due = m.repick_status(pd.Timestamp("2026-11-03"))
+    assert due["due"] and due["needs_scan"] and due["scan_command"].startswith("python -m ai_desk bottleneck scan")
+    (tmp_path / "bottleneck_2026-11-03.csv").write_text("symbol,score\nBB,1\n")
+    assert not m.repick_status(pd.Timestamp("2026-11-03"))["needs_scan"]       # today's scan is already there
