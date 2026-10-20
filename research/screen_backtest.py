@@ -107,9 +107,10 @@ def main() -> None:
              "SPY": "S&P 500 (SPY)"}
     emit(f"## 1. Results, {r.index[0]:%b %Y} - {r.index[-1]:%b %Y} (rebalanced each March)\n")
     rows = {names[k]: stats(r[k], rf, r["SPY"]) for k in names}
+    yearly_all = (1 + r[list(names)]).groupby(r.index.year).prod() - 1
     for k in names:
-        yearly = (1 + r[[k, "SPY"]]).groupby(r.index.year).prod() - 1
-        rows[names[k]]["beats SPY (years)"] = f"{int((yearly[k] > yearly['SPY']).sum())}/{len(yearly)}"
+        beats = int((yearly_all[k] > yearly_all["SPY"]).sum()) if k != "SPY" else None
+        rows[names[k]]["beats SPY (years)"] = f"{beats}/{len(yearly_all)}" if beats is not None else ""
     emit(table(rows))
 
     emit("\n## 2. Calendar years\n")
