@@ -56,8 +56,17 @@ class AlpacaPaper:
         pos = self._request("GET", f"/positions/{symbol}")
         return float(pos["qty"]) if pos else 0.0
 
-    def open_orders(self, symbol: str) -> list[dict]:
-        return self._request("GET", "/orders", params={"status": "open", "symbols": symbol}) or []
+    def open_orders(self, symbol: str | None = None) -> list[dict]:
+        params = {"status": "open"} | ({"symbols": symbol} if symbol else {})
+        return self._request("GET", "/orders", params=params) or []
+
+    def positions(self) -> dict[str, float]:
+        """{symbol: shares}; negative = short."""
+        return {p["symbol"]: float(p["qty"]) for p in self._request("GET", "/positions") or []}
+
+    def asset(self, symbol: str) -> dict:
+        """Tradability flags, e.g. {"tradable": True, "shortable": True, "easy_to_borrow": True}."""
+        return self._request("GET", f"/assets/{symbol}") or {}
 
     def submit_market_order(self, symbol: str, qty: int, side: str) -> dict:
         """Market order, good for the day. Submitted after the close, Alpaca
