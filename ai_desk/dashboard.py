@@ -9,6 +9,7 @@ a plan, an execute or a review, then ask Claude to refresh the dashboard.
 from __future__ import annotations
 
 import json
+import re
 
 from ai_desk import register, tradebook
 
@@ -28,6 +29,21 @@ def _compact(d: dict, depth: int = 0) -> str:
         elif v is not None and v == v:          # skip None and NaN
             parts.append(f"{k}={_fmt(v)}")
     return (" | " if depth == 0 else ", ").join(parts)
+
+
+def _brief(r: dict) -> str:
+    """One short line of the scores that decide the rank, e.g. 'Q 72 · G 59 · V 88 · M 90 · P/E 13'."""
+    def n(k, fmt="{:.0f}"):
+        v = r.get(k)
+        return None if v is None or v != v else fmt.format(v)
+
+    if r.get("sleeve") == "bottleneck":
+        parts = [("Flow", n("flow_score")), ("Bneck", n("bottleneck_score")), ("Asym", n("asymmetry_score")),
+                 ("Rev", n("rev_growth", "{:+.0%}"))]
+    else:
+        parts = [("Q", n("quality_score")), ("G", n("growth_score")), ("V", n("value_score")),
+                 ("M", n("momentum_score")), ("P/E", n("forward_pe"))]
+    return " · ".join(f"{k} {v}" for k, v in parts if v is not None)
 
 
 def _read_json(name: str) -> dict:
@@ -98,6 +114,7 @@ def tables() -> dict[str, list[dict]]:
 
     orders = [r for r in plan.get("rows", []) if r["side"] and not r["blocked"]]
     summary = [{
+        "exported_utc": tradebook._now(),
         "equity": review.get("equity") or plan.get("equity"), "signal_date": plan.get("signal_date"),
         "plan_status": plan.get("status"), "plan_method": plan.get("method"),
         "orders": len(orders),
@@ -123,9 +140,13 @@ def tables() -> dict[str, list[dict]]:
     watch_summary = [x for x in wl.get("summary", []) if x.get("current")]
     watch_rows = [{**{k: r.get(k) for k in ("cohort", "sleeve", "symbol", "name", "industry", "sector", "rank", "status",
                                             "reason", "score", "return", "vs_picks")},
-                   "details": _compact({k: v for k, v in r.items() if k not in (
-                       "cohort", "sleeve", "symbol", "name", "industry", "sector", "rank", "status", "reason", "score",
-                       "return", "vs_picks")})} for r in wl.get("rows", [])]
+                   "details": _brief(r)} for r in wl.get("rows", [])]
+    for r in watch_rows:                                    # short, one-line reasons
+        if r["status"] == "near miss":
+            m = re.search(r"top (\d+)", r["reason"] or "")
+            r["reason"] = f"outside the top {m.group(1)}" if m else "ranked lower"
+        elif r["status"] == "picked":
+            r["reason"] = "held"
 
     sc = _read_json("scorecard.json")
     d = sc.get("desk", {})
