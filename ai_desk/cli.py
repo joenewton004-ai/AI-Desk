@@ -374,7 +374,10 @@ def cmd_portfolio(a) -> None:
     from ai_desk.portfolio.backtest import buy_and_hold, run_portfolio_backtest
     from ai_desk.portfolio.methods import build
 
-    method = build(a.method, parse_params(a.param))
+    params = parse_params(a.param)
+    if getattr(a, "rebalance", False):
+        params["quality_screen.rebalance"] = True
+    method = build(a.method, params)
     print(f"\nmethod: {method.describe()}")
 
     if a.action == "backtest":
@@ -396,7 +399,8 @@ def cmd_portfolio(a) -> None:
 
     limits = executor.Limits(max_position=a.max_position, max_gross=a.max_gross, max_order=a.max_order_pct,
                              allow_short=method.can_short and not a.no_short,
-                             max_fund_position=a.max_fund_position)
+                             max_fund_position=a.max_fund_position, fractional=not a.whole_shares,
+                             cash_buffer=a.cash_buffer)
     plan = executor.run(method, limits, execute=(a.action == "run" and a.execute), source=a.source)
     for note in plan.notes:
         print(f"  - {note}")
@@ -404,12 +408,107 @@ def cmd_portfolio(a) -> None:
         print("  no orders needed - the account already matches the targets")
     for o in plan.orders:
         flag = f"  BLOCKED: {o.blocked}" if o.blocked else ""
-        print(f"  {o.side:4} {o.qty:>6} {o.symbol:6} ~${o.notional:>11,.0f}   {o.reason}{flag}")
+        print(f"  {o.side:4} {o.qty:>10g} {o.symbol:6} ~${o.notional:>11,.0f}   {o.reason}{flag}")
     sent = a.action == "run" and a.execute
     print(f"\n{'SUBMITTED' if sent else 'DRY RUN - nothing sent'} ({len(plan.sendable)} orders). "
           f"Logged to {executor.JOURNAL}")
     if not sent:
         print("To send them to your Alpaca PAPER account: add  run --execute")
+
+
+def cmd_broker(a) -> None:
+    """Check the Alpaca PAPER connection and explain any failure in plain terms."""
+    import requests
+
+    from ai_desk.broker.alpaca import PAPER_URL, AlpacaPaper
+
+    try:
+        client = AlpacaPaper()
+        s = client.status()
+    except RuntimeError as e:                        # live keys
+        sys.exit(f"Not connected: {e}")
+    except requests.HTTPError as e:
+        code = e.response.status_code if e.response is not None else "?"
+        if code in (401, 403) and client.injected:
+            hint = ("no keys reached Alpaca. Locally: set APCA_API_KEY_ID and APCA_API_SECRET_KEY in .env. "
+                    "In a cloud session: add a network secret for paper-api.alpaca.markets with headers "
+                    "APCA-API-KEY-ID and APCA-API-SECRET-KEY (no prefix), then start a new session")
+        elif code in (401, 403):
+            hint = ("the keys were rejected - check they are PAPER keys (start with 'PK') and were copied "
+                    "whole; regenerating them in the Alpaca dashboard invalidates old ones")
+        else:
+            hint = "unexpected response from Alpaca"
+        sys.exit(f"Not connected (HTTP {code}): {hint}")
+    except requests.RequestException as e:
+        sys.exit(f"Not connected: can't reach {PAPER_URL.split('/v2')[0]} ({type(e).__name__}). If this is a cloud "
+                 "session, add paper-api.alpaca.markets to the environment's allowed network domains.")
+    via = "keys added by the environment's network secret" if client.injected else "keys from .env / environment"
+    print(f"\nConnected to Alpaca PAPER account {s['account']} (status: {s['status']}; {via})")
+    print(f"  equity ${s['equity']:,.2f}   cash ${s['cash']:,.2f}   buying power ${s['buying_power']:,.2f}")
+    print(f"  shorting enabled: {s['shorting_enabled']}   trading blocked: {s['trading_blocked']}")
+    print(f"  market open now: {s['market_open']}   next open: {s['next_open']}")
+    print(f"  positions: {len(s['positions'])}   open orders: {s['open_orders']}")
+    for sym, qty in sorted(s["positions"].items()):
+        print(f"    {sym:6} {qty:+g}")
+
+
+def cmd_bottleneck(a) -> None:
+    from ai_desk.bottleneck.scan import report, run_scan
+
+    theme = None if a.theme == "none" else a.theme
+    print(f"Bottleneck scan (theme: {theme or 'none - money flow only'}) ...")
+    result = run_scan(theme=theme, top_industries=a.top_industries, min_cap=a.min_cap,
+                      with_backlog=not a.no_backlog, theme_only=a.theme_only, ma_days=a.ma)
+    path = report(result, top=a.top)
+    print("\n" + path.read_text())
+    print(f"Saved {path} and {path.with_suffix('.csv')}")
+
+
+def cmd_journal(a) -> None:
+    from ai_desk import register, tradebook
+
+    if a.action == "sync":
+        from ai_desk.broker.alpaca import AlpacaPaper
+        n = tradebook.sync_fills(AlpacaPaper())
+        print(f"Updated {n} orders from Alpaca. {sum(1 for t in tradebook.trades() if t.get('fill_price'))} "
+              f"of {len(tradebook.trades())} trades have fills.")
+    elif a.action == "review":
+        from ai_desk.broker.alpaca import AlpacaPaper
+        broker = AlpacaPaper()
+        tradebook.sync_fills(broker)
+        r = tradebook.review(broker.latest_prices(), float(broker.account()["equity"]))
+        register.register()
+        print(f"\nEquity ${r['equity']:,.2f} | {r['trades_logged']} trades logged | {r['notes']} notes")
+        print(f"{'sleeve':16} {'open':>5} {'invested':>11} {'unrealized':>11} {'realized':>10} {'closed':>7} {'win rate':>9}")
+        for s, v in r["by_sleeve"].items():
+            wr = "n/a" if v["win_rate"] is None else f"{v['win_rate']:.0%}"
+            print(f"{s:16} {v['open_positions']:>5} {v['invested']:>11,.0f} {v['unrealized_pnl']:>+11,.0f} "
+                  f"{v['realized_pnl']:>+10,.0f} {v['closed_trades']:>7} {wr:>9}")
+        print("\nSaved journal/review.json and journal/methods.json")
+    elif a.action == "export":
+        from ai_desk import dashboard
+        counts = dashboard.export()
+        print("Saved journal/dashboard/: " + ", ".join(f"{k} ({v} rows)" for k, v in counts.items()))
+    elif a.action == "note":
+        row = tradebook.add_note(a.target, a.text, author=a.author)
+        print(f"note {row['id']} added to {a.target}")
+    elif a.action == "methods":
+        reg = register.register()
+        print(f"Live mix ({reg['live_preset']}): " + ", ".join(f"{k} {v:.0%}" for k, v in reg["live_allocation"].items()))
+        for m in reg["methods"]:
+            print(f"\n{m['name']} [{m['status']}]{' - LIVE ' + format(m['allocation'], '.0%') if m['in_live_mix'] else ''}")
+            print(f"  {m['description']}")
+            print(f"  parameters: {m['parameters']}")
+            print(f"  evidence: {m['evidence_summary']}")
+    elif a.action == "propose":
+        row = register.propose(a.target, a.text, a.rationale or "", author=a.author)
+        print(f"amendment {row['id']} proposed for {a.target}")
+    elif a.action == "decide":
+        row = register.decide(a.target, a.status, a.text or "")
+        print(f"amendment {row['id']} -> {row['status']}")
+    elif a.action == "amendments":
+        for r in register.amendments():
+            print(f"{r['id']} [{r['status']:8}] {r['method']}: {r['proposal']}  ({r['author']}, {r['created_utc'][:10]})")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -487,7 +586,7 @@ def build_parser() -> argparse.ArgumentParser:
     pf.add_argument("action", choices=["backtest", "plan", "run"],
                     help="backtest | plan (dry run vs your paper account) | run (add --execute to trade)")
     pf.add_argument("--method", action="append", required=True,
-                    help="index_momentum | sma_crossover | pairs | quality_screen | thesis; blend with "
+                    help="index_momentum | sma_crossover | pairs | quality_screen | thesis | aggressive; blend with "
                          "name:share, e.g. --method quality_screen:0.5 --method index_momentum:0.5")
     pf.add_argument("--param", action="append",
                     help="method settings, e.g. symbols=SPY,QQQ  pairs.entry_z=2.5  pairs=V/MA,KO/PEP")
@@ -500,8 +599,39 @@ def build_parser() -> argparse.ArgumentParser:
     pf.add_argument("--max-gross", type=float, default=1.0, help="max sum of |weights| (1.0 = no leverage)")
     pf.add_argument("--max-order-pct", type=float, default=0.25, help="largest single order (fraction)")
     pf.add_argument("--no-short", action="store_true", help="never open short positions")
+    pf.add_argument("--whole-shares", action="store_true", help="don't use fractional shares")
+    pf.add_argument("--cash-buffer", type=float, default=0.01,
+                    help="fraction of equity always left in cash (default 0.01 = 1%%)")
     pf.add_argument("--execute", action="store_true", help="with `run`: actually submit to Alpaca PAPER")
+    pf.add_argument("--rebalance", action="store_true",
+                    help="re-pick the screen's stocks now instead of waiting for the quarterly date")
     pf.set_defaults(func=cmd_portfolio)
+
+    bn = sub.add_parser("bottleneck", help="find bottleneck stocks in themes money is flowing into")
+    bn.add_argument("action", choices=["scan"])
+    bn.add_argument("--theme", default="ai_datacenter", help="theme map in bottleneck/themes.py, or 'none'")
+    bn.add_argument("--top-industries", type=int, default=8, help="how many top money-flow industries to scan")
+    bn.add_argument("--min-cap", type=float, default=10e9)
+    bn.add_argument("--top", type=int, default=15)
+    bn.add_argument("--no-backlog", action="store_true", help="skip SEC backlog data (faster)")
+    bn.add_argument("--ma", type=int, default=100,
+                    help="moving average (days) a stock must be above to buy; the sleeve sells below it")
+    bn.add_argument("--theme-only", action="store_true",
+                    help="only pick companies in the theme map (money-flow industries are still reported)")
+    bn.set_defaults(func=cmd_bottleneck)
+
+    jn = sub.add_parser("journal", help="trade journal, notes, methodology register and amendments")
+    jn.add_argument("action", choices=["sync", "review", "note", "methods", "propose", "decide", "amendments", "export"])
+    jn.add_argument("target", nargs="?", help="note: trade id / symbol / method; propose: method; decide: amendment id")
+    jn.add_argument("text", nargs="?", help="note text, proposal text, or decision evidence")
+    jn.add_argument("--rationale", help="propose: why")
+    jn.add_argument("--status", choices=["proposed", "testing", "accepted", "rejected"], help="decide: new status")
+    jn.add_argument("--author", default="you")
+    jn.set_defaults(func=cmd_journal)
+
+    bk = sub.add_parser("broker", help="check the Alpaca paper connection")
+    bk.add_argument("action", choices=["status"])
+    bk.set_defaults(func=cmd_broker)
 
     f = sub.add_parser("fetch", help="download daily prices to CSV files you can commit")
     f.add_argument("symbols", nargs="+", help="e.g. SPY QQQ TLT GLD ^VIX")

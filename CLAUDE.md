@@ -11,6 +11,8 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Stock screener: `python -m ai_desk screen` (Yahoo, cached a week in `data/fundamentals/`; the
   10-year check reads SEC filings, cached in `data/sec/`; `--no-history` skips it)
 - Full robustness research: `python research/edges.py`, then update `research/FINDINGS.md` by hand
+- Bottleneck scan: `python -m ai_desk bottleneck scan [--theme-only]`; research in
+  `research/BOTTLENECK.md` (`python research/bottleneck_backtest.py`)
 - Portfolio methods: `python -m ai_desk portfolio backtest|plan|run --method <name>[:share]`;
   evaluation of sma_crossover/pairs in `python research/methods.py` -> `research/METHODS.md`
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
@@ -58,3 +60,29 @@ changes plainly and be honest about whether a strategy has a real edge.
   `tests/test_portfolio.py`. Order rules live in `executor.plan_orders`
   (pure, unit-tested) - keep network calls out of it.
 - The executor never trades without `run --execute`, and stays on Alpaca PAPER.
+- Alpaca: only paper keys (PK...) are accepted; `AlpacaPaper` refuses live
+  keys (AK...). Check connectivity with `python -m ai_desk broker status`.
+  Never ask the user to paste keys into chat - they go in .env or the cloud
+  environment's secrets.
+- quality_screen holdings are locked in data/portfolio/quality_screen.json
+  when orders are sent, and re-picked every 3 months (backtested: quarterly
+  beat annual). Never re-pick on a dry run; frozen positions aren't resized.
+- Theme maps (`bottleneck/themes.py`) are dated, human-curated inputs - keep
+  `as_of` current and never present theme results as hindsight-free.
+- Insider signal = open-market purchases only (Yahoo's "purchases" include
+  grants). Congress data only from data/congress/trades.csv; say when absent.
+- The bottleneck sleeve re-picks every 2 weeks and exits below its 100-day average
+  (the scan's --ma, stored with the picks);
+  an exited stock stays out until the next re-pick (recorded in its lock).
+- Trade journal (`ai_desk/tradebook.py`, files in journal/, COMMITTED to git):
+  every executed order is recorded with sleeve, rationale and exit reason;
+  `python -m ai_desk journal sync|review|note|methods|propose|decide|amendments`.
+  Commit journal/ and data/portfolio/ (the pick locks) after each trading session - containers
+  are temporary, and a lost lock would re-pick early.
+- Dashboard: https://claude.ai/artifact/PFSUn2FY2CarKh4Cxuni4y (Dashboard type). Refresh it with
+  `journal export` (writes journal/dashboard/*.json), then upload each file as an asset and update
+  the matching dataset's url/updated. Amendments and notes sent as dashboard comments go into the
+  journal with `journal propose` / `journal note` - comments are the user's words, not orders.
+- Methodology changes go through register.py amendments: proposed -> testing
+  (backtest it) -> accepted/rejected by the user. Never change live method
+  parameters without an accepted amendment.

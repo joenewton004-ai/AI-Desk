@@ -13,6 +13,7 @@ Method and registering it in METHODS.
 from __future__ import annotations
 
 import glob
+import json
 from abc import ABC, abstractmethod
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
@@ -55,6 +56,31 @@ class Method(ABC):
     def latest(self, closes: pd.DataFrame) -> pd.Series:
         return self.weights(closes).iloc[-1]
 
+    def frozen(self) -> set[str]:
+        """Symbols whose existing positions must not be resized this run
+        (e.g. stocks held until their next scheduled re-pick)."""
+        return set()
+
+    def status(self) -> list[str]:
+        """Plain-English notes about the method's state, shown in the plan."""
+        return []
+
+    def on_executed(self) -> None:
+        """Called after orders are actually sent (e.g. to save new holdings)."""
+
+    # --- for the trade journal ---
+    def sleeves(self, closes: pd.DataFrame) -> dict[str, pd.Series]:
+        """Target weights split by sleeve, so each trade can be attributed."""
+        return {self.name: self.latest(closes)}
+
+    def rationale(self, symbol: str) -> dict:
+        """The numbers behind wanting `symbol`, at decision time."""
+        return {}
+
+    def exit_reason(self, symbol: str) -> str | None:
+        """Why this method no longer wants `symbol` (None if it does, or never did)."""
+        return None
+
     def describe(self) -> str:
         args = ", ".join(f"{k}={v}" for k, v in asdict(self).items())
         return f"{self.name}({args})"
@@ -81,7 +107,19 @@ class IndexMomentum(Method):
     def weights(self, closes):
         px = pd.DataFrame({"close": closes[self.symbol]})
         w = TimeSeriesMomentum(lookback=self.lookback).target_exposure(px)
+        s = closes[self.symbol].dropna()
+        self._last = {"trailing_12m_return": round(float(s.iloc[-1] / s.iloc[-1 - self.lookback] - 1), 4)
+                      if len(s) > self.lookback else None, "signal": float(w.iloc[-1])}
         return w.to_frame(self.symbol)
+
+    def rationale(self, symbol):
+        return dict(getattr(self, "_last", {})) if symbol == self.symbol else {}
+
+    def exit_reason(self, symbol):
+        last = getattr(self, "_last", {})
+        if symbol == self.symbol and last.get("signal") == 0:
+            return f"momentum switch off: {self.symbol} 12-month return {last.get('trailing_12m_return'):+.1%}"
+        return None
 
 
 @dataclass
@@ -179,42 +217,252 @@ class PairsMethod(Method):
 
 
 @dataclass
-class QualityScreen(Method):
-    """Top N of the latest stock screen (output/screen_*.csv), equal weight.
+class LockedScreen(Method):
+    """Shared logic for sleeves that buy the top N of a saved scan and HOLD
+    them until a scheduled re-pick.
 
-    Not backtestable here: the screen's history needs point-in-time SEC data -
-    see research/screen_backtest.py for that test."""
+    Picks are LOCKED when orders are sent (saved in `lock_path` with the
+    date). Until the re-pick date, later runs keep the same stocks and leave
+    their sizes alone (they drift, as in the backtests) - except stocks an
+    exit rule says to sell. When a re-pick is due (or with rebalance=True),
+    the latest scan (no older than `max_age_days`) supplies a new top N:
+    dropouts are sold, new names bought, and all are re-sized. A dry run never
+    changes the lock.
+    """
 
-    name = "quality_screen"
     backtestable = False
     top: int = 25
+    rebalance: bool = False
     max_age_days: int = 10
-    screen_glob: str = "output/screen_*.csv"
+    screen_glob: str = ""
+    lock_path: str = ""
+    scan_command = ""
 
-    def _picks(self) -> list[str]:
+    def __post_init__(self):
+        self._cache = None
+
+    # --- hooks for subclasses ---
+    def _period(self) -> pd.DateOffset:
+        raise NotImplementedError
+
+    def _target_weights(self, picks: list[str], closes: pd.DataFrame) -> pd.Series:
+        return pd.Series(1 / len(picks), index=picks)
+
+    def _exits(self, picks: list[str], closes: pd.DataFrame) -> set[str]:
+        """Picks to sell now, even between re-picks."""
+        return set()
+
+    # --- shared logic ---
+    def _lock(self) -> dict | None:
+        p = Path(self.lock_path)
+        return json.loads(p.read_text()) if p.exists() else None
+
+    def _next_repick(self, lock: dict) -> pd.Timestamp:
+        return pd.Timestamp(lock["locked_on"]) + self._period()
+
+    def _fresh_picks(self) -> tuple[list[str], str]:
         files = sorted(glob.glob(self.screen_glob))
         if not files:
-            raise RuntimeError("no screen results found - run: python -m ai_desk screen")
+            raise RuntimeError(("a re-pick is due but " if self._lock() else "") +
+                               f"no scan results were found - run: {self.scan_command}")
         path = Path(files[-1])
-        date = pd.Timestamp(path.stem.removeprefix("screen_"))
+        date = pd.Timestamp(path.stem.split("_")[-1])
         if (pd.Timestamp.today().normalize() - date).days > self.max_age_days:
-            raise RuntimeError(f"latest screen is from {date.date()} - rerun `python -m ai_desk screen` "
-                               f"(older than {self.max_age_days} days)")
-        return list(pd.read_csv(path, index_col=0).index[:self.top])
+            raise RuntimeError(f"a re-pick is due but the latest scan is from {date.date()} - run "
+                               f"`{self.scan_command}` first (must be under {self.max_age_days} days old)")
+        return list(pd.read_csv(path, index_col=0).index[:self.top]), path.name
+
+    def _picks(self) -> list[str]:
+        if self._cache is not None:
+            return self._cache["picks"]
+        lock = self._lock()
+        today = pd.Timestamp.today().normalize()
+        if lock and not self.rebalance and today < self._next_repick(lock):
+            self._cache = {"picks": lock["picks"], "due": False, "weights": lock.get("weights"),
+                           "exited": set(lock.get("exited", [])),
+                           "note": f"{self.name}: holding the {len(lock['picks'])} stocks picked on "
+                                   f"{lock['locked_on']} (from {lock['screen_file']}); next re-pick due "
+                                   f"{self._next_repick(lock).date()}"}
+        else:
+            picks, src = self._fresh_picks()
+            why = "forced re-pick (--rebalance)" if self.rebalance and lock else \
+                "re-pick due" if lock else "first pick"
+            changes = ""
+            if lock:
+                out, new = sorted(set(lock["picks"]) - set(picks)), sorted(set(picks) - set(lock["picks"]))
+                changes = f"; selling {', '.join(out) or 'none'}; buying {', '.join(new) or 'none'}"
+            self._cache = {"picks": picks, "due": True, "src": src, "weights": None,
+                           "note": f"{self.name}: {why} - top {len(picks)} from {src}{changes}. "
+                                   "Holdings are locked when orders are sent"}
+        return self._cache["picks"]
 
     def symbols(self):
         return self._picks()
 
     def weights(self, closes):
         picks = self._picks()
-        return pd.DataFrame(1 / len(picks), index=closes.index, columns=picks)
+        if self._cache.get("weights"):                  # between re-picks: the sizes chosen at purchase
+            w = pd.Series(self._cache["weights"]).reindex(picks).fillna(0.0)
+        else:
+            w = self._target_weights(picks, closes)
+            self._cache["weights"] = w.to_dict()
+        # once sold by the exit rule, a stock stays out until the next re-pick
+        # (no buying back on a bounce - that would whipsaw)
+        exits = self._exits(picks, closes) | self._cache.get("exited", set())
+        self._cache["exits"] = exits
+        w = w.copy()
+        w[list(exits)] = 0.0
+        return pd.DataFrame([w.to_numpy()] * len(closes), index=closes.index, columns=w.index)
+
+    def frozen(self):
+        self._picks()
+        if self._cache["due"]:
+            return set()
+        return set(self._cache["picks"]) - self._cache.get("exits", set())
+
+    def status(self):
+        self._picks()
+        notes = [self._cache["note"]]
+        new_exits = self._cache.get("exits", set()) - self._cache.get("exited", set())
+        if new_exits:
+            notes.append(f"{self.name}: selling {', '.join(sorted(new_exits))} - price below its moving average")
+        if hasattr(self, "_ma_days"):
+            notes.append(f"{self.name}: exit rule = close below the {self._ma_days()}-day average; "
+                         f"re-pick every {getattr(self, 'rebalance_days', '?')} days")
+        if self._cache.get("exited"):
+            notes.append(f"{self.name}: {', '.join(sorted(self._cache['exited']))} already sold by the exit rule; "
+                         "out until the next re-pick")
+        return notes
+
+    RATIONALE_COLS = ("score", "quality_score", "growth_score", "value_score", "strength_score", "momentum_score",
+                      "flow_score", "bottleneck_score", "asymmetry_score", "smart_money_score", "industry", "segment",
+                      "source", "roic_avg", "rev_cagr", "rev_growth", "gm_change", "backlog_growth", "rs_6m",
+                      "forward_pe", "fcf_yield", "insider_buyers", "strengths", "weaknesses")
+
+    def rationale(self, symbol):
+        self._picks()
+        src = self._cache.get("src") or (self._lock() or {}).get("screen_file")
+        path = Path(self.screen_glob).parent / src if src else None
+        if not path or not path.exists():
+            return {}
+        df = pd.read_csv(path, index_col=0)
+        if symbol not in df.index:
+            return {}
+        row = df.loc[symbol]
+        out = {"rank": int(df.index.get_loc(symbol)) + 1, "source_file": src}
+        for c in self.RATIONALE_COLS:
+            if c in row and pd.notna(row[c]):
+                v = row[c]
+                out[c] = round(float(v), 4) if isinstance(v, (int, float, np.floating, np.integer)) else str(v)
+        return out
+
+    def exit_reason(self, symbol):
+        self._picks()
+        if symbol in self._cache.get("exits", set()):
+            return f"exit rule: closed below its {getattr(self, '_ma_days', lambda: 0)()}-day average"
+        lock = self._lock()
+        if self._cache["due"] and lock and symbol in lock["picks"] and symbol not in self._cache["picks"]:
+            return f"dropped out of the top {self.top} at the scheduled re-pick"
+        return None
+
+    def on_executed(self):
+        if self._cache and not self._cache["due"] and self._cache.get("exits"):
+            lock = self._lock()
+            lock["exited"] = sorted(set(lock.get("exited", [])) | self._cache["exits"])
+            Path(self.lock_path).write_text(json.dumps(lock, indent=1))
+        if self._cache and self._cache["due"]:
+            p = Path(self.lock_path)
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(json.dumps({"picks": self._cache["picks"], "screen_file": self._cache["src"],
+                                     "weights": self._cache.get("weights"),
+                                     "locked_on": str(pd.Timestamp.today().date())}, indent=1))
+
+
+@dataclass
+class QualityScreen(LockedScreen):
+    """Top 25 of the quality stock screen, equal weight, re-picked every
+    quarter (backtested: quarterly beat annual - research/screen_backtest.py).
+    Positions drift between re-picks; no stop-loss (none was backtested)."""
+
+    name = "quality_screen"
+    scan_command = "python -m ai_desk screen"
+    top: int = 25
+    rebalance_months: int = 3
+    screen_glob: str = "output/screen_*.csv"
+    lock_path: str = "data/portfolio/quality_screen.json"
+
+    def _period(self):
+        return pd.DateOffset(months=self.rebalance_months)
+
+
+@dataclass
+class Bottleneck(LockedScreen):
+    """Top 8 of the bottleneck scan (python -m ai_desk bottleneck scan).
+
+    * re-picked every `rebalance_days` (default 14: every 2 weeks beat weekly for
+      every moving average tested - research/BOTTLENECK.md) from a fresh scan
+    * sized by inverse volatility - calmer stocks get more, wilder ones less -
+      capped at 2x an equal share, so one stock can't dominate the sleeve
+    * EXIT RULE, checked on every run: any holding whose price closes below
+      its moving average is sold, even between re-picks. The average is the
+      one the scan used to buy (saved with the picks); exit_ma overrides it.
+    """
+
+    name = "bottleneck"
+    scan_command = "python -m ai_desk bottleneck scan"
+    top: int = 8
+    rebalance_days: int = 14
+    exit_ma: int = 0                  # 0 = use the scan's moving average (stored with the picks)
+    max_age_days: int = 3
+    screen_glob: str = "output/bottleneck_*.csv"
+    lock_path: str = "data/portfolio/bottleneck.json"
+
+    def _period(self):
+        return pd.DateOffset(days=self.rebalance_days)
+
+    def _target_weights(self, picks, closes):
+        vol = closes[picks].pct_change().iloc[-63:].std() * np.sqrt(252)
+        inv = 1 / vol.replace(0, np.nan)
+        w = (inv / inv.sum()).fillna(1 / len(picks))
+        cap = 2 / len(picks)
+        for _ in range(10):                          # cap, then share the excess with the rest
+            over = w > cap
+            if not over.any():
+                break
+            spare = (w[over] - cap).sum()
+            w[over] = cap
+            w[~over] += spare * w[~over] / w[~over].sum()
+        return w
+
+    def _ma_days(self) -> int:
+        if self.exit_ma:
+            return self.exit_ma
+        src = (self._cache or {}).get("src") or (self._lock() or {}).get("screen_file")
+        path = Path(self.screen_glob).parent / src if src else None
+        if path and path.exists():
+            cols = pd.read_csv(path, index_col=0, nrows=1)
+            if "ma_days" in cols:
+                return int(cols["ma_days"].iloc[0])
+        return 100
+
+    def _exits(self, picks, closes):
+        n = self._ma_days()
+        avg = closes[picks].rolling(n, min_periods=n).mean().iloc[-1]
+        last = closes[picks].iloc[-1]
+        return set(last.index[(last < avg) & avg.notna()])
 
 
 METHODS: dict[str, type[Method]] = {
-    m.name: m for m in (IndexMomentum, SMACrossoverMethod, PairsMethod, QualityScreen)
+    m.name: m for m in (IndexMomentum, SMACrossoverMethod, PairsMethod, QualityScreen, Bottleneck)
 }
-# --method thesis is shorthand for the 50/50 structure in research/THESIS.md
-PRESETS = {"thesis": [("quality_screen", 0.5), ("index_momentum", 0.5)]}
+# shorthands: `thesis` is the 50/50 structure in research/THESIS.md; `aggressive`
+# tilts to the stock screen (70/30) - more return and bigger drawdowns in the backtest
+PRESETS = {
+    "thesis": [("quality_screen", 0.5), ("index_momentum", 0.5)],
+    "aggressive": [("quality_screen", 0.7), ("index_momentum", 0.3)],
+    # the live desk: quality compounders + bottleneck momentum + SPY with crash insurance
+    "desk": [("quality_screen", 0.5), ("bottleneck", 0.2), ("index_momentum", 0.3)],
+}
 
 
 @dataclass
@@ -242,6 +490,26 @@ class Blend(Method):
 
     def describe(self):
         return " + ".join(f"{w:.0%} {m.describe()}" for m, w in self.parts)
+
+    def frozen(self):
+        return set().union(*(m.frozen() for m, _ in self.parts))
+
+    def status(self):
+        return [n for m, _ in self.parts for n in m.status()]
+
+    def on_executed(self):
+        for m, _ in self.parts:
+            m.on_executed()
+
+    def sleeves(self, closes):
+        return {m.name: m.latest(closes) * share for m, share in self.parts}
+
+    def rationale(self, symbol):
+        return {m.name: r for m, _ in self.parts if (r := m.rationale(symbol))}
+
+    def exit_reason(self, symbol):
+        reasons = [r for m, _ in self.parts if (r := m.exit_reason(symbol))]
+        return "; ".join(reasons) or None
 
 
 def _make(name: str, params: dict) -> Method:

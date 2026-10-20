@@ -1,0 +1,166 @@
+{
+ "generated_utc": "2026-10-20T10:38:12+00:00",
+ "live_preset": "desk",
+ "live_allocation": {
+  "quality_screen": 0.5,
+  "bottleneck": 0.2,
+  "index_momentum": 0.3
+ },
+ "presets": {
+  "thesis": [
+   [
+    "quality_screen",
+    0.5
+   ],
+   [
+    "index_momentum",
+    0.5
+   ]
+  ],
+  "aggressive": [
+   [
+    "quality_screen",
+    0.7
+   ],
+   [
+    "index_momentum",
+    0.3
+   ]
+  ],
+  "desk": [
+   [
+    "quality_screen",
+    0.5
+   ],
+   [
+    "bottleneck",
+    0.2
+   ],
+   [
+    "index_momentum",
+    0.3
+   ]
+  ]
+ },
+ "methods": [
+  {
+   "name": "index_momentum",
+   "in_live_mix": true,
+   "allocation": 0.3,
+   "description": "The thesis's index sleeve: hold `symbol` while its 12-month return is positive (checked monthly), otherwise cash.",
+   "parameters": {
+    "symbol": "SPY",
+    "lookback": 252
+   },
+   "status": "proven as crash insurance",
+   "evidence_summary": "SPY 1994-2026: 10.6%/yr vs 10.8% buy & hold, worst drop -34% vs -55%; robust across periods, markets and costs. Cost ~1%/yr in 2014-2026 (fast rebounds).",
+   "docs": [
+    "research/FINDINGS.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "sma_crossover",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Moving-average crossover on each symbol. Each gets an equal slice (1/N of the account) and holds it while its fast average is above its slow one; a symbol that's \"off\" leaves its slice in cash.",
+   "parameters": {
+    "symbols": [
+     "SPY"
+    ],
+    "fast": 50,
+    "slow": 200
+   },
+   "status": "works, redundant",
+   "evidence_summary": "50/200 on SPY: same insurance as momentum, near-identical results. Not in the live mix.",
+   "docs": [
+    "research/METHODS.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "pairs",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Duopoly pairs trading.",
+   "parameters": {
+    "pairs": [
+     [
+      "V",
+      "MA"
+     ],
+     [
+      "KO",
+      "PEP"
+     ],
+     [
+      "HD",
+      "LOW"
+     ],
+     [
+      "UPS",
+      "FDX"
+     ],
+     [
+      "MCO",
+      "SPGI"
+     ],
+     [
+      "BKNG",
+      "EXPE"
+     ]
+    ],
+    "lookback": 60,
+    "entry_z": 2.0,
+    "exit_z": 0.5,
+    "max_days": 60,
+    "mode": "long_short"
+   },
+   "status": "weak",
+   "evidence_summary": "Duopoly pairs long/short: market-neutral but ~1%/yr above T-bills, cost-sensitive. Not in the live mix.",
+   "docs": [
+    "research/METHODS.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "quality_screen",
+   "in_live_mix": true,
+   "allocation": 0.5,
+   "description": "Top 25 of the quality stock screen, equal weight, re-picked every quarter (backtested: quarterly beat annual - research/screen_backtest.py). Positions drift between re-picks; no stop-loss (none was backtested).",
+   "parameters": {
+    "top": 25,
+    "rebalance": false,
+    "max_age_days": 10,
+    "rebalance_months": 3
+   },
+   "status": "promising, not proven",
+   "evidence_summary": "Point-in-time 2014-2026: top 25 re-picked quarterly 17.9%/yr (Sharpe 0.89) vs same-universe 11.4% and SPY 13.8%; edge vs universe t~1.8. Survivors-only prices.",
+   "docs": [
+    "research/THESIS.md",
+    "research/output/screen_backtest.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "bottleneck",
+   "in_live_mix": true,
+   "allocation": 0.2,
+   "description": "Top 8 of the bottleneck scan (python -m ai_desk bottleneck scan).",
+   "parameters": {
+    "top": 8,
+    "rebalance": false,
+    "max_age_days": 3,
+    "rebalance_days": 14,
+    "exit_ma": 0
+   },
+   "status": "experiment",
+   "evidence_summary": "Only the price-flow part is testable: 100-day MA, re-picked every 2 weeks 17.0%/yr (Sharpe 0.60, -46% worst drop) vs SPY 13.7% (0.75); an isolated best setting. Fundamental fingerprints, insider signal and theme map untested.",
+   "docs": [
+    "research/BOTTLENECK.md",
+    "research/output/bottleneck_backtest.md"
+   ],
+   "amendments": []
+  }
+ ]
+}

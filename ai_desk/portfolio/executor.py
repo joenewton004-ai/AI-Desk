@@ -33,6 +33,9 @@ class Limits:
     allow_short: bool = False
     max_fund_position: float = 0.60  # cap for INDEX_FUNDS (position and order size)
     funds: tuple = INDEX_FUNDS
+    fractional: bool = True          # fractional shares for longs where the broker allows them
+    cash_buffer: float = 0.01        # keep 1% in cash so market orders that fill a bit higher
+                                     # than the last close don't push the account onto margin
 
     def position_cap(self, symbol: str) -> float:
         return self.max_fund_position if symbol in self.funds else self.max_position
@@ -45,7 +48,7 @@ class Limits:
 class Order:
     symbol: str
     side: str            # buy | sell
-    qty: int
+    qty: float           # may be fractional (longs only)
     price: float
     reason: str = ""
     blocked: str = ""    # non-empty = will NOT be sent, and why
@@ -83,37 +86,65 @@ def apply_limits(targets: pd.Series, limits: Limits) -> tuple[pd.Series, list[st
     if gross > limits.max_gross:
         capped *= limits.max_gross / gross
         notes.append(f"scaled down from {gross:.0%} to {limits.max_gross:.0%} gross exposure")
+    longs = capped[capped > 0].sum()
+    max_long = 1 - limits.cash_buffer
+    if longs > max_long:
+        capped[capped > 0] *= max_long / longs
+        notes.append(f"kept a {limits.cash_buffer:.0%} cash buffer: long positions scaled to {max_long:.0%} of equity")
     return capped, notes
 
 
+FRACTION_DP = 4     # fractional orders: 4 decimal places (Alpaca accepts up to 9)
+
+
+def _round_toward_zero(x: float, dp: int) -> float:
+    f = 10 ** dp
+    return math.trunc(x * f) / f
+
+
 def plan_orders(targets: pd.Series, positions: dict[str, float], prices: pd.Series, equity: float,
-                limits: Limits | None = None, shortable: dict[str, bool] | None = None) -> Plan:
-    """Turn target weights into whole-share orders. No network calls."""
+                limits: Limits | None = None, shortable: dict[str, bool] | None = None,
+                fractionable: dict[str, bool] | None = None, frozen: set[str] | None = None) -> Plan:
+    """Turn target weights into orders. No network calls.
+
+    With limits.fractional, long positions use fractional shares (so a $2,000
+    slot buys 1.61 shares of a $1,240 stock instead of 1). Shorts, and stocks
+    the broker marks as not fractionable, use whole shares. Quantities round
+    toward zero, so a target is never overshot.
+
+    frozen: symbols already held whose size must not change this run (stocks
+    between scheduled re-picks); they can still be closed if no longer targeted.
+    """
     limits = limits or Limits()
     t, notes = apply_limits(targets, limits)
     plan = Plan(notes=notes, targets=t)
     symbols = sorted(set(t.index) | {s for s, q in positions.items() if q})
     for sym in symbols:
         price = float(prices.get(sym, float("nan")))
-        current = int(positions.get(sym, 0))
+        current = float(positions.get(sym, 0.0))
         weight = float(t.get(sym, 0.0))
         if not price or math.isnan(price) or price <= 0:
             if current or weight:
                 plan.notes.append(f"{sym}: no price - left untouched")
             continue
-        target_qty = int(weight * equity / price)       # rounds toward zero: never overshoots
-        diff = target_qty - current
+        can_fraction = limits.fractional and (fractionable is None or fractionable.get(sym, False))
+        raw = weight * equity / price
+        target_qty = _round_toward_zero(raw, FRACTION_DP) if can_fraction and raw > 0 else float(math.trunc(raw))
+        diff = round(target_qty - current, FRACTION_DP)
         if diff == 0:
             continue
+        if frozen and sym in frozen and current and target_qty and (current > 0) == (target_qty > 0):
+            continue    # held until its next scheduled re-pick: let it drift
         closing = target_qty == 0
         if not closing and abs(diff) * price < limits.min_trade * equity:
             continue
         # crossing from long to short (or back) is sent as two orders: close, then open
-        legs = [(-current, "close"), (target_qty, "open")] if current and target_qty and \
-            (current > 0) != (target_qty > 0) else [(diff, "close" if closing else "resize" if current else "open")]
+        flip = current and target_qty and (current > 0) != (target_qty > 0)
+        legs = [(-current, "close"), (target_qty, "open")] if flip else \
+            [(diff, "close" if closing else "resize" if current else "open")]
         for qty, why in legs:
-            order = Order(sym, "buy" if qty > 0 else "sell", abs(qty), price,
-                          reason=f"{why}: {current:+d} -> {target_qty:+d} shares (target {weight:+.1%})")
+            order = Order(sym, "buy" if qty > 0 else "sell", round(abs(qty), FRACTION_DP), price,
+                          reason=f"{why}: {current:+g} -> {target_qty:+g} shares (target {weight:+.1%})")
             opens_short = target_qty < 0 and why in ("open", "resize") and qty < 0
             if opens_short and shortable is not None and not shortable.get(sym, False):
                 order.blocked = "not shortable at the broker"
@@ -165,21 +196,28 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
     # two years covers the longest signal (200-day average, 12-month momentum);
     # the synthetic demo data is old, so it uses everything
     start = "2000-01-01" if source == "synthetic" else (pd.Timestamp.today() - pd.DateOffset(years=2)).date().isoformat()
-    prices = load_many(method.symbols(), start, source=source)
+    broker = broker or AlpacaPaper()
+    positions = broker.positions()
+    # prices for what we hold too - otherwise a stock the methods have dropped
+    # would have no price and could never be sold
+    wanted = list(dict.fromkeys(method.symbols() + [s for s, q in positions.items() if q]))
+    prices = load_many(wanted, start, source=source)
     closes = drop_incomplete_bar(prices["close"])
     if len(closes) < 260:
-        raise RuntimeError(f"only {len(closes)} days of prices for {method.symbols()} - need about a year")
+        raise RuntimeError(f"only {len(closes)} days of prices for {wanted} - need about a year")
     age = (pd.Timestamp.today().normalize() - closes.index[-1]).days
     if max_data_age_days is not None and age > max_data_age_days:
         raise RuntimeError(f"latest prices are from {closes.index[-1].date()} ({age} days old) - not trading")
     targets = method.latest(closes)
 
-    broker = broker or AlpacaPaper()
     equity = float(broker.account()["equity"])
-    positions = broker.positions()
     shortable = {s: bool(broker.asset(s).get("shortable")) for s in targets.index[targets < 0]}
-    plan = plan_orders(targets, positions, closes.iloc[-1], equity, limits, shortable)
-    plan.notes.insert(0, f"signals from the close of {closes.index[-1].date()}; equity ${equity:,.0f}")
+    fractionable = ({s: bool(broker.asset(s).get("fractionable")) for s in targets.index[targets > 0]}
+                    if limits.fractional else None)
+    plan = plan_orders(targets, positions, closes.iloc[-1], equity, limits, shortable, fractionable,
+                       frozen=method.frozen())
+    plan.notes[:0] = [f"signals from the close of {closes.index[-1].date()}; equity ${equity:,.0f}",
+                      *method.status()]
 
     peak = max(equity, journal_peak())
     if equity / peak - 1 <= -account_dd_halt:
@@ -189,11 +227,20 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
         for o in plan.orders:
             o.blocked = o.blocked or "orders still pending at the broker - not stacking more"
 
+    from ai_desk import tradebook
+
+    sleeves = method.sleeves(closes)              # computed BEFORE locks change, for attribution
     status = "dry_run"
     if execute:
+        responses = {}
         for o in plan.sendable:
             resp = broker.submit_market_order(o.symbol, o.qty, o.side)
+            responses[o.symbol] = resp
             o.reason += f" [order {resp.get('id', '?')}]"
         status = "submitted"
+        tradebook.record_orders(plan, method, sleeves, closes.index[-1].date(), responses)
+        if not any(o.blocked for o in plan.orders):
+            method.on_executed()       # e.g. lock in the new stock picks
+    tradebook.save_plan(plan, method, sleeves, closes.index[-1].date(), equity, positions, status)
     journal(plan, method.describe(), status, equity)
     return plan

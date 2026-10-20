@@ -138,9 +138,33 @@ write-up is in `research/FINDINGS.md`.
 
 ## 5. Paper trading (Alpaca)
 
-1. Create a free account at [alpaca.markets](https://alpaca.markets) and open **Paper Trading**.
-2. Generate API keys, copy `.env.example` to `.env`, and paste the keys in.
-3. After the US market close, run:
+### Connect the broker (one time)
+
+1. Create a free account at [alpaca.markets](https://alpaca.markets) and
+   switch to **Paper Trading**. You get a simulated account with $100k.
+2. On the paper dashboard, generate API keys. Paper key IDs start with
+   **PK**. The desk refuses live keys, which start with AK.
+3. Give the keys to the desk:
+   - **On your computer:** copy `.env.example` to `.env` and fill in
+     `APCA_API_KEY_ID` and `APCA_API_SECRET_KEY`. `.env` is git-ignored.
+   - **In a Claude Code cloud session:** add a **network secret** for host
+     `paper-api.alpaca.markets` with two custom headers and no prefix:
+     `APCA-API-KEY-ID` = your key ID and `APCA-API-SECRET-KEY` = your
+     secret (note the hyphens). The keys are then added on the way out and
+     never enter the session. Start a new session afterwards. Never paste
+     keys into a chat.
+4. Check the connection:
+
+```bash
+python -m ai_desk broker status    # account, equity, buying power, market clock, positions
+```
+
+If it fails, the message says why: missing keys, live keys, rejected keys
+or network blocked.
+
+### Single-symbol strategies
+
+After the US market close, run:
 
 ```bash
 python -m ai_desk paper --strategy trend              # dry run: shows the order it WOULD place
@@ -173,8 +197,11 @@ works out the orders.
 | `index_momentum` | SPY while its 12-month return is positive, otherwise cash |
 | `sma_crossover` | each symbol held while its 50-day average is above its 200-day (`--param symbols=SPY,QQQ`) |
 | `pairs` | duopoly pairs trading: when two rivals' price gap is stretched, short the leader and buy the laggard (`--param mode=long_only` to avoid shorting) |
-| `quality_screen` | the latest stock screen's top 25, equal weight |
+| `quality_screen` | the stock screen's top 25, equal weight, **re-picked every quarter**. Picks are locked when bought: in between, only other methods trade and the stocks drift. When a re-pick is due, run `python -m ai_desk screen` first; `--rebalance` re-picks early |
 | `thesis` | preset: 50% `quality_screen` + 50% `index_momentum` (see research/THESIS.md) |
+| `aggressive` | preset: 70% `quality_screen` + 30% `index_momentum` - more return, bigger drawdowns |
+| `bottleneck` | top 8 of the bottleneck scan (`python -m ai_desk bottleneck scan`), sized by volatility, re-picked every 2 weeks, sold if below its 100-day average |
+| `desk` | preset: 50% `quality_screen` + 20% `bottleneck` + 30% `index_momentum` |
 
 Blend methods with `name:share`, and set parameters with `--param`. Prefix a
 parameter with the method name to target one method in a blend.
@@ -196,8 +223,27 @@ Executor safety rules:
 - It refuses to trade on stale prices, while orders are still pending, or
   when the account is 20% below its peak.
 - Every planned order is logged to `logs/portfolio_journal.csv`.
+- **Fractional shares** are used for long positions where Alpaca allows
+  them, so a 2% slot in a $1,240 stock buys 1.61 shares, not 1. Shorts, and
+  stocks Alpaca marks as not fractionable, use whole shares.
+  `--whole-shares` turns this off.
 
 How the new methods did on real data: [`research/METHODS.md`](research/METHODS.md).
+
+## 5c. Bottleneck scan: where money is flowing, and who is the constraint
+
+```bash
+python -m ai_desk bottleneck scan               # theme map (AI data centres) + top money-flow industries
+python -m ai_desk bottleneck scan --theme-only  # only buy from the theme map
+python -m ai_desk portfolio plan --method desk  # 50% quality + 20% bottleneck + 30% SPY momentum
+```
+
+The scan ranks industries by money flow. It then looks for companies with a
+bottleneck's fingerprints: rising revenue, *expanding* margins, a growing
+backlog, insiders buying, and a price that's still trending up. Method,
+evidence and limits: [`research/BOTTLENECK.md`](research/BOTTLENECK.md).
+The price-flow part has been backtested; it is not a proven edge, so run it
+as an experiment.
 
 ## 6. Stock screener: great businesses at reasonable prices
 

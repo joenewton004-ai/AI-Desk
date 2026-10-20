@@ -129,6 +129,15 @@ def main() -> None:
         other = sb.books(snaps(m), 25)
         rows[f"top 25, {label}"] = stats(sb.simulate({"t": other["screen_top"]}, prices, END)["t"], rf)
         rows[f"universe, {label}"] = stats(sb.simulate({"t": other["universe_ew"]}, prices, END)["t"], rf)
+    quarterly = {}
+    for m in (3, 6, 9, 12):
+        quarterly.update(snaps(m))
+    quarterly = dict(sorted(quarterly.items()))
+    q_books = sb.books(quarterly, 25)
+    rows["top 25, QUARTERLY (Mar/Jun/Sep/Dec)"] = stats(sb.simulate({"t": q_books["screen_top"]}, prices, END)["t"], rf)
+    rows["top 25, quarterly, costs x5"] = stats(sb.simulate({"t": q_books["screen_top"]}, prices, END,
+                                                            cost=0.005)["t"], rf)
+    rows["universe, quarterly"] = stats(sb.simulate({"t": q_books["universe_ew"]}, prices, END)["t"], rf)
     rows["top 25, costs x5 (0.5%/trade)"] = stats(sb.simulate({"t": base_books["screen_top"]}, prices, END,
                                                                cost=0.005)["t"], rf)
     emit(table(rows))

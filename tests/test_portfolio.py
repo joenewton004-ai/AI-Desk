@@ -150,3 +150,180 @@ def test_index_funds_get_their_own_cap():
     o = by_symbol(plan)
     assert o[("SPY", "buy")].qty == 100 and not o[("SPY", "buy")].blocked      # 50% allowed for SPY
     assert o[("AAA", "buy")].qty == 100                                         # stock capped at 10%
+
+
+def test_fractional_longs_whole_shorts_and_non_fractionable():
+    prices = pd.Series({"LLY": 1240.0, "AAA": 100.0, "BBB": 50.0})
+    plan = plan_orders(pd.Series({"LLY": 0.02, "AAA": -0.05, "BBB": 0.0333}), {}, prices, 100_000,
+                       Limits(allow_short=True), shortable={"AAA": True}, fractionable={"LLY": True, "BBB": False})
+    o = by_symbol(plan)
+    assert o[("LLY", "buy")].qty == pytest.approx(1.6129)           # $2,000 / $1,240, 4 dp, rounded down
+    assert o[("AAA", "sell")].qty == 50                             # short: whole shares
+    assert o[("BBB", "buy")].qty == 66                              # not fractionable: whole shares
+    whole = plan_orders(pd.Series({"LLY": 0.02}), {}, prices, 100_000, Limits(fractional=False))
+    assert whole.orders[0].qty == 1
+
+
+def test_fractional_position_closes_exactly():
+    plan = plan_orders(pd.Series(dtype=float), {"LLY": 1.6129}, pd.Series({"LLY": 1240.0}), 100_000)
+    assert plan.orders[0].side == "sell" and plan.orders[0].qty == pytest.approx(1.6129)
+
+
+def test_qty_formatting_for_the_api():
+    from ai_desk.broker.alpaca import format_qty
+
+    assert format_qty(12) == "12" and format_qty(1.6129) == "1.6129" and format_qty(0.0001) == "0.0001"
+
+
+def test_live_keys_refused(monkeypatch):
+    from ai_desk.broker.alpaca import AlpacaPaper
+
+    with pytest.raises(RuntimeError, match="LIVE"):
+        AlpacaPaper(key_id="AKXXXX", secret="s")
+    assert AlpacaPaper(key_id="PKXXXX", secret="s").key_id == "PKXXXX"
+    monkeypatch.delenv("APCA_API_KEY_ID", raising=False)
+    monkeypatch.delenv("APCA_API_SECRET_KEY", raising=False)
+    monkeypatch.setattr("ai_desk.broker.alpaca.load_dotenv", lambda *a, **k: None)
+    injected = AlpacaPaper()                      # cloud: keys added by the network secret
+    assert injected.injected and "APCA-API-KEY-ID" not in injected.session.headers
+
+
+def test_cash_buffer_scales_full_investment_to_99_percent():
+    prices = pd.Series({"SPY": 500.0, "AAA": 100.0})
+    plan = plan_orders(pd.Series({"SPY": 0.50, "AAA": 0.50}), {}, prices, 100_000,
+                       Limits(max_position=0.5))
+    assert sum(o.notional for o in plan.orders) == pytest.approx(99_000, abs=1)
+    assert any("cash buffer" in n for n in plan.notes)
+    small = plan_orders(pd.Series({"AAA": 0.50}), {}, prices, 100_000, Limits(max_position=0.5))
+    assert small.orders[0].notional == pytest.approx(50_000)          # under 99%: untouched
+
+
+# --- quarterly lock for the stock screen -------------------------------------------------
+
+def _screen(tmp_path, picks, date=None):
+    date = date or pd.Timestamp.today().date()
+    pd.DataFrame({"score": range(len(picks), 0, -1)}, index=pd.Index(picks, name="symbol")) \
+        .to_csv(tmp_path / f"screen_{date}.csv")
+
+
+def _qs(tmp_path, **kw):
+    from ai_desk.portfolio.methods import QualityScreen
+
+    return QualityScreen(top=3, screen_glob=str(tmp_path / "screen_*.csv"),
+                         lock_path=str(tmp_path / "lock.json"), **kw)
+
+
+def _write_lock(tmp_path, picks, days_ago):
+    import json
+
+    (tmp_path / "lock.json").write_text(json.dumps({
+        "picks": picks, "screen_file": "screen_old.csv",
+        "locked_on": str((pd.Timestamp.today() - pd.Timedelta(days=days_ago)).date())}))
+
+
+def test_first_pick_locks_only_after_execution(tmp_path):
+    _screen(tmp_path, ["AAA", "BBB", "CCC", "DDD"])
+    m = _qs(tmp_path)
+    assert m.symbols() == ["AAA", "BBB", "CCC"] and m.frozen() == set()
+    assert not (tmp_path / "lock.json").exists()          # a dry run commits to nothing
+    m.on_executed()
+    assert (tmp_path / "lock.json").exists()
+
+
+def test_between_repicks_holds_locked_stocks_even_without_a_fresh_screen(tmp_path):
+    _write_lock(tmp_path, ["AAA", "BBB", "CCC"], days_ago=30)
+    m = _qs(tmp_path)                                      # no screen file at all
+    assert m.symbols() == ["AAA", "BBB", "CCC"] and m.frozen() == {"AAA", "BBB", "CCC"}
+    assert "next re-pick due" in m.status()[0]
+
+
+def test_quarterly_repick_reports_changes_and_needs_a_fresh_screen(tmp_path):
+    _write_lock(tmp_path, ["AAA", "BBB", "CCC"], days_ago=100)
+    with pytest.raises(RuntimeError, match="re-pick is due"):
+        _qs(tmp_path).symbols()
+    _screen(tmp_path, ["AAA", "DDD", "EEE"])
+    m = _qs(tmp_path)
+    assert m.symbols() == ["AAA", "DDD", "EEE"] and m.frozen() == set()
+    assert "selling BBB, CCC; buying DDD, EEE" in m.status()[0]
+
+
+def test_forced_rebalance(tmp_path):
+    _write_lock(tmp_path, ["AAA", "BBB", "CCC"], days_ago=10)
+    _screen(tmp_path, ["XXX", "YYY", "ZZZ"])
+    assert _qs(tmp_path, rebalance=True).symbols() == ["XXX", "YYY", "ZZZ"]
+
+
+def test_frozen_positions_drift_but_dropped_ones_still_close():
+    prices = pd.Series({"AAA": 100.0, "BBB": 100.0})
+    plan = plan_orders(pd.Series({"AAA": 0.10}), {"AAA": 150, "BBB": 10}, prices, 100_000, frozen={"AAA"})
+    assert [(o.symbol, o.side) for o in plan.orders] == [("BBB", "sell")]   # AAA (15%) left to drift
+
+
+# --- weekly bottleneck sleeve ----------------------------------------------------------------
+
+def _bn(tmp_path, **kw):
+    from ai_desk.portfolio.methods import Bottleneck
+
+    return Bottleneck(top=3, screen_glob=str(tmp_path / "bottleneck_*.csv"),
+                      lock_path=str(tmp_path / "bn.json"), **kw)
+
+
+def _bn_scan(tmp_path, picks):
+    pd.DataFrame({"score": range(len(picks), 0, -1)}, index=pd.Index(picks, name="symbol")) \
+        .to_csv(tmp_path / f"bottleneck_{pd.Timestamp.today().date()}.csv")
+
+
+def _trend_closes(down=("CCC",)):
+    idx = pd.bdate_range(end=pd.Timestamp.today(), periods=300)
+    up = np.linspace(100, 200, 300)
+    data = {s: (up[::-1] if s in down else up) * (1 + 0.01 * np.sin(np.arange(300) * (i + 1)))
+            for i, s in enumerate(["AAA", "BBB", "CCC"])}
+    return pd.DataFrame(data, index=idx)
+
+
+def test_bottleneck_inverse_vol_weights_capped(tmp_path):
+    _bn_scan(tmp_path, ["AAA", "BBB", "CCC"])
+    closes = _trend_closes(down=())
+    w = _bn(tmp_path).latest(closes)
+    assert w.sum() == pytest.approx(1.0) and w.max() <= 2 / 3 + 1e-9
+    assert w["AAA"] > w["CCC"]               # AAA wiggles least, so it gets the biggest share
+
+
+def test_bottleneck_exit_below_moving_average(tmp_path):
+    _bn_scan(tmp_path, ["AAA", "BBB", "CCC"])
+    m = _bn(tmp_path)
+    w = m.latest(_trend_closes(down=("CCC",)))
+    assert w["CCC"] == 0 and w["AAA"] > 0                # CCC is falling: below its 200-day average
+    assert any("below its moving average" in n for n in m.status())
+
+
+def test_bottleneck_repicks_weekly_and_exits_stay_out(tmp_path):
+    import json
+
+    (tmp_path / "bn.json").write_text(json.dumps({
+        "picks": ["AAA", "BBB", "CCC"], "screen_file": "x", "weights": {"AAA": .4, "BBB": .3, "CCC": .3},
+        "locked_on": str((pd.Timestamp.today() - pd.Timedelta(days=3)).date())}))
+    m = _bn(tmp_path)
+    closes = _trend_closes(down=("CCC",))
+    assert m.latest(closes)["CCC"] == 0 and m.frozen() == {"AAA", "BBB"}
+    m.on_executed()                                       # the sale went through: remember it
+    again = _bn(tmp_path)
+    assert again.latest(_trend_closes(down=()))["CCC"] == 0      # bounced, but stays out until re-pick
+    (tmp_path / "bn.json").write_text(json.dumps({
+        "picks": ["AAA"], "screen_file": "x", "locked_on": str((pd.Timestamp.today() - pd.Timedelta(days=8)).date())}))
+    _bn_scan(tmp_path, ["BBB", "CCC", "AAA"])
+    assert "re-pick due" in _bn(tmp_path).status()[0]    # a week later: fresh picks
+
+
+def test_desk_preset():
+    m = build(["desk"])
+    assert [(p.name, w) for p, w in m.parts] == [("quality_screen", 0.5), ("bottleneck", 0.2), ("index_momentum", 0.3)]
+
+
+def test_bottleneck_exit_uses_the_scans_moving_average(tmp_path):
+    pd.DataFrame({"score": [3, 2, 1], "ma_days": 100}, index=pd.Index(["AAA", "BBB", "CCC"], name="symbol")) \
+        .to_csv(tmp_path / f"bottleneck_{pd.Timestamp.today().date()}.csv")
+    m = _bn(tmp_path)
+    m.symbols()
+    assert m._ma_days() == 100
+    assert _bn(tmp_path, exit_ma=50)._ma_days() == 50          # explicit override wins
