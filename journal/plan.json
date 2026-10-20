@@ -1,8 +1,8 @@
 {
- "created_utc": "2026-10-20T10:33:19+00:00",
+ "created_utc": "2026-10-20T10:38:01+00:00",
  "signal_date": "2026-10-19",
  "equity": 100000.0,
- "status": "dry_run",
+ "status": "submitted",
  "method": "50% quality_screen(top=25, rebalance=False, max_age_days=10, screen_glob=output/screen_*.csv, lock_path=data/portfolio/quality_screen.json, rebalance_months=3) + 20% bottleneck(top=8, rebalance=False, max_age_days=3, screen_glob=output/bottleneck_*.csv, lock_path=data/portfolio/bottleneck.json, rebalance_days=14, exit_ma=0) + 30% index_momentum(symbol=SPY, lookback=252)",
  "notes": [
   "signals from the close of 2026-10-19; equity $100,000",

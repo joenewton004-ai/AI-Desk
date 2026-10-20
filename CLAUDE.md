@@ -77,7 +77,8 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Trade journal (`ai_desk/tradebook.py`, files in journal/, COMMITTED to git):
   every executed order is recorded with sleeve, rationale and exit reason;
   `python -m ai_desk journal sync|review|note|methods|propose|decide|amendments`.
-  Commit journal/ after each trading session - containers are temporary.
+  Commit journal/ and data/portfolio/ (the pick locks) after each trading session - containers
+  are temporary, and a lost lock would re-pick early.
 - Dashboard: https://claude.ai/artifact/PFSUn2FY2CarKh4Cxuni4y (Dashboard type). Refresh it with
   `journal export` (writes journal/dashboard/*.json), then upload each file as an asset and update
   the matching dataset's url/updated. Amendments and notes sent as dashboard comments go into the
