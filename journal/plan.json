@@ -1,13 +1,13 @@
 {
- "created_utc": "2026-10-20T10:38:01+00:00",
+ "created_utc": "2026-10-20T15:04:05+00:00",
  "signal_date": "2026-10-19",
- "equity": 100000.0,
- "status": "submitted",
+ "equity": 99962.22,
+ "status": "dry_run",
  "method": "50% quality_screen(top=25, rebalance=False, max_age_days=10, screen_glob=output/screen_*.csv, lock_path=data/portfolio/quality_screen.json, rebalance_months=3) + 20% bottleneck(top=8, rebalance=False, max_age_days=3, screen_glob=output/bottleneck_*.csv, lock_path=data/portfolio/bottleneck.json, rebalance_days=14, exit_ma=0) + 30% index_momentum(symbol=SPY, lookback=252)",
  "notes": [
-  "signals from the close of 2026-10-19; equity $100,000",
-  "quality_screen: first pick - top 25 from screen_2026-10-19.csv. Holdings are locked when orders are sent",
-  "bottleneck: first pick - top 8 from bottleneck_2026-10-20.csv. Holdings are locked when orders are sent",
+  "signals from the close of 2026-10-19; equity $99,962",
+  "quality_screen: holding the 25 stocks picked on 2026-10-20 (from screen_2026-10-19.csv); next re-pick due 2027-01-20",
+  "bottleneck: holding the 8 stocks picked on 2026-10-20 (from bottleneck_2026-10-20.csv); next re-pick due 2026-11-03",
   "bottleneck: exit rule = close below the 100-day average; re-pick every 14 days",
   "kept a 1% cash buffer: long positions scaled to 99% of equity"
  ],
@@ -19,12 +19,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 8.0132,
-   "notional": 1979.98,
-   "price": 247.09,
-   "reason": "open: +0 -> +8.0132 shares (target +2.0%)",
+   "held_qty": 8.0132,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -54,12 +54,12 @@
    "target_by_sleeve": {
     "bottleneck": 0.01448
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 2.6634,
-   "notional": 1433.04,
-   "price": 538.05,
-   "reason": "open: +0 -> +2.6634 shares (target +1.4%)",
+   "held_qty": 2.6634,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -88,12 +88,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 10.8226,
-   "notional": 1979.99,
-   "price": 182.95,
-   "reason": "open: +0 -> +10.8226 shares (target +2.0%)",
+   "held_qty": 10.8226,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -123,12 +123,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 12.1771,
-   "notional": 1980.0,
-   "price": 162.6,
-   "reason": "open: +0 -> +12.1771 shares (target +2.0%)",
+   "held_qty": 12.1771,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -158,12 +158,12 @@
    "target_by_sleeve": {
     "bottleneck": 0.02998
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 20.4358,
-   "notional": 2968.1,
-   "price": 145.24,
-   "reason": "open: +0 -> +20.4358 shares (target +3.0%)",
+   "held_qty": 20.4358,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -190,12 +190,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 4.9185,
-   "notional": 1979.99,
-   "price": 402.56,
-   "reason": "open: +0 -> +4.9185 shares (target +2.0%)",
+   "held_qty": 4.9185,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -225,12 +225,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 22.696,
-   "notional": 1980.0,
-   "price": 87.24,
-   "reason": "open: +0 -> +22.696 shares (target +2.0%)",
+   "held_qty": 22.696,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -260,12 +260,12 @@
    "target_by_sleeve": {
     "bottleneck": 0.02698
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 52.4473,
-   "notional": 2670.62,
-   "price": 50.92,
-   "reason": "open: +0 -> +52.4473 shares (target +2.7%)",
+   "held_qty": 52.4473,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -292,12 +292,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 2.7623,
-   "notional": 1979.99,
-   "price": 716.79,
-   "reason": "open: +0 -> +2.7623 shares (target +2.0%)",
+   "held_qty": 2.7623,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -327,12 +327,12 @@
    "target_by_sleeve": {
     "bottleneck": 0.02731
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 17.151,
-   "notional": 2703.86,
-   "price": 157.65,
-   "reason": "open: +0 -> +17.151 shares (target +2.7%)",
+   "held_qty": 17.151,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -359,12 +359,12 @@
    "target_by_sleeve": {
     "bottleneck": 0.02327
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 49.9194,
-   "notional": 2303.78,
-   "price": 46.15,
-   "reason": "open: +0 -> +49.9194 shares (target +2.3%)",
+   "held_qty": 49.9194,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -391,12 +391,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 2.5349,
-   "notional": 1979.93,
-   "price": 781.07,
-   "reason": "open: +0 -> +2.5349 shares (target +2.0%)",
+   "held_qty": 2.5349,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -426,12 +426,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 1.3523,
-   "notional": 1979.86,
-   "price": 1464.0699,
-   "reason": "open: +0 -> +1.3523 shares (target +2.0%)",
+   "held_qty": 1.3523,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -461,12 +461,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 11.5451,
-   "notional": 1979.98,
-   "price": 171.5,
-   "reason": "open: +0 -> +11.5451 shares (target +2.0%)",
+   "held_qty": 11.5451,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -496,12 +496,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 5.7528,
-   "notional": 1980.0,
-   "price": 344.18,
-   "reason": "open: +0 -> +5.7528 shares (target +2.0%)",
+   "held_qty": 5.7528,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -531,12 +531,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 17.4834,
-   "notional": 1980.0,
-   "price": 113.25,
-   "reason": "open: +0 -> +17.4834 shares (target +2.0%)",
+   "held_qty": 17.4834,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -566,12 +566,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 11.899,
-   "notional": 1979.99,
-   "price": 166.4,
-   "reason": "open: +0 -> +11.899 shares (target +2.0%)",
+   "held_qty": 11.899,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -601,12 +601,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 1.5963,
-   "notional": 1979.95,
-   "price": 1240.34,
-   "reason": "open: +0 -> +1.5963 shares (target +2.0%)",
+   "held_qty": 1.5963,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -636,12 +636,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 7.274,
-   "notional": 1979.98,
-   "price": 272.2,
-   "reason": "open: +0 -> +7.274 shares (target +2.0%)",
+   "held_qty": 7.274,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -671,12 +671,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 3.2121,
-   "notional": 1979.94,
-   "price": 616.4,
-   "reason": "open: +0 -> +3.2121 shares (target +2.0%)",
+   "held_qty": 3.2121,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -706,12 +706,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 3.1953,
-   "notional": 1980.0,
-   "price": 619.66,
-   "reason": "open: +0 -> +3.1953 shares (target +2.0%)",
+   "held_qty": 3.1953,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -741,12 +741,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 2.8067,
-   "notional": 1979.96,
-   "price": 705.44,
-   "reason": "open: +0 -> +2.8067 shares (target +2.0%)",
+   "held_qty": 2.8067,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -776,12 +776,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 3.5138,
-   "notional": 1979.99,
-   "price": 563.49,
-   "reason": "open: +0 -> +3.5138 shares (target +2.0%)",
+   "held_qty": 3.5138,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -811,12 +811,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 9.1206,
-   "notional": 1979.99,
-   "price": 217.09,
-   "reason": "open: +0 -> +9.1206 shares (target +2.0%)",
+   "held_qty": 9.1206,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -862,12 +862,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 24.8431,
-   "notional": 1979.99,
-   "price": 79.7,
-   "reason": "open: +0 -> +24.8431 shares (target +2.0%)",
+   "held_qty": 24.8431,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -897,12 +897,12 @@
    "target_by_sleeve": {
     "bottleneck": 0.02531
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 35.7702,
-   "notional": 2505.34,
-   "price": 70.04,
-   "reason": "open: +0 -> +35.7702 shares (target +2.5%)",
+   "held_qty": 35.7702,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -929,12 +929,12 @@
    "target_by_sleeve": {
     "bottleneck": 0.02806
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 44.2834,
-   "notional": 2777.45,
-   "price": 62.72,
-   "reason": "open: +0 -> +44.2834 shares (target +2.8%)",
+   "held_qty": 44.2834,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -961,12 +961,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 17.8781,
-   "notional": 1980.0,
-   "price": 110.75,
-   "reason": "open: +0 -> +17.8781 shares (target +2.0%)",
+   "held_qty": 17.8781,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -996,12 +996,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 9.8482,
-   "notional": 1979.98,
-   "price": 201.05,
-   "reason": "open: +0 -> +9.8482 shares (target +2.0%)",
+   "held_qty": 9.8482,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1031,12 +1031,12 @@
    "target_by_sleeve": {
     "bottleneck": 0.02462
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 98.296,
-   "notional": 2437.74,
-   "price": 24.8,
-   "reason": "open: +0 -> +98.296 shares (target +2.4%)",
+   "held_qty": 98.296,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1063,12 +1063,12 @@
    "target_by_sleeve": {
     "index_momentum": 0.3
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 38.7485,
-   "notional": 29699.95,
-   "price": 766.48,
-   "reason": "open: +0 -> +38.7485 shares (target +29.7%)",
+   "held_qty": 38.7485,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1085,12 +1085,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 3.6454,
-   "notional": 1980.0,
-   "price": 543.15,
-   "reason": "open: +0 -> +3.6454 shares (target +2.0%)",
+   "held_qty": 3.6454,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1120,12 +1120,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 4.9141,
-   "notional": 1979.99,
-   "price": 402.92,
-   "reason": "open: +0 -> +4.9141 shares (target +2.0%)",
+   "held_qty": 4.9141,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1155,12 +1155,12 @@
    "target_by_sleeve": {
     "quality_screen": 0.02
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 44.6348,
-   "notional": 1980.0,
-   "price": 44.36,
-   "reason": "open: +0 -> +44.6348 shares (target +2.0%)",
+   "held_qty": 44.6348,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {

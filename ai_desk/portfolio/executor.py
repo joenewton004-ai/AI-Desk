@@ -38,6 +38,7 @@ class Limits:
                                      # than the last close don't push the account onto margin
     limit_cap: float | None = None   # e.g. 0.02: send limit orders capped 2% beyond the last close instead of
                                      # market orders (research/LIMIT_ORDERS.md: free on average, stops big-gap fills)
+    limit_cap_side: str = "both"     # "buy": cap buys only, so sells (e.g. the bottleneck exit) always go through
 
     def position_cap(self, symbol: str) -> float:
         return self.max_fund_position if symbol in self.funds else self.max_position
@@ -243,7 +244,7 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
     if execute:
         responses = {}
         for o in plan.sendable:
-            if limits.limit_cap:
+            if limits.limit_cap and (limits.limit_cap_side == "both" or o.side == limits.limit_cap_side):
                 lim = limit_price(o.price, o.side, limits.limit_cap)
                 resp = broker.submit_limit_order(o.symbol, o.qty, o.side, lim)
                 resp = {**resp, "type": "limit", "limit_price": lim}
