@@ -1,6 +1,7 @@
 {
  "with_rows": [
   "amendments",
+  "closed",
   "curve",
   "fills",
   "holdings",
@@ -19,7 +20,6 @@
   "watchlist"
  ],
  "empty": [
-  "closed",
   "exits",
   "sleeve_perf"
  ]

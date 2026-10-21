@@ -40,7 +40,11 @@ def test_repick_after_a_month_end_only():
 def test_plan_buys_uses_the_sleeve_share_capped_by_cash():
     # 30% of $100k = $30k over 2 picks, but only $20k cash (less a 1% buffer) is free: $19k / 2 each
     orders = ov.plan_buys(["A", "B"], 100_000, 20_000, {"A": 100.0, "B": 7.0}, book_open=False)
-    assert [o["qty"] for o in orders] == [95, 1357]
+    assert [o["qty"] for o in orders] == [95, 1357]                 # leftover $1 buys nothing more
+    # whole shares: a $900 stock on a $1,500 slice gets one share, then the leftover tops up the most underweight
+    o2 = ov.plan_buys(["X", "Y"], 10_000, 10_000, {"X": 900.0, "Y": 100.0}, book_open=False, share=0.3)
+    spent = sum(o["notional"] for o in o2)
+    assert spent <= 0.3 * 10_000 and 0.3 * 10_000 - spent < 100   # within one cheap share of the budget
     assert ov.plan_buys(["A"], 100_000, 50_000, {"A": 100.0}, book_open=False)[0]["qty"] == 300
     assert ov.plan_buys(["A"], 100_000, 50_000, {"A": 100.0}, book_open=True) == []    # last night's shares unsold
 
