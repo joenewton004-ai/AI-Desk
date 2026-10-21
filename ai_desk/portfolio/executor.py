@@ -224,8 +224,24 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
     shortable = {s: bool(broker.asset(s).get("shortable")) for s in targets.index[targets < 0]}
     fractionable = ({s: bool(broker.asset(s).get("fractionable")) for s in targets.index[targets > 0]}
                     if limits.fractional else None)
+    # the overnight sleeve (amendment 330e76e0) bought shares in the closing auction; the desk's own sleeves don't
+    # know about them. Fold their sale at the next open into the desk's orders: one net order per stock.
+    frozen = method.frozen()
+    book = {}
+    from ai_desk import overnight
+    today_ny = pd.Timestamp.now(tz="America/New_York").date().isoformat()
+    if getattr(method, "name", "") == "blend" and overnight.swap_active():
+        book = overnight.confirm_book(broker, today_ny) if execute or overnight.BOOK.exists() else {}
+        missing = [s for s in book if s not in closes.columns]
+        if missing:
+            extra = load_many(missing, start, source=source)
+            closes = closes.join(drop_incomplete_bar(extra["close"]), how="left")
+        targets, frozen = overnight.net_with_desk(targets, positions, book, closes.iloc[-1], equity, frozen)
     plan = plan_orders(targets, positions, closes.iloc[-1], equity, limits, shortable, fractionable,
-                       frozen=method.frozen())
+                       frozen=frozen)
+    for o in plan.orders:
+        if o.symbol in book:
+            o.reason += f" | includes the overnight sleeve's {book[o.symbol]:g} shares, sold at the open"
     plan.notes[:0] = [f"signals from the close of {closes.index[-1].date()}; equity ${equity:,.0f}",
                       *method.status()]
 
@@ -253,6 +269,8 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
             responses[o.symbol] = resp
             o.reason += f" [order {resp.get('id', '?')}]"
         status = "submitted"
+        if book:
+            overnight.mark_sold(book, {s: responses.get(s, {}).get("id") for s in book}, today_ny)
         tradebook.record_orders(plan, method, sleeves, closes.index[-1].date(), responses)
         if not any(o.blocked for o in plan.orders):
             method.on_executed()       # e.g. lock in the new stock picks

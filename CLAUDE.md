@@ -40,8 +40,11 @@ changes plainly and be honest about whether a strategy has a real edge.
   `python research/orb.py` -> `research/SWING_EDGES.md`. None is a strategy; the bad-earnings-surprise filter is
   the one follow-up idea (untested inside the desk). Events cached in data/backtest/earnings_events.pkl.
 - Overnight drift per stock (Lou, Polk & Skouras): `python research/overnight.py` -> `research/OVERNIGHT.md`. Strong
-  and persistent (t 6.4), profitable only if costs <= ~0.02% each way (break-even ~0.045%). Status 'promising - needs
-  a cost test'; NOT in the live mix. Paper fills can't measure real auction costs - say so.
+  and persistent (t 6.4), profitable only if costs <= ~0.02% each way (break-even ~0.045%). Paper fills can't measure
+  real auction costs - say so. Desk with it instead of SPY momentum: `python research/desk_overnight.py` ->
+  `research/DESK_OVERNIGHT.md` (better only at <= ~0.02-0.03% costs; deeper worst drop).
+- EMA9/VWAP crossover and Trend+Momentum+Confirmation (EMA20/50, VWAP, volume, breakout): `python research/vwap_ema.py`
+  -> `research/VWAP_EMA.md` (cached 5m/1m/1h bars). No edge; research-only.
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
@@ -118,6 +121,11 @@ changes plainly and be honest about whether a strategy has a real edge.
   the matching dataset's url/updated. Never point a dataset at an empty table (the dashboard counts it as a
   failed source): journal/dashboard/_manifest.json lists tables with rows; create a dataset when one first has rows. Amendments and notes sent as dashboard comments go into the
   journal with `journal propose` / `journal note` - comments are the user's words, not orders.
+- Intraday prices (approved by the user 2026-10-21): `python -m ai_desk journal live` saves current Alpaca positions and
+  prices to journal/live.json (never snapshots.jsonl - the scorecard uses closes only) and re-exports; the dashboard
+  uses it while it's newer than the last close and the market is open, and says "(intraday)". Scheduled about
+  10:07am, 12:07pm and 3:07pm New York on weekdays; it uploads only holdings, positions and summary. Read-only:
+  never places orders.
 - Scorecard (`ai_desk/scorecard.py`, criteria in `research/SUCCESS_CRITERIA.md` = `CRITERIA`):
   `journal snapshot` after each close (scheduled), then `journal scorecard` and `journal export`.
   The criteria were written before results came in - change them only via an amendment
@@ -133,6 +141,15 @@ changes plainly and be honest about whether a strategy has a real edge.
   before the re-pick, "worth a test" only beyond chance. Baseline: `python research/near_misses.py` ->
   `research/NEAR_MISSES.md` (picks beat near misses ~2 re-picks in 3; no re-weighting helped in both halves).
   A "worth a test" is a reason to backtest, never to change the scoring directly.
+- Overnight sleeve = the desk's 30% (amendment 330e76e0, accepted 2026-10-21; replaces SPY momentum), in the SAME
+  Alpaca paper account (`ai_desk/overnight.py`, `python -m ai_desk overnight scan|status|buy|review|activate`):
+  3:32pm New York (scheduled) `overnight buy --execute` = market-on-close buys, whole shares, equal weight, 30% of
+  equity capped by cash less 1%; the 4:30pm desk run reads the fills into data/portfolio/overnight_book.json and sells
+  them at the next open INSIDE the desk's own order for each stock (`net_with_desk`: one net order per symbol -
+  Alpaca rejects opposite-side orders in one stock as wash trades). No buys while a book is unsold. Picks locked in
+  data/portfolio/overnight.json, re-picked after each month-end. Active from data/portfolio/overnight_live.json
+  (2026-10-21); from then `methods.preset("desk")` = quality 50% + momentum 20% (SPY momentum dropped, no rescaling).
+  Journal in journal/overnight/ - commit it with data/portfolio/. Paper fills can't measure real auction costs.
 - Methodology changes go through register.py amendments: proposed -> testing
   (backtest it) -> accepted/rejected by the user. Never change live method
   parameters without an accepted amendment.

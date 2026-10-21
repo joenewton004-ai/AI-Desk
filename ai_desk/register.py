@@ -109,7 +109,32 @@ SLEEVE_TEXT = {
         "metrics": "Worst drop vs SPY buy and hold. Backtest 1994-2026: 10.6%/yr vs 10.8%, worst drop -34% vs -55%.",
         "watch": "It should lag in strong bull markets and justify itself in a long bear market. Judge it on the worst drop, not return.",
     },
+    "overnight_drift": {
+        "label": "Overnight",
+        "plain": "Holds the 20 large US stocks that have earned the most overnight over the past year - bought in the "
+                 "closing auction (3:32pm New York), sold at the next open by the evening run, every trading day. "
+                 "Replaced SPY momentum (amendment 330e76e0, accepted 2026-10-21).",
+        "screen": "Top 20 by average overnight return (close to next open) over 12 months; price over $10, $20M a day "
+                  "traded; equal weight; re-picked monthly.",
+        "metrics": "Fill cost vs the official close/open (break-even about 0.045% per trade; the desk-level case needs "
+                   "about 0.02%). Backtest 2014-2026 at 0.02%: 16.7%/yr, Sharpe 0.81, worst drop -28%.",
+        "watch": "Costs first: `overnight review`. No crash switch - it stays invested in falling markets (March 2020: -20%).",
+    },
 }
+
+
+def desk_allocation(today=None) -> dict[str, float]:
+    """The whole desk's split: after the overnight swap (amendment 330e76e0) SPY momentum's 30% goes to the
+    overnight sleeve, which trades in the same account outside the desk method."""
+    import pandas as pd
+
+    from ai_desk.portfolio.methods import overnight_swap
+    sw = overnight_swap()
+    live = dict(preset(LIVE_PRESET, today))
+    today = (pd.Timestamp(today) if today else pd.Timestamp.today()).normalize()
+    if sw and today >= pd.Timestamp(sw["from"]):
+        return live | {"overnight_drift": float(sw.get("share", 0.3))}
+    return live
 
 
 # A fuller, plain-English explainer for a sleeve, shown on the dashboard's Methodologies tab.
@@ -181,10 +206,15 @@ def explainer_tables() -> tuple[list[dict], list[dict]]:
 
 def sleeve_guide() -> list[dict]:
     """One row per live sleeve: 'name - allocation - screening parameters', plus a plain description and its metrics."""
-    live = dict(preset(LIVE_PRESET))
+    live = desk_allocation()
     rows = []
     for name, share in live.items():
         t = SLEEVE_TEXT[name]
+        if name not in METHODS:                    # the overnight sleeve trades in its own account (ai_desk/overnight.py)
+            rows.append({"sleeve": name, "label": t["label"], "allocation": share,
+                         "line": f"{t['label']} - {share:.0%} - {t['screen']}", "plain": t["plain"], "screen": t["screen"],
+                         "metrics": t["metrics"], "watch": t["watch"]})
+            continue
         p = _params(METHODS[name])
         facts = {"quality_screen": lambda: f"top {p['top']}, re-pick every {p['rebalance_months']} months",
                  "bottleneck": lambda: f"top {p['top']}, re-pick every {p['rebalance_days']} days, exit below the 100-day average",
@@ -270,11 +300,24 @@ RESEARCH_METHODS = {
                        "buy at the close, sell at the next open - via the closing and opening auctions.",
         "parameters": {"stocks": 20, "look_back": "12 months", "re_pick": "monthly", "hold": "close to next open, daily",
                        "orders": "market-on-close buy, market-on-open sell"},
-        "status": "promising - needs a cost test (not in the live mix)",
+        "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`",
         "summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, "
                    "both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the "
                    "average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
-        "docs": ["research/OVERNIGHT.md", "research/output/overnight.md"],
+        "docs": ["research/OVERNIGHT.md", "research/output/overnight.md", "ai_desk/overnight.py"],
+    },
+    "vwap_ema": {
+        "description": "Two intraday indicator strategies on the 100-150 largest US companies: (A) EMA9/VWAP crossover, "
+                       "both sides and long only; (B) Trend + Momentum + Confirmation - 20 EMA above 50 EMA, price above "
+                       "VWAP, volume 1.5x average, break of the previous day's or opening-range high; stop at the swing "
+                       "low/20 EMA, 2R target.",
+        "parameters": {"bars": "5-min (60 days), 1-min (30 days), hourly (3 years)", "costs": "0.03% each way",
+                       "exit": "signal, stop/target or the close"},
+        "status": "tested, no edge (not in the live mix)",
+        "summary": "A: about zero before costs, -0.06% to -0.08% per trade after (t -10 to -12). B: negative even before "
+                   "costs, -0.07% to -0.14% after; random entries on the same days did better (+0.14% hourly) - the "
+                   "setup confirms after the move. 3R, pullback entry and no-volume variants don't help.",
+        "docs": ["research/VWAP_EMA.md", "research/output/vwap_ema.md"],
     },
     "drawdown_breaker": {
         "description": "Account-level circuit breaker (drawdown-circuit-breaker skill, tradermonty/claude-trading-skills): "
@@ -333,7 +376,7 @@ def decide(amendment_id: str, status: str, evidence: str = "") -> dict:
 
 
 def register(write: bool = True) -> dict:
-    live = dict(preset(LIVE_PRESET))
+    live = desk_allocation()
     methods = []
     for name, cls in METHODS.items():
         methods.append({
@@ -345,7 +388,8 @@ def register(write: bool = True) -> dict:
             "amendments": [a for a in amendments() if a["method"] == name],
         })
     for name, m in RESEARCH_METHODS.items():
-        methods.append({"name": name, "in_live_mix": False, "allocation": 0.0, "description": m["description"],
+        methods.append({"name": name, "in_live_mix": name in live, "allocation": live.get(name, 0.0),
+                        "description": m["description"],
                         "parameters": m["parameters"], "status": m["status"], "evidence_summary": m["summary"],
                         "docs": m["docs"], "amendments": [a for a in amendments() if a["method"] == name]})
     out = {"generated_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),

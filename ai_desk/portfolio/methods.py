@@ -600,12 +600,28 @@ PRESETS = {
 DESK_SWITCH = {"date": "2026-11-03", "before": [("quality_screen", 0.5), ("bottleneck", 0.2), ("index_momentum", 0.3)]}
 
 
-def preset(name: str, today: pd.Timestamp | None = None) -> list[tuple[str, float]]:
-    """A preset's parts as of `today` (the desk switches sleeves on DESK_SWITCH['date'])."""
+# Amendment 330e76e0 (accepted 2026-10-21): the 30% SPY momentum sleeve is replaced by the overnight sleeve
+# (ai_desk/overnight.py), which trades in the same account outside this method: it buys in the closing auction and
+# the evening run sells its shares at the next open (executor.run nets them with the desk's own orders). From the
+# activation date in OVERNIGHT_SWAP (`overnight activate`) the desk method holds quality 50% + momentum 20% only.
+OVERNIGHT_SWAP = Path("data/portfolio/overnight_live.json")
+SWAPPED_OUT = "index_momentum"
+
+
+def overnight_swap() -> dict | None:
+    return json.loads(OVERNIGHT_SWAP.read_text()) if OVERNIGHT_SWAP.exists() else None
+
+
+def preset(name: str, today: pd.Timestamp | None = None, swap: dict | None | bool = True) -> list[tuple[str, float]]:
+    """A preset's parts as of `today` (the desk switches sleeves on DESK_SWITCH['date'], and drops SPY momentum
+    from the overnight swap's activation date). swap: True = read OVERNIGHT_SWAP; a dict = use it; None = no swap."""
     today = (today or pd.Timestamp.today()).normalize()
-    if name == "desk" and today < pd.Timestamp(DESK_SWITCH["date"]):
-        return list(DESK_SWITCH["before"])
-    return list(PRESETS[name])
+    parts = list(DESK_SWITCH["before"]) if name == "desk" and today < pd.Timestamp(DESK_SWITCH["date"]) \
+        else list(PRESETS[name])
+    sw = overnight_swap() if swap is True else swap
+    if name == "desk" and sw and today >= pd.Timestamp(sw["from"]):
+        parts = [(n, w) for n, w in parts if n != SWAPPED_OUT]
+    return parts
 
 
 @dataclass

@@ -15,3 +15,10 @@ def isolated_journal(tmp_path, monkeypatch):
     from ai_desk import tradebook
 
     monkeypatch.setattr(tradebook, "DIR", tmp_path / "journal")
+    # the overnight sleeve's files, and the swap switch (a real activation must not change what tests see)
+    from ai_desk import overnight
+    from ai_desk.portfolio import methods
+    monkeypatch.setattr(overnight, "BOOK", tmp_path / "overnight_book.json")
+    monkeypatch.setattr(overnight, "LOCK", tmp_path / "overnight.json")
+    monkeypatch.setattr(overnight, "DIR", tmp_path / "journal_overnight")
+    monkeypatch.setattr(methods, "OVERNIGHT_SWAP", tmp_path / "overnight_live.json")

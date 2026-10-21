@@ -131,12 +131,17 @@ class AlpacaPaper:
             "limit_price": format_limit(limit_price), "time_in_force": "day",
         })
 
-    def submit_market_order(self, symbol: str, qty: float, side: str) -> dict:
+    def submit_market_order(self, symbol: str, qty: float, side: str, time_in_force: str = "day") -> dict:
         """Market order, good for the day. Submitted after the close, Alpaca
         queues it for the next open - matching how the backtest fills.
         Fractional quantities are allowed for fractionable stocks (day market
-        orders only, which is what this sends)."""
+        orders only). time_in_force "cls" = market-on-close (the closing auction),
+        "opg" = market-on-open (the opening auction); both need whole shares."""
+        if time_in_force not in ("day", "cls", "opg"):
+            raise ValueError(f"unsupported time_in_force {time_in_force!r}")
+        if time_in_force != "day" and float(qty) != int(float(qty)):
+            raise ValueError("auction orders (cls/opg) need whole shares")
         return self._request("POST", "/orders", json={
             "symbol": symbol, "qty": format_qty(qty), "side": side,
-            "type": "market", "time_in_force": "day",
+            "type": "market", "time_in_force": time_in_force,
         })

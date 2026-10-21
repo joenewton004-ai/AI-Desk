@@ -490,6 +490,56 @@ def cmd_momentum(a) -> None:
     print(f"Saved {path} and {path.with_suffix('.csv')}")
 
 
+def cmd_overnight(a) -> None:
+    try:
+        _overnight(a)
+    except RuntimeError as e:          # missing keys, same-account guard: say why, don't dump a traceback
+        print(f"Overnight sleeve: {e}")
+        raise SystemExit(1)
+
+
+def _overnight(a) -> None:
+    from ai_desk import overnight as ov
+
+    pct = lambda x: "n/a" if x is None or x != x else f"{x:+.3%}"  # noqa: E731
+    if a.action == "scan":
+        s = ov.scan()
+        print(f"Overnight ranking from the {s['ref_date']} close ({s['universe']} large US companies):")
+        for i, r in enumerate(s["rows"], 1):
+            print(f"  {i:>2}. {r['symbol']:6} {r['overnight_yr']:+6.0%}/yr overnight, past 12 months   {r['name']}")
+        print("(Research ranking, not a recommendation. `overnight buy` locks it at the monthly re-pick.)")
+    elif a.action == "status":
+        from ai_desk.portfolio.methods import overnight_swap
+        lock, book, sw = ov.load_lock(), ov.load_book(), overnight_swap()
+        print(f"Swap: {'active from ' + sw['from'] if sw else 'not active (desk still holds SPY momentum)'}")
+        print(f"Picks: {', '.join(lock['picks']) if lock else 'none yet'}" + (f" (from the {lock['ref_date']} close)" if lock else ""))
+        print(f"Book: {book.get('holdings') or 'empty'}" + (f" (bought {book.get('date')}, sale sent: {book.get('sell_sent')})" if book else ""))
+    elif a.action == "buy":
+        out = ov.buy(execute=a.execute)
+        for n in out.get("notes", []):
+            print("  " + n)
+        for o in out["orders"]:
+            print(f"  {o['side']:4} {o['qty']:>6} {o['symbol']}" + (f"  (~${o['notional']:,.0f})" if "notional" in o else ""))
+        if out["blocked"]:
+            print(f"Nothing sent: {out['blocked']}")
+        elif out["dry_run"]:
+            print(f"Dry run: {len(out['orders'])} market-on-close buys planned. Add --execute to send them.")
+        else:
+            print(f"Sent {out['sent']} market-on-close buys to paper account {out['account']}. "
+                  "Tonight's desk run sells them at the next open.")
+    elif a.action == "activate":
+        row = ov.activate()
+        print(f"Desk swap active from {row['from']} (amendment {row['amendment']}): that evening's desk run sells SPY "
+              f"at the next open; the overnight sleeve ({row['share']:.0%}) buys from the next trading afternoon. "
+              "Commit data/portfolio/overnight_live.json.")
+    elif a.action == "review":
+        r = ov.review()
+        s = r["summary"]
+        print(f"{s['filled']} of {s['orders']} orders filled. Average cost vs the official auction price: {pct(s['avg_cost'])} "
+              f"(buys {pct(s['avg_cost_buys'])}, sells {pct(s['avg_cost_sells'])}); break-even is about +0.045%.")
+        print(f"Note: {s['note']}. Saved journal/overnight/review.json")
+
+
 def cmd_journal(a) -> None:
     from ai_desk import register, tradebook
 
@@ -560,6 +610,17 @@ def cmd_journal(a) -> None:
             if c.get("baseline"):
                 print(f"  12-year baseline: {c['baseline']}")
         print("\nSaved journal/watchlist.json, journal/watchlist_review.json and journal/watchlist_daily.jsonl")
+    elif a.action == "live":
+        from ai_desk import dashboard, scorecard
+        from ai_desk.broker.alpaca import AlpacaPaper
+        row = scorecard.live_snapshot(AlpacaPaper())
+        day = sum((h.get("day_pl") or 0.0) for h in row["holdings"].values())
+        print(f"Live prices for {len(row['holdings'])} positions at {row['utc']} (market {'open' if row['market_open'] else 'closed'}): "
+              f"equity ${row['equity']:,.0f}, today {day:+,.0f}")
+        if not row["market_open"]:
+            print("The market is closed, so the dashboard keeps showing the last close.")
+        dashboard.export()
+        print("Saved journal/live.json and journal/dashboard/ (upload holdings, positions and summary)")
     elif a.action == "export":
         from ai_desk import dashboard
         counts = dashboard.export()
@@ -706,9 +767,14 @@ def build_parser() -> argparse.ArgumentParser:
     mo.add_argument("--top", type=int, default=20)
     mo.set_defaults(func=cmd_momentum)
 
+    on = sub.add_parser("overnight", help="overnight sleeve (30% of the desk): buy at the close, sold at the next open")
+    on.add_argument("action", choices=["scan", "status", "buy", "review", "activate"])
+    on.add_argument("--execute", action="store_true", help="send the orders (default: dry run)")
+    on.set_defaults(func=cmd_overnight)
+
     jn = sub.add_parser("journal", help="trade journal, notes, methodology register and amendments")
     jn.add_argument("action", choices=["sync", "review", "note", "methods", "propose", "decide", "amendments", "export",
-                                       "snapshot", "scorecard", "watchlist"])
+                                       "snapshot", "scorecard", "watchlist", "live"])
     jn.add_argument("target", nargs="?", help="note: trade id / symbol / method; propose: method; decide: amendment id")
     jn.add_argument("text", nargs="?", help="note text, proposal text, or decision evidence")
     jn.add_argument("--rationale", help="propose: why")
