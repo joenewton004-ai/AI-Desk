@@ -74,10 +74,8 @@ def sleeve_map() -> dict[str, str]:
     return out
 
 
-def snapshot(broker, date: str | None = None) -> dict:
-    """Record today's account value and holdings by sleeve. Re-running on the
-    same date replaces that day's line."""
-    acct = broker.account()
+def holdings_now(broker) -> dict:
+    """Every position with the broker's current price, P/L and today's move, by sleeve."""
     sleeves = sleeve_map()
     if hasattr(broker, "position_details"):
         f = lambda p, k: float(p[k]) if p.get(k) not in (None, "") else None  # noqa: E731
@@ -92,6 +90,14 @@ def snapshot(broker, date: str | None = None) -> dict:
         prices = broker.latest_prices()
         holdings = {s: {"qty": q, "price": prices.get(s), "sleeve": sleeves.get(s)}
                     for s, q in broker.positions().items() if q}
+    return holdings
+
+
+def snapshot(broker, date: str | None = None) -> dict:
+    """Record today's account value and holdings by sleeve. Re-running on the
+    same date replaces that day's line."""
+    acct = broker.account()
+    holdings = holdings_now(broker)
     row = {"date": date or pd.Timestamp.now(tz="America/New_York").date().isoformat(), "utc": _now(),
            "equity": float(acct["equity"]), "cash": float(acct["cash"]), "holdings": holdings}
     rows = [r for r in tradebook._read("snapshots.jsonl") if r["date"] != row["date"]]
@@ -101,6 +107,30 @@ def snapshot(broker, date: str | None = None) -> dict:
 
 def snapshots() -> list[dict]:
     return tradebook._read("snapshots.jsonl")
+
+
+def live_snapshot(broker) -> dict:
+    """Intraday prices for the dashboard (journal/live.json, overwritten each time). Never written to
+    snapshots.jsonl: the scorecard measures daily closes only."""
+    acct = broker.account()
+    clock = broker.clock() if hasattr(broker, "clock") else {}
+    row = {"utc": _now(), "market_open": bool((clock or {}).get("is_open")), "equity": float(acct["equity"]),
+           "cash": float(acct["cash"]), "last_equity": float(acct.get("last_equity") or 0) or None,
+           "holdings": holdings_now(broker)}
+    tradebook.DIR.mkdir(parents=True, exist_ok=True)
+    (tradebook.DIR / "live.json").write_text(json.dumps(row, indent=1, default=str))
+    return row
+
+
+def latest_prices_row() -> tuple[dict, str]:
+    """The newer of the live snapshot and the last close snapshot, and which it was ("intraday" or "close")."""
+    snaps = snapshots()
+    close = snaps[-1] if snaps else {}
+    p = tradebook.DIR / "live.json"
+    live = json.loads(p.read_text()) if p.exists() else {}
+    if live and live.get("utc", "") > close.get("utc", "") and live.get("market_open"):
+        return live, "intraday"
+    return close, "close"
 
 
 # --- pure calculations (unit-tested) --------------------------------------------

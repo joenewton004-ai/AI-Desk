@@ -607,6 +607,17 @@ def cmd_journal(a) -> None:
             if c.get("baseline"):
                 print(f"  12-year baseline: {c['baseline']}")
         print("\nSaved journal/watchlist.json, journal/watchlist_review.json and journal/watchlist_daily.jsonl")
+    elif a.action == "live":
+        from ai_desk import dashboard, scorecard
+        from ai_desk.broker.alpaca import AlpacaPaper
+        row = scorecard.live_snapshot(AlpacaPaper())
+        day = sum((h.get("day_pl") or 0.0) for h in row["holdings"].values())
+        print(f"Live prices for {len(row['holdings'])} positions at {row['utc']} (market {'open' if row['market_open'] else 'closed'}): "
+              f"equity ${row['equity']:,.0f}, today {day:+,.0f}")
+        if not row["market_open"]:
+            print("The market is closed, so the dashboard keeps showing the last close.")
+        dashboard.export()
+        print("Saved journal/live.json and journal/dashboard/ (upload holdings, positions and summary)")
     elif a.action == "export":
         from ai_desk import dashboard
         counts = dashboard.export()
@@ -760,7 +771,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     jn = sub.add_parser("journal", help="trade journal, notes, methodology register and amendments")
     jn.add_argument("action", choices=["sync", "review", "note", "methods", "propose", "decide", "amendments", "export",
-                                       "snapshot", "scorecard", "watchlist"])
+                                       "snapshot", "scorecard", "watchlist", "live"])
     jn.add_argument("target", nargs="?", help="note: trade id / symbol / method; propose: method; decide: amendment id")
     jn.add_argument("text", nargs="?", help="note text, proposal text, or decision evidence")
     jn.add_argument("--rationale", help="propose: why")

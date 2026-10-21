@@ -126,3 +126,17 @@ def test_plan_rows_carry_return_and_day_move_from_holdings():
     t = dashboard.tables()
     assert t["positions"][0]["return"] == 0.01 and t["positions"][0]["day"] == 0.002
     assert "trend on" in t["holdings"][0]["why"]
+
+
+def test_dashboard_prices_use_the_live_snapshot_only_when_newer_and_in_market_hours(tmp_path, monkeypatch):
+    import json
+    from ai_desk import scorecard, tradebook
+    monkeypatch.setattr(tradebook, "DIR", tmp_path)
+    tradebook._write("snapshots.jsonl", [{"date": "2026-10-21", "utc": "2026-10-21T20:41:00+00:00", "holdings": {}}])
+    (tmp_path / "live.json").write_text(json.dumps({"utc": "2026-10-22T16:07:00+00:00", "market_open": True, "holdings": {}}))
+    row, kind = scorecard.latest_prices_row()
+    assert kind == "intraday" and row["utc"].startswith("2026-10-22")
+    (tmp_path / "live.json").write_text(json.dumps({"utc": "2026-10-22T16:07:00+00:00", "market_open": False, "holdings": {}}))
+    assert scorecard.latest_prices_row()[1] == "close"
+    (tmp_path / "live.json").write_text(json.dumps({"utc": "2026-10-21T15:00:00+00:00", "market_open": True, "holdings": {}}))
+    assert scorecard.latest_prices_row()[1] == "close"         # older than the last close snapshot

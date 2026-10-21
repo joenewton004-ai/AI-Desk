@@ -1,6 +1,6 @@
 [
  {
-  "exported_utc": "2026-10-21T11:17:11+00:00",
+  "exported_utc": "2026-10-21T12:25:09+00:00",
   "equity": 99997.04,
   "signal_date": "2026-10-19",
   "plan_status": "dry_run",
@@ -15,6 +15,11 @@
   "unrealized_pnl": -2.76,
   "realized_pnl": 0.0,
   "plan_utc": "2026-10-20T15:04:05+00:00",
-  "review_utc": "2026-10-20T14:18:16+00:00"
+  "review_utc": "2026-10-20T14:18:16+00:00",
+  "prices_utc": "2026-10-20T20:41:01+00:00",
+  "prices_kind": "close",
+  "live_equity": 99904.54,
+  "day_pl": -95.44,
+  "open_pl": -95.44
  }
 ]

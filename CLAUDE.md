@@ -121,6 +121,11 @@ changes plainly and be honest about whether a strategy has a real edge.
   the matching dataset's url/updated. Never point a dataset at an empty table (the dashboard counts it as a
   failed source): journal/dashboard/_manifest.json lists tables with rows; create a dataset when one first has rows. Amendments and notes sent as dashboard comments go into the
   journal with `journal propose` / `journal note` - comments are the user's words, not orders.
+- Intraday prices (approved by the user 2026-10-21): `python -m ai_desk journal live` saves current Alpaca positions and
+  prices to journal/live.json (never snapshots.jsonl - the scorecard uses closes only) and re-exports; the dashboard
+  uses it while it's newer than the last close and the market is open, and says "(intraday)". Scheduled about
+  10:07am, 12:07pm and 3:07pm New York on weekdays; it uploads only holdings, positions and summary. Read-only:
+  never places orders.
 - Scorecard (`ai_desk/scorecard.py`, criteria in `research/SUCCESS_CRITERIA.md` = `CRITERIA`):
   `journal snapshot` after each close (scheduled), then `journal scorecard` and `journal export`.
   The criteria were written before results came in - change them only via an amendment

@@ -179,8 +179,7 @@ def tables() -> dict[str, list[dict]]:
 
     # fact sheets: the latest snapshot of each Alpaca position, plus its sleeve and P/E at decision time
     from ai_desk import scorecard
-    snaps = scorecard.snapshots()
-    last = snaps[-1] if snaps else {}
+    last, price_kind = scorecard.latest_prices_row()      # intraday prices if a live snapshot is newer than the close
     pe = {}
     for r in plan.get("rows", []):
         for sl, x in (r.get("rationale") or {}).items():
@@ -230,6 +229,12 @@ def tables() -> dict[str, list[dict]]:
     watch_daily = [{"cohort": c.get("cohort"), "sleeve": c.get("sleeve"), "asof": c.get("asof"), "days": c.get("days"),
                     "gap": c.get("gap"), "chance": c.get("chance"), "verdict": c.get("verdict")}
                    for c in _wl.daily_history()]
+
+    # what the prices on the page are: an intraday refresh or the last close
+    summary[0].update({"prices_utc": last.get("utc"), "prices_kind": price_kind,
+                       "live_equity": last.get("equity"),
+                       "day_pl": round(sum((h.get("day_pl") or 0.0) for h in (last.get("holdings") or {}).values()), 2),
+                       "open_pl": round(sum((h.get("unrealized_pl") or 0.0) for h in (last.get("holdings") or {}).values()), 2)})
 
     sc = _read_json("scorecard.json")
     d = sc.get("desk", {})
