@@ -1,0 +1,170 @@
+{
+ "picked_on": "2026-10-21",
+ "ref_date": "2026-10-20",
+ "picks": [
+  "LITE",
+  "BE",
+  "SITM",
+  "SNDK",
+  "MU",
+  "MRVL",
+  "TSEM",
+  "NBIS",
+  "CRDO",
+  "LRCX",
+  "ESLT",
+  "STX",
+  "COHR",
+  "INTC",
+  "FTAI",
+  "TER",
+  "Q",
+  "VRT",
+  "NVT",
+  "ATI"
+ ],
+ "rows": [
+  {
+   "symbol": "LITE",
+   "name": "Lumentum Holdings Inc.",
+   "score": 0.006202991841904715,
+   "overnight_yr": 3.7508606177334327,
+   "close": 822.510009765625
+  },
+  {
+   "symbol": "BE",
+   "name": "Bloom Energy Corporation",
+   "score": 0.006074275619444674,
+   "overnight_yr": 3.600142112734275,
+   "close": 222.64999389648438
+  },
+  {
+   "symbol": "SITM",
+   "name": "SiTime Corporation",
+   "score": 0.005594654625383333,
+   "overnight_yr": 3.0792934258673874,
+   "close": 497.1099853515625
+  },
+  {
+   "symbol": "SNDK",
+   "name": "Sandisk Corporation",
+   "score": 0.004962015388424771,
+   "overnight_yr": 2.481056296359872,
+   "close": 1365.3800048828125
+  },
+  {
+   "symbol": "MU",
+   "name": "Micron Technology, Inc.",
+   "score": 0.004944377197121212,
+   "overnight_yr": 2.465693872964223,
+   "close": 896.0700073242188
+  },
+  {
+   "symbol": "MRVL",
+   "name": "Marvell Technology, Inc.",
+   "score": 0.004867186556425733,
+   "overnight_yr": 2.3992532824021433,
+   "close": 240.4199981689453
+  },
+  {
+   "symbol": "TSEM",
+   "name": "Tower Semiconductor Ltd.",
+   "score": 0.00453071312298984,
+   "overnight_yr": 2.1241462482655966,
+   "close": 183.77999877929688
+  },
+  {
+   "symbol": "NBIS",
+   "name": "Nebius Group N.V.",
+   "score": 0.004114249229087425,
+   "overnight_yr": 1.8141600398115916,
+   "close": 171.4499969482422
+  },
+  {
+   "symbol": "CRDO",
+   "name": "Credo Technology Group Holding Ltd",
+   "score": 0.003730731855102252,
+   "overnight_yr": 1.5558761064662563,
+   "close": 171.50999450683594
+  },
+  {
+   "symbol": "LRCX",
+   "name": "Lam Research Corporation",
+   "score": 0.0036310875220577537,
+   "overnight_yr": 1.492725728345015,
+   "close": 263.45001220703125
+  },
+  {
+   "symbol": "ESLT",
+   "name": "Elbit Systems Ltd.",
+   "score": 0.0034710624105735266,
+   "overnight_yr": 1.3945447964709246,
+   "close": 744.3300170898438
+  },
+  {
+   "symbol": "STX",
+   "name": "Seagate Technology Holdings plc",
+   "score": 0.0033734753313928246,
+   "overnight_yr": 1.3365724204042464,
+   "close": 675.1300048828125
+  },
+  {
+   "symbol": "COHR",
+   "name": "Coherent Corp.",
+   "score": 0.00336758815185296,
+   "overnight_yr": 1.3331201508803634,
+   "close": 231.8000030517578
+  },
+  {
+   "symbol": "INTC",
+   "name": "Intel Corporation",
+   "score": 0.003296174738730755,
+   "overnight_yr": 1.2916453985509109,
+   "close": 91.69000244140625
+  },
+  {
+   "symbol": "FTAI",
+   "name": "FTAI Aviation Ltd.",
+   "score": 0.003102924539107066,
+   "overnight_yr": 1.1830573356476317,
+   "close": 157.9499969482422
+  },
+  {
+   "symbol": "TER",
+   "name": "Teradyne, Inc.",
+   "score": 0.0030735665295307333,
+   "overnight_yr": 1.1670155548690193,
+   "close": 336.5899963378906
+  },
+  {
+   "symbol": "Q",
+   "name": "Qnity Electronics, Inc.",
+   "score": 0.0029258314836707626,
+   "overnight_yr": 1.0880550016620316,
+   "close": 118.37000274658203
+  },
+  {
+   "symbol": "VRT",
+   "name": "Vertiv Holdings Co",
+   "score": 0.0028891357288034786,
+   "overnight_yr": 1.0688905341548303,
+   "close": 203.55999755859375
+  },
+  {
+   "symbol": "NVT",
+   "name": "nVent Electric plc",
+   "score": 0.002869902199851131,
+   "overnight_yr": 1.0589158481937444,
+   "close": 139.77999877929688
+  },
+  {
+   "symbol": "ATI",
+   "name": "ATI Inc.",
+   "score": 0.0028350531263874844,
+   "overnight_yr": 1.0409646619189714,
+   "close": 183.07000732421875
+  }
+ ],
+ "n": 20,
+ "look_back_days": 252
+}
