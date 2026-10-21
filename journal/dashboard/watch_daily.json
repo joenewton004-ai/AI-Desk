@@ -1,0 +1,20 @@
+[
+ {
+  "cohort": "bottleneck:2026-10-20",
+  "sleeve": "bottleneck",
+  "asof": "2026-10-20",
+  "days": 1,
+  "gap": -0.00436,
+  "chance": 0.925,
+  "verdict": "too early"
+ },
+ {
+  "cohort": "quality_screen:2026-10-20",
+  "sleeve": "quality_screen",
+  "asof": "2026-10-20",
+  "days": 1,
+  "gap": -0.0068,
+  "chance": 0.946,
+  "verdict": "too early"
+ }
+]

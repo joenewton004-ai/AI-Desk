@@ -13,6 +13,13 @@ cohorts and refreshes the returns; `portfolio run --execute` captures automatica
 Read it at the END of a cohort (the next re-pick), not daily: a few days of returns are
 noise. If over many finished cohorts the near misses keep beating the picks, the
 ranking isn't adding anything - that would be a case for an amendment.
+
+The daily check (`diagnose`) says how unusual today's gap is (a permutation test: how often
+a random group of the same size, drawn from the same cohort, did as well as the picks),
+which scores and sectors explain it, and a verdict under fixed rules decided in advance:
+too early before the re-pick; after it, "worth a test" only if the gap is beyond chance.
+Each day's check is appended to journal/watchlist_daily.jsonl. The 12-year baseline is in
+research/NEAR_MISSES.md (`python research/near_misses.py`).
 """
 
 from __future__ import annotations
@@ -34,6 +41,100 @@ KEEP = {
                    "asymmetry_score", "rs_6m", "rev_growth", "gm_change", "above_ma", "passes", "forward_pe"],
     "momentum": ["name", "sector", "industry", "score", "mom_6m", "above_200", "passes", "market_cap"],
 }
+
+
+# trading days until each sleeve re-picks: the point at which a cohort can be judged
+HORIZON = {"quality_screen": 63, "bottleneck": 10, "momentum": 20}
+# research/NEAR_MISSES.md, 2014-2026 (survivors-only): how often the picks beat the near misses at past re-picks
+BASELINE = {"quality_screen": "picks beat the other gate-passers in 64% of 50 quarters (+1.6%/quarter, t = 2.5)",
+            "momentum": "picks beat ranks 21-40 in 66% of 163 re-picks (+1.3% per 4 weeks, t = 4.0)",
+            "bottleneck": "not measured (the sleeve is replaced by momentum on 2026-11-03)"}
+SCORE_COLS = {"quality_screen": ["score", "quality_score", "growth_score", "value_score", "strength_score",
+                                 "momentum_score"],
+              "bottleneck": ["score", "flow_score", "bottleneck_score", "asymmetry_score", "rs_6m"],
+              "momentum": ["score", "mom_6m"]}
+
+
+def diagnose(summary: dict, rows: list[dict], draws: int = 2000, seed: int = 0) -> dict:
+    """Pure: why are the near misses ahead of (or behind) the picks, and does it matter yet?"""
+    df = pd.DataFrame(rows)
+    out = {"cohort": summary.get("cohort"), "sleeve": summary.get("sleeve"), "asof": summary.get("asof"),
+           "days": summary.get("days"), "horizon": HORIZON.get(summary.get("sleeve"), 20),
+           "picks_avg": summary.get("picks_avg"), "near_miss_avg": summary.get("near_miss_avg")}
+    if df.empty or "return" not in df:
+        return {**out, "verdict": "no data", "explanation": "no returns yet"}
+    df = df[df["status"].isin(["picked", "near miss"])].dropna(subset=["return"])
+    picks, near = df[df["status"] == "picked"], df[df["status"] == "near miss"]
+    if picks.empty or near.empty:
+        return {**out, "verdict": "no data", "explanation": "picks or near misses missing"}
+    gap = float(picks["return"].mean() - near["return"].mean())
+    rets = df["return"].to_numpy(dtype=float)
+    rng = np.random.default_rng(seed)
+    sims = np.array([rng.choice(rets, size=len(picks), replace=False).mean() for _ in range(draws)])
+    chance = float((sims >= picks["return"].mean()).mean())     # share of random groups doing as well as the picks
+    # which scores lined up with the return since the decision close (rank correlation, all rows)
+    factors = {}
+    for col in SCORE_COLS.get(out["sleeve"], ["score"]):
+        if col in df and df[col].notna().sum() >= 10:
+            x = pd.to_numeric(df[col], errors="coerce")
+            factors[col] = round(float(x.rank().corr(df["return"].rank())), 3)
+    # sectors: where the picks are over/underweight vs the near misses, and how those sectors did
+    sec = []
+    if "sector" in df:
+        allr = df.groupby("sector")["return"].mean()
+        pw = picks["sector"].value_counts(normalize=True)
+        nw = near["sector"].value_counts(normalize=True)
+        for name in allr.index:
+            tilt = float(pw.get(name, 0) - nw.get(name, 0))
+            rel = float(allr[name] - df["return"].mean())
+            sec.append({"sector": name, "tilt": round(tilt, 3), "return": round(float(allr[name]), 5),
+                        "vs_cohort": round(rel, 5), "effect": round(tilt * rel, 5)})
+        sec.sort(key=lambda r: abs(r["effect"]), reverse=True)
+    days, horizon = out["days"] or 0, out["horizon"]
+    ahead = "ahead of" if gap >= 0 else "behind"
+    if days < horizon:
+        verdict = "too early"
+        why = (f"day {days} of {horizon}: judge this cohort at its re-pick. A random group of the same size did at "
+               f"least as well as the picks {chance:.0%} of the time, so today's gap is ordinary noise"
+               if 0.05 < chance < 0.95 else
+               f"day {days} of {horizon}: an unusually large gap for now ({chance:.0%} of random groups did as well "
+               "as the picks), but early gaps often reverse - judge at the re-pick")
+    elif gap < 0 and chance > 0.95:
+        verdict = "worth a test"
+        why = ("the near misses beat the picks by more than chance over a full cohort. Check whether it repeats "
+               "across cohorts and in research/NEAR_MISSES.md before proposing an amendment")
+    else:
+        verdict = "within noise" if gap < 0 else "ranking held up"
+        why = (f"picks {ahead} the near misses by {abs(gap):.1%} over the full cohort; {chance:.0%} of random "
+               "groups did as well as the picks")
+    best_f = max(factors.items(), key=lambda kv: abs(kv[1])) if factors else None
+    expl = [f"picks {ahead} near misses by {abs(gap):.2%}"]
+    if sec and abs(sec[0]["effect"]) > 0.0005:
+        s0 = sec[0]
+        expl.append(f"biggest sector effect: {s0['sector']} ({s0['tilt']:+.0%} more of the picks than of the near misses; "
+                    f"the sector is {s0['vs_cohort']:+.2%} vs the cohort average), worth {s0['effect']:+.2%} of the gap")
+    if best_f:
+        expl.append(f"score most linked to returns so far: {best_f[0]} (rank corr {best_f[1]:+.2f})")
+    return {**out, "gap": round(gap, 5), "chance": round(chance, 3), "factors": factors, "sectors": sec[:5],
+            "verdict": verdict, "reason": why, "explanation": "; ".join(expl),
+            "baseline": BASELINE.get(out["sleeve"], "")}
+
+
+def log_checks(checks: list[dict]) -> None:
+    """Append today's checks to journal/watchlist_daily.jsonl (one row per cohort per day)."""
+    p = tradebook.DIR / "watchlist_daily.jsonl"
+    seen = set()
+    if p.exists():
+        seen = {(r.get("cohort"), r.get("asof")) for r in map(json.loads, p.read_text().splitlines()) if r}
+    with p.open("a") as f:
+        for c in checks:
+            if (c.get("cohort"), c.get("asof")) not in seen and c.get("verdict") != "no data":
+                f.write(json.dumps({k: v for k, v in c.items() if k not in ("sectors",)}, default=str) + "\n")
+
+
+def daily_history() -> list[dict]:
+    p = tradebook.DIR / "watchlist_daily.jsonl"
+    return [json.loads(x) for x in p.read_text().splitlines() if x.strip()] if p.exists() else []
 
 
 def _now() -> str:
@@ -188,7 +289,7 @@ def review(closes: pd.DataFrame | None = None, write: bool = True) -> dict:
     """Returns for the latest cohort of each sleeve (and every earlier one, for the record)."""
     cs = cohorts()
     if not cs:
-        out = {"asof_utc": _now(), "summary": [], "rows": []}
+        out = {"asof_utc": _now(), "summary": [], "rows": [], "checks": []}
     else:
         if closes is None:
             symbols = sorted({r["symbol"] for c in cs for r in c["rows"]} | {"SPY"})
@@ -198,14 +299,18 @@ def review(closes: pd.DataFrame | None = None, write: bool = True) -> dict:
         for c in cs:
             if c["sleeve"] not in latest or c["locked_on"] > latest[c["sleeve"]]["locked_on"]:
                 latest[c["sleeve"]] = c
-        rows, summary = [], []
+        rows, summary, checks = [], [], []
         for c in sorted(cs, key=lambda c: (c["sleeve"], c["locked_on"])):
             r, s = compare(c, closes)
             s["current"] = latest[c["sleeve"]]["id"] == c["id"]
             summary.append(s)
             if s["current"]:
                 rows += r
-        out = {"asof_utc": _now(), "summary": summary, "rows": rows}
+                checks.append(diagnose(s, r))
+        out = {"asof_utc": _now(), "summary": summary, "rows": rows, "checks": checks}
+        if write:
+            tradebook.DIR.mkdir(parents=True, exist_ok=True)
+            log_checks(checks)
     if write:
         tradebook.DIR.mkdir(parents=True, exist_ok=True)
         (tradebook.DIR / "watchlist_review.json").write_text(json.dumps(out, indent=1, default=str))

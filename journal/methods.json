@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-21T08:33:15+00:00",
+ "generated_utc": "2026-10-21T09:18:42+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -285,6 +285,26 @@
    "docs": [
     "research/SWING.md",
     "research/output/swing.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "ict_daytrading",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "ICT (Inner Circle Trader) day-trading models as fixed rules on the 100 largest US companies: the Silver Bullet (5-min fair value gap after a liquidity sweep, 10-11am New York) and the Judas swing (fade a first-hour fake-out beyond the prior day's high/low), optionally with the quality score choosing the side (long strong companies, short weak ones) or a 50-day trend filter.",
+   "parameters": {
+    "target": "2R",
+    "stop": "beyond the sweep",
+    "exit": "end of day",
+    "costs": "0.03% each way",
+    "universe": "100 largest US companies"
+   },
+   "status": "tested, no edge (not in the live mix)",
+   "evidence_summary": "Silver Bullet (60 days, 2,974 trades): +0.01R before costs, -0.06% per trade after (t -3.5). Judas swing (3 years, 21,483 trades): -0.01R, -0.07% after costs (t -10), negative in all 13 quarters. Same as a coin-flip direction. Financial bias, long only, reaches break-even at best; trend filter worse.",
+   "docs": [
+    "research/ICT.md",
+    "research/output/ict.md"
    ],
    "amendments": []
   },

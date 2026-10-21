@@ -1,5 +1,5 @@
 {
- "asof_utc": "2026-10-20T20:41:17+00:00",
+ "asof_utc": "2026-10-21T08:48:19+00:00",
  "summary": [
   {
    "cohort": "bottleneck:2026-10-20",
@@ -29,10 +29,10 @@
    "days": 1,
    "picks": 25,
    "watching": 111,
-   "picks_avg": 0.003165200000000001,
-   "near_miss_avg": 0.009861801801801804,
+   "picks_avg": 0.0031680000000000007,
+   "near_miss_avg": 0.009966486486486488,
    "failed_gate_avg": null,
-   "watch_avg": 0.009861801801801804,
+   "watch_avg": 0.009966486486486488,
    "spy": 0.0033529999343844263,
    "watch_beating_picks": 77,
    "best_symbol": "IT",
@@ -877,8 +877,8 @@
    "rev_cagr": 0.14836,
    "forward_pe": 13.04987,
    "fcf_yield": 0.05792,
-   "return": 0.02971,
-   "vs_picks": 0.02654
+   "return": 0.02976,
+   "vs_picks": 0.02659
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1429,8 +1429,8 @@
    "rev_cagr": 0.12509,
    "forward_pe": 22.50775,
    "fcf_yield": 0.01741,
-   "return": -0.01135,
-   "vs_picks": -0.01452
+   "return": -0.01133,
+   "vs_picks": -0.0145
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -1820,8 +1820,8 @@
    "rev_cagr": 0.04292,
    "forward_pe": 22.8495,
    "fcf_yield": 0.04881,
-   "return": 0.01231,
-   "vs_picks": 0.00914
+   "return": 0.01809,
+   "vs_picks": 0.01492
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -2763,8 +2763,8 @@
    "rev_cagr": 0.02611,
    "forward_pe": 11.99169,
    "fcf_yield": 0.04637,
-   "return": 0.01003,
-   "vs_picks": 0.00686
+   "return": 0.01007,
+   "vs_picks": 0.0069
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3154,8 +3154,8 @@
    "rev_cagr": 0.02713,
    "forward_pe": 15.05084,
    "fcf_yield": 0.05322,
-   "return": 0.00643,
-   "vs_picks": 0.00326
+   "return": 0.01223,
+   "vs_picks": 0.00906
   },
   {
    "cohort": "quality_screen:2026-10-20",
@@ -3984,6 +3984,127 @@
    "fcf_yield": 0.0158,
    "return": -0.00716,
    "vs_picks": -0.01033
+  }
+ ],
+ "checks": [
+  {
+   "cohort": "bottleneck:2026-10-20",
+   "sleeve": "bottleneck",
+   "asof": "2026-10-20",
+   "days": 1,
+   "horizon": 10,
+   "picks_avg": -0.0012862499999999999,
+   "near_miss_avg": 0.0030746153846153844,
+   "gap": -0.00436,
+   "chance": 0.925,
+   "factors": {
+    "score": -0.311,
+    "flow_score": 0.002,
+    "bottleneck_score": -0.422,
+    "asymmetry_score": -0.22,
+    "rs_6m": -0.013
+   },
+   "sectors": [
+    {
+     "sector": "Energy",
+     "tilt": 0.413,
+     "return": -9e-05,
+     "vs_cohort": -0.00213,
+     "effect": -0.00088
+    },
+    {
+     "sector": "Technology",
+     "tilt": -0.144,
+     "return": 0.00788,
+     "vs_cohort": 0.00583,
+     "effect": -0.00084
+    },
+    {
+     "sector": "Utilities",
+     "tilt": -0.077,
+     "return": -0.00221,
+     "vs_cohort": -0.00426,
+     "effect": 0.00033
+    },
+    {
+     "sector": "Industrials",
+     "tilt": -0.077,
+     "return": 0.00511,
+     "vs_cohort": 0.00307,
+     "effect": -0.00024
+    },
+    {
+     "sector": "Basic Materials",
+     "tilt": -0.115,
+     "return": 0.00082,
+     "vs_cohort": -0.00123,
+     "effect": 0.00014
+    }
+   ],
+   "verdict": "too early",
+   "reason": "day 1 of 10: judge this cohort at its re-pick. A random group of the same size did at least as well as the picks 93% of the time, so today's gap is ordinary noise",
+   "explanation": "picks behind near misses by 0.44%; biggest sector effect: Energy (+41% more of the picks than of the near misses; the sector is -0.21% vs the cohort average), worth -0.09% of the gap; score most linked to returns so far: bottleneck_score (rank corr -0.42)",
+   "baseline": "not measured (the sleeve is replaced by momentum on 2026-11-03)"
+  },
+  {
+   "cohort": "quality_screen:2026-10-20",
+   "sleeve": "quality_screen",
+   "asof": "2026-10-20",
+   "days": 1,
+   "horizon": 63,
+   "picks_avg": 0.0031680000000000007,
+   "near_miss_avg": 0.009966486486486488,
+   "gap": -0.0068,
+   "chance": 0.946,
+   "factors": {
+    "score": -0.002,
+    "quality_score": 0.054,
+    "growth_score": -0.376,
+    "value_score": 0.416,
+    "strength_score": -0.008,
+    "momentum_score": -0.206
+   },
+   "sectors": [
+    {
+     "sector": "Industrials",
+     "tilt": -0.163,
+     "return": -0.00031,
+     "vs_cohort": -0.00903,
+     "effect": 0.00147
+    },
+    {
+     "sector": "Communication Services",
+     "tilt": 0.062,
+     "return": -0.00548,
+     "vs_cohort": -0.01419,
+     "effect": -0.00088
+    },
+    {
+     "sector": "Consumer Cyclical",
+     "tilt": -0.118,
+     "return": 0.01613,
+     "vs_cohort": 0.00742,
+     "effect": -0.00088
+    },
+    {
+     "sector": "Financial Services",
+     "tilt": 0.075,
+     "return": 0.01664,
+     "vs_cohort": 0.00792,
+     "effect": 0.00059
+    },
+    {
+     "sector": "Technology",
+     "tilt": 0.184,
+     "return": 0.00603,
+     "vs_cohort": -0.00269,
+     "effect": -0.00049
+    }
+   ],
+   "verdict": "too early",
+   "reason": "day 1 of 63: judge this cohort at its re-pick. A random group of the same size did at least as well as the picks 95% of the time, so today's gap is ordinary noise",
+   "explanation": "picks behind near misses by 0.68%; biggest sector effect: Industrials (-16% more of the picks than of the near misses; the sector is -0.90% vs the cohort average), worth +0.15% of the gap; score most linked to returns so far: value_score (rank corr +0.42)",
+   "baseline": "picks beat the other gate-passers in 64% of 50 quarters (+1.6%/quarter, t = 2.5)"
   }
  ]
 }

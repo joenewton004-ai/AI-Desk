@@ -28,6 +28,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   (`python research/circuit_breaker.py` -> `research/CIRCUIT_BREAKER.md`, amendment c312f032 rejected by the user) and VCP
   breakout swing trading (`python research/swing.py` -> `research/SWING.md`; daily OHLCV cached in
   data/backtest/daily_ohlcv.pkl). Both research-only in `register.RESEARCH_METHODS`. Survivors-only: say so.
+- ICT day trading (Silver Bullet on 5-min, Judas swing on 1h; with/without a quality-score side filter):
+  `python research/ict.py` -> `research/ICT.md`. No edge; research-only. Yahoo keeps only 60 days of 5-min bars
+  (cached in data/backtest/intraday_*.pkl); data.alpaca.markets is blocked by the network policy here.
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
@@ -115,6 +118,10 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Watchlist (`ai_desk/watchlist.py`): each new lock saves the rest of that scan as a cohort in
   journal/watchlist.json (output/ isn't committed), measured from the same decision close as the
   picks. `journal watchlist` captures + reviews (daily task). Judge cohorts at their re-pick, not daily.
+  Its daily check (`watchlist.diagnose`, logged to journal/watchlist_daily.jsonl) uses fixed rules: "too early"
+  before the re-pick, "worth a test" only beyond chance. Baseline: `python research/near_misses.py` ->
+  `research/NEAR_MISSES.md` (picks beat near misses ~2 re-picks in 3; no re-weighting helped in both halves).
+  A "worth a test" is a reason to backtest, never to change the scoring directly.
 - Methodology changes go through register.py amendments: proposed -> testing
   (backtest it) -> accepted/rejected by the user. Never change live method
   parameters without an accepted amendment.

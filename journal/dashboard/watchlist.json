@@ -520,8 +520,8 @@
   "status": "picked",
   "reason": "held",
   "score": 73.00593,
-  "return": 0.02971,
-  "vs_picks": 0.02654,
+  "return": 0.02976,
+  "vs_picks": 0.02659,
   "details": "Q 72 \u00b7 G 59 \u00b7 V 88 \u00b7 M 90 \u00b7 P/E 13"
  },
  {
@@ -880,8 +880,8 @@
   "status": "picked",
   "reason": "held",
   "score": 59.11601,
-  "return": -0.01135,
-  "vs_picks": -0.01452,
+  "return": -0.01133,
+  "vs_picks": -0.0145,
   "details": "Q 65 \u00b7 G 65 \u00b7 V 31 \u00b7 M 86 \u00b7 P/E 23"
  },
  {
@@ -1135,8 +1135,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 55.95045,
-  "return": 0.01231,
-  "vs_picks": 0.00914,
+  "return": 0.01809,
+  "vs_picks": 0.01492,
   "details": "Q 64 \u00b7 G 47 \u00b7 V 54 \u00b7 M 65 \u00b7 P/E 23"
  },
  {
@@ -1750,8 +1750,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 48.11966,
-  "return": 0.01003,
-  "vs_picks": 0.00686,
+  "return": 0.01007,
+  "vs_picks": 0.0069,
   "details": "Q 44 \u00b7 G 16 \u00b7 V 80 \u00b7 M 66 \u00b7 P/E 12"
  },
  {
@@ -2005,8 +2005,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 44.87809,
-  "return": 0.00643,
-  "vs_picks": 0.00326,
+  "return": 0.01223,
+  "vs_picks": 0.00906,
   "details": "Q 26 \u00b7 G 50 \u00b7 V 80 \u00b7 M 29 \u00b7 P/E 15"
  },
  {
