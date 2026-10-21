@@ -110,7 +110,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   an exited stock stays out until the next re-pick (recorded in its lock).
 - From 2026-10-21 (evening run; brought forward from 2026-11-03 by the owner) the desk's 20% sleeve is `momentum`
   instead of `bottleneck` (amendment 00e1f2b8, accepted; `methods.DESK_SWITCH` / `preset()`): top 20 US companies above $10B by 6-month return
-  (skipping the latest week), above their 200-day average, equal weight, re-picked every 28 days,
+  (skipping the latest week), above their 200-day AND 100-day averages (entry filter, accepted 2026-10-21 -
+  `research/MOMENTUM_ENTRY.md`; `python research/momentum_entry.py`), equal weight, re-picked every 28 days,
   sold below the 100-day average in between. Scan: `python -m ai_desk momentum scan`
   (`ai_desk/momentum_scan.py`). Bottleneck code stays for research and its history.
 - Trade journal (`ai_desk/tradebook.py`, files in journal/, COMMITTED to git):

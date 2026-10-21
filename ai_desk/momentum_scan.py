@@ -2,9 +2,10 @@
 
 The live version of research/WEEKLY.md and research/MOMENTUM_SLEEVE.md (amendment 00e1f2b8,
 accepted 2026-10-20): the 20 strongest stocks by 6-month return, skipping the most recent
-week, among those trading above their 40-week (200-day) average. The momentum sleeve buys the
-top 20 at each re-pick (every 4 weeks) and sells any holding that closes below its 100-day
-average in between.
+week, among those trading above their 40-week (200-day) average AND their 100-day average (the
+entry filter, amendment of 2026-10-21: a stock below its 100-day would be sold by the exit rule
+the same evening). The momentum sleeve buys the top 20 at each re-pick (every 4 weeks) and sells
+any holding that closes below its 100-day average in between.
 
 Universe: US-listed companies above $10B today (the backtest used the 750 largest at each
 quarter-end - a close match). Writes output/momentum_<date>.csv, ranked best first, with the
@@ -33,10 +34,12 @@ def rank(closes: pd.DataFrame, lookback: int = LOOKBACK_DAYS, skip: int = SKIP_D
         raise ValueError(f"need at least {lookback + skip + 1} days of prices, got {len(c)}")
     mom = c.iloc[-1 - skip] / c.iloc[-1 - skip - lookback] - 1
     sma = c.rolling(trend, min_periods=trend).mean().iloc[-1]
+    sma_exit = c.rolling(EXIT_MA_DAYS, min_periods=EXIT_MA_DAYS).mean().iloc[-1]
     last = c.iloc[-1]
-    df = pd.DataFrame({"mom_6m": mom, "price": last, "sma_200": sma})
+    df = pd.DataFrame({"mom_6m": mom, "price": last, "sma_200": sma, "sma_100": sma_exit})
     df["above_200"] = df["price"] > df["sma_200"]
-    df["passes"] = df["above_200"] & df["mom_6m"].notna()
+    df["above_100"] = df["price"] > df["sma_100"]       # entry filter: the exit rule mustn't fire on the pick day
+    df["passes"] = df["above_200"] & df["above_100"] & df["mom_6m"].notna()
     df["score"] = df["mom_6m"].rank(pct=True) * 100
     df = df.sort_values(["passes", "mom_6m"], ascending=[False, False])
     df["rank"] = np.where(df["passes"], np.arange(1, len(df) + 1), np.nan)

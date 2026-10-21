@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-21T13:08:26+00:00",
+ "generated_utc": "2026-10-21T13:28:20+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -266,6 +266,17 @@
      "status": "accepted",
      "evidence": "Accepted by the owner 2026-10-21. Same rules as 00e1f2b8 (backtested in research/MOMENTUM_SLEEVE.md); only the date moves. The bottleneck picks are sold about two weeks before their scheduled re-pick.",
      "decided_utc": "2026-10-21T13:07:55+00:00"
+    },
+    {
+     "id": "fd120189",
+     "created_utc": "2026-10-21T13:28:19+00:00",
+     "method": "momentum",
+     "proposal": "Entry filter: a stock must also be above its 100-day average to be picked (not only its 200-day), so the 100-day sell rule can't fire on the pick day; the next-ranked stocks fill the slots.",
+     "rationale": "Owner's question 2026-10-21: 5 of 20 picks would be sold straight away (whipsaw).",
+     "author": "you",
+     "status": "accepted",
+     "evidence": "Backtest 2014-2026 (research/MOMENTUM_ENTRY.md): entry filter 19.4%/yr, Sharpe 0.75, 92% invested vs live behaviour (sold on the pick day) 17.9%, 0.71, 86%; beat it in 8 of 13 years. Accepted by the owner 2026-10-21, from that evening's first pick.",
+     "decided_utc": "2026-10-21T13:28:19+00:00"
     }
    ]
   },
