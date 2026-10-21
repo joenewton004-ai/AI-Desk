@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-21T15:06:54+00:00",
+ "generated_utc": "2026-10-21T16:10:16+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -430,6 +430,28 @@
    "docs": [
     "research/VWAP_EMA.md",
     "research/output/vwap_ema.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "minervini_sepa",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Mark Minervini's SEPA as fixed rules: Trend Template (above rising, stacked 50/150/200-day averages, near highs) + RS rating 70+, EPS +25% and sales +20% on a year earlier (SEC filings, point-in-time), a tight-base breakout entry, a 7.5% stop raised to break-even at +15%, then a 50-day exit; optional SPY 200-day market filter.",
+   "parameters": {
+    "rs": "70+",
+    "eps_growth": "25%+",
+    "sales_growth": "20%+",
+    "stop": "7.5%",
+    "break_even": "+15%",
+    "positions": "10 x 10%",
+    "fills": "next open"
+   },
+   "status": "tested: no edge (not in the live mix)",
+   "evidence_summary": "2014-2026, survivors-only: full SEPA 5.2%/yr, Sharpe 0.30, worst -24% (37% invested); Trend Template alone 11.8%, 0.45, -48%; vs equal-weight universe 12.1%, 0.59 and SPY 13.7%, 0.72. Growth alone +0.52%/month vs the universe (t 2.0) is the only lead.",
+   "docs": [
+    "research/MINERVINI.md",
+    "research/output/minervini.md"
    ],
    "amendments": []
   },

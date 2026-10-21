@@ -47,6 +47,11 @@ changes plainly and be honest about whether a strategy has a real edge.
   -> `research/VWAP_EMA.md` (cached 5m/1m/1h bars). No edge; research-only.
 - Leveraged S&P fund (2x/3x, simulated + checked vs real SSO/UPRO) on SPY signals with strict risk rules:
   `python research/leveraged.py` -> `research/LEVERAGED.md`. Risk control works, no Sharpe edge; research-only.
+- Mark Minervini's SEPA (Trend Template + RS, point-in-time EPS/sales growth from SEC, base breakout, 7.5% stop to
+  break-even, 50-day exit, market filter): `python research/minervini.py` -> `research/MINERVINI.md` (growth cached in
+  data/backtest/minervini_fund.pkl). No edge vs the equal-weight universe; research-only. Survivors-only: say so.
+  Follow-up (pivot buy-stops + intraday stop orders, 5 positions, smaller half, looser growth):
+  `python research/minervini_checks.py` -> same write-up. Small caps/IPOs need delisted-inclusive data (not available).
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
