@@ -143,7 +143,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   Its daily check (`watchlist.diagnose`, logged to journal/watchlist_daily.jsonl) uses fixed rules: "too early"
   before the re-pick, "worth a test" only beyond chance. Baseline: `python research/near_misses.py` ->
   `research/NEAR_MISSES.md` (picks beat near misses ~2 re-picks in 3; no re-weighting helped in both halves).
-  A "worth a test" is a reason to backtest, never to change the scoring directly.
+  A "worth a test" is a reason to backtest, never to change the scoring directly. The overnight sleeve's cohort is
+  saved by `overnight buy --execute` at each re-pick (ranks 21-60 + gate failures) and measured on close->next-open
+  returns only; a retired sleeve's last cohort stays on record but isn't "current". Reviews drop today's bar while open.
 - Overnight sleeve = the desk's 30% (amendment 330e76e0, accepted 2026-10-21; replaces SPY momentum), in the SAME
   Alpaca paper account (`ai_desk/overnight.py`, `python -m ai_desk overnight scan|status|buy|review|activate`):
   3:32pm New York (scheduled) `overnight buy --execute` = market-on-close buys, whole shares, equal weight, 30% of

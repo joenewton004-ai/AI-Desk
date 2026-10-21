@@ -185,7 +185,38 @@ def scan(universe_size: int = 750) -> dict:
     rows = [{"symbol": s, "name": names.get(s, ""), "score": float(sc.at[last, s]),
              "overnight_yr": float((1 + sc.at[last, s]) ** 252 - 1), "close": float(c.at[last, s])} for s in picks]
     return {"ref_date": last.date().isoformat(), "picks": picks, "rows": rows, "universe": len(syms),
+            "near": near_misses(sc.loc[last], el.loc[last], c, v, names),
             "latest_price": {k: float(x) for k, x in latest.items() if np.isfinite(x)}}
+
+
+def near_misses(score_row: pd.Series, eligible_row: pd.Series, closes: pd.DataFrame, volume: pd.DataFrame,
+                names: dict | None = None, n: int = N, more: int = 40, failed: int = 20) -> list[dict]:
+    """Pure: the stocks ranked just below the picks (the watchlist), plus the best scorers that failed the price or
+    liquidity gate - all as of the decision close (the last row of `closes`)."""
+    names = names or {}
+    ok = eligible_row.reindex(score_row.index).fillna(False).astype(bool)
+    s = score_row.dropna()
+    ranked = s[ok.reindex(s.index)].sort_values(ascending=False)
+    px = closes.iloc[-1]
+    dollar = (closes * volume).rolling(50, min_periods=40).mean().iloc[-1]
+
+    def row(sym, eligible, reason=""):
+        return {"symbol": sym, "name": names.get(sym, ""), "score": float(s[sym]),
+                "overnight_yr": float((1 + s[sym]) ** 252 - 1), "close": float(px.get(sym, np.nan)),
+                "passes": bool(eligible), "gate_reason": reason}
+
+    out = [row(sym, True) for sym in ranked.index[n:n + more]]
+    cut = ranked.iloc[n - 1] if len(ranked) >= n else -np.inf
+    for sym in s[~ok.reindex(s.index)].sort_values(ascending=False).index[:failed]:
+        if s[sym] <= cut:
+            break
+        why = []
+        if not px.get(sym, 0) > MIN_PRICE:
+            why.append(f"price under ${MIN_PRICE:.0f}")
+        if not dollar.get(sym, 0) > MIN_DOLLAR_VOLUME:
+            why.append(f"trades under ${MIN_DOLLAR_VOLUME / 1e6:.0f}M a day")
+        out.append(row(sym, False, ", ".join(why) or "not enough history"))
+    return out
 
 
 def load_book() -> dict:
@@ -201,16 +232,18 @@ def book_open(today: str) -> bool:
 def confirm_book(broker, today: str) -> dict[str, float]:
     """Today's filled market-on-close buys -> the overnight book (what the evening run sells at the next open)."""
     orders = [o for o in _read("orders.jsonl") if o.get("kind") == "buy_moc" and o.get("date") == today]
-    held = {}
+    held, paid = {}, {}
     for o in orders:
         info = broker.get_order(o["order_id"]) if o.get("order_id") else {}
         q = float(info.get("filled_qty") or 0)
         if q:
             held[o["symbol"]] = held.get(o["symbol"], 0.0) + q
+            paid[o["symbol"]] = paid.get(o["symbol"], 0.0) + q * float(info.get("filled_avg_price") or 0)
     if orders:
         BOOK.parent.mkdir(parents=True, exist_ok=True)
-        BOOK.write_text(json.dumps({"date": today, "holdings": held, "sell_sent": False, "confirmed_utc": _now()},
-                                   indent=1))
+        costs = {s: round(paid[s] / q, 4) for s, q in held.items() if paid.get(s)}  # fill price per share (dashboard)
+        BOOK.write_text(json.dumps({"date": today, "holdings": held, "costs": costs, "sell_sent": False,
+                                    "confirmed_utc": _now()}, indent=1))
     b = load_book()
     return dict(b.get("holdings") or {}) if b.get("date") == today and not b.get("sell_sent") else {}
 
@@ -271,6 +304,11 @@ def buy(execute: bool = False, now: datetime | None = None, broker=None) -> dict
             if execute:
                 LOCK.parent.mkdir(parents=True, exist_ok=True)
                 LOCK.write_text(json.dumps(new_lock, indent=1))
+                try:                                     # the rest of the ranking goes on the watchlist
+                    from ai_desk import watchlist
+                    watchlist.capture_overnight(new_lock, s.get("near", []))
+                except Exception as e:  # noqa: BLE001 - the watchlist must never block the buys
+                    notes.append(f"watchlist not saved: {e}")
             lock = new_lock
         prices = {k: v for k, v in s["latest_price"].items() if k in lock["picks"]}
     else:

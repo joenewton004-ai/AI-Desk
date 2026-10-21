@@ -1,15 +1,15 @@
 {
- "asof_utc": "2026-10-21T13:43:08+00:00",
- "equity": 99967.53,
+ "asof_utc": "2026-10-21T14:25:54+00:00",
+ "equity": 100064.35,
  "by_sleeve": {
   "bottleneck": {
-   "open_positions": 8,
-   "invested": 19998.27,
-   "unrealized_pnl": -368.21,
-   "realized_pnl": 0.0,
-   "closed_trades": 0,
-   "win_rate": null,
-   "avg_closed_return": null
+   "open_positions": 1,
+   "invested": 1414.53,
+   "unrealized_pnl": 36.17,
+   "realized_pnl": -202.08,
+   "closed_trades": 7,
+   "win_rate": 0.0,
+   "avg_closed_return": -0.0109
   },
   "index_momentum": {
    "open_positions": 0,
@@ -20,10 +20,19 @@
    "win_rate": 1.0,
    "avg_closed_return": 0.0068
   },
+  "momentum": {
+   "open_positions": 18,
+   "invested": 18574.59,
+   "unrealized_pnl": -17.04,
+   "realized_pnl": 0.0,
+   "closed_trades": 0,
+   "win_rate": null,
+   "avg_closed_return": null
+  },
   "quality_screen": {
    "open_positions": 25,
    "invested": 49701.46,
-   "unrealized_pnl": 135.54,
+   "unrealized_pnl": 45.03,
    "realized_pnl": 0.0,
    "closed_trades": 0,
    "win_rate": null,
@@ -57,9 +66,9 @@
      "weaknesses": "FCF/net income 0.18x (bottom 1%); FCF yield 0.5% (bottom 2%); EV/EBIT 39 (bottom 10%)"
     }
    },
-   "price": 1276.205,
-   "unrealized_pnl": 17.99828249999978,
-   "return": 0.008913536717446657,
+   "price": 1266.775,
+   "unrealized_pnl": 2.9451735000000436,
+   "return": 0.0014585787355823054,
    "held_days": 1
   },
   {
@@ -88,9 +97,9 @@
      "weaknesses": "share count +1.5%/yr (bottom 1%); stock comp 3.4% of revenue (bottom 18%)"
     }
    },
-   "price": 80.97,
-   "unrealized_pnl": 41.23954599999991,
-   "return": 0.020930525784894627,
+   "price": 81.03,
+   "unrealized_pnl": 42.73013199999997,
+   "return": 0.021687050813264497,
    "held_days": 1
   },
   {
@@ -119,9 +128,9 @@
      "weaknesses": "FCF yield 1.4% (bottom 4%); EV/EBIT 39 (bottom 11%)"
     }
    },
-   "price": 266.64,
-   "unrealized_pnl": -15.711840000000182,
-   "return": -0.008035714285714368,
+   "price": 265.78,
+   "unrealized_pnl": -21.967480000000283,
+   "return": -0.011235119047619202,
    "held_days": 1
   },
   {
@@ -150,9 +159,9 @@
      "weaknesses": "forward P/E 45 (bottom 1%); EV/EBIT 52 (bottom 4%); FCF yield 1.8% (bottom 12%)"
     }
    },
-   "price": 168.555,
-   "unrealized_pnl": -15.29725749999987,
-   "return": -0.007799623263480049,
+   "price": 173.065,
+   "unrealized_pnl": 36.77114350000002,
+   "return": 0.018748528372969142,
    "held_days": 1
   },
   {
@@ -181,37 +190,9 @@
      "weaknesses": "EV/EBIT 38 (bottom 12%); gross margin 24% (bottom 13%); FCF yield 2.0% (bottom 16%)"
     }
    },
-   "price": 1420.64,
-   "unrealized_pnl": -8.762903999999718,
-   "return": -0.004540613263075088,
-   "held_days": 1
-  },
-  {
-   "trade_id": "beda6de9",
-   "symbol": "COP",
-   "sleeve": "bottleneck",
-   "qty": 20.4358,
-   "entry_price": 147.11,
-   "entry_utc": "2026-10-20T13:30:48.19840229Z",
-   "entry_rationale": {
-    "bottleneck": {
-     "rank": 6,
-     "source_file": "bottleneck_2026-10-20.csv",
-     "score": 61.0508,
-     "flow_score": 71.5686,
-     "bottleneck_score": 67.6471,
-     "asymmetry_score": 47.9286,
-     "industry": "Oil & Gas E&P",
-     "source": "flow",
-     "rev_growth": 0.3683,
-     "gm_change": 0.1166,
-     "rs_6m": 0.1779,
-     "forward_pe": 13.6408
-    }
-   },
-   "price": 144.49,
-   "unrealized_pnl": -53.5417960000001,
-   "return": -0.01780980218883832,
+   "price": 1414.29,
+   "unrealized_pnl": -17.350008999999904,
+   "return": -0.008990133976119696,
    "held_days": 1
   },
   {
@@ -240,9 +221,9 @@
      "weaknesses": "forward P/E 32 (bottom 11%)"
     }
    },
-   "price": 636.68,
-   "unrealized_pnl": 2.5562399999998546,
-   "return": 0.0012580990123922664,
+   "price": 638.505,
+   "unrealized_pnl": 8.3876625,
+   "return": 0.0041281373844122005,
    "held_days": 1
   },
   {
@@ -271,9 +252,9 @@
      "weaknesses": "forward P/E 27 (bottom 17%)"
     }
    },
-   "price": 621.79,
-   "unrealized_pnl": 12.74536868039976,
-   "return": 0.006422438035380118,
+   "price": 620.63,
+   "unrealized_pnl": 9.019332680399863,
+   "return": 0.004544874825741729,
    "held_days": 1
   },
   {
@@ -302,9 +283,9 @@
      "weaknesses": "12-1 month price change -41% (bottom 4%); stock comp 7.9% of revenue (bottom 7%); net debt/EBITDA 3.1x (bottom 8%)"
     }
    },
-   "price": 806.51,
-   "unrealized_pnl": 40.203514000000034,
-   "return": 0.020059444760639922,
+   "price": 807.05,
+   "unrealized_pnl": 41.57235999999994,
+   "return": 0.020742427116928974,
    "held_days": 1
   },
   {
@@ -333,9 +314,9 @@
      "weaknesses": "gross margin 19% (bottom 8%); operating margin 9% (bottom 10%)"
     }
    },
-   "price": 710.0025,
-   "unrealized_pnl": 2.4377297500001385,
-   "return": 0.0012445002256318283,
+   "price": 702.33,
+   "unrealized_pnl": -18.7560169999999,
+   "return": -0.009575248194945818,
    "held_days": 1
   },
   {
@@ -364,9 +345,9 @@
      "weaknesses": "stock comp 10.2% of revenue (bottom 3%)"
     }
    },
-   "price": 702.82,
-   "unrealized_pnl": 33.41088943920016,
-   "return": 0.017229266056217662,
+   "price": 705.5,
+   "unrealized_pnl": 40.93284543920002,
+   "return": 0.02110817450081326,
    "held_days": 1
   },
   {
@@ -411,9 +392,9 @@
      "forward_pe": 13.6409
     }
    },
-   "price": 219.89,
-   "unrealized_pnl": 33.4940536511999,
-   "return": 0.01698451552853819,
+   "price": 218.4053,
+   "unrealized_pnl": 19.952698831200127,
+   "return": 0.010117823499772749,
    "held_days": 1
   },
   {
@@ -441,9 +422,9 @@
      "forward_pe": 34.1357
     }
    },
-   "price": 545.2,
-   "unrealized_pnl": 37.55714407020015,
-   "return": 0.02655099781745518,
+   "price": 544.6799,
+   "unrealized_pnl": 36.171909730199964,
+   "return": 0.025571707329625104,
    "held_days": 1
   },
   {
@@ -472,9 +453,9 @@
      "weaknesses": "FCF yield 1.7% (bottom 10%); stock comp 6.2% of revenue (bottom 11%); FCF/net income 0.75x (bottom 14%)"
     }
    },
-   "price": 332.35,
-   "unrealized_pnl": -59.1599140343998,
-   "return": -0.030013608732495922,
+   "price": 331.24,
+   "unrealized_pnl": -65.54552203439987,
+   "return": -0.03325322026945077,
    "held_days": 1
   },
   {
@@ -503,37 +484,9 @@
      "weaknesses": "net debt/EBITDA 3.0x (bottom 10%); stock comp 3.6% of revenue (bottom 18%)"
     }
    },
-   "price": 597.77,
-   "unrealized_pnl": 43.48222788759985,
-   "return": 0.02113905260646609,
-   "held_days": 1
-  },
-  {
-   "trade_id": "7a97770f",
-   "symbol": "PR",
-   "sleeve": "bottleneck",
-   "qty": 98.296,
-   "entry_price": 25.176157,
-   "entry_utc": "2026-10-20T13:31:57.769840356Z",
-   "entry_rationale": {
-    "bottleneck": {
-     "rank": 1,
-     "source_file": "bottleneck_2026-10-20.csv",
-     "score": 72.7549,
-     "flow_score": 80.8824,
-     "bottleneck_score": 93.1373,
-     "asymmetry_score": 49.7449,
-     "industry": "Oil & Gas E&P",
-     "source": "flow",
-     "rev_growth": 0.5515,
-     "gm_change": 0.2353,
-     "rs_6m": 0.1975,
-     "forward_pe": 10.7254
-    }
-   },
-   "price": 24.62,
-   "unrealized_pnl": -54.6680084719999,
-   "return": -0.02209062328297362,
+   "price": 598.7205,
+   "unrealized_pnl": 46.822094787599966,
+   "return": 0.02276274176701709,
    "held_days": 1
   },
   {
@@ -562,9 +515,9 @@
      "weaknesses": "avg ROIC 13% (bottom 3%); net debt/EBITDA 3.2x (bottom 6%); growing -6%/yr vs industry peers (bottom 9%)"
     }
    },
-   "price": 409.085,
-   "unrealized_pnl": -10.300558787999966,
-   "return": -0.005093272606014332,
+   "price": 408.55,
+   "unrealized_pnl": -12.93195628799981,
+   "return": -0.006394408309244204,
    "held_days": 1
   },
   {
@@ -593,9 +546,9 @@
      "weaknesses": "stock comp 8.2% of revenue (bottom 5%); 12-1 month price change -25% (bottom 12%); growing -4%/yr vs industry peers (bottom 15%)"
     }
    },
-   "price": 256.68,
-   "unrealized_pnl": 35.290557499600034,
-   "return": 0.017457284582108823,
+   "price": 256.35,
+   "unrealized_pnl": 32.64620149960016,
+   "return": 0.016149193169018305,
    "held_days": 1
   },
   {
@@ -624,37 +577,9 @@
      "weaknesses": "share count +0.1%/yr (bottom 12%); net debt/EBITDA 2.5x (bottom 17%)"
     }
    },
-   "price": 194.605,
-   "unrealized_pnl": -74.93511137119997,
-   "return": -0.03762852917178594,
-   "held_days": 1
-  },
-  {
-   "trade_id": "7154cd86",
-   "symbol": "DVN",
-   "sleeve": "bottleneck",
-   "qty": 52.4473,
-   "entry_price": 51.414662,
-   "entry_utc": "2026-10-20T13:32:20.235670498Z",
-   "entry_rationale": {
-    "bottleneck": {
-     "rank": 7,
-     "source_file": "bottleneck_2026-10-20.csv",
-     "score": 61.0052,
-     "flow_score": 61.7647,
-     "bottleneck_score": 77.451,
-     "asymmetry_score": 43.8247,
-     "industry": "Oil & Gas E&P",
-     "source": "flow",
-     "rev_growth": 0.7313,
-     "gm_change": 0.1086,
-     "rs_6m": 0.0615,
-     "forward_pe": 9.5078
-    }
-   },
-   "price": 49.42,
-   "unrealized_pnl": -104.6146363125999,
-   "return": -0.038795587142049004,
+   "price": 195.79,
+   "unrealized_pnl": -63.26499437119995,
+   "return": -0.031768401256617174,
    "held_days": 1
   },
   {
@@ -683,9 +608,9 @@
      "weaknesses": "growing -5%/yr vs industry peers (bottom 10%)"
     }
    },
-   "price": 112.43,
-   "unrealized_pnl": 1.0294925104001007,
-   "return": 0.0005124389245132477,
+   "price": 112.915,
+   "unrealized_pnl": 9.70037101040009,
+   "return": 0.0048284447314899115,
    "held_days": 1
   },
   {
@@ -714,9 +639,9 @@
      "weaknesses": "stock comp 4.8% of revenue (bottom 14%)"
     }
    },
-   "price": 116.31,
-   "unrealized_pnl": 27.233262777600046,
-   "return": 0.013574137610584236,
+   "price": 115.415,
+   "unrealized_pnl": 11.585619777600115,
+   "return": 0.005774732115257475,
    "held_days": 1
   },
   {
@@ -745,9 +670,9 @@
      "weaknesses": "FCF yield 1.7% (bottom 8%); EV/EBIT 37 (bottom 13%)"
     }
    },
-   "price": 164.045,
-   "unrealized_pnl": 5.906270932999907,
-   "return": 0.0030349810383312192,
+   "price": 163.19,
+   "unrealized_pnl": -4.26737406699997,
+   "return": -0.0021928217522918514,
    "held_days": 1
   },
   {
@@ -776,9 +701,9 @@
      "weaknesses": "forward P/E 27 (bottom 16%)"
     }
    },
-   "price": 407.56,
-   "unrealized_pnl": 12.50359820530013,
-   "return": 0.0062823091439347944,
+   "price": 406.815,
+   "unrealized_pnl": 8.842593705300107,
+   "return": 0.004442873673544456,
    "held_days": 1
   },
   {
@@ -807,9 +732,9 @@
      "weaknesses": "12-1 month price change -21% (bottom 15%)"
     }
    },
-   "price": 86.015,
-   "unrealized_pnl": -34.717004487999915,
-   "return": -0.017472831835885994,
+   "price": 85.85,
+   "unrealized_pnl": -38.461844488000054,
+   "return": -0.01935758429472556,
    "held_days": 1
   },
   {
@@ -838,37 +763,9 @@
      "weaknesses": "latest-quarter revenue -2% y/y (bottom 3%); gross margin -4.2% over the period (bottom 5%); stock comp 4.6% of revenue (bottom 15%)"
     }
    },
-   "price": 557.195,
-   "unrealized_pnl": 20.79700700000015,
-   "return": 0.010344702533137573,
-   "held_days": 1
-  },
-  {
-   "trade_id": "efc44ce2",
-   "symbol": "EQNR",
-   "sleeve": "bottleneck",
-   "qty": 49.9194,
-   "entry_price": 46.574423,
-   "entry_utc": "2026-10-20T13:32:58.404628318Z",
-   "entry_rationale": {
-    "bottleneck": {
-     "rank": 3,
-     "source_file": "bottleneck_2026-10-20.csv",
-     "score": 63.4683,
-     "flow_score": 76.4706,
-     "bottleneck_score": 66.6667,
-     "asymmetry_score": 54.0691,
-     "industry": "Oil & Gas Integrated",
-     "source": "flow",
-     "rev_growth": 0.3738,
-     "gm_change": 0.1028,
-     "rs_6m": 0.2203,
-     "forward_pe": 9.7056
-    }
-   },
-   "price": 45.565,
-   "unrealized_pnl": -50.38979050620027,
-   "return": -0.021673333451710297,
+   "price": 558.9,
+   "unrealized_pnl": 27.012413999999882,
+   "return": 0.013436327041288054,
    "held_days": 1
   },
   {
@@ -897,9 +794,9 @@
      "weaknesses": "EV/EBIT 54 (bottom 2%); forward P/E 35 (bottom 7%); share count +0.3%/yr (bottom 11%)"
     }
    },
-   "price": 185.605,
-   "unrealized_pnl": 50.25129069059998,
-   "return": 0.025658346195116533,
+   "price": 183.285,
+   "unrealized_pnl": 25.142858690600058,
+   "return": 0.01283796224440037,
    "held_days": 1
   },
   {
@@ -928,37 +825,9 @@
      "weaknesses": "growing -5%/yr vs industry peers (bottom 10%)"
     }
    },
-   "price": 162.55,
-   "unrealized_pnl": -20.45856305349989,
-   "return": -0.010230068382416024,
-   "held_days": 1
-  },
-  {
-   "trade_id": "a6c8e00e",
-   "symbol": "EOG",
-   "sleeve": "bottleneck",
-   "qty": 17.151,
-   "entry_price": 159.460022,
-   "entry_utc": "2026-10-20T13:33:08.382012272Z",
-   "entry_rationale": {
-    "bottleneck": {
-     "rank": 8,
-     "source_file": "bottleneck_2026-10-20.csv",
-     "score": 60.1961,
-     "flow_score": 63.7255,
-     "bottleneck_score": 67.6471,
-     "asymmetry_score": 52.3531,
-     "industry": "Oil & Gas E&P",
-     "source": "flow",
-     "rev_growth": 0.5862,
-     "gm_change": 0.0728,
-     "rs_6m": 0.1509,
-     "forward_pe": 9.9565
-    }
-   },
-   "price": 156.55,
-   "unrealized_pnl": -49.909787321999964,
-   "return": -0.01824922612891644,
+   "price": 158.73,
+   "unrealized_pnl": -66.97508505350015,
+   "return": -0.03349011845180505,
    "held_days": 1
   },
   {
@@ -987,66 +856,368 @@
      "weaknesses": "net debt/EBITDA 3.4x (bottom 5%); avg ROIC 15% (bottom 10%)"
     }
    },
-   "price": 44.7757,
-   "unrealized_pnl": -5.692900931200014,
-   "return": -0.002840418389370769,
+   "price": 44.69,
+   "unrealized_pnl": -9.518103291200138,
+   "return": -0.004748966466654458,
    "held_days": 1
   },
   {
-   "trade_id": "fe659f2d",
-   "symbol": "OVV",
-   "sleeve": "bottleneck",
-   "qty": 35.7702,
-   "entry_price": 70.894357,
-   "entry_utc": "2026-10-20T13:33:21.006881118Z",
+   "trade_id": "650143eb",
+   "symbol": "CRWD",
+   "sleeve": "momentum",
+   "qty": 4.4032,
+   "entry_price": 237.4,
+   "entry_utc": "2026-10-21T14:23:51.546465918Z",
    "entry_rationale": {
-    "bottleneck": {
-     "rank": 5,
-     "source_file": "bottleneck_2026-10-20.csv",
-     "score": 61.64,
-     "flow_score": 81.8627,
-     "bottleneck_score": 56.8627,
-     "asymmetry_score": 55.0894,
-     "industry": "Oil & Gas E&P",
-     "source": "flow",
-     "rev_growth": 0.2998,
-     "gm_change": 0.0752,
-     "rs_6m": 0.2364,
-     "forward_pe": 8.8367
+    "momentum": {
+     "rank": 8,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 98.8447
     }
    },
-   "price": 69.59,
-   "unrealized_pnl": -46.65711076139986,
-   "return": -0.01839860117498482,
-   "held_days": 1
+   "price": 237.8,
+   "unrealized_pnl": 1.761280000000025,
+   "return": 0.0016849199663016012,
+   "held_days": 0
   },
   {
-   "trade_id": "ab47c546",
-   "symbol": "OXY",
-   "sleeve": "bottleneck",
-   "qty": 44.2834,
-   "entry_price": 63.463556,
-   "entry_utc": "2026-10-20T13:33:23.824980475Z",
+   "trade_id": "410fea70",
+   "symbol": "CORT",
+   "sleeve": "momentum",
+   "qty": 8.5973,
+   "entry_price": 117.81,
+   "entry_utc": "2026-10-21T14:23:52.231541136Z",
    "entry_rationale": {
-    "bottleneck": {
+    "quality_screen": {
+     "rank": 54,
+     "source_file": "screen_2026-10-19.csv",
+     "score": 52.4731,
+     "quality_score": 59.8529,
+     "growth_score": 75.1043,
+     "value_score": 2.2059,
+     "strength_score": 34.8379,
+     "momentum_score": 88.2353,
+     "industry": "Biotechnology",
+     "roic_avg": 0.6604,
+     "rev_cagr": 0.2374,
+     "fcf_yield": 0.0117,
+     "strengths": "gross margin 98% (top 1%); net debt/EBITDA -3.2x (top 1%); revenue growth 24%/yr (top 4%)",
+     "weaknesses": "EV/EBIT 259 (bottom 1%); stock comp 11.1% of revenue (bottom 2%); share count +1.1%/yr (bottom 3%)"
+    },
+    "momentum": {
      "rank": 4,
-     "source_file": "bottleneck_2026-10-20.csv",
-     "score": 61.7446,
-     "flow_score": 49.0196,
-     "bottleneck_score": 91.1765,
-     "asymmetry_score": 40.3118,
-     "industry": "Oil & Gas E&P",
-     "source": "flow",
-     "rev_growth": 0.5339,
-     "gm_change": 0.2229,
-     "rs_6m": 0.0749,
-     "forward_pe": 12.9537
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 99.4865
     }
    },
-   "price": 62.425,
-   "unrealized_pnl": -45.99079077039999,
-   "return": -0.016364604592910004,
-   "held_days": 1
+   "price": 117.635,
+   "unrealized_pnl": -1.5045274999999756,
+   "return": -0.0014854426619131944,
+   "held_days": 0
+  },
+  {
+   "trade_id": "4dcb3c8e",
+   "symbol": "DINO",
+   "sleeve": "momentum",
+   "qty": 7.9895,
+   "entry_price": 127.45,
+   "entry_utc": "2026-10-21T14:23:52.679618888Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 15,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 97.561
+    }
+   },
+   "price": 127.275,
+   "unrealized_pnl": -1.3981624999999773,
+   "return": -0.0013730874852883046,
+   "held_days": 0
+  },
+  {
+   "trade_id": "44691d18",
+   "symbol": "DDOG",
+   "sleeve": "momentum",
+   "qty": 3.9042,
+   "entry_price": 274.05,
+   "entry_utc": "2026-10-21T14:23:52.887225945Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 9,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 98.7163
+    }
+   },
+   "price": 273.78,
+   "unrealized_pnl": -1.054134000000151,
+   "return": -0.0009852216748770237,
+   "held_days": 0
+  },
+  {
+   "trade_id": "f777b5d8",
+   "symbol": "HUM",
+   "sleeve": "momentum",
+   "qty": 2.3425,
+   "entry_price": 430.81,
+   "entry_utc": "2026-10-21T14:23:53.004207912Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 19,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 97.0475
+    }
+   },
+   "price": 430.155,
+   "unrealized_pnl": -1.5343375000000692,
+   "return": -0.0015203918200599187,
+   "held_days": 0
+  },
+  {
+   "trade_id": "70508bd5",
+   "symbol": "FROG",
+   "sleeve": "momentum",
+   "qty": 10.8386,
+   "entry_price": 96.91,
+   "entry_utc": "2026-10-21T14:23:53.198826809Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 18,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 97.1759
+    }
+   },
+   "price": 97.06,
+   "unrealized_pnl": 1.6257900000000616,
+   "return": 0.0015478278815397317,
+   "held_days": 0
+  },
+  {
+   "trade_id": "4eb3d30c",
+   "symbol": "HPE",
+   "sleeve": "momentum",
+   "qty": 17.8492,
+   "entry_price": 58.01056,
+   "entry_utc": "2026-10-21T14:23:53.354047006Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 5,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 99.3582
+    }
+   },
+   "price": 57.985,
+   "unrealized_pnl": -0.4562255519999767,
+   "return": -0.0004406094338685884,
+   "held_days": 0
+  },
+  {
+   "trade_id": "bb2e7c36",
+   "symbol": "MRNA",
+   "sleeve": "momentum",
+   "qty": 4.1356,
+   "entry_price": 246.0,
+   "entry_utc": "2026-10-21T14:23:53.610134041Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 1,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 100.0
+    }
+   },
+   "price": 245.005,
+   "unrealized_pnl": -4.114922000000019,
+   "return": -0.004044715447154457,
+   "held_days": 0
+  },
+  {
+   "trade_id": "e76d38f2",
+   "symbol": "ILMN",
+   "sleeve": "momentum",
+   "qty": 3.7366,
+   "entry_price": 276.87,
+   "entry_utc": "2026-10-21T14:23:53.791571888Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 20,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 96.9191
+    }
+   },
+   "price": 276.305,
+   "unrealized_pnl": -2.1111789999999915,
+   "return": -0.002040668905984755,
+   "held_days": 0
+  },
+  {
+   "trade_id": "6e12a163",
+   "symbol": "P",
+   "sleeve": "momentum",
+   "qty": 7.9131,
+   "entry_price": 132.84,
+   "entry_utc": "2026-10-21T14:23:54.117375572Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 7,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 98.973
+    }
+   },
+   "price": 132.54,
+   "unrealized_pnl": -2.37393000000009,
+   "return": -0.002258355916892607,
+   "held_days": 0
+  },
+  {
+   "trade_id": "68e798e3",
+   "symbol": "PBF",
+   "sleeve": "momentum",
+   "qty": 12.0622,
+   "entry_price": 85.29,
+   "entry_utc": "2026-10-21T14:23:54.393568048Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 17,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 97.3042
+    }
+   },
+   "price": 85.115,
+   "unrealized_pnl": -2.1108850000001373,
+   "return": -0.0020518231914645746,
+   "held_days": 0
+  },
+  {
+   "trade_id": "aca8f0ea",
+   "symbol": "OKTA",
+   "sleeve": "momentum",
+   "qty": 5.1601,
+   "entry_price": 204.45,
+   "entry_utc": "2026-10-21T14:23:54.486106556Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 3,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 99.6149
+    }
+   },
+   "price": 204.51,
+   "unrealized_pnl": 0.3096060000000117,
+   "return": 0.00029347028613346815,
+   "held_days": 0
+  },
+  {
+   "trade_id": "22748372",
+   "symbol": "RBRK",
+   "sleeve": "momentum",
+   "qty": 8.7369,
+   "entry_price": 119.83,
+   "entry_utc": "2026-10-21T14:23:54.750657901Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 13,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 97.9461
+    }
+   },
+   "price": 119.56,
+   "unrealized_pnl": -2.3589629999999655,
+   "return": -0.002253192022031225,
+   "held_days": 0
+  },
+  {
+   "trade_id": "3d2391fd",
+   "symbol": "NTAP",
+   "sleeve": "momentum",
+   "qty": 4.7681,
+   "entry_price": 215.817751,
+   "entry_utc": "2026-10-21T14:23:54.80105654Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 10,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 98.5879
+    }
+   },
+   "price": 215.36,
+   "unrealized_pnl": -2.182602543099873,
+   "return": -0.0021210071825833454,
+   "held_days": 0
+  },
+  {
+   "trade_id": "4032c6fe",
+   "symbol": "SNOW",
+   "sleeve": "momentum",
+   "qty": 3.1324,
+   "entry_price": 324.5,
+   "entry_utc": "2026-10-21T14:23:54.992220007Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 11,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 98.4596
+    }
+   },
+   "price": 324.0,
+   "unrealized_pnl": -1.5662,
+   "return": -0.0015408320493066618,
+   "held_days": 0
+  },
+  {
+   "trade_id": "b059d0e5",
+   "symbol": "TEAM",
+   "sleeve": "momentum",
+   "qty": 4.5279,
+   "entry_price": 224.87,
+   "entry_utc": "2026-10-21T14:23:55.280704542Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 2,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 99.8716
+    }
+   },
+   "price": 225.59,
+   "unrealized_pnl": 3.2600879999999948,
+   "return": 0.0032018499577533,
+   "held_days": 0
+  },
+  {
+   "trade_id": "66439ee1",
+   "symbol": "TWLO",
+   "sleeve": "momentum",
+   "qty": 3.8701,
+   "entry_price": 269.4,
+   "entry_utc": "2026-10-21T14:23:55.995044899Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 16,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 97.4326
+    }
+   },
+   "price": 269.12,
+   "unrealized_pnl": -1.0836279999998943,
+   "return": -0.0010393466963621867,
+   "held_days": 0
+  },
+  {
+   "trade_id": "1c5d6293",
+   "symbol": "OSCR",
+   "sleeve": "momentum",
+   "qty": 29.7434,
+   "entry_price": 33.39,
+   "entry_utc": "2026-10-21T14:23:56.246861344Z",
+   "entry_rationale": {
+    "momentum": {
+     "rank": 12,
+     "source_file": "momentum_2026-10-21.csv",
+     "score": 98.0745
+    }
+   },
+   "price": 33.385,
+   "unrealized_pnl": -0.1487170000000761,
+   "return": -0.0001497454327643588,
+   "held_days": 0
   }
  ],
  "closed": [
@@ -1064,6 +1235,111 @@
    "pnl": 200.37217460750142,
    "return": 0.006756519760095614,
    "held_days": 1
+  },
+  {
+   "trade_id": "a6c8e00e",
+   "symbol": "EOG",
+   "sleeve": "bottleneck",
+   "entry_price": 159.460022,
+   "entry_utc": "2026-10-20T13:33:08.382012272Z",
+   "qty": 17.151,
+   "exit_trade_id": "0b974cf4",
+   "exit_price": 158.43,
+   "exit_utc": "2026-10-21T14:23:50.249389871Z",
+   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+   "pnl": -17.66590732200004,
+   "return": -0.006459437212419261,
+   "held_days": 1
+  },
+  {
+   "trade_id": "7154cd86",
+   "symbol": "DVN",
+   "sleeve": "bottleneck",
+   "entry_price": 51.414662,
+   "entry_utc": "2026-10-20T13:32:20.235670498Z",
+   "qty": 52.4473,
+   "exit_trade_id": "e9bbf69f",
+   "exit_price": 50.03,
+   "exit_utc": "2026-10-21T14:23:50.265151301Z",
+   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+   "pnl": -72.62178331259993,
+   "return": -0.026931267193782138,
+   "held_days": 1
+  },
+  {
+   "trade_id": "beda6de9",
+   "symbol": "COP",
+   "sleeve": "bottleneck",
+   "entry_price": 147.11,
+   "entry_utc": "2026-10-20T13:30:48.19840229Z",
+   "qty": 20.4358,
+   "exit_trade_id": "00571dfb",
+   "exit_price": 146.295659,
+   "exit_utc": "2026-10-21T14:23:50.724434803Z",
+   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+   "pnl": -16.641709807800268,
+   "return": -0.005535592413840051,
+   "held_days": 1
+  },
+  {
+   "trade_id": "efc44ce2",
+   "symbol": "EQNR",
+   "sleeve": "bottleneck",
+   "entry_price": 46.574423,
+   "entry_utc": "2026-10-20T13:32:58.404628318Z",
+   "qty": 49.9194,
+   "exit_trade_id": "6ab42e75",
+   "exit_price": 46.11,
+   "exit_utc": "2026-10-21T14:23:50.771229042Z",
+   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+   "pnl": -23.183717506200182,
+   "return": -0.009971631854677088,
+   "held_days": 1
+  },
+  {
+   "trade_id": "ab47c546",
+   "symbol": "OXY",
+   "sleeve": "bottleneck",
+   "entry_price": 63.463556,
+   "entry_utc": "2026-10-20T13:33:23.824980475Z",
+   "qty": 44.2834,
+   "exit_trade_id": "be59698d",
+   "exit_price": 62.77,
+   "exit_utc": "2026-10-21T14:23:50.814044881Z",
+   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+   "pnl": -30.713017770399727,
+   "return": -0.010928413781288837,
+   "held_days": 1
+  },
+  {
+   "trade_id": "fe659f2d",
+   "symbol": "OVV",
+   "sleeve": "bottleneck",
+   "entry_price": 70.894357,
+   "entry_utc": "2026-10-20T13:33:21.006881118Z",
+   "qty": 35.7702,
+   "exit_trade_id": "f4123ac7",
+   "exit_price": 70.5,
+   "exit_utc": "2026-10-21T14:23:52.375721504Z",
+   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+   "pnl": -14.10622876139998,
+   "return": -0.005562600701773723,
+   "held_days": 1
+  },
+  {
+   "trade_id": "7a97770f",
+   "symbol": "PR",
+   "sleeve": "bottleneck",
+   "entry_price": 25.176157,
+   "entry_utc": "2026-10-20T13:31:57.769840356Z",
+   "qty": 98.296,
+   "exit_trade_id": "9ffa1a52",
+   "exit_price": 24.9,
+   "exit_utc": "2026-10-21T14:23:53.286927477Z",
+   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+   "pnl": -27.14512847200013,
+   "return": -0.010968989429165132,
+   "held_days": 1
   }
  ],
  "exit_reasons": [
@@ -1071,8 +1347,13 @@
    "exit_reason": "sleeve replaced by the overnight sleeve (amendment 330e76e0)",
    "count": 1,
    "mean": 0.0068
+  },
+  {
+   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+   "count": 7,
+   "mean": -0.0109
   }
  ],
- "trades_logged": 35,
+ "trades_logged": 60,
  "notes": 2
 }

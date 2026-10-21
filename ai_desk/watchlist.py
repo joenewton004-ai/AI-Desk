@@ -1,9 +1,9 @@
 """Watchlist: every company a screen ranked but didn't buy, tracked against the picks.
 
-Each time a sleeve locks new picks (quality screen every quarter, bottleneck every 2
-weeks), the rest of that scan is saved as a "cohort" - the near misses with their rank,
+Each time a sleeve locks new picks (quality screen every quarter, momentum every 28 days,
+overnight after each month-end), the rest of that scan is saved as a "cohort" - the near misses with their rank,
 score and why they missed the cut. All of them are then measured from the SAME
-decision close as the picks, so "did we leave better stocks on the table?" is a fair
+decision close as the picks (the overnight sleeve on close -> next open returns only, as it trades), so "did we leave better stocks on the table?" is a fair
 question. The scan CSVs in output/ are not committed, so the cohort keeps its own copy.
 
 Files: journal/watchlist.json (cohorts) and journal/watchlist_review.json (latest
@@ -40,19 +40,25 @@ KEEP = {
     "bottleneck": ["name", "sector", "industry", "source", "score", "flow_score", "bottleneck_score",
                    "asymmetry_score", "rs_6m", "rev_growth", "gm_change", "above_ma", "passes", "forward_pe"],
     "momentum": ["name", "sector", "industry", "score", "mom_6m", "above_200", "above_100", "passes", "market_cap"],
+    "overnight_drift": ["name", "score", "overnight_yr", "close", "passes"],
 }
 
 
 # trading days until each sleeve re-picks: the point at which a cohort can be judged
-HORIZON = {"quality_screen": 63, "bottleneck": 10, "momentum": 20}
+HORIZON = {"quality_screen": 63, "bottleneck": 10, "momentum": 20, "overnight_drift": 21}
+# the overnight sleeve only holds from the close to the next open: its cohorts are measured on those returns only
+OVERNIGHT_ONLY = {"overnight_drift"}
 # research/NEAR_MISSES.md, 2014-2026 (survivors-only): how often the picks beat the near misses at past re-picks
 BASELINE = {"quality_screen": "picks beat the other gate-passers in 64% of 50 quarters (+1.6%/quarter, t = 2.5)",
             "momentum": "picks beat ranks 21-40 in 66% of 163 re-picks (+1.3% per 4 weeks, t = 4.0)",
-            "bottleneck": "not measured (the sleeve was replaced by momentum on 2026-10-21)"}
+            "bottleneck": "not measured (the sleeve was replaced by momentum on 2026-10-21)",
+            "overnight_drift": "ranks 21-60 not measured; in research/OVERNIGHT.md the strongest tenth beat the weakest "
+                               "by 7.3 bp a night in 82% of 150 months (t = 6.4)"}
 SCORE_COLS = {"quality_screen": ["score", "quality_score", "growth_score", "value_score", "strength_score",
                                  "momentum_score"],
               "bottleneck": ["score", "flow_score", "bottleneck_score", "asymmetry_score", "rs_6m"],
-              "momentum": ["score", "mom_6m"]}
+              "momentum": ["score", "mom_6m"],
+              "overnight_drift": ["score"]}
 
 
 def diagnose(summary: dict, rows: list[dict], draws: int = 2000, seed: int = 0) -> dict:
@@ -128,7 +134,7 @@ def log_checks(checks: list[dict]) -> None:
         seen = {(r.get("cohort"), r.get("asof")) for r in map(json.loads, p.read_text().splitlines()) if r}
     with p.open("a") as f:
         for c in checks:
-            if (c.get("cohort"), c.get("asof")) not in seen and c.get("verdict") != "no data":
+            if (c.get("cohort"), c.get("asof")) not in seen and c.get("verdict") != "no data" and c.get("days") != 0:
                 f.write(json.dumps({k: v for k, v in c.items() if k not in ("sectors",)}, default=str) + "\n")
 
 
@@ -182,7 +188,7 @@ def build_cohort(sleeve: str, scan: pd.DataFrame, picks: list[str], locked_on: s
                  screen_file: str, top: int) -> dict:
     """Pure: turn a scan + the chosen picks into a cohort of picks and near misses."""
     scan = scan.copy()
-    if "passes" in scan and sleeve in ("bottleneck", "momentum"):
+    if "passes" in scan and sleeve in ("bottleneck", "momentum", "overnight_drift"):
         passed = scan["passes"].astype(bool)
         scan["rank"] = scan["score"].where(passed).rank(ascending=False, method="first")
     else:
@@ -196,7 +202,9 @@ def build_cohort(sleeve: str, scan: pd.DataFrame, picks: list[str], locked_on: s
         elif r["rank"] == r["rank"]:
             status, reason = "near miss", f"ranked #{int(r['rank'])} - only the top {top} are bought"
         else:
-            if sleeve == "momentum":
+            if sleeve == "overnight_drift":
+                reason = r.get("gate_reason") or "failed the price or liquidity gate"
+            elif sleeve == "momentum":
                 reason = ("below its 200-day average" if not r.get("above_200", True)
                           else "below its 100-day average (would be sold the same evening)")
             else:
@@ -206,6 +214,20 @@ def build_cohort(sleeve: str, scan: pd.DataFrame, picks: list[str], locked_on: s
                      **{k: _clean(r.get(k)) for k in KEEP.get(sleeve, []) if k in r}})
     return {"id": f"{sleeve}:{locked_on}", "sleeve": sleeve, "locked_on": locked_on, "ref_date": ref_date,
             "screen_file": screen_file, "top": top, "captured_utc": _now(), "rows": rows}
+
+
+def capture_overnight(lock: dict, near: list[dict]) -> dict | None:
+    """Save the overnight sleeve's cohort when it re-picks: its picks (from the lock) and the ranking below them."""
+    cid = f"overnight_drift:{lock['picked_on']}"
+    if any(c["id"] == cid for c in cohorts()):
+        return None
+    scan = pd.DataFrame([{**r, "passes": True} for r in lock.get("rows", [])] + list(near))
+    if scan.empty:
+        return None
+    c = build_cohort("overnight_drift", scan, lock["picks"], lock["picked_on"], lock["ref_date"],
+                     "overnight scan", len(lock["picks"]))
+    _save(cohorts() + [c])
+    return c
 
 
 def sync(method, ref_date: str | None = None) -> list[dict]:
@@ -239,16 +261,31 @@ def sync(method, ref_date: str | None = None) -> list[dict]:
 
 # --- review -----------------------------------------------------------------------
 
-def compare(cohort: dict, closes: pd.DataFrame, spy: str = "SPY") -> tuple[list[dict], dict]:
-    """Pure: return of every row from the cohort's decision close to the latest close."""
+def overnight_growth(closes: pd.DataFrame, opens: pd.DataFrame, ref: pd.Timestamp) -> pd.Series:
+    """Pure: compounded close -> next open returns after the `ref` close, per stock (what the overnight sleeve earns)."""
+    on = (opens / closes.shift(1)).loc[ref:].iloc[1:]
+    return on.where(on.notna(), 1.0).prod() - 1 if len(on) else pd.Series(0.0, index=closes.columns)
+
+
+def compare(cohort: dict, closes: pd.DataFrame, spy: str = "SPY",
+            opens: pd.DataFrame | None = None) -> tuple[list[dict], dict]:
+    """Pure: return of every row from the cohort's decision close to the latest close - or, for the overnight
+    sleeve (with `opens`), its compounded overnight returns over the same days."""
     ref = pd.Timestamp(cohort["ref_date"])
     hist = closes.loc[:ref]
     if hist.empty:
         return [], {}
     start, last = hist.iloc[-1], closes.ffill().iloc[-1]
+    night = (overnight_growth(closes, opens, hist.index[-1])
+             if cohort["sleeve"] in OVERNIGHT_ONLY and opens is not None else None)
     rows = []
     for r in cohort["rows"]:
         s = r["symbol"]
+        if night is not None:
+            ok = s in closes and start.get(s) == start.get(s) and start.get(s)
+            rows.append({"cohort": cohort["id"], "sleeve": cohort["sleeve"], **r,
+                         "return": round(float(night[s]), 5) if ok and s in night else None})
+            continue
         ret = float(last[s] / start[s] - 1) if s in closes and start.get(s) == start.get(s) and start.get(s) else None
         rows.append({"cohort": cohort["id"], "sleeve": cohort["sleeve"], **r,
                      "return": None if ret is None or ret != ret else round(ret, 5)})
@@ -262,6 +299,8 @@ def compare(cohort: dict, closes: pd.DataFrame, spy: str = "SPY") -> tuple[list[
         r["vs_picks"] = None if r["return"] is None or pavg is None else round(r["return"] - pavg, 5)
     best = rets[rets["status"] != "picked"].dropna(subset=["return"]).sort_values("return", ascending=False)
     spy_ret = float(last[spy] / start[spy] - 1) if spy in closes and start.get(spy) == start.get(spy) else None
+    if night is not None and spy in night:
+        spy_ret = float(night[spy])
     summary = {
         "cohort": cohort["id"], "sleeve": cohort["sleeve"], "locked_on": cohort["locked_on"],
         "ref_date": cohort["ref_date"], "asof": closes.index[-1].date().isoformat(),
@@ -272,24 +311,43 @@ def compare(cohort: dict, closes: pd.DataFrame, spy: str = "SPY") -> tuple[list[
         "watch_beating_picks": int((watch > pavg).sum()) if pavg is not None else None,
         "best_symbol": best["symbol"].iloc[0] if len(best) else None,
         "best_return": float(best["return"].iloc[0]) if len(best) else None,
+        "measure": "overnight" if night is not None else "close",
     }
     return rows, summary
 
 
-def _closes(symbols: list[str], start: str) -> pd.DataFrame:
+def _prices(symbols: list[str], start: str) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Daily closes and opens (adjusted) from Yahoo, through the shared retry."""
     import yfinance as yf
 
     from ai_desk.fundamentals.yahoo import with_retry
 
     raw = with_retry(lambda: yf.download(symbols, start=start, auto_adjust=True, progress=False, threads=True))
-    c = raw["Close"]
-    if isinstance(c, pd.Series):
-        c = c.to_frame(symbols[0])
-    c.index = pd.to_datetime(c.index).tz_localize(None)
-    return c
+    out = []
+    for k in ("Close", "Open"):
+        c = raw[k]
+        if isinstance(c, pd.Series):
+            c = c.to_frame(symbols[0])
+        c.index = pd.to_datetime(c.index).tz_localize(None)
+        out.append(c)
+    return out[0], out[1]
 
 
-def review(closes: pd.DataFrame | None = None, write: bool = True) -> dict:
+def _closes(symbols: list[str], start: str) -> pd.DataFrame:
+    return _prices(symbols, start)[0]
+
+
+def live_sleeves() -> set[str]:
+    """The sleeves trading now - a retired sleeve's last cohort stays on record but isn't 'current'."""
+    try:
+        from ai_desk import register
+        return set(register.desk_allocation())
+    except Exception:  # noqa: BLE001 - fall back to showing every sleeve
+        return set()
+
+
+def review(closes: pd.DataFrame | None = None, write: bool = True, opens: pd.DataFrame | None = None,
+           live: set[str] | None = None) -> dict:
     """Returns for the latest cohort of each sleeve (and every earlier one, for the record)."""
     cs = cohorts()
     if not cs:
@@ -298,15 +356,21 @@ def review(closes: pd.DataFrame | None = None, write: bool = True) -> dict:
         if closes is None:
             symbols = sorted({r["symbol"] for c in cs for r in c["rows"]} | {"SPY"})
             start = (pd.Timestamp(min(c["ref_date"] for c in cs)) - pd.Timedelta(days=10)).date().isoformat()
-            closes = _closes(symbols, start)
+            closes, opens = _prices(symbols, start)
+            from ai_desk.live import drop_incomplete_bar      # while the market is open, judge on full days only
+            closes = drop_incomplete_bar(closes)
+            opens = opens.loc[closes.index]
+        live = live_sleeves() if live is None else live
         latest = {}
         for c in cs:
             if c["sleeve"] not in latest or c["locked_on"] > latest[c["sleeve"]]["locked_on"]:
                 latest[c["sleeve"]] = c
         rows, summary, checks = [], [], []
         for c in sorted(cs, key=lambda c: (c["sleeve"], c["locked_on"])):
-            r, s = compare(c, closes)
-            s["current"] = latest[c["sleeve"]]["id"] == c["id"]
+            r, s = compare(c, closes, opens=opens)
+            if not s:
+                continue
+            s["current"] = latest[c["sleeve"]]["id"] == c["id"] and (not live or c["sleeve"] in live)
             summary.append(s)
             if s["current"]:
                 rows += r

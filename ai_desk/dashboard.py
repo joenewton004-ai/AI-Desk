@@ -67,6 +67,11 @@ def _brief(r: dict) -> str:
     if r.get("sleeve") == "bottleneck":
         parts = [("Flow", n("flow_score")), ("Bneck", n("bottleneck_score")), ("Asym", n("asymmetry_score")),
                  ("Rev", n("rev_growth", "{:+.0%}"))]
+    elif r.get("sleeve") == "momentum":
+        parts = [("6-month", n("mom_6m", "{:+.0%}")), ("above 200-day", {True: "yes", False: "no"}.get(r.get("above_200"))),
+                 ("above 100-day", {True: "yes", False: "no"}.get(r.get("above_100")))]
+    elif r.get("sleeve") == "overnight_drift":
+        parts = [("overnight", n("overnight_yr", "{:+.0%}/yr")), ("price", n("close", "${:,.0f}"))]
     else:
         parts = [("Q", n("quality_score")), ("G", n("growth_score")), ("V", n("value_score")),
                  ("M", n("momentum_score")), ("P/E", n("forward_pe"))]
@@ -87,6 +92,30 @@ def _read_json_list(name: str) -> list:
 def _read_json(name: str) -> dict:
     p = tradebook.DIR / name
     return json.loads(p.read_text()) if p.exists() else {}
+
+
+def _shortlist(rows: list[dict], summary: list[dict], deep: int = 3, failed: int = 20, big: int = 200) -> list[dict]:
+    """The watchlist tab's rows per cohort. A cohort over `big` rows (the momentum scan ranks ~780 companies) is cut to
+    its picks, near misses down to `deep` x the number of picks and the `failed` best scorers that failed a gate;
+    the journal keeps them all."""
+    picks = {s["cohort"]: s.get("picks") or 0 for s in summary}
+    size = {}
+    for r in rows:
+        size[r.get("cohort")] = size.get(r.get("cohort"), 0) + 1
+    out, nfail = [], {}
+    for r in rows:
+        c = r.get("cohort")
+        if size[c] <= big:                                  # small cohorts are shown whole
+            out.append(r)
+            continue
+        if r.get("status") == "near miss" and (r.get("rank") or 0) > deep * max(picks.get(c, 0), 1):
+            continue
+        if r.get("status") == "failed a gate":
+            nfail[c] = nfail.get(c, 0) + 1
+            if nfail[c] > failed:
+                continue
+        out.append(r)
+    return out
 
 
 def tables() -> dict[str, list[dict]]:
@@ -190,6 +219,9 @@ def tables() -> dict[str, list[dict]]:
         names.update({r["symbol"]: r["name"] for r in c.get("rows", []) if r.get("name")})
     names.update({sym: h["name"] for sym, h in (last.get("holdings") or {}).items() if h.get("name")})
     why = {r["symbol"]: r["why"] for r in positions}
+    from ai_desk import overnight
+    book = overnight.load_book()                            # shares held overnight, so a stock can be split by sleeve
+    book = {} if book.get("sell_sent") else book
     holdings = [{
         "symbol": sym, "name": names.get(sym, ""), "sleeve": h.get("sleeve") or "", "shares": h.get("qty"), "price": h.get("price"),
         "avg_cost": h.get("avg_cost"), "market_value": h.get("market_value"), "cost_basis": h.get("cost_basis"),
@@ -197,6 +229,7 @@ def tables() -> dict[str, list[dict]]:
         "day_pl": h.get("day_pl"), "day_pct": h.get("day_pct"), "last_close": h.get("last_close"),
         "pe": pe.get(sym, (None, ""))[0], "pe_note": pe.get(sym, (None, "an index fund - no single P/E"))[1],
         "as_of": last.get("utc"), "why": why.get(sym, ""),
+        "overnight_shares": (book.get("holdings") or {}).get(sym), "overnight_cost": (book.get("costs") or {}).get(sym),
     } for sym, h in sorted((last.get("holdings") or {}).items())]
     # the plan table shows each holding's return since purchase and today's move (watchlist layout)
     held = {h["symbol"]: h for h in holdings}
@@ -208,7 +241,7 @@ def tables() -> dict[str, list[dict]]:
     watch_summary = [x for x in wl.get("summary", []) if x.get("current")]
     watch_rows = [{**{k: r.get(k) for k in ("cohort", "sleeve", "symbol", "name", "industry", "sector", "rank", "status",
                                             "reason", "score", "return", "vs_picks")},
-                   "details": _brief(r)} for r in wl.get("rows", [])]
+                   "details": _brief(r)} for r in _shortlist(wl.get("rows", []), wl.get("summary", []))]
     for r in watch_rows:                                    # short, one-line reasons
         if r["status"] == "near miss":
             m = re.search(r"top (\d+)", r["reason"] or "")
@@ -232,7 +265,7 @@ def tables() -> dict[str, list[dict]]:
 
     # what the prices on the page are: an intraday refresh or the last close
     summary[0].update({"prices_utc": last.get("utc"), "prices_kind": price_kind,
-                       "live_equity": last.get("equity"),
+                       "live_equity": last.get("equity"), "cash": last.get("cash"),
                        "day_pl": round(sum((h.get("day_pl") or 0.0) for h in (last.get("holdings") or {}).values()), 2),
                        "open_pl": round(sum((h.get("unrealized_pl") or 0.0) for h in (last.get("holdings") or {}).values()), 2)})
 
