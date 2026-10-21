@@ -40,9 +40,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   `python research/orb.py` -> `research/SWING_EDGES.md`. None is a strategy; the bad-earnings-surprise filter is
   the one follow-up idea (untested inside the desk). Events cached in data/backtest/earnings_events.pkl.
 - Overnight drift per stock (Lou, Polk & Skouras): `python research/overnight.py` -> `research/OVERNIGHT.md`. Strong
-  and persistent (t 6.4), profitable only if costs <= ~0.02% each way (break-even ~0.045%). Built as a separate paper
-  experiment (amendment accepted by the user 2026-10-21); NOT part of the desk. Paper fills can't measure real
-  auction costs - say so.
+  and persistent (t 6.4), profitable only if costs <= ~0.02% each way (break-even ~0.045%). Paper fills can't measure
+  real auction costs - say so. Desk with it instead of SPY momentum: `python research/desk_overnight.py` ->
+  `research/DESK_OVERNIGHT.md` (better only at <= ~0.02-0.03% costs; deeper worst drop).
 - EMA9/VWAP crossover and Trend+Momentum+Confirmation (EMA20/50, VWAP, volume, breakout): `python research/vwap_ema.py`
   -> `research/VWAP_EMA.md` (cached 5m/1m/1h bars). No edge; research-only.
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
@@ -148,6 +148,12 @@ changes plainly and be honest about whether a strategy has a real edge.
   equal weight (2% cash buffer); market-on-open sells of everything 7:00-9:27am. No buys while anything is still held.
   Picks locked in data/portfolio/overnight.json, re-picked at the first run after each month-end. Journal in
   journal/overnight/ (orders, runs, review of fills vs the official open/close) - commit it with data/portfolio/.
+- Desk swap (amendment 330e76e0, accepted 2026-10-21): the overnight sleeve replaces the 30% SPY momentum sleeve.
+  It starts only at `python -m ai_desk overnight activate`, which checks the overnight account works, is a different
+  account, and holds ~3/7 of the desk account's equity (target_equity), then writes data/portfolio/overnight_live.json.
+  From that date `methods.preset("desk")` drops index_momentum and rescales the rest to 100% of the desk account
+  (50/20 -> 71/29); the first desk run after it resizes locked holdings once (Blend.unfreeze_once, then "rescaled").
+  The scorecard combines both accounts (snapshot records overnight_equity; scorecard.combine_accounts, no jump).
 - Methodology changes go through register.py amendments: proposed -> testing
   (backtest it) -> accepted/rejected by the user. Never change live method
   parameters without an accepted amendment.

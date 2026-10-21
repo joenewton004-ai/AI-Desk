@@ -100,6 +100,15 @@ def snapshot(broker, date: str | None = None) -> dict:
     holdings = holdings_now(broker)
     row = {"date": date or pd.Timestamp.now(tz="America/New_York").date().isoformat(), "utc": _now(),
            "equity": float(acct["equity"]), "cash": float(acct["cash"]), "holdings": holdings}
+    from ai_desk.portfolio.methods import overnight_swap
+    sw = overnight_swap()
+    if sw and row["date"] >= sw["from"]:           # the desk is two accounts now: record the overnight one too
+        try:
+            from ai_desk import overnight
+            _, oacct = overnight.brokers()
+            row["overnight_equity"] = float(oacct["equity"])
+        except Exception as e:  # noqa: BLE001 - say so in the snapshot rather than lose the desk's line
+            row["overnight_error"] = str(e)[:200]
     rows = [r for r in tradebook._read("snapshots.jsonl") if r["date"] != row["date"]]
     tradebook._write("snapshots.jsonl", sorted(rows + [row], key=lambda r: r["date"]))
     return row
@@ -344,6 +353,23 @@ def desk_equity(broker, launch: str) -> pd.Series:
     return s.groupby(level=0).last().sort_index()
 
 
+def combine_accounts(desk: pd.Series, overnight: pd.Series) -> pd.Series:
+    """One equity curve for a desk spread over two accounts, without a jump when the second one joins:
+    each day's return = (desk's change + overnight's change) / (both the day before). Before the overnight
+    account joins (or on its first day) only the desk counts. Scaled to the desk's starting value."""
+    d = desk.dropna().sort_index()
+    if d.empty or overnight is None or overnight.dropna().empty:
+        return d
+    n = overnight.reindex(d.index)
+    r = []
+    for i in range(1, len(d)):
+        n_prev, n_now = n.iloc[i - 1], n.iloc[i]
+        both = d.iloc[i - 1] + (n_prev if pd.notna(n_prev) else 0.0)
+        change = d.iloc[i] - d.iloc[i - 1] + ((n_now - n_prev) if pd.notna(n_prev) and pd.notna(n_now) else 0.0)
+        r.append(change / both)
+    return pd.Series(np.r_[1.0, np.cumprod(1 + np.array(r))] * d.iloc[0], index=d.index)
+
+
 def build(broker, criteria: dict = CRITERIA, write: bool = True, prices: dict | None = None,
           cash_rate: pd.Series | None = None) -> dict:
     from ai_desk.data import load_cash_rate, load_many
@@ -351,6 +377,9 @@ def build(broker, criteria: dict = CRITERIA, write: bool = True, prices: dict | 
     launch = criteria["launch"]
     trades, snaps = tradebook.trades(), snapshots()
     equity = desk_equity(broker, launch)
+    ovn = pd.Series({pd.Timestamp(r["date"]): r["overnight_equity"] for r in snaps if r.get("overnight_equity")},
+                    dtype=float)
+    equity = combine_accounts(equity, ovn)        # after the overnight swap the desk is both accounts
     symbols = sorted({"SPY", "RSP"} | {t["symbol"] for t in trades})
     start = (pd.Timestamp(launch) - pd.Timedelta(days=10)).date().isoformat()
     if prices is None:

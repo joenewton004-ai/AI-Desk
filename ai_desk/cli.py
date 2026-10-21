@@ -529,6 +529,11 @@ def _overnight(a) -> None:
         else:
             print(f"Sent {out['sent']} {'market-on-close buys' if a.action == 'buy' else 'market-on-open sells'} "
                   f"to paper account {out['account']}.")
+    elif a.action == "activate":
+        row = ov.activate()
+        print(f"Desk swap active from {row['from']} (amendment {row['amendment']}): the desk account "
+              f"{row['desk_account']} drops SPY momentum at tonight's run and rescales; overnight account "
+              f"{row['overnight_account']} is the {row['share']:.0%} sleeve. Commit data/portfolio/overnight_live.json.")
     elif a.action == "review":
         r = ov.review()
         s = r["summary"]
@@ -765,7 +770,7 @@ def build_parser() -> argparse.ArgumentParser:
     mo.set_defaults(func=cmd_momentum)
 
     on = sub.add_parser("overnight", help="overnight sleeve (own paper account): buy at the close, sell at the open")
-    on.add_argument("action", choices=["scan", "status", "buy", "sell", "review"])
+    on.add_argument("action", choices=["scan", "status", "buy", "sell", "review", "activate"])
     on.add_argument("--execute", action="store_true", help="send the orders (default: dry run)")
     on.set_defaults(func=cmd_overnight)
 

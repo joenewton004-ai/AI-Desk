@@ -170,16 +170,43 @@ def scan(universe_size: int = 750) -> dict:
             "latest_price": {k: float(x) for k, x in latest.items() if np.isfinite(x)}}
 
 
-def brokers():
+def brokers(with_desk: bool = False):
     from ai_desk.broker.alpaca import AlpacaPaper
     ovn = AlpacaPaper(key_env=KEY_ENV, require_keys=True)
     try:
-        desk_acct = AlpacaPaper().account().get("account_number")
+        desk = AlpacaPaper().account() or {}
     except Exception:  # noqa: BLE001 - the desk's keys may be unavailable; the guard then relies on the keys differing
-        desk_acct = None
+        desk = {}
     acct = ovn.account() or {}
-    same_account_guard(acct.get("account_number", ""), desk_acct)
-    return ovn, acct
+    same_account_guard(acct.get("account_number", ""), desk.get("account_number"))
+    return (ovn, acct, desk) if with_desk else (ovn, acct)
+
+
+def target_equity(desk_equity: float, share: float = 0.3) -> float:
+    """What the overnight account should hold so it is `share` of the two accounts together."""
+    return desk_equity * share / (1 - share)
+
+
+def activate(today: str | None = None, share: float = 0.3, tolerance: float = 0.25) -> dict:
+    """Start the desk swap (amendment 330e76e0): from `today` the desk's account drops SPY momentum and the
+    overnight account is the desk's `share`. Refuses unless the overnight account works, is a different account,
+    and holds roughly the right amount of money (it is sized by its own equity)."""
+    from ai_desk.portfolio.methods import OVERNIGHT_SWAP
+    ovn, acct, desk = brokers(with_desk=True)
+    if not desk:
+        raise RuntimeError("couldn't read the desk's paper account - not activating")
+    want = target_equity(float(desk["equity"]), share)
+    have = float(acct.get("equity", 0))
+    if abs(have / want - 1) > tolerance:
+        raise RuntimeError(f"the overnight account holds ${have:,.0f}; for a {share:.0%} sleeve it should hold about "
+                           f"${want:,.0f} (desk account ${float(desk['equity']):,.0f}). Reset the paper account to that "
+                           "balance in Alpaca, then activate.")
+    row = {"from": today or datetime.now(timezone.utc).astimezone(NY).date().isoformat(), "share": share,
+           "amendment": "330e76e0", "overnight_account": acct.get("account_number"),
+           "desk_account": desk.get("account_number"), "rescaled": False, "activated_utc": _now()}
+    OVERNIGHT_SWAP.parent.mkdir(parents=True, exist_ok=True)
+    OVERNIGHT_SWAP.write_text(json.dumps(row, indent=1))
+    return row
 
 
 def buy(execute: bool = False, now: datetime | None = None) -> dict:

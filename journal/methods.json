@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-21T12:28:11+00:00",
+ "generated_utc": "2026-10-21T12:34:20+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -87,9 +87,9 @@
      "proposal": "Replace the 30% SPY momentum sleeve with the overnight sleeve (20 strongest 12-month overnight earners, held close to open, re-picked monthly), keeping 50% quality screen + 20% momentum - a higher-conviction desk.",
      "rationale": "Owner's request 2026-10-21: 'change the SPY momentum sleeve for the overnight trade - high conviction desk'.",
      "author": "you",
-     "status": "testing",
-     "evidence": "Backtest 2014-2026 (research/DESK_OVERNIGHT.md): desk 18.6%/yr, Sharpe 0.98, worst -26.8% at 0.02% costs each way vs current 16.5%, 0.91, -24.2%; break-even about 0.03%; at 0.05% 13.4%, 0.71. Loses the SPY switch's crash protection (March 2020 -20% vs -12.5%). Real auction costs unmeasured.",
-     "decided_utc": null
+     "status": "accepted",
+     "evidence": "Accepted by the user 2026-10-21 ('Swap now') after the backtest (research/DESK_OVERNIGHT.md: 18.6%/yr, Sharpe 0.98, worst -26.8% at 0.02% costs vs 16.5%, 0.91, -24.2%; break-even ~0.03%). Takes effect at `overnight activate`, once the overnight paper account works and holds ~3/7 of the desk account's equity.",
+     "decided_utc": "2026-10-21T12:34:20+00:00"
     }
    ]
   },
@@ -371,7 +371,7 @@
     "hold": "close to next open, daily",
     "orders": "market-on-close buy, market-on-open sell"
    },
-   "status": "paper experiment in its own Alpaca paper account (built 2026-10-21; not part of the desk)",
+   "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`; own paper account",
    "evidence_summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
    "docs": [
     "research/OVERNIGHT.md",

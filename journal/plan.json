@@ -1,11 +1,11 @@
 {
- "created_utc": "2026-10-20T15:04:05+00:00",
- "signal_date": "2026-10-19",
- "equity": 99962.22,
+ "created_utc": "2026-10-21T12:33:59+00:00",
+ "signal_date": "2026-10-20",
+ "equity": 100080.23,
  "status": "dry_run",
  "method": "50% quality_screen(top=25, rebalance=False, max_age_days=10, screen_glob=output/screen_*.csv, lock_path=data/portfolio/quality_screen.json, rebalance_months=3) + 20% bottleneck(top=8, rebalance=False, max_age_days=3, screen_glob=output/bottleneck_*.csv, lock_path=data/portfolio/bottleneck.json, rebalance_days=14, exit_ma=0) + 30% index_momentum(symbol=SPY, lookback=252)",
  "notes": [
-  "signals from the close of 2026-10-19; equity $99,962",
+  "signals from the close of 2026-10-20; equity $100,080",
   "quality_screen: holding the 25 stocks picked on 2026-10-20 (from screen_2026-10-19.csv); next re-pick due 2027-01-20",
   "bottleneck: holding the 8 stocks picked on 2026-10-20 (from bottleneck_2026-10-20.csv); next re-pick due 2026-11-03",
   "bottleneck: exit rule = close below the 100-day average; re-pick every 14 days",
@@ -1073,7 +1073,7 @@
    "exit_reason": null,
    "rationale": {
     "index_momentum": {
-     "trailing_12m_return": 0.1727,
+     "trailing_12m_return": 0.17,
      "signal": 1.0
     }
    }

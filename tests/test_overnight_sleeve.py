@@ -63,3 +63,39 @@ def test_auction_orders_need_whole_shares():
         b.submit_market_order("A", 1.5, "buy", time_in_force="cls")
     with pytest.raises(RuntimeError):
         AlpacaPaper(key_env=("NO_SUCH_KEY_1", "NO_SUCH_KEY_2"), require_keys=True)
+
+
+def test_desk_swap_drops_spy_momentum_and_rescales_from_the_activation_date():
+    from ai_desk.portfolio import methods as m
+    sw = {"from": "2026-11-10", "share": 0.3}
+    before = dict(m.preset("desk", pd.Timestamp("2026-11-09"), swap=sw))
+    after = dict(m.preset("desk", pd.Timestamp("2026-11-10"), swap=sw))
+    assert "index_momentum" in before and "index_momentum" not in after
+    assert abs(after["quality_screen"] - 0.5 / 0.7) < 1e-12 and abs(after["momentum"] - 0.2 / 0.7) < 1e-12
+    assert dict(m.preset("desk", pd.Timestamp("2026-11-10"), swap=None)) == dict(m.PRESETS["desk"])
+
+
+def test_one_off_resize_unfreezes_locked_holdings_once(tmp_path, monkeypatch):
+    import json
+    from ai_desk.portfolio import methods as m
+    lock = tmp_path / "overnight_live.json"
+    monkeypatch.setattr(m, "OVERNIGHT_SWAP", lock)
+    lock.write_text(json.dumps({"from": "2020-01-01", "share": 0.3, "rescaled": False}))
+    b = m.build(["desk"])
+    assert b.unfreeze_once and b.frozen() == set()
+    assert "index_momentum" not in [p.name for p, _ in b.parts]
+    b.parts = []                                   # don't touch the real sleeves' locks in a test
+    b.on_executed()
+    assert json.loads(lock.read_text())["rescaled"] is True
+    assert not m.build(["desk"]).unfreeze_once
+
+
+def test_combined_equity_has_no_jump_when_the_overnight_account_joins():
+    from ai_desk.scorecard import combine_accounts
+    idx = pd.bdate_range("2026-11-02", periods=4)
+    desk = pd.Series([100.0, 101.0, 101.0, 102.0], index=idx)
+    ovn = pd.Series([np.nan, 43.0, 44.0, 44.0], index=idx)       # joins on day 2
+    eq = combine_accounts(desk, ovn)
+    assert abs(eq.iloc[1] / eq.iloc[0] - 1.01) < 1e-12           # day 2: only the desk's +1%
+    assert abs(eq.iloc[2] / eq.iloc[1] - (1 + 1 / 144)) < 1e-12  # day 3: +1 on 101 + 43
+    assert ov.target_equity(100_000) == pytest.approx(42_857.14, abs=0.01)
