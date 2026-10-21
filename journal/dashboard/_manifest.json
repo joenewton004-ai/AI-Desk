@@ -3,6 +3,7 @@
   "amendments",
   "closed",
   "curve",
+  "exits",
   "fills",
   "holdings",
   "methods",
@@ -11,6 +12,7 @@
   "score_headline",
   "scorecard",
   "sleeve_guide",
+  "sleeve_perf",
   "sleeves",
   "summary",
   "trades",
@@ -19,8 +21,5 @@
   "watch_summary",
   "watchlist"
  ],
- "empty": [
-  "exits",
-  "sleeve_perf"
- ]
+ "empty": []
 }

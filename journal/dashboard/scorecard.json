@@ -2,16 +2,16 @@
  {
   "tier": "1 process",
   "metric": "Slippage vs the open (bps, $-weighted)",
-  "value": 12.253366811643843,
+  "value": 32.84472956951514,
   "format": "bps",
   "target": "\u2264 10",
   "status": "flag",
-  "note": "34 fills; the backtest assumes 3bps"
+  "note": "59 fills; the backtest assumes 3bps"
  },
  {
   "tier": "1 process",
   "metric": "Fill vs signal close (bps)",
-  "value": 50.03235294117647,
+  "value": 120.99152542372883,
   "format": "bps",
   "target": "info only",
   "status": "info",
@@ -47,7 +47,7 @@
  {
   "tier": "2 behaviour",
   "metric": "Inside the backtest's 90% range",
-  "value": null,
+  "value": 1.0,
   "format": "bool",
   "target": "yes",
   "status": "too early",
@@ -61,6 +61,33 @@
   "target": "above -10%",
   "status": "too early",
   "note": "evaluated once there are 12 months of history"
+ },
+ {
+  "tier": "2 behaviour",
+  "metric": "quality_screen vs RSP",
+  "value": -0.00069,
+  "format": "pct",
+  "target": "above -10% over 12m",
+  "status": "too early",
+  "note": "since launch over 1 days"
+ },
+ {
+  "tier": "2 behaviour",
+  "metric": "bottleneck vs SPY",
+  "value": -0.00486,
+  "format": "pct",
+  "target": "above -10% over 12m",
+  "status": "too early",
+  "note": "since launch over 1 days"
+ },
+ {
+  "tier": "2 behaviour",
+  "metric": "index_momentum vs SPY",
+  "value": 0.0,
+  "format": "pct",
+  "target": "above -10% over 12m",
+  "status": "too early",
+  "note": "since launch over 1 days"
  },
  {
   "tier": "2 behaviour",
@@ -83,7 +110,7 @@
  {
   "tier": "3 edge",
   "metric": "Return vs SPY since launch",
-  "value": 0.0,
+  "value": -0.004966852723786275,
   "format": "pct",
   "target": "\u2265 0",
   "status": "too early",

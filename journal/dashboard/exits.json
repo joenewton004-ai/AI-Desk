@@ -1,1 +1,90 @@
-[]
+[
+ {
+  "id": "3baa5178",
+  "date": "2026-10-21",
+  "symbol": "SPY",
+  "sleeve": "index_momentum",
+  "exit_price": 770.52,
+  "reason": "sleeve replaced by the overnight sleeve (amendment 330e76e0)",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "00571dfb",
+  "date": "2026-10-21",
+  "symbol": "COP",
+  "sleeve": "bottleneck",
+  "exit_price": 146.295659,
+  "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "e9bbf69f",
+  "date": "2026-10-21",
+  "symbol": "DVN",
+  "sleeve": "bottleneck",
+  "exit_price": 50.03,
+  "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "0b974cf4",
+  "date": "2026-10-21",
+  "symbol": "EOG",
+  "sleeve": "bottleneck",
+  "exit_price": 158.43,
+  "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "6ab42e75",
+  "date": "2026-10-21",
+  "symbol": "EQNR",
+  "sleeve": "bottleneck",
+  "exit_price": 46.11,
+  "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "f4123ac7",
+  "date": "2026-10-21",
+  "symbol": "OVV",
+  "sleeve": "bottleneck",
+  "exit_price": 70.5,
+  "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "be59698d",
+  "date": "2026-10-21",
+  "symbol": "OXY",
+  "sleeve": "bottleneck",
+  "exit_price": 62.77,
+  "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "9ffa1a52",
+  "date": "2026-10-21",
+  "symbol": "PR",
+  "sleeve": "bottleneck",
+  "exit_price": 24.9,
+  "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ }
+]
