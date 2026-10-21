@@ -276,6 +276,19 @@ RESEARCH_METHODS = {
                    "average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
         "docs": ["research/OVERNIGHT.md", "research/output/overnight.md", "ai_desk/overnight.py"],
     },
+    "vwap_ema": {
+        "description": "Two intraday indicator strategies on the 100-150 largest US companies: (A) EMA9/VWAP crossover, "
+                       "both sides and long only; (B) Trend + Momentum + Confirmation - 20 EMA above 50 EMA, price above "
+                       "VWAP, volume 1.5x average, break of the previous day's or opening-range high; stop at the swing "
+                       "low/20 EMA, 2R target.",
+        "parameters": {"bars": "5-min (60 days), 1-min (30 days), hourly (3 years)", "costs": "0.03% each way",
+                       "exit": "signal, stop/target or the close"},
+        "status": "tested, no edge (not in the live mix)",
+        "summary": "A: about zero before costs, -0.06% to -0.08% per trade after (t -10 to -12). B: negative even before "
+                   "costs, -0.07% to -0.14% after; random entries on the same days did better (+0.14% hourly) - the "
+                   "setup confirms after the move. 3R, pullback entry and no-volume variants don't help.",
+        "docs": ["research/VWAP_EMA.md", "research/output/vwap_ema.md"],
+    },
     "drawdown_breaker": {
         "description": "Account-level circuit breaker (drawdown-circuit-breaker skill, tradermonty/claude-trading-skills): "
                        "after a 2% day, 5% week or 8% month, no new buys (or: go to cash) until the next day / Monday / month.",

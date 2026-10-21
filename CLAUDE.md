@@ -43,6 +43,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   and persistent (t 6.4), profitable only if costs <= ~0.02% each way (break-even ~0.045%). Built as a separate paper
   experiment (amendment accepted by the user 2026-10-21); NOT part of the desk. Paper fills can't measure real
   auction costs - say so.
+- EMA9/VWAP crossover and Trend+Momentum+Confirmation (EMA20/50, VWAP, volume, breakout): `python research/vwap_ema.py`
+  -> `research/VWAP_EMA.md` (cached 5m/1m/1h bars). No edge; research-only.
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
