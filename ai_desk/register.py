@@ -230,7 +230,7 @@ RESEARCH_METHODS = {
         "description": "Account-level circuit breaker (drawdown-circuit-breaker skill, tradermonty/claude-trading-skills): "
                        "after a 2% day, 5% week or 8% month, no new buys (or: go to cash) until the next day / Monday / month.",
         "parameters": {"day_limit": 0.02, "week_limit": 0.05, "month_limit": 0.08, "modes": "freeze buys | go to cash"},
-        "status": "tested, no benefit (not in the live mix)",
+        "status": "tested, no benefit; rejected 2026-10-21",
         "summary": "On the desk 2014-2026 (daily): no breaker 16.4%/yr, Sharpe 0.81, worst -33.4%; freeze 15.9%, 0.79, -33.4%; "
                    "go to cash 11.1%, 0.61, -35.7%. The desk buys only at re-picks, so freezing rarely matters, and "
                    "cutting to cash misses the rebounds. Survivors-only prices.",

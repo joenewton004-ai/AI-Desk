@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-21T08:16:56+00:00",
+ "generated_utc": "2026-10-21T08:33:15+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -299,7 +299,7 @@
     "month_limit": 0.08,
     "modes": "freeze buys | go to cash"
    },
-   "status": "tested, no benefit (not in the live mix)",
+   "status": "tested, no benefit; rejected 2026-10-21",
    "evidence_summary": "On the desk 2014-2026 (daily): no breaker 16.4%/yr, Sharpe 0.81, worst -33.4%; freeze 15.9%, 0.79, -33.4%; go to cash 11.1%, 0.61, -35.7%. The desk buys only at re-picks, so freezing rarely matters, and cutting to cash misses the rebounds. Survivors-only prices.",
    "docs": [
     "research/CIRCUIT_BREAKER.md",
@@ -313,9 +313,9 @@
      "proposal": "Add an account-level circuit breaker to the desk: after a 2% day, 5% week or 8% month loss, block new buys (sells still go through) until the next weekday / Monday / first of next month.",
      "rationale": "From the drawdown-circuit-breaker skill in tradermonty/claude-trading-skills, reviewed 2026-10-21 at the user's request.",
      "author": "claude",
-     "status": "testing",
-     "evidence": "Backtested 2014-2026 (research/CIRCUIT_BREAKER.md): freeze 15.9%/yr, Sharpe 0.79 vs 16.4%, 0.81 without; go-to-cash 11.1%, 0.61; worst drop unchanged (~-33%). Not recommended - your call.",
-     "decided_utc": null
+     "status": "rejected",
+     "evidence": "Rejected by the user 2026-10-21. Backtest 2014-2026 (research/CIRCUIT_BREAKER.md): freeze 15.9%/yr, Sharpe 0.79 vs 16.4%, 0.81 without; go-to-cash 11.1%, 0.61; worst drop unchanged (~-33%).",
+     "decided_utc": "2026-10-21T08:33:15+00:00"
     }
    ]
   }

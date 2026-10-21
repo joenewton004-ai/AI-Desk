@@ -50,6 +50,6 @@ worst drop is about −31% in every version.
 
 ## Verdict
 
-**Not recommended for the desk.** It's in the register as `drawdown_breaker` with amendment `c312f032` (status testing), with
-this evidence; the decision is yours. It makes more sense for what it was built for: a hand-traded
+**Rejected (your decision, 2026-10-21).** It stays in the register as research-only
+(`drawdown_breaker`), and amendment `c312f032` is marked rejected with this evidence. It makes more sense for what it was built for: a hand-traded
 account where a person might break their own rules after losses.

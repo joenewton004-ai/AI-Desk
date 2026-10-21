@@ -25,7 +25,7 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Sikand-style 'asymmetric bets' rules (theme + growth + cheap vs peers + off highs): `python research/asymmetric.py`
   -> `research/ASYMMETRIC.md`. Tested, no edge; in the register as research-only (`register.RESEARCH_METHODS`).
 - tradermonty/claude-trading-skills (MIT, reviewed 2026-10-21): two ideas tested, neither adopted. Circuit breaker
-  (`python research/circuit_breaker.py` -> `research/CIRCUIT_BREAKER.md`, amendment c312f032 testing) and VCP
+  (`python research/circuit_breaker.py` -> `research/CIRCUIT_BREAKER.md`, amendment c312f032 rejected by the user) and VCP
   breakout swing trading (`python research/swing.py` -> `research/SWING.md`; daily OHLCV cached in
   data/backtest/daily_ohlcv.pkl). Both research-only in `register.RESEARCH_METHODS`. Survivors-only: say so.
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
