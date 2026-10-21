@@ -21,6 +21,7 @@ from __future__ import annotations
 import json
 import math
 from datetime import datetime, timezone
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -71,6 +72,14 @@ def sleeve_map() -> dict[str, str]:
     for t in tradebook.trades():
         if t["side"] == "buy" and t.get("sleeve"):
             out[t["symbol"]] = t["sleeve"]
+    # a stock the bottleneck sleeve bought and momentum kept on the switch belongs to momentum now
+    try:
+        lock = json.loads(Path("data/portfolio/momentum.json").read_text())
+        for s in lock.get("picks") or []:
+            if out.get(s) == "bottleneck":
+                out[s] = "momentum"
+    except (OSError, ValueError):
+        pass
     try:
         from ai_desk import overnight
         b = overnight.load_book()
