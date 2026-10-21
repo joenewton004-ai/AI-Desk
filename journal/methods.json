@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-20T20:28:57+00:00",
+ "generated_utc": "2026-10-21T08:33:15+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -266,6 +266,58 @@
     "research/output/asymmetric.md"
    ],
    "amendments": []
+  },
+  {
+   "name": "vcp_swing",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Swing trading on VCP breakouts (Minervini's volatility contraction pattern, from the vcp-screener skill in tradermonty/claude-trading-skills) as fixed rules: a stock in a strong uptrend, a quiet tightening pause, then a breakout above its 20-day high on 1.5x volume; bought at the next open.",
+   "parameters": {
+    "positions": "up to 10 of 10%",
+    "stop": "8% below entry",
+    "exit": "close below the 50-day average",
+    "target": "+25%",
+    "max_hold": "40 trading days",
+    "universe": "750 largest US companies"
+   },
+   "status": "tested, no edge (not in the live mix)",
+   "evidence_summary": "2014-2026: 2.8%/yr, Sharpe 0.13 vs the average stock 12.1% (0.59) and SPY 13.7% (0.72); 1,123 trades, 39% winners, +0.38% per trade; loses money at 0.30% costs; no setting tested gets above 5.6%/yr. Beats random strong-trend picks, so the pattern adds a little. Survivors-only prices.",
+   "docs": [
+    "research/SWING.md",
+    "research/output/swing.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "drawdown_breaker",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Account-level circuit breaker (drawdown-circuit-breaker skill, tradermonty/claude-trading-skills): after a 2% day, 5% week or 8% month, no new buys (or: go to cash) until the next day / Monday / month.",
+   "parameters": {
+    "day_limit": 0.02,
+    "week_limit": 0.05,
+    "month_limit": 0.08,
+    "modes": "freeze buys | go to cash"
+   },
+   "status": "tested, no benefit; rejected 2026-10-21",
+   "evidence_summary": "On the desk 2014-2026 (daily): no breaker 16.4%/yr, Sharpe 0.81, worst -33.4%; freeze 15.9%, 0.79, -33.4%; go to cash 11.1%, 0.61, -35.7%. The desk buys only at re-picks, so freezing rarely matters, and cutting to cash misses the rebounds. Survivors-only prices.",
+   "docs": [
+    "research/CIRCUIT_BREAKER.md",
+    "research/output/circuit_breaker.md"
+   ],
+   "amendments": [
+    {
+     "id": "c312f032",
+     "created_utc": "2026-10-21T08:16:49+00:00",
+     "method": "drawdown_breaker",
+     "proposal": "Add an account-level circuit breaker to the desk: after a 2% day, 5% week or 8% month loss, block new buys (sells still go through) until the next weekday / Monday / first of next month.",
+     "rationale": "From the drawdown-circuit-breaker skill in tradermonty/claude-trading-skills, reviewed 2026-10-21 at the user's request.",
+     "author": "claude",
+     "status": "rejected",
+     "evidence": "Rejected by the user 2026-10-21. Backtest 2014-2026 (research/CIRCUIT_BREAKER.md): freeze 15.9%/yr, Sharpe 0.79 vs 16.4%, 0.81 without; go-to-cash 11.1%, 0.61; worst drop unchanged (~-33%).",
+     "decided_utc": "2026-10-21T08:33:15+00:00"
+    }
+   ]
   }
  ]
 }
