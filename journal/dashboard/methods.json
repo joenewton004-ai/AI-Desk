@@ -80,7 +80,7 @@
   "evidence": "2014-2026, top 20 of the 750 largest by 6-month return, re-picked every 4 weeks, with the 100-day exit: 19.8%/yr, Sharpe 0.76, worst drop -30% as a sleeve (vs the flow rotation's 17.8%, 0.63, -45%); desk 16.5%/yr, Sharpe 0.92 vs 0.88. Survivors-only prices.",
   "parameters": "top=20; rebalance=False; max_age_days=3; rebalance_days=28; exit_ma=100; replaces_lock=data/portfolio/bottleneck.json",
   "docs": "research/MOMENTUM_SLEEVE.md, research/WEEKLY.md",
-  "open_amendments": 0,
+  "open_amendments": 1,
   "notes": ""
  },
  {

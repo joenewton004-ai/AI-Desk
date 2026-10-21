@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-21T16:10:16+00:00",
+ "generated_utc": "2026-10-21T18:38:51+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -277,6 +277,17 @@
      "status": "accepted",
      "evidence": "Backtest 2014-2026 (research/MOMENTUM_ENTRY.md): entry filter 19.4%/yr, Sharpe 0.75, 92% invested vs live behaviour (sold on the pick day) 17.9%, 0.71, 86%; beat it in 8 of 13 years. Accepted by the owner 2026-10-21, from that evening's first pick.",
      "decided_utc": "2026-10-21T13:28:19+00:00"
+    },
+    {
+     "id": "605e122e",
+     "created_utc": "2026-10-21T18:38:37+00:00",
+     "method": "momentum",
+     "proposal": "Hold the momentum sleeve's top 10 instead of top 20 (2% of the desk each instead of 1%), keeping the live rules: above the 200 and 100-day averages to be picked, re-picked every 28 days, sold below the 100-day average. Switch at the next re-pick (2026-11-18) if accepted.",
+     "rationale": "research/DESK_TOP10.md: desk Sharpe 1.06 vs 0.98 (overnight at 0.02%), +2.2%/yr, better in both halves and 11 of 13 years, holds at 3x momentum costs, worst drop unchanged (-25.6% vs -25.9%). Caveats: survivors-only prices flatter concentration; '10' was chosen after an earlier test; single-stock risk doubles.",
+     "author": "you",
+     "status": "testing",
+     "evidence": "Backtested: research/desk_top10.py -> research/DESK_TOP10.md (2014-2026 monthly, survivors-only). Desk Sharpe 1.06 vs 0.98, 90% bootstrap range of the gap +0.02 to +0.12; return gap t 3.0. Awaiting the owner's decision.",
+     "decided_utc": null
     }
    ]
   },

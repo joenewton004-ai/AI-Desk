@@ -52,6 +52,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   data/backtest/minervini_fund.pkl). No edge vs the equal-weight universe; research-only. Survivors-only: say so.
   Follow-up (pivot buy-stops + intraday stop orders, 5 positions, smaller half, looser growth):
   `python research/minervini_checks.py` -> same write-up. Small caps/IPOs need delisted-inclusive data (not available).
+- Momentum top 10 instead of top 20 inside the desk: `python research/desk_top10.py` -> `research/DESK_TOP10.md`
+  (desk Sharpe 1.06 vs 0.98 at 0.02% overnight costs; both halves, 11/13 years; not live - needs an amendment).
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
