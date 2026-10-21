@@ -251,6 +251,31 @@ RESEARCH_METHODS = {
                    "-0.07%/quarter vs the average stock, flipping sign between 2014-19 and 2020-26. Survivors-only prices.",
         "docs": ["research/LYNCH.md", "research/output/lynch.md"],
     },
+    "short_term_effects": {
+        "description": "Five documented short-term effects with next-open fills: weekly pullback bought at Monday's open, "
+                       "post-earnings drift after the 10-Q filing, the 52-week high (monthly and swing), overnight vs "
+                       "daytime returns, and the opening range breakout on stocks in play (60-day preview).",
+        "parameters": {"costs": "0.02% / 0.05% / 0.10% each way", "fills": "the open after the decision close",
+                       "universe": "750 largest US companies (100 for the breakout preview)"},
+        "status": "tested, no edge as strategies (not in the live mix)",
+        "summary": "Pullback 11.1%/yr at 0.02% costs (Sharpe 0.49) vs the average stock 12.1% (0.59). Earnings drift: the "
+                   "worst-surprise fifth lags by 0.55% over 60 days (t -2.6), the best doesn't lead - a possible filter. "
+                   "52-week high: lower risk, lower return. Overnight returns: +9%/yr gross, negative after costs. "
+                   "Breakout: negative even before costs. Survivors-only prices.",
+        "docs": ["research/SWING_EDGES.md", "research/output/swing_edges.md", "research/output/orb.md"],
+    },
+    "overnight_drift": {
+        "description": "Overnight momentum (Lou, Polk & Skouras 2019): each month take the 20 large stocks with the highest "
+                       "average overnight return (close to next open) over the past 12 months; hold them only overnight - "
+                       "buy at the close, sell at the next open - via the closing and opening auctions.",
+        "parameters": {"stocks": 20, "look_back": "12 months", "re_pick": "monthly", "hold": "close to next open, daily",
+                       "orders": "market-on-close buy, market-on-open sell"},
+        "status": "promising - needs a cost test (not in the live mix)",
+        "summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, "
+                   "both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the "
+                   "average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
+        "docs": ["research/OVERNIGHT.md", "research/output/overnight.md"],
+    },
     "drawdown_breaker": {
         "description": "Account-level circuit breaker (drawdown-circuit-breaker skill, tradermonty/claude-trading-skills): "
                        "after a 2% day, 5% week or 8% month, no new buys (or: go to cash) until the next day / Monday / month.",

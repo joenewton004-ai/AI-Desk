@@ -35,6 +35,13 @@ changes plainly and be honest about whether a strategy has a real edge.
   `python research/lynch.py` -> `research/LYNCH.md` (features cached in data/backtest/lynch_features.pkl; ~30 min
   first run). No edge vs the equal-weight universe; research-only. Jim Simons/Medallion: desk research only
   (`research/SIMONS.md`) - its trades aren't public; Renaissance's 13F shows its other funds, not Medallion.
+- Five short-term effects with next-open fills (weekly pullback, post-earnings drift from 10-Q filings, 52-week
+  high, overnight returns; opening range breakout preview): `python research/swing_edges.py` and
+  `python research/orb.py` -> `research/SWING_EDGES.md`. None is a strategy; the bad-earnings-surprise filter is
+  the one follow-up idea (untested inside the desk). Events cached in data/backtest/earnings_events.pkl.
+- Overnight drift per stock (Lou, Polk & Skouras): `python research/overnight.py` -> `research/OVERNIGHT.md`. Strong
+  and persistent (t 6.4), profitable only if costs <= ~0.02% each way (break-even ~0.045%). Status 'promising - needs
+  a cost test'; NOT in the live mix. Paper fills can't measure real auction costs - say so.
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
