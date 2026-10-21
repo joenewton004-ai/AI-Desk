@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-21T12:25:09+00:00",
+ "generated_utc": "2026-10-21T12:28:11+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -78,6 +78,17 @@
      "author": "you",
      "status": "testing",
      "evidence": "Backtested 2004-2026 (research/INDEX_ROTATION.md, follow-up): Sharpe 0.54-0.58 vs live 0.58, fragile to lookback and to removing QQQ, walk-forward 8.0%/yr (0.44) vs 10.2% (0.61), desk Sharpe 0.84-0.85 vs 0.89. Claude recommends reject; awaiting your decision.",
+     "decided_utc": null
+    },
+    {
+     "id": "330e76e0",
+     "created_utc": "2026-10-21T12:28:11+00:00",
+     "method": "index_momentum",
+     "proposal": "Replace the 30% SPY momentum sleeve with the overnight sleeve (20 strongest 12-month overnight earners, held close to open, re-picked monthly), keeping 50% quality screen + 20% momentum - a higher-conviction desk.",
+     "rationale": "Owner's request 2026-10-21: 'change the SPY momentum sleeve for the overnight trade - high conviction desk'.",
+     "author": "you",
+     "status": "testing",
+     "evidence": "Backtest 2014-2026 (research/DESK_OVERNIGHT.md): desk 18.6%/yr, Sharpe 0.98, worst -26.8% at 0.02% costs each way vs current 16.5%, 0.91, -24.2%; break-even about 0.03%; at 0.05% 13.4%, 0.71. Loses the SPY switch's crash protection (March 2020 -20% vs -12.5%). Real auction costs unmeasured.",
      "decided_utc": null
     }
    ]
