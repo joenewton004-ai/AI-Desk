@@ -67,6 +67,11 @@ def _brief(r: dict) -> str:
     if r.get("sleeve") == "bottleneck":
         parts = [("Flow", n("flow_score")), ("Bneck", n("bottleneck_score")), ("Asym", n("asymmetry_score")),
                  ("Rev", n("rev_growth", "{:+.0%}"))]
+    elif r.get("sleeve") == "momentum":
+        parts = [("6-month", n("mom_6m", "{:+.0%}")), ("above 200-day", {True: "yes", False: "no"}.get(r.get("above_200"))),
+                 ("above 100-day", {True: "yes", False: "no"}.get(r.get("above_100")))]
+    elif r.get("sleeve") == "overnight_drift":
+        parts = [("overnight", n("overnight_yr", "{:+.0%}/yr")), ("price", n("close", "${:,.0f}"))]
     else:
         parts = [("Q", n("quality_score")), ("G", n("growth_score")), ("V", n("value_score")),
                  ("M", n("momentum_score")), ("P/E", n("forward_pe"))]
@@ -87,6 +92,30 @@ def _read_json_list(name: str) -> list:
 def _read_json(name: str) -> dict:
     p = tradebook.DIR / name
     return json.loads(p.read_text()) if p.exists() else {}
+
+
+def _shortlist(rows: list[dict], summary: list[dict], deep: int = 3, failed: int = 20, big: int = 200) -> list[dict]:
+    """The watchlist tab's rows per cohort. A cohort over `big` rows (the momentum scan ranks ~780 companies) is cut to
+    its picks, near misses down to `deep` x the number of picks and the `failed` best scorers that failed a gate;
+    the journal keeps them all."""
+    picks = {s["cohort"]: s.get("picks") or 0 for s in summary}
+    size = {}
+    for r in rows:
+        size[r.get("cohort")] = size.get(r.get("cohort"), 0) + 1
+    out, nfail = [], {}
+    for r in rows:
+        c = r.get("cohort")
+        if size[c] <= big:                                  # small cohorts are shown whole
+            out.append(r)
+            continue
+        if r.get("status") == "near miss" and (r.get("rank") or 0) > deep * max(picks.get(c, 0), 1):
+            continue
+        if r.get("status") == "failed a gate":
+            nfail[c] = nfail.get(c, 0) + 1
+            if nfail[c] > failed:
+                continue
+        out.append(r)
+    return out
 
 
 def tables() -> dict[str, list[dict]]:
@@ -212,7 +241,7 @@ def tables() -> dict[str, list[dict]]:
     watch_summary = [x for x in wl.get("summary", []) if x.get("current")]
     watch_rows = [{**{k: r.get(k) for k in ("cohort", "sleeve", "symbol", "name", "industry", "sector", "rank", "status",
                                             "reason", "score", "return", "vs_picks")},
-                   "details": _brief(r)} for r in wl.get("rows", [])]
+                   "details": _brief(r)} for r in _shortlist(wl.get("rows", []), wl.get("summary", []))]
     for r in watch_rows:                                    # short, one-line reasons
         if r["status"] == "near miss":
             m = re.search(r"top (\d+)", r["reason"] or "")

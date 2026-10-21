@@ -155,8 +155,41 @@ def test_watchlist_cohort_and_compare():
     assert s["spy"] == pytest.approx(0.05) and s["days"] == len(closes.loc["2026-10-19":]) - 1
     assert {r["symbol"]: r["vs_picks"] for r in rows}["BB"] == pytest.approx(0.20)
     watchlist._save([c])
-    out = watchlist.review(closes)
+    out = watchlist.review(closes, live={"bottleneck"})
     assert out["summary"][0]["current"] and len(out["rows"]) == 4
+    out = watchlist.review(closes, live={"momentum"})          # a retired sleeve's cohort stays on record only
+    assert not out["summary"][0]["current"] and out["rows"] == []
+
+
+def test_overnight_cohort_measured_close_to_open_only():
+    from ai_desk import overnight, watchlist
+
+    idx = pd.bdate_range("2026-10-15", periods=60)
+    syms = [f"S{i}" for i in range(6)]
+    closes = pd.DataFrame(100.0, index=idx, columns=syms)
+    volume = pd.DataFrame(1e6, index=idx, columns=syms)
+    volume["S5"] = 10.0                                        # illiquid: fails the gate
+    score = pd.Series([0.006, 0.005, 0.004, 0.003, 0.002, 0.009], index=syms)
+    el = overnight.eligible(closes, volume).iloc[-1]
+    near = overnight.near_misses(score, el, closes, volume, n=2, more=2)
+    assert [r["symbol"] for r in near] == ["S2", "S3", "S5"]
+    assert not near[-1]["passes"] and "trades under" in near[-1]["gate_reason"]
+    lock = {"picked_on": "2026-10-20", "ref_date": "2026-10-19", "picks": ["S0", "S1"],
+            "rows": [{"symbol": "S0", "score": 0.006}, {"symbol": "S1", "score": 0.005}]}
+    c = watchlist.capture_overnight(lock, near)
+    by = {r["symbol"]: r for r in c["rows"]}
+    assert by["S0"]["status"] == "picked" and by["S2"]["status"] == "near miss" and by["S2"]["rank"] == 3
+    assert by["S5"]["status"] == "failed a gate" and "trades under" in by["S5"]["reason"]
+    assert watchlist.capture_overnight(lock, near) is None       # once per re-pick
+    # S0 gains 2% overnight then gives it back in the day; S2 only moves in the day
+    d = pd.bdate_range("2026-10-15", periods=8)
+    cl = pd.DataFrame(100.0, index=d, columns=["S0", "S1", "S2", "S3", "S5", "SPY"])
+    op = cl.copy()
+    op.loc[d[-1], "S0"] = 102.0
+    cl.loc[d[-1], "S2"] = 120.0
+    rows, s = watchlist.compare(c, cl, opens=op)
+    r = {x["symbol"]: x["return"] for x in rows}
+    assert r["S0"] == pytest.approx(0.02) and r["S2"] == pytest.approx(0.0) and s["measure"] == "overnight"
 
 
 def test_limit_cap_sends_capped_limit_orders(tmp_path, monkeypatch):
