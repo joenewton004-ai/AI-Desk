@@ -115,6 +115,10 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Watchlist (`ai_desk/watchlist.py`): each new lock saves the rest of that scan as a cohort in
   journal/watchlist.json (output/ isn't committed), measured from the same decision close as the
   picks. `journal watchlist` captures + reviews (daily task). Judge cohorts at their re-pick, not daily.
+  Its daily check (`watchlist.diagnose`, logged to journal/watchlist_daily.jsonl) uses fixed rules: "too early"
+  before the re-pick, "worth a test" only beyond chance. Baseline: `python research/near_misses.py` ->
+  `research/NEAR_MISSES.md` (picks beat near misses ~2 re-picks in 3; no re-weighting helped in both halves).
+  A "worth a test" is a reason to backtest, never to change the scoring directly.
 - Methodology changes go through register.py amendments: proposed -> testing
   (backtest it) -> accepted/rejected by the user. Never change live method
   parameters without an accepted amendment.

@@ -553,7 +553,13 @@ def cmd_journal(a) -> None:
                   f"failed a gate {f(s['failed_gate_avg'])} | SPY {f(s['spy'])}")
             print(f"  {s['watch_beating_picks']} of {s['watching']} watched stocks are beating the picks' average; "
                   f"best: {s['best_symbol']} {f(s['best_return'])}")
-        print("\nSaved journal/watchlist.json and journal/watchlist_review.json")
+        for c in out.get("checks", []):
+            print(f"\nDaily check, {c['cohort']}: {c['verdict'].upper()}")
+            print(f"  {c.get('explanation', '')}")
+            print(f"  {c.get('reason', '')}")
+            if c.get("baseline"):
+                print(f"  12-year baseline: {c['baseline']}")
+        print("\nSaved journal/watchlist.json, journal/watchlist_review.json and journal/watchlist_daily.jsonl")
     elif a.action == "export":
         from ai_desk import dashboard
         counts = dashboard.export()

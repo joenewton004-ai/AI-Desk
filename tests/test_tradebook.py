@@ -220,3 +220,31 @@ def test_momentum_explainer_tables():
     assert len(keys) == len(t["explainer_text"])                      # unique row keys
     assert any(r["section"] == "picks" for r in t["explainer_text"])
     assert {r["label"] for r in t["explainer_backtest"]} >= {"Whole desk with momentum"}
+
+
+def test_watchlist_diagnose_says_too_early_before_the_repick_and_explains_the_gap():
+    from ai_desk import watchlist
+    rows = ([{"symbol": f"P{i}", "status": "picked", "sector": "Energy", "score": 90 - i, "return": -0.01} for i in range(5)]
+            + [{"symbol": f"N{i}", "status": "near miss", "sector": "Tech", "score": 70 - i, "return": 0.02} for i in range(10)])
+    s = {"cohort": "quality_screen:x", "sleeve": "quality_screen", "asof": "2026-10-21", "days": 3,
+         "picks_avg": -0.01, "near_miss_avg": 0.02}
+    c = watchlist.diagnose(s, rows)
+    assert c["verdict"] == "too early"
+    assert abs(c["gap"] + 0.03) < 1e-9
+    assert c["chance"] == 1.0                                  # every random group of 5 did at least as well
+    assert c["sectors"][0]["sector"] in ("Energy", "Tech") and c["sectors"][0]["effect"] < 0
+    assert c["factors"]["score"] < 0                           # higher score, lower return in this cohort
+    late = watchlist.diagnose({**s, "days": 63}, rows)
+    assert late["verdict"] == "worth a test"                   # a full cohort, beyond chance
+    won = watchlist.diagnose({**s, "days": 63}, [{**r, "return": -r["return"]} for r in rows])
+    assert won["verdict"] == "ranking held up"
+
+
+def test_watchlist_daily_log_keeps_one_row_per_cohort_per_day(tmp_path, monkeypatch):
+    from ai_desk import tradebook, watchlist
+    monkeypatch.setattr(tradebook, "DIR", tmp_path)
+    c = {"cohort": "momentum:x", "asof": "2026-11-04", "verdict": "too early", "gap": 0.01, "sectors": []}
+    watchlist.log_checks([c])
+    watchlist.log_checks([c, {**c, "asof": "2026-11-05"}])
+    h = watchlist.daily_history()
+    assert [r["asof"] for r in h] == ["2026-11-04", "2026-11-05"] and "sectors" not in h[0]

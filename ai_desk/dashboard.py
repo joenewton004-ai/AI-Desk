@@ -217,6 +217,20 @@ def tables() -> dict[str, list[dict]]:
         elif r["status"] == "picked":
             r["reason"] = "held"
 
+    # the daily picks-vs-near-misses check: latest per cohort, plus its history for the trend chart
+    from ai_desk import watchlist as _wl
+    watch_check = [{
+        "cohort": c.get("cohort"), "sleeve": c.get("sleeve"), "asof": c.get("asof"), "days": c.get("days"),
+        "horizon": c.get("horizon"), "picks": c.get("picks_avg"), "near_misses": c.get("near_miss_avg"),
+        "gap": c.get("gap"), "chance": c.get("chance"), "verdict": c.get("verdict"), "reason": c.get("reason"),
+        "explanation": c.get("explanation"), "baseline": c.get("baseline"),
+        "top_factor": (max((c.get("factors") or {}).items(), key=lambda kv: abs(kv[1]))[0]
+                       if c.get("factors") else None),
+    } for c in wl.get("checks", [])]
+    watch_daily = [{"cohort": c.get("cohort"), "sleeve": c.get("sleeve"), "asof": c.get("asof"), "days": c.get("days"),
+                    "gap": c.get("gap"), "chance": c.get("chance"), "verdict": c.get("verdict")}
+                   for c in _wl.daily_history()]
+
     sc = _read_json("scorecard.json")
     d = sc.get("desk", {})
     headline = [{
@@ -233,7 +247,7 @@ def tables() -> dict[str, list[dict]]:
     return {"summary": summary, "sleeves": sleeves, "positions": positions, "trades": trade_rows,
             "closed": closed, "methods": methods, "amendments": amendments, "notes": note_rows,
             "holdings": holdings, "sleeve_guide": register.sleeve_guide(),
-            "explainer_text": register.explainer_tables()[0], "explainer_backtest": register.explainer_tables()[1], "watch_summary": watch_summary, "watchlist": watch_rows, "score_headline": headline, "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
+            "explainer_text": register.explainer_tables()[0], "explainer_backtest": register.explainer_tables()[1], "watch_summary": watch_summary, "watchlist": watch_rows, "watch_check": watch_check, "watch_daily": watch_daily, "score_headline": headline, "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
             "sleeve_perf": sc.get("sleeves", []), "fills": sc.get("fills", []), "exits": sc.get("exits", [])}
 
 

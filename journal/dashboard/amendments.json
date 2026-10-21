@@ -31,5 +31,16 @@
   "status": "accepted",
   "evidence": "Owner chose option 2 on 2026-10-20: plain momentum (top 20 by 6-month return, above the 200-day average, re-picked every 4 weeks) WITH the 100-day sell rule between re-picks. Backtest: sleeve 19.8%/yr, Sharpe 0.76, worst drop -30%; desk Sharpe 0.92 vs 0.88. Goes live at the bottleneck sleeve's 2026-11-03 re-pick (methods.DESK_SWITCH) so current picks aren't sold early.",
   "decided": "2026-10-20"
+ },
+ {
+  "id": "c312f032",
+  "date": "2026-10-21",
+  "method": "drawdown_breaker",
+  "proposal": "Add an account-level circuit breaker to the desk: after a 2% day, 5% week or 8% month loss, block new buys (sells still go through) until the next weekday / Monday / first of next month.",
+  "rationale": "From the drawdown-circuit-breaker skill in tradermonty/claude-trading-skills, reviewed 2026-10-21 at the user's request.",
+  "author": "claude",
+  "status": "rejected",
+  "evidence": "Rejected by the user 2026-10-21. Backtest 2014-2026 (research/CIRCUIT_BREAKER.md): freeze 15.9%/yr, Sharpe 0.79 vs 16.4%, 0.81 without; go-to-cash 11.1%, 0.61; worst drop unchanged (~-33%).",
+  "decided": "2026-10-21"
  }
 ]
