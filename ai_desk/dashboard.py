@@ -190,6 +190,9 @@ def tables() -> dict[str, list[dict]]:
         names.update({r["symbol"]: r["name"] for r in c.get("rows", []) if r.get("name")})
     names.update({sym: h["name"] for sym, h in (last.get("holdings") or {}).items() if h.get("name")})
     why = {r["symbol"]: r["why"] for r in positions}
+    from ai_desk import overnight
+    book = overnight.load_book()                            # shares held overnight, so a stock can be split by sleeve
+    book = {} if book.get("sell_sent") else book
     holdings = [{
         "symbol": sym, "name": names.get(sym, ""), "sleeve": h.get("sleeve") or "", "shares": h.get("qty"), "price": h.get("price"),
         "avg_cost": h.get("avg_cost"), "market_value": h.get("market_value"), "cost_basis": h.get("cost_basis"),
@@ -197,6 +200,7 @@ def tables() -> dict[str, list[dict]]:
         "day_pl": h.get("day_pl"), "day_pct": h.get("day_pct"), "last_close": h.get("last_close"),
         "pe": pe.get(sym, (None, ""))[0], "pe_note": pe.get(sym, (None, "an index fund - no single P/E"))[1],
         "as_of": last.get("utc"), "why": why.get(sym, ""),
+        "overnight_shares": (book.get("holdings") or {}).get(sym), "overnight_cost": (book.get("costs") or {}).get(sym),
     } for sym, h in sorted((last.get("holdings") or {}).items())]
     # the plan table shows each holding's return since purchase and today's move (watchlist layout)
     held = {h["symbol"]: h for h in holdings}
@@ -232,7 +236,7 @@ def tables() -> dict[str, list[dict]]:
 
     # what the prices on the page are: an intraday refresh or the last close
     summary[0].update({"prices_utc": last.get("utc"), "prices_kind": price_kind,
-                       "live_equity": last.get("equity"),
+                       "live_equity": last.get("equity"), "cash": last.get("cash"),
                        "day_pl": round(sum((h.get("day_pl") or 0.0) for h in (last.get("holdings") or {}).values()), 2),
                        "open_pl": round(sum((h.get("unrealized_pl") or 0.0) for h in (last.get("holdings") or {}).values()), 2)})
 

@@ -16,7 +16,9 @@
   "pe": 8.9826,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#4 \u00b7 value 98, quality 90 \u00b7 P/E 9 / #297"
+  "why": "#4 \u00b7 value 98, quality 90 \u00b7 P/E 9 / #297",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "AMD",
@@ -35,7 +37,9 @@
   "pe": null,
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#6"
+  "why": "#6",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "ANET",
@@ -54,7 +58,9 @@
   "pe": 35.0319,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#9 \u00b7 momentum 87, quality 84 \u00b7 P/E 35 / #362"
+  "why": "#9 \u00b7 momentum 87, quality 84 \u00b7 P/E 35 / #362",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "BKNG",
@@ -73,7 +79,9 @@
   "pe": 13.1418,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#3 \u00b7 quality 94, value 86 \u00b7 P/E 13 / #643"
+  "why": "#3 \u00b7 quality 94, value 86 \u00b7 P/E 13 / #643",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "COP",
@@ -92,7 +100,9 @@
   "pe": null,
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": ""
+  "why": "",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "CPAY",
@@ -111,7 +121,9 @@
   "pe": 12.7531,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#20 \u00b7 momentum 88, value 78 \u00b7 P/E 13 / #92"
+  "why": "#20 \u00b7 momentum 88, value 78 \u00b7 P/E 13 / #92",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "DECK",
@@ -130,7 +142,9 @@
   "pe": 10.4568,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#2 \u00b7 value 97, strength 77 \u00b7 P/E 10 / #713"
+  "why": "#2 \u00b7 value 97, strength 77 \u00b7 P/E 10 / #713",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "DVN",
@@ -149,7 +163,9 @@
   "pe": null,
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": ""
+  "why": "",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "EME",
@@ -168,7 +184,9 @@
   "pe": 19.1787,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#21 \u00b7 strength 86, growth 74 \u00b7 P/E 19 / #525"
+  "why": "#21 \u00b7 strength 86, growth 74 \u00b7 P/E 19 / #525",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "EOG",
@@ -187,7 +205,9 @@
   "pe": null,
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": ""
+  "why": "",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "EQNR",
@@ -206,7 +226,9 @@
   "pe": null,
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": ""
+  "why": "",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "FICO",
@@ -225,7 +247,9 @@
   "pe": 15.8706,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#12 \u00b7 quality 88, growth 67 \u00b7 P/E 16 / #763"
+  "why": "#12 \u00b7 quality 88, growth 67 \u00b7 P/E 16 / #763",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "FIX",
@@ -244,7 +268,9 @@
   "pe": 24.3102,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#18 \u00b7 momentum 98, growth 95 \u00b7 P/E 24 / #454"
+  "why": "#18 \u00b7 momentum 98, growth 95 \u00b7 P/E 24 / #454",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "FTNT",
@@ -263,7 +289,9 @@
   "pe": 45.3952,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#6 \u00b7 momentum 99, quality 90 \u00b7 P/E 45 / #14"
+  "why": "#6 \u00b7 momentum 99, quality 90 \u00b7 P/E 45 / #14",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "GOOGL",
@@ -282,7 +310,9 @@
   "pe": 22.5078,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#25 \u00b7 momentum 86, growth 65 \u00b7 P/E 23 / #417"
+  "why": "#25 \u00b7 momentum 86, growth 65 \u00b7 P/E 23 / #417",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "INCY",
@@ -301,7 +331,9 @@
   "pe": 13.0499,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#1 \u00b7 momentum 90, value 88 \u00b7 P/E 13 / #406"
+  "why": "#1 \u00b7 momentum 90, value 88 \u00b7 P/E 13 / #406",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "KLAC",
@@ -320,7 +352,9 @@
   "pe": 24.687,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#17 \u00b7 momentum 95, quality 77 \u00b7 P/E 25 / #427"
+  "why": "#17 \u00b7 momentum 95, quality 77 \u00b7 P/E 25 / #427",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "LLY",
@@ -339,7 +373,9 @@
   "pe": 26.273,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#14 \u00b7 growth 96, momentum 92 \u00b7 P/E 26 / #121"
+  "why": "#14 \u00b7 growth 96, momentum 92 \u00b7 P/E 26 / #121",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "LRCX",
@@ -358,7 +394,9 @@
   "pe": 23.1351,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#7 \u00b7 momentum 99, growth 81 \u00b7 P/E 23 / #382"
+  "why": "#7 \u00b7 momentum 99, growth 81 \u00b7 P/E 23 / #382",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "MA",
@@ -377,7 +415,9 @@
   "pe": 26.7028,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#11 \u00b7 quality 87, growth 67 \u00b7 P/E 27 / #138"
+  "why": "#11 \u00b7 quality 87, growth 67 \u00b7 P/E 27 / #138",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "MEDP",
@@ -396,7 +436,9 @@
   "pe": 32.0812,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#10 \u00b7 growth 75, strength 72 \u00b7 P/E 32 / #153"
+  "why": "#10 \u00b7 growth 75, strength 72 \u00b7 P/E 32 / #153",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "META",
@@ -415,7 +457,9 @@
   "pe": 20.3586,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#15 \u00b7 growth 84, quality 68 \u00b7 P/E 20 / #115"
+  "why": "#15 \u00b7 growth 84, quality 68 \u00b7 P/E 20 / #115",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "MSCI",
@@ -434,7 +478,9 @@
   "pe": 25.0935,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#19 \u00b7 quality 87, momentum 57 \u00b7 P/E 25 / #280"
+  "why": "#19 \u00b7 quality 87, momentum 57 \u00b7 P/E 25 / #280",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "NVDA",
@@ -453,7 +499,9 @@
   "pe": 13.6409,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#5 \u00b7 growth 100, momentum 74 \u00b7 P/E 14 / #109"
+  "why": "#5 \u00b7 growth 100, momentum 74 \u00b7 P/E 14 / #109",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "NXT",
@@ -472,7 +520,9 @@
   "pe": 13.961,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#16 \u00b7 growth 83, value 76 \u00b7 P/E 14 / #733"
+  "why": "#16 \u00b7 growth 83, value 76 \u00b7 P/E 14 / #733",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "OVV",
@@ -491,7 +541,9 @@
   "pe": null,
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": ""
+  "why": "",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "OXY",
@@ -510,7 +562,9 @@
   "pe": null,
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": ""
+  "why": "",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "PAYX",
@@ -529,7 +583,9 @@
   "pe": 17.3357,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#13 \u00b7 quality 78, value 75 \u00b7 P/E 17 / #130"
+  "why": "#13 \u00b7 quality 78, value 75 \u00b7 P/E 17 / #130",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "PM",
@@ -548,7 +604,9 @@
   "pe": 21.9079,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#24 \u00b7 momentum 76, quality 71 \u00b7 P/E 22 / #108"
+  "why": "#24 \u00b7 momentum 76, quality 71 \u00b7 P/E 22 / #108",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "PR",
@@ -567,7 +625,9 @@
   "pe": null,
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": ""
+  "why": "",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "UTHR",
@@ -586,7 +646,9 @@
   "pe": 16.0738,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#23 \u00b7 value 77, momentum 69 \u00b7 P/E 16 / #327"
+  "why": "#23 \u00b7 value 77, momentum 69 \u00b7 P/E 16 / #327",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "V",
@@ -605,7 +667,9 @@
   "pe": 26.82,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#22 \u00b7 quality 84, momentum 61 \u00b7 P/E 27 / #101"
+  "why": "#22 \u00b7 quality 84, momentum 61 \u00b7 P/E 27 / #101",
+  "overnight_shares": null,
+  "overnight_cost": null
  },
  {
   "symbol": "WES",
@@ -624,6 +688,8 @@
   "pe": 11.584,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-21T14:09:30+00:00",
-  "why": "#8 \u00b7 value 86, momentum 85 \u00b7 P/E 12 / #403"
+  "why": "#8 \u00b7 value 86, momentum 85 \u00b7 P/E 12 / #403",
+  "overnight_shares": null,
+  "overnight_cost": null
  }
 ]

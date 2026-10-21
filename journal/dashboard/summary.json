@@ -1,6 +1,6 @@
 [
  {
-  "exported_utc": "2026-10-21T14:09:30+00:00",
+  "exported_utc": "2026-10-21T14:20:08+00:00",
   "equity": 99967.53,
   "signal_date": "2026-10-20",
   "plan_status": "dry_run",
@@ -19,6 +19,7 @@
   "prices_utc": "2026-10-21T14:09:30+00:00",
   "prices_kind": "intraday",
   "live_equity": 99967.92,
+  "cash": 30500.61,
   "day_pl": 24.95,
   "open_pl": -234.58
  }

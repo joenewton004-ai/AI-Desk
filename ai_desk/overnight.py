@@ -201,16 +201,18 @@ def book_open(today: str) -> bool:
 def confirm_book(broker, today: str) -> dict[str, float]:
     """Today's filled market-on-close buys -> the overnight book (what the evening run sells at the next open)."""
     orders = [o for o in _read("orders.jsonl") if o.get("kind") == "buy_moc" and o.get("date") == today]
-    held = {}
+    held, paid = {}, {}
     for o in orders:
         info = broker.get_order(o["order_id"]) if o.get("order_id") else {}
         q = float(info.get("filled_qty") or 0)
         if q:
             held[o["symbol"]] = held.get(o["symbol"], 0.0) + q
+            paid[o["symbol"]] = paid.get(o["symbol"], 0.0) + q * float(info.get("filled_avg_price") or 0)
     if orders:
         BOOK.parent.mkdir(parents=True, exist_ok=True)
-        BOOK.write_text(json.dumps({"date": today, "holdings": held, "sell_sent": False, "confirmed_utc": _now()},
-                                   indent=1))
+        costs = {s: round(paid[s] / q, 4) for s, q in held.items() if paid.get(s)}  # fill price per share (dashboard)
+        BOOK.write_text(json.dumps({"date": today, "holdings": held, "costs": costs, "sell_sent": False,
+                                    "confirmed_utc": _now()}, indent=1))
     b = load_book()
     return dict(b.get("holdings") or {}) if b.get("date") == today and not b.get("sell_sent") else {}
 
