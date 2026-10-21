@@ -5,7 +5,7 @@
   "planned_weight": 0.5,
   "open_positions": 25,
   "invested": 49701.46,
-  "unrealized_pnl": 96.95,
+  "unrealized_pnl": 135.54,
   "realized_pnl": 0.0,
   "closed_trades": 0,
   "win_rate": null
@@ -38,7 +38,7 @@
   "planned_weight": 0.0,
   "open_positions": 8,
   "invested": 19998.27,
-  "unrealized_pnl": -263.66,
+  "unrealized_pnl": -368.21,
   "realized_pnl": 0.0,
   "closed_trades": 0,
   "win_rate": null
@@ -47,11 +47,11 @@
   "sleeve": "index_momentum",
   "allocation": 0.0,
   "planned_weight": 0.0,
-  "open_positions": 1,
-  "invested": 29656.12,
-  "unrealized_pnl": 163.95,
-  "realized_pnl": 0.0,
-  "closed_trades": 0,
-  "win_rate": null
+  "open_positions": 0,
+  "invested": 0.0,
+  "unrealized_pnl": 0.0,
+  "realized_pnl": 200.37,
+  "closed_trades": 1,
+  "win_rate": 1.0
  }
 ]

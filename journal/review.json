@@ -1,29 +1,29 @@
 {
- "asof_utc": "2026-10-20T14:18:16+00:00",
- "equity": 99997.04,
+ "asof_utc": "2026-10-21T13:43:08+00:00",
+ "equity": 99967.53,
  "by_sleeve": {
   "bottleneck": {
    "open_positions": 8,
    "invested": 19998.27,
-   "unrealized_pnl": -263.66,
+   "unrealized_pnl": -368.21,
    "realized_pnl": 0.0,
    "closed_trades": 0,
    "win_rate": null,
    "avg_closed_return": null
   },
   "index_momentum": {
-   "open_positions": 1,
-   "invested": 29656.12,
-   "unrealized_pnl": 163.95,
-   "realized_pnl": 0.0,
-   "closed_trades": 0,
-   "win_rate": null,
-   "avg_closed_return": null
+   "open_positions": 0,
+   "invested": 0.0,
+   "unrealized_pnl": 0.0,
+   "realized_pnl": 200.37,
+   "closed_trades": 1,
+   "win_rate": 1.0,
+   "avg_closed_return": 0.0068
   },
   "quality_screen": {
    "open_positions": 25,
    "invested": 49701.46,
-   "unrealized_pnl": 96.95,
+   "unrealized_pnl": 135.54,
    "realized_pnl": 0.0,
    "closed_trades": 0,
    "win_rate": null,
@@ -57,10 +57,10 @@
      "weaknesses": "FCF/net income 0.18x (bottom 1%); FCF yield 0.5% (bottom 2%); EV/EBIT 39 (bottom 10%)"
     }
    },
-   "price": 1302.08,
-   "unrealized_pnl": 59.30254499999978,
-   "return": 0.02936921410670945,
-   "held_days": 0
+   "price": 1276.205,
+   "unrealized_pnl": 17.99828249999978,
+   "return": 0.008913536717446657,
+   "held_days": 1
   },
   {
    "trade_id": "76ce6579",
@@ -88,10 +88,10 @@
      "weaknesses": "share count +1.5%/yr (bottom 1%); stock comp 3.4% of revenue (bottom 18%)"
     }
    },
-   "price": 79.06,
-   "unrealized_pnl": -6.210775,
-   "return": -0.003152187618207014,
-   "held_days": 0
+   "price": 80.97,
+   "unrealized_pnl": 41.23954599999991,
+   "return": 0.020930525784894627,
+   "held_days": 1
   },
   {
    "trade_id": "0924be15",
@@ -119,10 +119,10 @@
      "weaknesses": "FCF yield 1.4% (bottom 4%); EV/EBIT 39 (bottom 11%)"
     }
    },
-   "price": 267.17,
-   "unrealized_pnl": -11.856619999999968,
-   "return": -0.006063988095238115,
-   "held_days": 0
+   "price": 266.64,
+   "unrealized_pnl": -15.711840000000182,
+   "return": -0.008035714285714368,
+   "held_days": 1
   },
   {
    "trade_id": "c0674fec",
@@ -150,10 +150,10 @@
      "weaknesses": "forward P/E 45 (bottom 1%); EV/EBIT 52 (bottom 4%); FCF yield 1.8% (bottom 12%)"
     }
    },
-   "price": 172.52,
-   "unrealized_pnl": 30.47906400000017,
-   "return": 0.015540381445726448,
-   "held_days": 0
+   "price": 168.555,
+   "unrealized_pnl": -15.29725749999987,
+   "return": -0.007799623263480049,
+   "held_days": 1
   },
   {
    "trade_id": "87da470e",
@@ -181,10 +181,10 @@
      "weaknesses": "EV/EBIT 38 (bottom 12%); gross margin 24% (bottom 13%); FCF yield 2.0% (bottom 16%)"
     }
    },
-   "price": 1416.765,
-   "unrealized_pnl": -14.003066499999719,
-   "return": -0.00725587196591726,
-   "held_days": 0
+   "price": 1420.64,
+   "unrealized_pnl": -8.762903999999718,
+   "return": -0.004540613263075088,
+   "held_days": 1
   },
   {
    "trade_id": "beda6de9",
@@ -209,10 +209,10 @@
      "forward_pe": 13.6408
     }
    },
-   "price": 144.93,
-   "unrealized_pnl": -44.55004400000014,
-   "return": -0.014818843042621266,
-   "held_days": 0
+   "price": 144.49,
+   "unrealized_pnl": -53.5417960000001,
+   "return": -0.01780980218883832,
+   "held_days": 1
   },
   {
    "trade_id": "0d2321dc",
@@ -240,10 +240,10 @@
      "weaknesses": "forward P/E 32 (bottom 11%)"
     }
    },
-   "price": 630.91,
-   "unrealized_pnl": -15.880641000000088,
-   "return": -0.007815940114487052,
-   "held_days": 0
+   "price": 636.68,
+   "unrealized_pnl": 2.5562399999998546,
+   "return": 0.0012580990123922664,
+   "held_days": 1
   },
   {
    "trade_id": "1cd174b9",
@@ -271,10 +271,10 @@
      "weaknesses": "forward P/E 27 (bottom 17%)"
     }
    },
-   "price": 621.055,
-   "unrealized_pnl": 10.384475180399717,
-   "return": 0.005232775139617951,
-   "held_days": 0
+   "price": 621.79,
+   "unrealized_pnl": 12.74536868039976,
+   "return": 0.006422438035380118,
+   "held_days": 1
   },
   {
    "trade_id": "aac14d6e",
@@ -302,10 +302,10 @@
      "weaknesses": "12-1 month price change -41% (bottom 4%); stock comp 7.9% of revenue (bottom 7%); net debt/EBITDA 3.1x (bottom 8%)"
     }
    },
-   "price": 798.5,
-   "unrealized_pnl": 19.898965000000057,
-   "return": 0.009928539809017867,
-   "held_days": 0
+   "price": 806.51,
+   "unrealized_pnl": 40.203514000000034,
+   "return": 0.020059444760639922,
+   "held_days": 1
   },
   {
    "trade_id": "67e9257b",
@@ -333,10 +333,10 @@
      "weaknesses": "gross margin 19% (bottom 8%); operating margin 9% (bottom 10%)"
     }
    },
-   "price": 703.92,
-   "unrealized_pnl": -14.363960000000127,
-   "return": -0.0073330324909748335,
-   "held_days": 0
+   "price": 710.0025,
+   "unrealized_pnl": 2.4377297500001385,
+   "return": 0.0012445002256318283,
+   "held_days": 1
   },
   {
    "trade_id": "d8e852f1",
@@ -364,10 +364,10 @@
      "weaknesses": "stock comp 10.2% of revenue (bottom 3%)"
     }
    },
-   "price": 689.175,
-   "unrealized_pnl": -4.886532060800109,
-   "return": -0.0025198778715834758,
-   "held_days": 0
+   "price": 702.82,
+   "unrealized_pnl": 33.41088943920016,
+   "return": 0.017229266056217662,
+   "held_days": 1
   },
   {
    "trade_id": "e92e71e6",
@@ -411,10 +411,10 @@
      "forward_pe": 13.6409
     }
    },
-   "price": 217.4,
-   "unrealized_pnl": 10.783759651200079,
-   "return": 0.0054683417886407515,
-   "held_days": 0
+   "price": 219.89,
+   "unrealized_pnl": 33.4940536511999,
+   "return": 0.01698451552853819,
+   "held_days": 1
   },
   {
    "trade_id": "31e34566",
@@ -441,10 +441,10 @@
      "forward_pe": 34.1357
     }
    },
-   "price": 542.08,
-   "unrealized_pnl": 29.247336070200138,
-   "return": 0.020676384623782296,
-   "held_days": 0
+   "price": 545.2,
+   "unrealized_pnl": 37.55714407020015,
+   "return": 0.02655099781745518,
+   "held_days": 1
   },
   {
    "trade_id": "aa774d72",
@@ -472,10 +472,10 @@
      "weaknesses": "FCF yield 1.7% (bottom 10%); stock comp 6.2% of revenue (bottom 11%); FCF/net income 0.75x (bottom 14%)"
     }
    },
-   "price": 344.0,
-   "unrealized_pnl": 7.860205965600072,
-   "return": 0.003987719560768266,
-   "held_days": 0
+   "price": 332.35,
+   "unrealized_pnl": -59.1599140343998,
+   "return": -0.030013608732495922,
+   "held_days": 1
   },
   {
    "trade_id": "fb41d968",
@@ -503,10 +503,10 @@
      "weaknesses": "net debt/EBITDA 3.0x (bottom 10%); stock comp 3.6% of revenue (bottom 18%)"
     }
    },
-   "price": 596.48,
-   "unrealized_pnl": 38.94942588759997,
-   "return": 0.01893541345116856,
-   "held_days": 0
+   "price": 597.77,
+   "unrealized_pnl": 43.48222788759985,
+   "return": 0.02113905260646609,
+   "held_days": 1
   },
   {
    "trade_id": "7a97770f",
@@ -531,10 +531,10 @@
      "forward_pe": 10.7254
     }
    },
-   "price": 24.845,
-   "unrealized_pnl": -32.551408472000105,
-   "return": -0.013153596079020335,
-   "held_days": 0
+   "price": 24.62,
+   "unrealized_pnl": -54.6680084719999,
+   "return": -0.02209062328297362,
+   "held_days": 1
   },
   {
    "trade_id": "370c03f6",
@@ -562,10 +562,10 @@
      "weaknesses": "avg ROIC 13% (bottom 3%); net debt/EBITDA 3.2x (bottom 6%); growing -6%/yr vs industry peers (bottom 9%)"
     }
    },
-   "price": 407.77,
-   "unrealized_pnl": -16.768386287999956,
-   "return": -0.008291391203672838,
-   "held_days": 0
+   "price": 409.085,
+   "unrealized_pnl": -10.300558787999966,
+   "return": -0.005093272606014332,
+   "held_days": 1
   },
   {
    "trade_id": "18d7f530",
@@ -593,28 +593,10 @@
      "weaknesses": "stock comp 8.2% of revenue (bottom 5%); 12-1 month price change -25% (bottom 12%); growing -4%/yr vs industry peers (bottom 15%)"
     }
    },
-   "price": 252.71,
-   "unrealized_pnl": 3.478153499600046,
-   "return": 0.0017205484912916624,
-   "held_days": 0
-  },
-  {
-   "trade_id": "ca73717b",
-   "symbol": "SPY",
-   "sleeve": "index_momentum",
-   "qty": 38.7485,
-   "entry_price": 765.348905,
-   "entry_utc": "2026-10-20T13:32:12.006711511Z",
-   "entry_rationale": {
-    "index_momentum": {
-     "trailing_12m_return": 0.1727,
-     "signal": 1.0
-    }
-   },
-   "price": 769.58,
-   "unrealized_pnl": 163.9485846075037,
-   "return": 0.00552832175280904,
-   "held_days": 0
+   "price": 256.68,
+   "unrealized_pnl": 35.290557499600034,
+   "return": 0.017457284582108823,
+   "held_days": 1
   },
   {
    "trade_id": "5c85255a",
@@ -642,10 +624,10 @@
      "weaknesses": "share count +0.1%/yr (bottom 12%); net debt/EBITDA 2.5x (bottom 17%)"
     }
    },
-   "price": 200.99,
-   "unrealized_pnl": -12.05435437119978,
-   "return": -0.0060530720086187095,
-   "held_days": 0
+   "price": 194.605,
+   "unrealized_pnl": -74.93511137119997,
+   "return": -0.03762852917178594,
+   "held_days": 1
   },
   {
    "trade_id": "7154cd86",
@@ -670,10 +652,10 @@
      "forward_pe": 9.5078
     }
    },
-   "price": 50.5,
-   "unrealized_pnl": -47.97155231259999,
-   "return": -0.01778990592216667,
-   "held_days": 0
+   "price": 49.42,
+   "unrealized_pnl": -104.6146363125999,
+   "return": -0.038795587142049004,
+   "held_days": 1
   },
   {
    "trade_id": "0b304395",
@@ -701,10 +683,10 @@
      "weaknesses": "growing -5%/yr vs industry peers (bottom 10%)"
     }
    },
-   "price": 112.14,
-   "unrealized_pnl": -4.155156489600011,
-   "return": -0.002068265578627382,
-   "held_days": 0
+   "price": 112.43,
+   "unrealized_pnl": 1.0294925104001007,
+   "return": 0.0005124389245132477,
+   "held_days": 1
   },
   {
    "trade_id": "7be89524",
@@ -732,10 +714,10 @@
      "weaknesses": "stock comp 4.8% of revenue (bottom 14%)"
     }
    },
-   "price": 116.19,
-   "unrealized_pnl": 25.135254777599965,
-   "return": 0.012528407264842167,
-   "held_days": 0
+   "price": 116.31,
+   "unrealized_pnl": 27.233262777600046,
+   "return": 0.013574137610584236,
+   "held_days": 1
   },
   {
    "trade_id": "14d10f5e",
@@ -763,10 +745,10 @@
      "weaknesses": "FCF yield 1.7% (bottom 8%); EV/EBIT 37 (bottom 13%)"
     }
    },
-   "price": 162.975,
-   "unrealized_pnl": -6.825659067000011,
-   "return": -0.0035074154364836962,
-   "held_days": 0
+   "price": 164.045,
+   "unrealized_pnl": 5.906270932999907,
+   "return": 0.0030349810383312192,
+   "held_days": 1
   },
   {
    "trade_id": "229edaca",
@@ -794,10 +776,10 @@
      "weaknesses": "forward P/E 27 (bottom 16%)"
     }
    },
-   "price": 406.97,
-   "unrealized_pnl": 9.604279205300253,
-   "return": 0.004825575013021721,
-   "held_days": 0
+   "price": 407.56,
+   "unrealized_pnl": 12.50359820530013,
+   "return": 0.0062823091439347944,
+   "held_days": 1
   },
   {
    "trade_id": "0200e924",
@@ -825,10 +807,10 @@
      "weaknesses": "12-1 month price change -21% (bottom 15%)"
     }
    },
-   "price": 86.84,
-   "unrealized_pnl": -15.99280448799985,
-   "return": -0.008049069541688603,
-   "held_days": 0
+   "price": 86.015,
+   "unrealized_pnl": -34.717004487999915,
+   "return": -0.017472831835885994,
+   "held_days": 1
   },
   {
    "trade_id": "c6dd0376",
@@ -856,10 +838,10 @@
      "weaknesses": "latest-quarter revenue -2% y/y (bottom 3%); gross margin -4.2% over the period (bottom 5%); stock comp 4.6% of revenue (bottom 15%)"
     }
    },
-   "price": 559.8745,
-   "unrealized_pnl": 30.56485630000001,
-   "return": 0.015203358175125636,
-   "held_days": 0
+   "price": 557.195,
+   "unrealized_pnl": 20.79700700000015,
+   "return": 0.010344702533137573,
+   "held_days": 1
   },
   {
    "trade_id": "efc44ce2",
@@ -884,10 +866,10 @@
      "forward_pe": 9.7056
     }
    },
-   "price": 45.735,
-   "unrealized_pnl": -41.90349250620018,
-   "return": -0.018023261393920076,
-   "held_days": 0
+   "price": 45.565,
+   "unrealized_pnl": -50.38979050620027,
+   "return": -0.021673333451710297,
+   "held_days": 1
   },
   {
    "trade_id": "4041d8ac",
@@ -915,10 +897,10 @@
      "weaknesses": "EV/EBIT 54 (bottom 2%); forward P/E 35 (bottom 7%); share count +0.3%/yr (bottom 11%)"
     }
    },
-   "price": 181.666,
-   "unrealized_pnl": 7.621069290600059,
-   "return": 0.0038913236167239518,
-   "held_days": 0
+   "price": 185.605,
+   "unrealized_pnl": 50.25129069059998,
+   "return": 0.025658346195116533,
+   "held_days": 1
   },
   {
    "trade_id": "9efb3eb4",
@@ -946,10 +928,10 @@
      "weaknesses": "growing -5%/yr vs industry peers (bottom 10%)"
     }
    },
-   "price": 162.925,
-   "unrealized_pnl": -15.892150553499892,
-   "return": -0.007946686503876532,
-   "held_days": 0
+   "price": 162.55,
+   "unrealized_pnl": -20.45856305349989,
+   "return": -0.010230068382416024,
+   "held_days": 1
   },
   {
    "trade_id": "a6c8e00e",
@@ -974,10 +956,10 @@
      "forward_pe": 9.9565
     }
    },
-   "price": 156.895,
-   "unrealized_pnl": -43.99269232199998,
-   "return": -0.016085674439452857,
-   "held_days": 0
+   "price": 156.55,
+   "unrealized_pnl": -49.909787321999964,
+   "return": -0.01824922612891644,
+   "held_days": 1
   },
   {
    "trade_id": "f8a889c9",
@@ -1005,10 +987,10 @@
      "weaknesses": "net debt/EBITDA 3.4x (bottom 5%); avg ROIC 15% (bottom 10%)"
     }
    },
-   "price": 44.495,
-   "unrealized_pnl": -18.22188929120015,
-   "return": -0.009091637120917206,
-   "held_days": 0
+   "price": 44.7757,
+   "unrealized_pnl": -5.692900931200014,
+   "return": -0.002840418389370769,
+   "held_days": 1
   },
   {
    "trade_id": "fe659f2d",
@@ -1033,10 +1015,10 @@
      "forward_pe": 8.8367
     }
    },
-   "price": 69.71,
-   "unrealized_pnl": -42.36468676140021,
-   "return": -0.016705941771924193,
-   "held_days": 0
+   "price": 69.59,
+   "unrealized_pnl": -46.65711076139986,
+   "return": -0.01839860117498482,
+   "held_days": 1
   },
   {
    "trade_id": "ab47c546",
@@ -1061,14 +1043,36 @@
      "forward_pe": 12.9537
     }
    },
-   "price": 62.57,
-   "unrealized_pnl": -39.569697770399856,
-   "return": -0.014079828744547496,
-   "held_days": 0
+   "price": 62.425,
+   "unrealized_pnl": -45.99079077039999,
+   "return": -0.016364604592910004,
+   "held_days": 1
   }
  ],
- "closed": [],
- "exit_reasons": [],
- "trades_logged": 34,
+ "closed": [
+  {
+   "trade_id": "ca73717b",
+   "symbol": "SPY",
+   "sleeve": "index_momentum",
+   "entry_price": 765.348905,
+   "entry_utc": "2026-10-20T13:32:12.006711511Z",
+   "qty": 38.7485,
+   "exit_trade_id": "3baa5178",
+   "exit_price": 770.52,
+   "exit_utc": "2026-10-21T13:41:43.002431349Z",
+   "exit_reason": "sleeve replaced by the overnight sleeve (amendment 330e76e0)",
+   "pnl": 200.37217460750142,
+   "return": 0.006756519760095614,
+   "held_days": 1
+  }
+ ],
+ "exit_reasons": [
+  {
+   "exit_reason": "sleeve replaced by the overnight sleeve (amendment 330e76e0)",
+   "count": 1,
+   "mean": 0.0068
+  }
+ ],
+ "trades_logged": 35,
  "notes": 2
 }

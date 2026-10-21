@@ -1,1 +1,16 @@
-[]
+[
+ {
+  "symbol": "SPY",
+  "sleeve": "index_momentum",
+  "entry_date": "2026-10-20",
+  "exit_date": "2026-10-21",
+  "held_days": 1,
+  "qty": 38.7485,
+  "entry_price": 765.348905,
+  "exit_price": 770.52,
+  "pnl": 200.37,
+  "return": 0.0068,
+  "exit_reason": "sleeve replaced by the overnight sleeve (amendment 330e76e0)",
+  "notes": ""
+ }
+]

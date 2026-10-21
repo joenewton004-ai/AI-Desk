@@ -712,5 +712,26 @@
   "why": "#8 \u00b7 value 86, momentum 85 \u00b7 P/E 12",
   "rationale": "quality_screen: rank=8, source_file=screen_2026-10-19.csv, score=64.85, quality_score=51.72, growth_score=71.49, value_score=86.46, strength_score=30.6, momentum_score=85.29, industry=Oil & Gas Midstream, roic_avg=0.1451, rev_cagr=0.0573, forward_pe=11.58, fcf_yield=0.0815, strengths=gross margin +7.0% over the period (top 6%); forward P/E 12 (top 6%); FCF yield 8.2% (top 8%), weaknesses=net debt/EBITDA 3.4x (bottom 5%); avg ROIC 15% (bottom 10%)",
   "notes": ""
+ },
+ {
+  "id": "3baa5178",
+  "date": "2026-10-21",
+  "signal_date": "2026-10-20",
+  "symbol": "SPY",
+  "side": "sell",
+  "qty": 38.7485,
+  "price": 770.52,
+  "filled": true,
+  "notional": 29856.49,
+  "sleeve": "index_momentum",
+  "action": "close",
+  "status": "filled",
+  "order_type": "market",
+  "limit_price": null,
+  "reason": "close: SPY momentum sleeve replaced by the overnight sleeve (amendment 330e76e0) - sold intraday on 2026-10-21 at the owner's request, so the overnight sleeve can buy at today's close",
+  "exit_reason": "sleeve replaced by the overnight sleeve (amendment 330e76e0)",
+  "why": "",
+  "rationale": "",
+  "notes": ""
  }
 ]

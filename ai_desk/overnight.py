@@ -74,16 +74,21 @@ def plan_buys(picks: list[str], equity: float, cash: float, prices: dict[str, fl
     if book_open:
         return []
     budget = max(0.0, min(share * equity, cash - buffer * equity))
-    slice_ = budget / max(len(picks), 1)
-    out = []
-    for s in picks:
-        px = prices.get(s)
-        if not px or not math.isfinite(px) or px <= 0:
-            continue
-        qty = int(slice_ // px)
-        if qty >= 1:
-            out.append({"symbol": s, "qty": qty, "side": "buy", "ref_price": float(px), "notional": qty * float(px)})
-    return out
+    priced = [s for s in picks if prices.get(s) and math.isfinite(prices[s]) and prices[s] > 0]
+    slice_ = budget / max(len(priced), 1)
+    qty = {s: int(slice_ // prices[s]) for s in priced}
+    # whole shares leave money over (one $900 share of a $1,475 slice): spend it one share at a time on the
+    # pick furthest below its slice, never above the budget
+    left = budget - sum(qty[s] * prices[s] for s in priced)
+    while True:
+        fits = [s for s in priced if prices[s] <= left]
+        if not fits:
+            break
+        s = min(fits, key=lambda x: (qty[x] * prices[x] + prices[x]) / slice_)
+        qty[s] += 1
+        left -= prices[s]
+    return [{"symbol": s, "qty": qty[s], "side": "buy", "ref_price": float(prices[s]),
+             "notional": qty[s] * float(prices[s])} for s in priced if qty[s] >= 1]
 
 
 def net_with_desk(desk_targets: pd.Series, positions: dict[str, float], book: dict[str, float], prices: pd.Series,
