@@ -226,6 +226,19 @@ RESEARCH_METHODS = {
                    "Beats random strong-trend picks, so the pattern adds a little. Survivors-only prices.",
         "docs": ["research/SWING.md", "research/output/swing.md"],
     },
+    "ict_daytrading": {
+        "description": "ICT (Inner Circle Trader) day-trading models as fixed rules on the 100 largest US companies: the "
+                       "Silver Bullet (5-min fair value gap after a liquidity sweep, 10-11am New York) and the Judas swing "
+                       "(fade a first-hour fake-out beyond the prior day's high/low), optionally with the quality score "
+                       "choosing the side (long strong companies, short weak ones) or a 50-day trend filter.",
+        "parameters": {"target": "2R", "stop": "beyond the sweep", "exit": "end of day", "costs": "0.03% each way",
+                       "universe": "100 largest US companies"},
+        "status": "tested, no edge (not in the live mix)",
+        "summary": "Silver Bullet (60 days, 2,974 trades): +0.01R before costs, -0.06% per trade after (t -3.5). Judas swing "
+                   "(3 years, 21,483 trades): -0.01R, -0.07% after costs (t -10), negative in all 13 quarters. Same as a "
+                   "coin-flip direction. Financial bias, long only, reaches break-even at best; trend filter worse.",
+        "docs": ["research/ICT.md", "research/output/ict.md"],
+    },
     "drawdown_breaker": {
         "description": "Account-level circuit breaker (drawdown-circuit-breaker skill, tradermonty/claude-trading-skills): "
                        "after a 2% day, 5% week or 8% month, no new buys (or: go to cash) until the next day / Monday / month.",
