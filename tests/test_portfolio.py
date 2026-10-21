@@ -447,3 +447,14 @@ def test_evening_run_sells_the_overnight_book_inside_the_desks_own_orders(tmp_pa
     assert overnight.load_book()["sell_sent"] is True
     sold = [o for o in overnight._read("orders.jsonl") if o["kind"] == "sell_open"]
     assert sold and sold[0]["symbol"] == "AA" and sold[0]["qty"] == 30
+
+
+def test_momentum_entry_filter_needs_the_100_day_average_too():
+    from ai_desk.momentum_scan import rank
+    idx = pd.bdate_range("2025-01-01", periods=260)
+    up = pd.Series(np.linspace(100, 200, 260), index=idx)
+    dip = up.copy()
+    dip.iloc[-15:] = np.linspace(200, 175, 15)               # still above its 200-day, now below its 100-day
+    df = rank(pd.DataFrame({"UP": up, "DIP": dip}))
+    assert df.loc["DIP", "above_200"] == True and df.loc["DIP", "above_100"] == False  # noqa: E712
+    assert df.loc["DIP", "passes"] == False and df.loc["UP", "passes"] == True  # noqa: E712

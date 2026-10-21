@@ -1,9 +1,9 @@
 {
- "generated_utc": "2026-10-21T12:47:36+00:00",
+ "generated_utc": "2026-10-21T13:35:13+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
-  "bottleneck": 0.2,
+  "momentum": 0.2,
   "overnight_drift": 0.3
  },
  "presets": {
@@ -206,8 +206,8 @@
   },
   {
    "name": "bottleneck",
-   "in_live_mix": true,
-   "allocation": 0.2,
+   "in_live_mix": false,
+   "allocation": 0.0,
    "description": "Top 8 of the bottleneck scan (python -m ai_desk bottleneck scan).",
    "parameters": {
     "top": 8,
@@ -238,8 +238,8 @@
   },
   {
    "name": "momentum",
-   "in_live_mix": false,
-   "allocation": 0.0,
+   "in_live_mix": true,
+   "allocation": 0.2,
    "description": "Top 20 large companies by 6-month price gain (skipping the latest week), above their 200-day average, equal weight (python -m ai_desk momentum scan).",
    "parameters": {
     "top": 20,
@@ -249,13 +249,36 @@
     "exit_ma": 100,
     "replaces_lock": "data/portfolio/bottleneck.json"
    },
-   "status": "accepted 2026-10-20 (amendment 00e1f2b8); live from 2026-11-03",
+   "status": "accepted 2026-10-20 (amendment 00e1f2b8); live from 2026-10-21 (brought forward, amendment 54b8755e)",
    "evidence_summary": "2014-2026, top 20 of the 750 largest by 6-month return, re-picked every 4 weeks, with the 100-day exit: 19.8%/yr, Sharpe 0.76, worst drop -30% as a sleeve (vs the flow rotation's 17.8%, 0.63, -45%); desk 16.5%/yr, Sharpe 0.92 vs 0.88. Survivors-only prices.",
    "docs": [
     "research/MOMENTUM_SLEEVE.md",
     "research/WEEKLY.md"
    ],
-   "amendments": []
+   "amendments": [
+    {
+     "id": "54b8755e",
+     "created_utc": "2026-10-21T13:07:55+00:00",
+     "method": "momentum",
+     "proposal": "Bring the bottleneck -> plain momentum switch (amendment 00e1f2b8) forward from the 2026-11-03 re-pick to the 2026-10-21 evening run, so it trades at the 2026-10-22 open.",
+     "rationale": "Owner's request 2026-10-21: 'replace bottleneck with momentum when the market opens'.",
+     "author": "you",
+     "status": "accepted",
+     "evidence": "Accepted by the owner 2026-10-21. Same rules as 00e1f2b8 (backtested in research/MOMENTUM_SLEEVE.md); only the date moves. The bottleneck picks are sold about two weeks before their scheduled re-pick.",
+     "decided_utc": "2026-10-21T13:07:55+00:00"
+    },
+    {
+     "id": "fd120189",
+     "created_utc": "2026-10-21T13:28:19+00:00",
+     "method": "momentum",
+     "proposal": "Entry filter: a stock must also be above its 100-day average to be picked (not only its 200-day), so the 100-day sell rule can't fire on the pick day; the next-ranked stocks fill the slots.",
+     "rationale": "Owner's question 2026-10-21: 5 of 20 picks would be sold straight away (whipsaw).",
+     "author": "you",
+     "status": "accepted",
+     "evidence": "Backtest 2014-2026 (research/MOMENTUM_ENTRY.md): entry filter 19.4%/yr, Sharpe 0.75, 92% invested vs live behaviour (sold on the pick day) 17.9%, 0.71, 86%; beat it in 8 of 13 years. Accepted by the owner 2026-10-21, from that evening's first pick.",
+     "decided_utc": "2026-10-21T13:28:19+00:00"
+    }
+   ]
   },
   {
    "name": "asymmetric_bets",

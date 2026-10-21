@@ -61,8 +61,8 @@
  },
  {
   "method": "bottleneck",
-  "live": true,
-  "allocation": 0.2,
+  "live": false,
+  "allocation": 0.0,
   "status": "experiment",
   "description": "Top 8 of the bottleneck scan (python -m ai_desk bottleneck scan).",
   "evidence": "Only the price-flow part is testable: 100-day MA, re-picked every 2 weeks 17.0%/yr (Sharpe 0.60, -46% worst drop) vs SPY 13.7% (0.75); an isolated best setting. Fundamental fingerprints, insider signal and theme map untested.",
@@ -73,9 +73,9 @@
  },
  {
   "method": "momentum",
-  "live": false,
-  "allocation": 0.0,
-  "status": "accepted 2026-10-20 (amendment 00e1f2b8); live from 2026-11-03",
+  "live": true,
+  "allocation": 0.2,
+  "status": "accepted 2026-10-20 (amendment 00e1f2b8); live from 2026-10-21 (brought forward, amendment 54b8755e)",
   "description": "Top 20 large companies by 6-month price gain (skipping the latest week), above their 200-day average, equal weight (python -m ai_desk momentum scan).",
   "evidence": "2014-2026, top 20 of the 750 largest by 6-month return, re-picked every 4 weeks, with the 100-day exit: 19.8%/yr, Sharpe 0.76, worst drop -30% as a sleeve (vs the flow rotation's 17.8%, 0.63, -45%); desk 16.5%/yr, Sharpe 0.92 vs 0.88. Survivors-only prices.",
   "parameters": "top=20; rebalance=False; max_age_days=3; rebalance_days=28; exit_ma=100; replaces_lock=data/portfolio/bottleneck.json",

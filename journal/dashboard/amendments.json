@@ -64,5 +64,27 @@
   "status": "accepted",
   "evidence": "Accepted by the user 2026-10-21 ('Swap now') after the backtest (research/DESK_OVERNIGHT.md: 18.6%/yr, Sharpe 0.98, worst -26.8% at 0.02% costs vs 16.5%, 0.91, -24.2%; break-even ~0.03%). Takes effect at `overnight activate`, once the overnight paper account works and holds ~3/7 of the desk account's equity. Implemented in the desk's own account (your choice, 2026-10-21): 50% quality, 20% momentum, 30% overnight; activated 2026-10-21.",
   "decided": "2026-10-21"
+ },
+ {
+  "id": "54b8755e",
+  "date": "2026-10-21",
+  "method": "momentum",
+  "proposal": "Bring the bottleneck -> plain momentum switch (amendment 00e1f2b8) forward from the 2026-11-03 re-pick to the 2026-10-21 evening run, so it trades at the 2026-10-22 open.",
+  "rationale": "Owner's request 2026-10-21: 'replace bottleneck with momentum when the market opens'.",
+  "author": "you",
+  "status": "accepted",
+  "evidence": "Accepted by the owner 2026-10-21. Same rules as 00e1f2b8 (backtested in research/MOMENTUM_SLEEVE.md); only the date moves. The bottleneck picks are sold about two weeks before their scheduled re-pick.",
+  "decided": "2026-10-21"
+ },
+ {
+  "id": "fd120189",
+  "date": "2026-10-21",
+  "method": "momentum",
+  "proposal": "Entry filter: a stock must also be above its 100-day average to be picked (not only its 200-day), so the 100-day sell rule can't fire on the pick day; the next-ranked stocks fill the slots.",
+  "rationale": "Owner's question 2026-10-21: 5 of 20 picks would be sold straight away (whipsaw).",
+  "author": "you",
+  "status": "accepted",
+  "evidence": "Backtest 2014-2026 (research/MOMENTUM_ENTRY.md): entry filter 19.4%/yr, Sharpe 0.75, 92% invested vs live behaviour (sold on the pick day) 17.9%, 0.71, 86%; beat it in 8 of 13 years. Accepted by the owner 2026-10-21, from that evening's first pick.",
+  "decided": "2026-10-21"
  }
 ]

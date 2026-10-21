@@ -39,7 +39,7 @@ KEEP = {
                        "strength_score", "momentum_score", "roic_avg", "rev_cagr", "forward_pe", "fcf_yield"],
     "bottleneck": ["name", "sector", "industry", "source", "score", "flow_score", "bottleneck_score",
                    "asymmetry_score", "rs_6m", "rev_growth", "gm_change", "above_ma", "passes", "forward_pe"],
-    "momentum": ["name", "sector", "industry", "score", "mom_6m", "above_200", "passes", "market_cap"],
+    "momentum": ["name", "sector", "industry", "score", "mom_6m", "above_200", "above_100", "passes", "market_cap"],
 }
 
 
@@ -48,7 +48,7 @@ HORIZON = {"quality_screen": 63, "bottleneck": 10, "momentum": 20}
 # research/NEAR_MISSES.md, 2014-2026 (survivors-only): how often the picks beat the near misses at past re-picks
 BASELINE = {"quality_screen": "picks beat the other gate-passers in 64% of 50 quarters (+1.6%/quarter, t = 2.5)",
             "momentum": "picks beat ranks 21-40 in 66% of 163 re-picks (+1.3% per 4 weeks, t = 4.0)",
-            "bottleneck": "not measured (the sleeve is replaced by momentum on 2026-11-03)"}
+            "bottleneck": "not measured (the sleeve was replaced by momentum on 2026-10-21)"}
 SCORE_COLS = {"quality_screen": ["score", "quality_score", "growth_score", "value_score", "strength_score",
                                  "momentum_score"],
               "bottleneck": ["score", "flow_score", "bottleneck_score", "asymmetry_score", "rs_6m"],
@@ -196,8 +196,12 @@ def build_cohort(sleeve: str, scan: pd.DataFrame, picks: list[str], locked_on: s
         elif r["rank"] == r["rank"]:
             status, reason = "near miss", f"ranked #{int(r['rank'])} - only the top {top} are bought"
         else:
-            status, reason = "failed a gate", ("below its 200-day average" if sleeve == "momentum"
-                                               else bottleneck_reason(r))
+            if sleeve == "momentum":
+                reason = ("below its 200-day average" if not r.get("above_200", True)
+                          else "below its 100-day average (would be sold the same evening)")
+            else:
+                reason = bottleneck_reason(r)
+            status = "failed a gate"
         rows.append({"symbol": sym, "rank": _clean(r["rank"]), "status": status, "reason": reason,
                      **{k: _clean(r.get(k)) for k in KEEP.get(sleeve, []) if k in r}})
     return {"id": f"{sleeve}:{locked_on}", "sleeve": sleeve, "locked_on": locked_on, "ref_date": ref_date,
