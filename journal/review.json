@@ -1,11 +1,11 @@
 {
- "asof_utc": "2026-10-21T14:25:54+00:00",
- "equity": 100064.35,
+ "asof_utc": "2026-10-21T15:01:36+00:00",
+ "equity": 100138.26,
  "by_sleeve": {
   "bottleneck": {
-   "open_positions": 1,
-   "invested": 1414.53,
-   "unrealized_pnl": 36.17,
+   "open_positions": 0,
+   "invested": 0.0,
+   "unrealized_pnl": 0.0,
    "realized_pnl": -202.08,
    "closed_trades": 7,
    "win_rate": 0.0,
@@ -21,9 +21,9 @@
    "avg_closed_return": 0.0068
   },
   "momentum": {
-   "open_positions": 18,
-   "invested": 18574.59,
-   "unrealized_pnl": -17.04,
+   "open_positions": 19,
+   "invested": 19989.11,
+   "unrealized_pnl": 22.28,
    "realized_pnl": 0.0,
    "closed_trades": 0,
    "win_rate": null,
@@ -32,7 +32,7 @@
   "quality_screen": {
    "open_positions": 25,
    "invested": 49701.46,
-   "unrealized_pnl": 45.03,
+   "unrealized_pnl": 113.95,
    "realized_pnl": 0.0,
    "closed_trades": 0,
    "win_rate": null,
@@ -66,9 +66,10 @@
      "weaknesses": "FCF/net income 0.18x (bottom 1%); FCF yield 0.5% (bottom 2%); EV/EBIT 39 (bottom 10%)"
     }
    },
-   "price": 1266.775,
-   "unrealized_pnl": 2.9451735000000436,
-   "return": 0.0014585787355823054,
+   "handed_over_from": NaN,
+   "price": 1268.24,
+   "unrealized_pnl": 5.283752999999913,
+   "return": 0.0026167455906651593,
    "held_days": 1
   },
   {
@@ -97,9 +98,10 @@
      "weaknesses": "share count +1.5%/yr (bottom 1%); stock comp 3.4% of revenue (bottom 18%)"
     }
    },
-   "price": 81.03,
-   "unrealized_pnl": 42.73013199999997,
-   "return": 0.021687050813264497,
+   "handed_over_from": NaN,
+   "price": 81.435,
+   "unrealized_pnl": 52.7915875,
+   "return": 0.02679359475475973,
    "held_days": 1
   },
   {
@@ -128,9 +130,10 @@
      "weaknesses": "FCF yield 1.4% (bottom 4%); EV/EBIT 39 (bottom 11%)"
     }
    },
-   "price": 265.78,
-   "unrealized_pnl": -21.967480000000283,
-   "return": -0.011235119047619202,
+   "handed_over_from": NaN,
+   "price": 267.47,
+   "unrealized_pnl": -9.674419999999884,
+   "return": -0.0049479166666666075,
    "held_days": 1
   },
   {
@@ -159,9 +162,10 @@
      "weaknesses": "forward P/E 45 (bottom 1%); EV/EBIT 52 (bottom 4%); FCF yield 1.8% (bottom 12%)"
     }
    },
-   "price": 173.065,
-   "unrealized_pnl": 36.77114350000002,
-   "return": 0.018748528372969142,
+   "handed_over_from": NaN,
+   "price": 172.19,
+   "unrealized_pnl": 26.669181000000027,
+   "return": 0.01359783376501067,
    "held_days": 1
   },
   {
@@ -190,9 +194,10 @@
      "weaknesses": "EV/EBIT 38 (bottom 12%); gross margin 24% (bottom 13%); FCF yield 2.0% (bottom 16%)"
     }
    },
-   "price": 1414.29,
-   "unrealized_pnl": -17.350008999999904,
-   "return": -0.008990133976119696,
+   "handed_over_from": NaN,
+   "price": 1409.03,
+   "unrealized_pnl": -24.46310699999989,
+   "return": -0.012675878692751774,
    "held_days": 1
   },
   {
@@ -221,9 +226,10 @@
      "weaknesses": "forward P/E 32 (bottom 11%)"
     }
    },
-   "price": 638.505,
-   "unrealized_pnl": 8.3876625,
-   "return": 0.0041281373844122005,
+   "handed_over_from": NaN,
+   "price": 644.52,
+   "unrealized_pnl": 27.607391999999958,
+   "return": 0.013587469333836477,
    "held_days": 1
   },
   {
@@ -252,9 +258,10 @@
      "weaknesses": "forward P/E 27 (bottom 17%)"
     }
    },
-   "price": 620.63,
-   "unrealized_pnl": 9.019332680399863,
-   "return": 0.004544874825741729,
+   "handed_over_from": NaN,
+   "price": 623.1901,
+   "unrealized_pnl": 17.24262989039997,
+   "return": 0.008688624457634297,
    "held_days": 1
   },
   {
@@ -283,9 +290,10 @@
      "weaknesses": "12-1 month price change -41% (bottom 4%); stock comp 7.9% of revenue (bottom 7%); net debt/EBITDA 3.1x (bottom 8%)"
     }
    },
-   "price": 807.05,
-   "unrealized_pnl": 41.57235999999994,
-   "return": 0.020742427116928974,
+   "handed_over_from": NaN,
+   "price": 807.08,
+   "unrealized_pnl": 41.64840700000016,
+   "return": 0.02078037058116755,
    "held_days": 1
   },
   {
@@ -314,9 +322,10 @@
      "weaknesses": "gross margin 19% (bottom 8%); operating margin 9% (bottom 10%)"
     }
    },
-   "price": 702.33,
-   "unrealized_pnl": -18.7560169999999,
-   "return": -0.009575248194945818,
+   "handed_over_from": NaN,
+   "price": 692.425,
+   "unrealized_pnl": -46.116598500000144,
+   "return": -0.02354326489169678,
    "held_days": 1
   },
   {
@@ -345,9 +354,10 @@
      "weaknesses": "stock comp 10.2% of revenue (bottom 3%)"
     }
    },
-   "price": 705.5,
-   "unrealized_pnl": 40.93284543920002,
-   "return": 0.02110817450081326,
+   "handed_over_from": NaN,
+   "price": 709.655,
+   "unrealized_pnl": 52.594683939199946,
+   "return": 0.027121929943833445,
    "held_days": 1
   },
   {
@@ -392,15 +402,16 @@
      "forward_pe": 13.6409
     }
    },
-   "price": 218.4053,
-   "unrealized_pnl": 19.952698831200127,
-   "return": 0.010117823499772749,
+   "handed_over_from": NaN,
+   "price": 220.23,
+   "unrealized_pnl": 36.59505765119993,
+   "return": 0.01855700511551217,
    "held_days": 1
   },
   {
    "trade_id": "31e34566",
    "symbol": "AMD",
-   "sleeve": "bottleneck",
+   "sleeve": "momentum",
    "qty": 2.6634,
    "entry_price": 531.098797,
    "entry_utc": "2026-10-20T13:31:52.416433035Z",
@@ -422,9 +433,10 @@
      "forward_pe": 34.1357
     }
    },
-   "price": 544.6799,
-   "unrealized_pnl": 36.171909730199964,
-   "return": 0.025571707329625104,
+   "handed_over_from": "bottleneck",
+   "price": 545.31,
+   "unrealized_pnl": 37.85011807019988,
+   "return": 0.026758115590308718,
    "held_days": 1
   },
   {
@@ -453,9 +465,10 @@
      "weaknesses": "FCF yield 1.7% (bottom 10%); stock comp 6.2% of revenue (bottom 11%); FCF/net income 0.75x (bottom 14%)"
     }
    },
-   "price": 331.24,
-   "unrealized_pnl": -65.54552203439987,
-   "return": -0.03325322026945077,
+   "handed_over_from": NaN,
+   "price": 331.875,
+   "unrealized_pnl": -61.892494034399924,
+   "return": -0.03139992898479649,
    "held_days": 1
   },
   {
@@ -484,9 +497,10 @@
      "weaknesses": "net debt/EBITDA 3.0x (bottom 10%); stock comp 3.6% of revenue (bottom 18%)"
     }
    },
-   "price": 598.7205,
-   "unrealized_pnl": 46.822094787599966,
-   "return": 0.02276274176701709,
+   "handed_over_from": NaN,
+   "price": 603.39,
+   "unrealized_pnl": 63.22978388759986,
+   "return": 0.0307394030349728,
    "held_days": 1
   },
   {
@@ -515,9 +529,10 @@
      "weaknesses": "avg ROIC 13% (bottom 3%); net debt/EBITDA 3.2x (bottom 6%); growing -6%/yr vs industry peers (bottom 9%)"
     }
    },
-   "price": 408.55,
-   "unrealized_pnl": -12.93195628799981,
-   "return": -0.006394408309244204,
+   "handed_over_from": NaN,
+   "price": 409.54,
+   "unrealized_pnl": -8.062641287999766,
+   "return": -0.003986699250930981,
    "held_days": 1
   },
   {
@@ -546,9 +561,10 @@
      "weaknesses": "stock comp 8.2% of revenue (bottom 5%); 12-1 month price change -25% (bottom 12%); growing -4%/yr vs industry peers (bottom 15%)"
     }
    },
-   "price": 256.35,
-   "unrealized_pnl": 32.64620149960016,
-   "return": 0.016149193169018305,
+   "handed_over_from": NaN,
+   "price": 256.76,
+   "unrealized_pnl": 35.931613499599905,
+   "return": 0.01777439765194888,
    "held_days": 1
   },
   {
@@ -577,9 +593,10 @@
      "weaknesses": "share count +0.1%/yr (bottom 12%); net debt/EBITDA 2.5x (bottom 17%)"
     }
    },
-   "price": 195.79,
-   "unrealized_pnl": -63.26499437119995,
-   "return": -0.031768401256617174,
+   "handed_over_from": NaN,
+   "price": 196.88,
+   "unrealized_pnl": -52.53045637119992,
+   "return": -0.02637807262578673,
    "held_days": 1
   },
   {
@@ -608,9 +625,10 @@
      "weaknesses": "growing -5%/yr vs industry peers (bottom 10%)"
     }
    },
-   "price": 112.915,
-   "unrealized_pnl": 9.70037101040009,
-   "return": 0.0048284447314899115,
+   "handed_over_from": NaN,
+   "price": 113.34,
+   "unrealized_pnl": 17.29856351040004,
+   "return": 0.008610511675748,
    "held_days": 1
   },
   {
@@ -639,9 +657,10 @@
      "weaknesses": "stock comp 4.8% of revenue (bottom 14%)"
     }
    },
-   "price": 115.415,
-   "unrealized_pnl": 11.585619777600115,
-   "return": 0.005774732115257475,
+   "handed_over_from": NaN,
+   "price": 114.895,
+   "unrealized_pnl": 2.494251777599936,
+   "return": 0.0012432339503747336,
    "held_days": 1
   },
   {
@@ -670,9 +689,10 @@
      "weaknesses": "FCF yield 1.7% (bottom 8%); EV/EBIT 37 (bottom 13%)"
     }
    },
-   "price": 163.19,
-   "unrealized_pnl": -4.26737406699997,
-   "return": -0.0021928217522918514,
+   "handed_over_from": NaN,
+   "price": 163.94,
+   "unrealized_pnl": 4.656875933000029,
+   "return": 0.0023929701693072847,
    "held_days": 1
   },
   {
@@ -701,9 +721,10 @@
      "weaknesses": "forward P/E 27 (bottom 16%)"
     }
    },
-   "price": 406.815,
-   "unrealized_pnl": 8.842593705300107,
-   "return": 0.004442873673544456,
+   "handed_over_from": NaN,
+   "price": 408.51,
+   "unrealized_pnl": 17.171993205300076,
+   "return": 0.00862789799879482,
    "held_days": 1
   },
   {
@@ -732,9 +753,10 @@
      "weaknesses": "12-1 month price change -21% (bottom 15%)"
     }
    },
-   "price": 85.85,
-   "unrealized_pnl": -38.461844488000054,
-   "return": -0.01935758429472556,
+   "handed_over_from": NaN,
+   "price": 85.31,
+   "unrealized_pnl": -50.717684487999875,
+   "return": -0.025525865069109255,
    "held_days": 1
   },
   {
@@ -763,9 +785,10 @@
      "weaknesses": "latest-quarter revenue -2% y/y (bottom 3%); gross margin -4.2% over the period (bottom 5%); stock comp 4.6% of revenue (bottom 15%)"
     }
    },
-   "price": 558.9,
-   "unrealized_pnl": 27.012413999999882,
-   "return": 0.013436327041288054,
+   "handed_over_from": NaN,
+   "price": 557.89,
+   "unrealized_pnl": 23.330559999999917,
+   "return": 0.011604924839978992,
    "held_days": 1
   },
   {
@@ -794,9 +817,10 @@
      "weaknesses": "EV/EBIT 54 (bottom 2%); forward P/E 35 (bottom 7%); share count +0.3%/yr (bottom 11%)"
     }
    },
-   "price": 183.285,
-   "unrealized_pnl": 25.142858690600058,
-   "return": 0.01283796224440037,
+   "handed_over_from": NaN,
+   "price": 183.185,
+   "unrealized_pnl": 24.060598690600116,
+   "return": 0.01228535948790399,
    "held_days": 1
   },
   {
@@ -825,9 +849,10 @@
      "weaknesses": "growing -5%/yr vs industry peers (bottom 10%)"
     }
    },
-   "price": 158.73,
-   "unrealized_pnl": -66.97508505350015,
-   "return": -0.03349011845180505,
+   "handed_over_from": NaN,
+   "price": 158.27,
+   "unrealized_pnl": -72.5765510534999,
+   "return": -0.03629106688948003,
    "held_days": 1
   },
   {
@@ -856,9 +881,10 @@
      "weaknesses": "net debt/EBITDA 3.4x (bottom 5%); avg ROIC 15% (bottom 10%)"
     }
    },
-   "price": 44.69,
-   "unrealized_pnl": -9.518103291200138,
-   "return": -0.004748966466654458,
+   "handed_over_from": NaN,
+   "price": 44.71,
+   "unrealized_pnl": -8.625407291199998,
+   "return": -0.004303564348268507,
    "held_days": 1
   },
   {
@@ -875,9 +901,10 @@
      "score": 98.8447
     }
    },
-   "price": 237.8,
-   "unrealized_pnl": 1.761280000000025,
-   "return": 0.0016849199663016012,
+   "handed_over_from": NaN,
+   "price": 236.2949,
+   "unrealized_pnl": -4.8659763199999695,
+   "return": -0.0046550126368997136,
    "held_days": 0
   },
   {
@@ -910,9 +937,10 @@
      "score": 99.4865
     }
    },
-   "price": 117.635,
-   "unrealized_pnl": -1.5045274999999756,
-   "return": -0.0014854426619131944,
+   "handed_over_from": NaN,
+   "price": 117.81,
+   "unrealized_pnl": 0.0,
+   "return": 0.0,
    "held_days": 0
   },
   {
@@ -929,9 +957,10 @@
      "score": 97.561
     }
    },
-   "price": 127.275,
-   "unrealized_pnl": -1.3981624999999773,
-   "return": -0.0013730874852883046,
+   "handed_over_from": NaN,
+   "price": 127.16,
+   "unrealized_pnl": -2.31695500000005,
+   "return": -0.002275402118477876,
    "held_days": 0
   },
   {
@@ -948,9 +977,10 @@
      "score": 98.7163
     }
    },
-   "price": 273.78,
-   "unrealized_pnl": -1.054134000000151,
-   "return": -0.0009852216748770237,
+   "handed_over_from": NaN,
+   "price": 273.23,
+   "unrealized_pnl": -3.2014439999999733,
+   "return": -0.002992154716292661,
    "held_days": 0
   },
   {
@@ -967,9 +997,10 @@
      "score": 97.0475
     }
    },
-   "price": 430.155,
-   "unrealized_pnl": -1.5343375000000692,
-   "return": -0.0015203918200599187,
+   "handed_over_from": NaN,
+   "price": 428.23,
+   "unrealized_pnl": -6.043649999999962,
+   "return": -0.0059887189248160055,
    "held_days": 0
   },
   {
@@ -986,9 +1017,10 @@
      "score": 97.1759
     }
    },
-   "price": 97.06,
-   "unrealized_pnl": 1.6257900000000616,
-   "return": 0.0015478278815397317,
+   "handed_over_from": NaN,
+   "price": 96.76,
+   "unrealized_pnl": -1.6257899999999075,
+   "return": -0.0015478278815395097,
    "held_days": 0
   },
   {
@@ -1005,9 +1037,10 @@
      "score": 99.3582
     }
    },
-   "price": 57.985,
-   "unrealized_pnl": -0.4562255519999767,
-   "return": -0.0004406094338685884,
+   "handed_over_from": NaN,
+   "price": 57.87,
+   "unrealized_pnl": -2.5088835520000123,
+   "return": -0.0024230071214620397,
    "held_days": 0
   },
   {
@@ -1024,9 +1057,10 @@
      "score": 100.0
     }
    },
-   "price": 245.005,
-   "unrealized_pnl": -4.114922000000019,
-   "return": -0.004044715447154457,
+   "handed_over_from": NaN,
+   "price": 248.23,
+   "unrealized_pnl": 9.222387999999958,
+   "return": 0.009065040650406475,
    "held_days": 0
   },
   {
@@ -1043,9 +1077,10 @@
      "score": 96.9191
     }
    },
-   "price": 276.305,
-   "unrealized_pnl": -2.1111789999999915,
-   "return": -0.002040668905984755,
+   "handed_over_from": NaN,
+   "price": 279.9625,
+   "unrealized_pnl": 11.555435499999898,
+   "return": 0.011169501932314807,
    "held_days": 0
   },
   {
@@ -1062,9 +1097,10 @@
      "score": 98.973
     }
    },
-   "price": 132.54,
-   "unrealized_pnl": -2.37393000000009,
-   "return": -0.002258355916892607,
+   "handed_over_from": NaN,
+   "price": 131.665,
+   "unrealized_pnl": -9.29789250000009,
+   "return": -0.008845227341162332,
    "held_days": 0
   },
   {
@@ -1081,9 +1117,10 @@
      "score": 97.3042
     }
    },
-   "price": 85.115,
-   "unrealized_pnl": -2.1108850000001373,
-   "return": -0.0020518231914645746,
+   "handed_over_from": NaN,
+   "price": 84.465,
+   "unrealized_pnl": -9.951315000000035,
+   "return": -0.009672880759760805,
    "held_days": 0
   },
   {
@@ -1100,9 +1137,10 @@
      "score": 99.6149
     }
    },
-   "price": 204.51,
-   "unrealized_pnl": 0.3096060000000117,
-   "return": 0.00029347028613346815,
+   "handed_over_from": NaN,
+   "price": 203.31,
+   "unrealized_pnl": -5.882513999999929,
+   "return": -0.005575935436537005,
    "held_days": 0
   },
   {
@@ -1119,9 +1157,10 @@
      "score": 97.9461
     }
    },
-   "price": 119.56,
-   "unrealized_pnl": -2.3589629999999655,
-   "return": -0.002253192022031225,
+   "handed_over_from": NaN,
+   "price": 120.24,
+   "unrealized_pnl": 3.5821289999999704,
+   "return": 0.0034215138112325683,
    "held_days": 0
   },
   {
@@ -1138,9 +1177,10 @@
      "score": 98.5879
     }
    },
-   "price": 215.36,
-   "unrealized_pnl": -2.182602543099873,
-   "return": -0.0021210071825833454,
+   "handed_over_from": NaN,
+   "price": 216.3451,
+   "unrealized_pnl": 2.5144527669000722,
+   "return": 0.00244349224082141,
    "held_days": 0
   },
   {
@@ -1157,9 +1197,10 @@
      "score": 98.4596
     }
    },
-   "price": 324.0,
-   "unrealized_pnl": -1.5662,
-   "return": -0.0015408320493066618,
+   "handed_over_from": NaN,
+   "price": 322.82,
+   "unrealized_pnl": -5.262432000000022,
+   "return": -0.005177195685670322,
    "held_days": 0
   },
   {
@@ -1176,9 +1217,10 @@
      "score": 99.8716
     }
    },
-   "price": 225.59,
-   "unrealized_pnl": 3.2600879999999948,
-   "return": 0.0032018499577533,
+   "handed_over_from": NaN,
+   "price": 226.3,
+   "unrealized_pnl": 6.4748970000000305,
+   "return": 0.0063592297772046,
    "held_days": 0
   },
   {
@@ -1195,9 +1237,10 @@
      "score": 97.4326
     }
    },
-   "price": 269.12,
-   "unrealized_pnl": -1.0836279999998943,
-   "return": -0.0010393466963621867,
+   "handed_over_from": NaN,
+   "price": 267.39,
+   "unrealized_pnl": -7.778900999999965,
+   "return": -0.007461024498886415,
    "held_days": 0
   },
   {
@@ -1214,9 +1257,10 @@
      "score": 98.0745
     }
    },
-   "price": 33.385,
-   "unrealized_pnl": -0.1487170000000761,
-   "return": -0.0001497454327643588,
+   "handed_over_from": NaN,
+   "price": 33.72,
+   "unrealized_pnl": 9.81532199999995,
+   "return": 0.009883198562443685,
    "held_days": 0
   }
  ],

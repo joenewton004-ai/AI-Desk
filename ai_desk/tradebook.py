@@ -180,9 +180,29 @@ def lots(rows: list[dict] | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
     return pd.DataFrame(still_open), pd.DataFrame(closed)
 
 
+# a sleeve replaced by another: a stock the new sleeve kept on the switch day belongs to it from then on
+HANDOVERS = {"bottleneck": ("momentum", Path("data/portfolio/momentum.json"))}
+
+
+def handed_over(sleeve: str, symbol: str) -> str:
+    """The sleeve that owns an open position now: the buyer's sleeve, unless its successor's lock kept the stock."""
+    if sleeve not in HANDOVERS:
+        return sleeve
+    to, lock = HANDOVERS[sleeve]
+    try:
+        picks = json.loads(lock.read_text()).get("picks") or []
+    except (OSError, ValueError):
+        return sleeve
+    return to if symbol in picks else sleeve
+
+
 def review(prices: dict[str, float], equity: float | None = None, write: bool = True) -> dict:
     """Open positions marked to `prices`, closed trades, and P&L by sleeve."""
     op, cl = lots()
+    if len(op):
+        now = [handed_over(s, y) for s, y in zip(op["sleeve"], op["symbol"])]
+        op["handed_over_from"] = [s if n != s else None for s, n in zip(op["sleeve"], now)]
+        op["sleeve"] = now
     if len(op):
         op["price"] = op["symbol"].map(prices)
         op["unrealized_pnl"] = op["qty"] * (op["price"] - op["entry_price"])
