@@ -41,7 +41,7 @@ no 3-minute interval, so 3-minute bars were built from the 1-minute ones (same 3
 - **A is a coin flip that pays costs twice a day.** Before costs it averages about zero (−0.007%
   to +0.002% per trade). With about 2 trades per stock per day, the spread turns that into a steady
   loss. The crossover follows price; it doesn't predict it.
-- **B loses even before costs** (−0.009% to −0.077% per trade), and every variant loses after costs.
+- **B loses even before costs** (−0.009% to −0.090% per trade), and every variant loses after costs.
   - The 3R target, dropping the volume rule and the pullback entry don't rescue it.
   - The hourly version (3 years) is negative in 7 of 13 quarters, with no pattern.
 - **The control is the key result.** Random entry times *on the same days* did better than the
