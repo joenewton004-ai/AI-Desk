@@ -1,15 +1,14 @@
 {
- "created_utc": "2026-10-21T14:23:55+00:00",
+ "created_utc": "2026-10-21T14:26:36+00:00",
  "signal_date": "2026-10-20",
- "equity": 100116.59,
- "status": "submitted",
+ "equity": 100075.92,
+ "status": "dry_run",
  "method": "50% quality_screen(top=25, rebalance=False, max_age_days=10, screen_glob=output/screen_*.csv, lock_path=data/portfolio/quality_screen.json, rebalance_months=3) + 20% momentum(top=20, rebalance=False, max_age_days=3, screen_glob=output/momentum_*.csv, lock_path=data/portfolio/momentum.json, rebalance_days=28, exit_ma=100, replaces_lock=data/portfolio/bottleneck.json)",
  "notes": [
-  "signals from the close of 2026-10-20; equity $100,117",
+  "signals from the close of 2026-10-20; equity $100,076",
   "quality_screen: holding the 25 stocks picked on 2026-10-20 (from screen_2026-10-19.csv); next re-pick due 2027-01-20",
-  "momentum: first pick - top 20 from momentum_2026-10-21.csv. Holdings are locked when orders are sent",
-  "momentum: exit rule = close below the 100-day average; re-pick every 28 days",
-  "watchlist: saved 759 near misses for momentum:2026-10-21"
+  "momentum: holding the 20 stocks picked on 2026-10-21 (from momentum_2026-10-21.csv); next re-pick due 2026-11-18",
+  "momentum: exit rule = close below the 100-day average; re-pick every 28 days"
  ],
  "rows": [
   {
@@ -156,33 +155,18 @@
    }
   },
   {
-   "symbol": "COP",
-   "sleeve": null,
-   "target": 0.0,
-   "target_by_sleeve": {},
-   "held_qty": 20.4358,
-   "side": "sell",
-   "qty": 20.4358,
-   "notional": 2982.6,
-   "price": 145.95,
-   "reason": "close: +20.4358 -> +0 shares (target +0.0%)",
-   "blocked": "",
-   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "rationale": {}
-  },
-  {
    "symbol": "CORT",
    "sleeve": "momentum",
    "target": 0.01,
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 8.5973,
-   "notional": 1001.16,
-   "price": 116.45,
-   "reason": "open: +0 -> +8.5973 shares (target +1.0%)",
+   "held_qty": 8.5973,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -256,12 +240,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 4.4032,
-   "notional": 1001.16,
-   "price": 227.37,
-   "reason": "open: +0 -> +4.4032 shares (target +1.0%)",
+   "held_qty": 4.4032,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -279,12 +263,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 3.9042,
-   "notional": 1001.15,
-   "price": 256.43,
-   "reason": "open: +0 -> +3.9042 shares (target +1.0%)",
+   "held_qty": 3.9042,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -342,12 +326,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 7.9895,
-   "notional": 1001.16,
-   "price": 125.31,
-   "reason": "open: +0 -> +7.9895 shares (target +1.0%)",
+   "held_qty": 7.9895,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -357,21 +341,6 @@
      "score": 97.561
     }
    }
-  },
-  {
-   "symbol": "DVN",
-   "sleeve": null,
-   "target": 0.0,
-   "target_by_sleeve": {},
-   "held_qty": 52.4473,
-   "side": "sell",
-   "qty": 52.4473,
-   "notional": 2642.3,
-   "price": 50.38,
-   "reason": "close: +52.4473 -> +0 shares (target +0.0%)",
-   "blocked": "",
-   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "rationale": {}
   },
   {
    "symbol": "EME",
@@ -412,36 +381,6 @@
      "score": 37.7407
     }
    }
-  },
-  {
-   "symbol": "EOG",
-   "sleeve": null,
-   "target": 0.0,
-   "target_by_sleeve": {},
-   "held_qty": 17.151,
-   "side": "sell",
-   "qty": 17.151,
-   "notional": 2708.31,
-   "price": 157.91,
-   "reason": "close: +17.151 -> +0 shares (target +0.0%)",
-   "blocked": "",
-   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "rationale": {}
-  },
-  {
-   "symbol": "EQNR",
-   "sleeve": null,
-   "target": 0.0,
-   "target_by_sleeve": {},
-   "held_qty": 49.9194,
-   "side": "sell",
-   "qty": 49.9194,
-   "notional": 2284.31,
-   "price": 45.76,
-   "reason": "close: +49.9194 -> +0 shares (target +0.0%)",
-   "blocked": "",
-   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "rationale": {}
   },
   {
    "symbol": "FICO",
@@ -530,12 +469,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 10.8386,
-   "notional": 1001.16,
-   "price": 92.37,
-   "reason": "open: +0 -> +10.8386 shares (target +1.0%)",
+   "held_qty": 10.8386,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -634,12 +573,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 17.8492,
-   "notional": 1001.16,
-   "price": 56.09,
-   "reason": "open: +0 -> +17.8492 shares (target +1.0%)",
+   "held_qty": 17.8492,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -657,12 +596,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 2.3425,
-   "notional": 1001.14,
-   "price": 427.38,
-   "reason": "open: +0 -> +2.3425 shares (target +1.0%)",
+   "held_qty": 2.3425,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -680,12 +619,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 3.7366,
-   "notional": 1001.15,
-   "price": 267.93,
-   "reason": "open: +0 -> +3.7366 shares (target +1.0%)",
+   "held_qty": 3.7366,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -983,12 +922,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 4.1356,
-   "notional": 1001.15,
-   "price": 242.08,
-   "reason": "open: +0 -> +4.1356 shares (target +1.0%)",
+   "held_qty": 4.1356,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1046,12 +985,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 4.7681,
-   "notional": 1001.16,
-   "price": 209.97,
-   "reason": "open: +0 -> +4.7681 shares (target +1.0%)",
+   "held_qty": 4.7681,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1149,12 +1088,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 5.1601,
-   "notional": 1001.16,
-   "price": 194.02,
-   "reason": "open: +0 -> +5.1601 shares (target +1.0%)",
+   "held_qty": 5.1601,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1172,12 +1111,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 29.7434,
-   "notional": 1001.16,
-   "price": 33.66,
-   "reason": "open: +0 -> +29.7434 shares (target +1.0%)",
+   "held_qty": 29.7434,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1189,48 +1128,18 @@
    }
   },
   {
-   "symbol": "OVV",
-   "sleeve": null,
-   "target": 0.0,
-   "target_by_sleeve": {},
-   "held_qty": 35.7702,
-   "side": "sell",
-   "qty": 35.7702,
-   "notional": 2514.29,
-   "price": 70.29,
-   "reason": "close: +35.7702 -> +0 shares (target +0.0%)",
-   "blocked": "",
-   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "rationale": {}
-  },
-  {
-   "symbol": "OXY",
-   "sleeve": null,
-   "target": 0.0,
-   "target_by_sleeve": {},
-   "held_qty": 44.2834,
-   "side": "sell",
-   "qty": 44.2834,
-   "notional": 2786.31,
-   "price": 62.92,
-   "reason": "close: +44.2834 -> +0 shares (target +0.0%)",
-   "blocked": "",
-   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "rationale": {}
-  },
-  {
    "symbol": "P",
    "sleeve": "momentum",
    "target": 0.01,
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 7.9131,
-   "notional": 1001.17,
-   "price": 126.52,
-   "reason": "open: +0 -> +7.9131 shares (target +1.0%)",
+   "held_qty": 7.9131,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1288,12 +1197,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 12.0622,
-   "notional": 1001.16,
-   "price": 83.0,
-   "reason": "open: +0 -> +12.0622 shares (target +1.0%)",
+   "held_qty": 12.0622,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1345,33 +1254,18 @@
    }
   },
   {
-   "symbol": "PR",
-   "sleeve": null,
-   "target": 0.0,
-   "target_by_sleeve": {},
-   "held_qty": 98.296,
-   "side": "sell",
-   "qty": 98.296,
-   "notional": 2441.67,
-   "price": 24.84,
-   "reason": "close: +98.296 -> +0 shares (target +0.0%)",
-   "blocked": "",
-   "exit_reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "rationale": {}
-  },
-  {
    "symbol": "RBRK",
    "sleeve": "momentum",
    "target": 0.01,
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 8.7369,
-   "notional": 1001.16,
-   "price": 114.59,
-   "reason": "open: +0 -> +8.7369 shares (target +1.0%)",
+   "held_qty": 8.7369,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1389,12 +1283,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 3.1324,
-   "notional": 1001.15,
-   "price": 319.61,
-   "reason": "open: +0 -> +3.1324 shares (target +1.0%)",
+   "held_qty": 3.1324,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1412,12 +1306,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 4.5279,
-   "notional": 1001.16,
-   "price": 221.11,
-   "reason": "open: +0 -> +4.5279 shares (target +1.0%)",
+   "held_qty": 4.5279,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
@@ -1435,12 +1329,12 @@
    "target_by_sleeve": {
     "momentum": 0.01
    },
-   "held_qty": 0.0,
-   "side": "buy",
-   "qty": 3.8701,
-   "notional": 1001.16,
-   "price": 258.69,
-   "reason": "open: +0 -> +3.8701 shares (target +1.0%)",
+   "held_qty": 3.8701,
+   "side": null,
+   "qty": 0.0,
+   "notional": 0.0,
+   "price": null,
+   "reason": "",
    "blocked": "",
    "exit_reason": null,
    "rationale": {
