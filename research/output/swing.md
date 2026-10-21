@@ -48,7 +48,7 @@ Costs, then one setting at a time around the base rules. A real edge should hold
 | Volume 1.2x average | 2.6% | 0.12 | -35% | 1210 | +0.35% |
 | Looser base (range under 70%) | -0.2% | -0.05 | -33% | 1150 | +0.07% |
 | 5 positions of 20% | 5.6% | 0.28 | -38% | 584 | +0.73% |
-| 20 positions of 5% | 3.7% | 0.19 | -21% | 2074 | +0.48% |
+| 20 positions of 5% | 3.4% | 0.17 | -21% | 2083 | +0.44% |
 
 ## 4. Year by year
 

@@ -128,7 +128,7 @@ def simulate(o: np.ndarray, c: np.ndarray, setup: np.ndarray, rank: np.ndarray, 
                 if len(pos) >= slots or not np.isfinite(o[i, j]) or o[i, j] <= 0:
                     continue
                 spend = min(equity / slots, cash)
-                if spend <= equity * 0.02:
+                if spend <= equity / slots * 0.2:      # less than a fifth of a slot left: stop buying
                     break
                 pos[j] = {"shares": spend * (1 - cost) / o[i, j], "entry": o[i, j], "entry_i": i, "entry_date": dates[i]}
                 cash -= spend

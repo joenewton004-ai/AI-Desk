@@ -251,6 +251,19 @@ RESEARCH_METHODS = {
                    "-0.07%/quarter vs the average stock, flipping sign between 2014-19 and 2020-26. Survivors-only prices.",
         "docs": ["research/LYNCH.md", "research/output/lynch.md"],
     },
+    "short_term_effects": {
+        "description": "Five documented short-term effects with next-open fills: weekly pullback bought at Monday's open, "
+                       "post-earnings drift after the 10-Q filing, the 52-week high (monthly and swing), overnight vs "
+                       "daytime returns, and the opening range breakout on stocks in play (60-day preview).",
+        "parameters": {"costs": "0.02% / 0.05% / 0.10% each way", "fills": "the open after the decision close",
+                       "universe": "750 largest US companies (100 for the breakout preview)"},
+        "status": "tested, no edge as strategies (not in the live mix)",
+        "summary": "Pullback 11.1%/yr at 0.02% costs (Sharpe 0.49) vs the average stock 12.1% (0.59). Earnings drift: the "
+                   "worst-surprise fifth lags by 0.55% over 60 days (t -2.6), the best doesn't lead - a possible filter. "
+                   "52-week high: lower risk, lower return. Overnight returns: +9%/yr gross, negative after costs. "
+                   "Breakout: negative even before costs. Survivors-only prices.",
+        "docs": ["research/SWING_EDGES.md", "research/output/swing_edges.md", "research/output/orb.md"],
+    },
     "drawdown_breaker": {
         "description": "Account-level circuit breaker (drawdown-circuit-breaker skill, tradermonty/claude-trading-skills): "
                        "after a 2% day, 5% week or 8% month, no new buys (or: go to cash) until the next day / Monday / month.",
