@@ -59,7 +59,7 @@ EVIDENCE = {
                    "exit: 19.8%/yr, Sharpe 0.76, worst drop -30% as a sleeve (vs the flow rotation's 17.8%, 0.63, -45%); "
                    "desk 16.5%/yr, Sharpe 0.92 vs 0.88. Survivors-only prices.",
         "docs": ["research/MOMENTUM_SLEEVE.md", "research/WEEKLY.md"],
-        "status": "accepted 2026-10-20 (amendment 00e1f2b8); live from 2026-11-03",
+        "status": "accepted 2026-10-20 (amendment 00e1f2b8); live from 2026-10-21 (brought forward, amendment 54b8755e)",
     },
     "sma_crossover": {
         "summary": "50/200 on SPY: same insurance as momentum, near-identical results. Not in the live mix.",

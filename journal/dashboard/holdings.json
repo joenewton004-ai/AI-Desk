@@ -16,7 +16,7 @@
   "pe": 8.9826,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#4 \u00b7 value 98, quality 90 \u00b7 P/E 9"
+  "why": "#4 \u00b7 value 98, quality 90 \u00b7 P/E 9 / #379"
  },
  {
   "symbol": "AMD",
@@ -32,10 +32,10 @@
   "day_pl": 17.82135,
   "day_pct": 0.0126,
   "last_close": 538.05,
-  "pe": 34.1357,
-  "pe_note": "forward P/E from the 2026-10-20 scan",
+  "pe": null,
+  "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#2 \u00b7 asymmetry 91, bottleneck 70 \u00b7 revenue +50%"
+  "why": "#7"
  },
  {
   "symbol": "ANET",
@@ -54,7 +54,7 @@
   "pe": 35.0319,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#9 \u00b7 momentum 87, quality 84 \u00b7 P/E 35"
+  "why": "#9 \u00b7 momentum 87, quality 84 \u00b7 P/E 35 / #75"
  },
  {
   "symbol": "BKNG",
@@ -73,7 +73,7 @@
   "pe": 13.1418,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#3 \u00b7 quality 94, value 86 \u00b7 P/E 13"
+  "why": "#3 \u00b7 quality 94, value 86 \u00b7 P/E 13 / #643"
  },
  {
   "symbol": "COP",
@@ -89,10 +89,10 @@
   "day_pl": -75.19557,
   "day_pct": -0.02501,
   "last_close": 145.24,
-  "pe": 13.6408,
-  "pe_note": "forward P/E from the 2026-10-20 scan",
+  "pe": null,
+  "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#6 \u00b7 flow 72, bottleneck 68 \u00b7 revenue +37%"
+  "why": ""
  },
  {
   "symbol": "CPAY",
@@ -111,7 +111,7 @@
   "pe": 12.7531,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#20 \u00b7 momentum 88, value 78 \u00b7 P/E 13"
+  "why": "#20 \u00b7 momentum 88, value 78 \u00b7 P/E 13 / #112"
  },
  {
   "symbol": "DECK",
@@ -130,7 +130,7 @@
   "pe": 10.4568,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#2 \u00b7 value 97, strength 77 \u00b7 P/E 10"
+  "why": "#2 \u00b7 value 97, strength 77 \u00b7 P/E 10 / #713"
  },
  {
   "symbol": "DVN",
@@ -146,10 +146,10 @@
   "day_pl": -76.481904,
   "day_pct": -0.02836,
   "last_close": 50.92,
-  "pe": 9.5078,
-  "pe_note": "forward P/E from the 2026-10-20 scan",
+  "pe": null,
+  "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#7 \u00b7 bottleneck 77, flow 62 \u00b7 revenue +73%"
+  "why": ""
  },
  {
   "symbol": "EME",
@@ -168,7 +168,7 @@
   "pe": 19.1787,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#21 \u00b7 strength 86, growth 74 \u00b7 P/E 19"
+  "why": "#21 \u00b7 strength 86, growth 74 \u00b7 P/E 19 / #530"
  },
  {
   "symbol": "EOG",
@@ -184,10 +184,10 @@
   "day_pl": -26.927447,
   "day_pct": -0.00985,
   "last_close": 157.65,
-  "pe": 9.9565,
-  "pe_note": "forward P/E from the 2026-10-20 scan",
+  "pe": null,
+  "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#8 \u00b7 bottleneck 68, flow 64 \u00b7 revenue +59%"
+  "why": ""
  },
  {
   "symbol": "EQNR",
@@ -203,10 +203,10 @@
   "day_pl": -66.114402,
   "day_pct": -0.02844,
   "last_close": 46.15,
-  "pe": 9.7056,
-  "pe_note": "forward P/E from the 2026-10-20 scan",
+  "pe": null,
+  "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#3 \u00b7 flow 76, bottleneck 67 \u00b7 revenue +37%"
+  "why": ""
  },
  {
   "symbol": "FICO",
@@ -225,7 +225,7 @@
   "pe": 15.8706,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#12 \u00b7 quality 88, growth 67 \u00b7 P/E 16"
+  "why": "#12 \u00b7 quality 88, growth 67 \u00b7 P/E 16 / #763"
  },
  {
   "symbol": "FIX",
@@ -244,7 +244,7 @@
   "pe": 24.3102,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#18 \u00b7 momentum 98, growth 95 \u00b7 P/E 24"
+  "why": "#18 \u00b7 momentum 98, growth 95 \u00b7 P/E 24 / #479"
  },
  {
   "symbol": "FTNT",
@@ -263,7 +263,7 @@
   "pe": 45.3952,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#6 \u00b7 momentum 99, quality 90 \u00b7 P/E 45"
+  "why": "#6 \u00b7 momentum 99, quality 90 \u00b7 P/E 45 / #19"
  },
  {
   "symbol": "GOOGL",
@@ -282,7 +282,7 @@
   "pe": 22.5078,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#25 \u00b7 momentum 86, growth 65 \u00b7 P/E 23"
+  "why": "#25 \u00b7 momentum 86, growth 65 \u00b7 P/E 23 / #457"
  },
  {
   "symbol": "INCY",
@@ -301,7 +301,7 @@
   "pe": 13.0499,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#1 \u00b7 momentum 90, value 88 \u00b7 P/E 13"
+  "why": "#1 \u00b7 momentum 90, value 88 \u00b7 P/E 13 / #220"
  },
  {
   "symbol": "KLAC",
@@ -320,7 +320,7 @@
   "pe": 24.687,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#17 \u00b7 momentum 95, quality 77 \u00b7 P/E 25"
+  "why": "#17 \u00b7 momentum 95, quality 77 \u00b7 P/E 25 / #462"
  },
  {
   "symbol": "LLY",
@@ -339,7 +339,7 @@
   "pe": 26.273,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#14 \u00b7 growth 96, momentum 92 \u00b7 P/E 26"
+  "why": "#14 \u00b7 growth 96, momentum 92 \u00b7 P/E 26 / #148"
  },
  {
   "symbol": "LRCX",
@@ -358,7 +358,7 @@
   "pe": 23.1351,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#7 \u00b7 momentum 99, growth 81 \u00b7 P/E 23"
+  "why": "#7 \u00b7 momentum 99, growth 81 \u00b7 P/E 23 / #442"
  },
  {
   "symbol": "MA",
@@ -377,7 +377,7 @@
   "pe": 26.7028,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#11 \u00b7 quality 87, growth 67 \u00b7 P/E 27"
+  "why": "#11 \u00b7 quality 87, growth 67 \u00b7 P/E 27 / #171"
  },
  {
   "symbol": "MEDP",
@@ -396,7 +396,7 @@
   "pe": 32.0812,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#10 \u00b7 growth 75, strength 72 \u00b7 P/E 32"
+  "why": "#10 \u00b7 growth 75, strength 72 \u00b7 P/E 32 / #192"
  },
  {
   "symbol": "META",
@@ -415,7 +415,7 @@
   "pe": 20.3586,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#15 \u00b7 growth 84, quality 68 \u00b7 P/E 20"
+  "why": "#15 \u00b7 growth 84, quality 68 \u00b7 P/E 20 / #139"
  },
  {
   "symbol": "MSCI",
@@ -434,7 +434,7 @@
   "pe": 25.0935,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#19 \u00b7 quality 87, momentum 57 \u00b7 P/E 25"
+  "why": "#19 \u00b7 quality 87, momentum 57 \u00b7 P/E 25 / #356"
  },
  {
   "symbol": "NVDA",
@@ -451,9 +451,9 @@
   "day_pct": 0.00824,
   "last_close": 217.09,
   "pe": 13.6409,
-  "pe_note": "forward P/E from the 2026-10-20 scan",
+  "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#5 \u00b7 growth 100, momentum 74 \u00b7 P/E 14 / #13 \u00b7 asymmetry 89, bottleneck 63 \u00b7 revenue +106%"
+  "why": "#5 \u00b7 growth 100, momentum 74 \u00b7 P/E 14 / #133"
  },
  {
   "symbol": "NXT",
@@ -472,7 +472,7 @@
   "pe": 13.961,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#16 \u00b7 growth 83, value 76 \u00b7 P/E 14"
+  "why": "#16 \u00b7 growth 83, value 76 \u00b7 P/E 14 / #733"
  },
  {
   "symbol": "OVV",
@@ -488,10 +488,10 @@
   "day_pl": -21.617971,
   "day_pct": -0.00852,
   "last_close": 70.04,
-  "pe": 8.8367,
-  "pe_note": "forward P/E from the 2026-10-20 scan",
+  "pe": null,
+  "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#5 \u00b7 flow 82, bottleneck 57 \u00b7 revenue +30%"
+  "why": ""
  },
  {
   "symbol": "OXY",
@@ -507,10 +507,10 @@
   "day_pl": -27.170346,
   "day_pct": -0.00967,
   "last_close": 62.72,
-  "pe": 12.9537,
-  "pe_note": "forward P/E from the 2026-10-20 scan",
+  "pe": null,
+  "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#4 \u00b7 bottleneck 91, flow 49 \u00b7 revenue +53%"
+  "why": ""
  },
  {
   "symbol": "PAYX",
@@ -529,7 +529,7 @@
   "pe": 17.3357,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#13 \u00b7 quality 78, value 75 \u00b7 P/E 17"
+  "why": "#13 \u00b7 quality 78, value 75 \u00b7 P/E 17 / #162"
  },
  {
   "symbol": "PM",
@@ -548,7 +548,7 @@
   "pe": 21.9079,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#24 \u00b7 momentum 76, quality 71 \u00b7 P/E 22"
+  "why": "#24 \u00b7 momentum 76, quality 71 \u00b7 P/E 22 / #132"
  },
  {
   "symbol": "PR",
@@ -564,10 +564,10 @@
   "day_pl": -33.042888,
   "day_pct": -0.01335,
   "last_close": 24.8,
-  "pe": 10.7254,
-  "pe_note": "forward P/E from the 2026-10-20 scan",
+  "pe": null,
+  "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#1 \u00b7 bottleneck 93, flow 81 \u00b7 revenue +55%"
+  "why": ""
  },
  {
   "symbol": "SPY",
@@ -605,7 +605,7 @@
   "pe": 16.0738,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#23 \u00b7 value 77, momentum 69 \u00b7 P/E 16"
+  "why": "#23 \u00b7 value 77, momentum 69 \u00b7 P/E 16 / #415"
  },
  {
   "symbol": "V",
@@ -624,7 +624,7 @@
   "pe": 26.82,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#22 \u00b7 quality 84, momentum 61 \u00b7 P/E 27"
+  "why": "#22 \u00b7 quality 84, momentum 61 \u00b7 P/E 27 / #122"
  },
  {
   "symbol": "WES",
@@ -643,6 +643,6 @@
   "pe": 11.584,
   "pe_note": "forward P/E from the 2026-10-19 scan",
   "as_of": "2026-10-20T20:41:01+00:00",
-  "why": "#8 \u00b7 value 86, momentum 85 \u00b7 P/E 12"
+  "why": "#8 \u00b7 value 86, momentum 85 \u00b7 P/E 12 / #213"
  }
 ]

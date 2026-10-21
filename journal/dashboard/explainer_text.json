@@ -5,7 +5,7 @@
   "section": "title",
   "order": 0,
   "col1": "Momentum sleeve - replaces Bottleneck as the 20% sleeve",
-  "col2": "Accepted 2026-10-20 (amendment 00e1f2b8); live from the 2026-11-03 re-pick",
+  "col2": "Accepted 2026-10-20 (amendment 00e1f2b8); live from the 2026-10-21 re-pick",
   "col3": ""
  },
  {
@@ -166,7 +166,7 @@
   "sleeve": "momentum",
   "section": "timeline",
   "order": 1,
-  "col1": "2026-11-03 evening",
+  "col1": "2026-10-21 evening",
   "col2": "First momentum scan; buys the top 20 and sells bottleneck holdings not in the new list ('switched to momentum')",
   "col3": ""
  },

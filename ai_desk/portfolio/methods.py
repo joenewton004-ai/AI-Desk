@@ -595,9 +595,10 @@ PRESETS = {
     # the live desk: quality compounders + a momentum sleeve + SPY with crash insurance
     "desk": [("quality_screen", 0.5), ("momentum", 0.2), ("index_momentum", 0.3)],
 }
-# Amendment 00e1f2b8 (accepted 2026-10-20): the 20% sleeve's engine changes from bottleneck to plain
-# momentum at the bottleneck sleeve's next scheduled re-pick, so its current picks aren't sold early.
-DESK_SWITCH = {"date": "2026-11-03", "before": [("quality_screen", 0.5), ("bottleneck", 0.2), ("index_momentum", 0.3)]}
+# Amendment 00e1f2b8 (accepted 2026-10-20): the 20% sleeve's engine changes from bottleneck to plain momentum.
+# First planned for the bottleneck sleeve's 2026-11-03 re-pick; brought forward by the owner on 2026-10-21 to that
+# evening's run, so the switch trades at the 2026-10-22 open.
+DESK_SWITCH = {"date": "2026-10-21", "before": [("quality_screen", 0.5), ("bottleneck", 0.2), ("index_momentum", 0.3)]}
 
 
 # Amendment 330e76e0 (accepted 2026-10-21): the 30% SPY momentum sleeve is replaced by the overnight sleeve

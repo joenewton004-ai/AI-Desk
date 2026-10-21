@@ -122,16 +122,18 @@ def test_fifo_lots_and_review():
 def test_notes_and_amendment_lifecycle():
     tradebook.add_note("bottleneck", "energy picks dominated after the oil spike", author="claude")
     assert tradebook.notes()[0]["author"] == "claude"
-    a = register.propose("bottleneck", "cap any one industry at 3 of 8 picks", "too concentrated in oil")
+    a = register.propose("momentum", "cap any one industry at 5 of 20 picks", "too concentrated in chips")
     assert register.decide(a["id"], "testing")["status"] == "testing"
     done = register.decide(a["id"], "accepted", "backtest: Sharpe 0.60 -> 0.64")
     assert done["decided_utc"] and done["evidence"].startswith("backtest")
     with pytest.raises(ValueError):
         register.decide(a["id"], "maybe")
     reg = register.register()
+    mo = next(m for m in reg["methods"] if m["name"] == "momentum")
+    assert mo["in_live_mix"] and mo["allocation"] == 0.2 and mo["amendments"][0]["status"] == "accepted"
+    assert mo["parameters"]["rebalance_days"] == 28
     bn = next(m for m in reg["methods"] if m["name"] == "bottleneck")
-    assert bn["in_live_mix"] and bn["allocation"] == 0.2 and bn["amendments"][0]["status"] == "accepted"
-    assert bn["parameters"]["rebalance_days"] == 14
+    assert not bn["in_live_mix"]                               # replaced by momentum from 2026-10-21
 
 
 def test_watchlist_cohort_and_compare():
