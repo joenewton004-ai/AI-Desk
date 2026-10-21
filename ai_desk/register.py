@@ -214,6 +214,28 @@ RESEARCH_METHODS = {
                    "0.61%/month (52-week-high effect); only the industry-momentum rule helped. Survivors-only prices.",
         "docs": ["research/ASYMMETRIC.md", "research/output/asymmetric.md"],
     },
+    "vcp_swing": {
+        "description": "Swing trading on VCP breakouts (Minervini's volatility contraction pattern, from the vcp-screener "
+                       "skill in tradermonty/claude-trading-skills) as fixed rules: a stock in a strong uptrend, a quiet "
+                       "tightening pause, then a breakout above its 20-day high on 1.5x volume; bought at the next open.",
+        "parameters": {"positions": "up to 10 of 10%", "stop": "8% below entry", "exit": "close below the 50-day average",
+                       "target": "+25%", "max_hold": "40 trading days", "universe": "750 largest US companies"},
+        "status": "tested, no edge (not in the live mix)",
+        "summary": "2014-2026: 2.8%/yr, Sharpe 0.13 vs the average stock 12.1% (0.59) and SPY 13.7% (0.72); 1,123 trades, "
+                   "39% winners, +0.38% per trade; loses money at 0.30% costs; no setting tested gets above 5.6%/yr. "
+                   "Beats random strong-trend picks, so the pattern adds a little. Survivors-only prices.",
+        "docs": ["research/SWING.md", "research/output/swing.md"],
+    },
+    "drawdown_breaker": {
+        "description": "Account-level circuit breaker (drawdown-circuit-breaker skill, tradermonty/claude-trading-skills): "
+                       "after a 2% day, 5% week or 8% month, no new buys (or: go to cash) until the next day / Monday / month.",
+        "parameters": {"day_limit": 0.02, "week_limit": 0.05, "month_limit": 0.08, "modes": "freeze buys | go to cash"},
+        "status": "tested, no benefit (not in the live mix)",
+        "summary": "On the desk 2014-2026 (daily): no breaker 16.4%/yr, Sharpe 0.81, worst -33.4%; freeze 15.9%, 0.79, -33.4%; "
+                   "go to cash 11.1%, 0.61, -35.7%. The desk buys only at re-picks, so freezing rarely matters, and "
+                   "cutting to cash misses the rebounds. Survivors-only prices.",
+        "docs": ["research/CIRCUIT_BREAKER.md", "research/output/circuit_breaker.md"],
+    },
 }
 
 

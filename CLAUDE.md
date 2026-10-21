@@ -24,6 +24,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   `research/MOMENTUM_SLEEVE.md` (accepted as amendment 00e1f2b8, option 2: with the 100-day exit).
 - Sikand-style 'asymmetric bets' rules (theme + growth + cheap vs peers + off highs): `python research/asymmetric.py`
   -> `research/ASYMMETRIC.md`. Tested, no edge; in the register as research-only (`register.RESEARCH_METHODS`).
+- tradermonty/claude-trading-skills (MIT, reviewed 2026-10-21): two ideas tested, neither adopted. Circuit breaker
+  (`python research/circuit_breaker.py` -> `research/CIRCUIT_BREAKER.md`, amendment c312f032 testing) and VCP
+  breakout swing trading (`python research/swing.py` -> `research/SWING.md`; daily OHLCV cached in
+  data/backtest/daily_ohlcv.pkl). Both research-only in `register.RESEARCH_METHODS`. Survivors-only: say so.
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
