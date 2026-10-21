@@ -50,6 +50,8 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Mark Minervini's SEPA (Trend Template + RS, point-in-time EPS/sales growth from SEC, base breakout, 7.5% stop to
   break-even, 50-day exit, market filter): `python research/minervini.py` -> `research/MINERVINI.md` (growth cached in
   data/backtest/minervini_fund.pkl). No edge vs the equal-weight universe; research-only. Survivors-only: say so.
+  Follow-up (pivot buy-stops + intraday stop orders, 5 positions, smaller half, looser growth):
+  `python research/minervini_checks.py` -> same write-up. Small caps/IPOs need delisted-inclusive data (not available).
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy

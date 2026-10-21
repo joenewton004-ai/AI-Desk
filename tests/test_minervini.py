@@ -80,3 +80,21 @@ def test_rotation_sells_what_stops_qualifying():
     _, t = mv.simulate(o, c, q, q, np.ones((n, 1)), np.full((n, 1), np.nan), np.zeros(n), dates, ["A"],
                        stop=None, breakeven_at=None, ma_exit=False)
     assert t.iloc[0]["why"] == "no longer qualifies" and t.iloc[0]["exit_date"] == dates[4]
+
+
+def test_intraday_buy_at_the_pivot_and_stop_order_fills():
+    import minervini_checks as mc
+    n = 6
+    dates = pd.bdate_range("2024-01-01", periods=n)
+    o = np.array([[100], [101], [104], [100], [90], [90]], dtype=float)
+    h = np.array([[100], [106], [106], [101], [91], [91]], dtype=float)
+    lo = np.array([[100], [100], [103], [99], [85], [85]], dtype=float)
+    c = np.array([[100], [105], [104], [100], [90], [90]], dtype=float)
+    qual_prev = np.zeros((n, 1), dtype=bool)
+    qual_prev[1] = True                                           # qualified at day 0's close
+    pivot = np.full((n, 1), 103.0)
+    eq, t = mc.simulate_intraday(o, h, lo, c, qual_prev, pivot, np.ones((n, 1)), np.ones((n, 1)),
+                                 np.full((n, 1), np.nan), np.zeros(n), dates, ["A"])
+    # bought on day 1 at the pivot (103 > open 101); stop 7.5% below = 95.275; day 4 opens at 90 -> fills at the open
+    assert len(t) == 1 and t.iloc[0]["entry_date"] == dates[1] and t.iloc[0]["exit_date"] == dates[4]
+    assert t.iloc[0]["return"] == pytest.approx(90 / 103 * (1 - 0.001) ** 2 - 1)

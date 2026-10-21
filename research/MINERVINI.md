@@ -58,6 +58,41 @@ part is a fixed rule here:
 - **It overlaps with what we run.** A is a cousin of the desk's momentum sleeve (strong trend, top relative strength).
   It does worse than that sleeve's own backtest, so there's nothing here to swap in.
 
+## Did the test miss something? (`research/minervini_checks.py`)
+
+Tables: [`output/minervini_checks.md`](output/minervini_checks.md). Changes to the full method, one at a time:
+
+| Version | Return/yr | Sharpe | Worst drop | Without 2024 |
+|---|---|---|---|---|
+| Full SEPA as first tested (next-open fills) | 5.2% | 0.30 | −24% | 1.4% |
+| **1. Buy at the pivot during the day, stop orders during the day** (how he trades) | **6.3%** | **0.31** | −36% | 2.2% |
+| 1b. + sell a breakout on light volume the next morning | −0.7% | −0.11 | −52% | −5.7% |
+| 2. 1 with 5 positions of 20% (his concentration) | 4.4% | 0.22 | −48% | −0.6% |
+| 3. 1 on the less-traded half of the universe (smaller companies) | −1.4% | −0.26 | −43% | −3.1% |
+| 4. 1 with looser growth (EPS 20%+ only), so more of the time invested | 4.6% | 0.23 | −32% | 1.5% |
+| Average large stock | 12.1% | 0.59 | −40% | 11.9% |
+| SPY | 13.7% | 0.72 | −34% | 12.8% |
+
+- **Trading like him helps only a little.** Buying at the pivot and using stop orders lifts the return from 5.2%
+  to 6.3%. Losses now average −7.5%, as he intends, but more breakouts fail: only 28% of trades win.
+- **Concentrating hurts, and so do smaller companies.** Five positions gave a better 2024 (+82%) and worse years
+  everywhere else. The less-traded half of our universe did worse. That's only a rough check of his small-company
+  focus: everything here is still among the 750 largest.
+- **2024 carries every version.** Without that one year, no version beats T-bills by much.
+
+**Why his record and this test can both be right:**
+1. **Contest results are single years.** 155% in 1997 and 334.8% in 2021 are verified brokerage results, but each
+   is one year, and a contest's winner is the best of many entrants. Our rules had one huge year too: +82% in 2024
+   with five positions. One great year doesn't show a long-run edge. His 220%-a-year figure for 1994-1999 is his
+   own; I found no independent audit of it.
+2. **His stocks aren't in our data.** His leaders are often smaller, younger companies and recent listings, below
+   the 750 largest. Testing those properly needs price data that includes delisted companies; Yahoo only has
+   survivors, which would flatter small stocks most of all.
+3. **His discretion isn't in fixed rules.** That is: which bases he trusts, when he adds to winners, when he takes
+   profits into strength, and how much he has invested at all.
+4. **The periods differ.** His best run was the late-1990s growth-stock boom; 2014-2026 favoured the biggest
+   companies, which is exactly what SPY holds.
+
 ## What this can't capture
 
 Minervini is a discretionary trader. He judges the quality of each base, "pivot" points, how a stock acts after
@@ -67,7 +102,9 @@ check his reported results.
 
 ## Verdict
 
-**No edge as fixed rules.** The method's risk management works (shallower drops), but the return isn't there.
+**No edge as fixed rules, even traded the way he trades.** The method's risk management works (shallower
+drops), but the return isn't there. That doesn't prove he has no skill: it means his published rules alone don't
+capture it on large US companies in 2014-2026.
 The one lead is that fast growth by itself (EPS +25%, sales +20%) picked stocks that did slightly better the next
 month (t 2.0). Peter Lynch's growth rules (`research/LYNCH.md`) found no edge, so treat this lead with caution.
 Recorded in the register as research-only (`minervini_sepa`).
