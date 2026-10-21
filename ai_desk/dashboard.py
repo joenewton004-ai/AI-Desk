@@ -252,7 +252,7 @@ def tables() -> dict[str, list[dict]]:
     return {"summary": summary, "sleeves": sleeves, "positions": positions, "trades": trade_rows,
             "closed": closed, "methods": methods, "amendments": amendments, "notes": note_rows,
             "holdings": holdings, "sleeve_guide": register.sleeve_guide(),
-            "explainer_text": register.explainer_tables()[0], "explainer_backtest": register.explainer_tables()[1], "watch_summary": watch_summary, "watchlist": watch_rows, "watch_check": watch_check, "watch_daily": watch_daily, "score_headline": headline, "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
+            "watch_summary": watch_summary, "watchlist": watch_rows, "watch_check": watch_check, "watch_daily": watch_daily, "score_headline": headline, "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
             "sleeve_perf": sc.get("sleeves", []), "fills": sc.get("fills", []), "exits": sc.get("exits", [])}
 
 

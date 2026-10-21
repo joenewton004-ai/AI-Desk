@@ -215,15 +215,6 @@ def test_buy_only_cap_leaves_sells_as_market_orders(tmp_path, monkeypatch):
     assert by["AA"]["order_type"] == "limit" and by["BB"]["order_type"] == "market"
 
 
-def test_momentum_explainer_tables():
-    from ai_desk import dashboard
-    t = dashboard.tables()
-    keys = {r["key"] for r in t["explainer_text"]}
-    assert len(keys) == len(t["explainer_text"])                      # unique row keys
-    assert any(r["section"] == "picks" for r in t["explainer_text"])
-    assert {r["label"] for r in t["explainer_backtest"]} >= {"Whole desk with momentum"}
-
-
 def test_watchlist_diagnose_says_too_early_before_the_repick_and_explains_the_gap():
     from ai_desk import watchlist
     rows = ([{"symbol": f"P{i}", "status": "picked", "sector": "Energy", "score": 90 - i, "return": -0.01} for i in range(5)]
