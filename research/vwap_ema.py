@@ -23,7 +23,8 @@ stop from the bar after the entry. Controls: the same number of trades on random
 stocks and days, with the same stop and target rules.
 
 Data: Yahoo regular-hours bars for the 100-150 largest US companies (point-in-time union):
-  5-minute bars (~60 days), 1-minute bars (~30 days), hourly bars (~3 years; coarse for VWAP/EMAs).
+  5-minute bars (~60 days), 1-minute bars (~30 days), 3-minute bars (built from the 1-minute ones; Yahoo has no
+  3-minute interval), hourly bars (~3 years; coarse for VWAP/EMAs).
 Costs 0.03% each way (large-cap spread), stress 0.10%. Writes research/output/vwap_ema.md; findings in
 research/VWAP_EMA.md.
 """
@@ -115,6 +116,16 @@ def tmc_signal(c, v, e20, e50, vw, pdh, orh, k, avg_vol) -> bool:
                 and np.isfinite(level) and c[k] > level and c[k - 1] <= level)
 
 
+def resample_bars(b: dict[str, pd.DataFrame], rule: str) -> dict[str, pd.DataFrame]:
+    """Combine bars into longer ones within each day (9:30, 9:33, ... for "3min"); empty bins dropped."""
+    agg = {"open": "first", "high": "max", "low": "min", "close": "last", "volume": "sum"}
+    out = {k: b[k].resample(rule, label="left", closed="left").agg(f) for k, f in agg.items()}
+    keep = out["close"].notna().any(axis=1)
+    out = {k: v.loc[keep] for k, v in out.items()}
+    out["volume"] = out["volume"].where(out["close"].notna())
+    return out
+
+
 # --- the experiment ------------------------------------------------------------------
 
 def run_tmc(o, h, lo, c, v, e20, e50, vw, day_id, rr=2.0, pullback=False, use_volume=True, optimistic=False,
@@ -188,15 +199,22 @@ def main() -> None:
     emit("# EMA9/VWAP crossover and Trend + Momentum + Confirmation - generated tables\n")
     emit("Yahoo regular-hours bars, the 100-150 largest US companies. Costs 0.03% each way (stress 0.10%). "
          "'per trade' = average return per trade; R = multiples of the risk (strategy B).\n")
-    sets = [("5-minute bars (~60 days)", "intraday_5m.pkl", 3), ("1-minute bars (~30 days)", "intraday_1m.pkl", 15),
-            ("Hourly bars (~3 years)", "intraday_1h.pkl", 1)]
+    only = sys.argv[1:]                      # e.g. `python research/vwap_ema.py 3m` runs one bar size
+    sets = [("5-minute bars (~60 days)", "intraday_5m.pkl", 3, None), ("1-minute bars (~30 days)", "intraday_1m.pkl", 15, None),
+            ("3-minute bars (~30 days, built from 1-minute)", "intraday_1m.pkl", 5, "3min"),
+            ("Hourly bars (~3 years)", "intraday_1h.pkl", 1, None)]
+    if only:
+        keys = {"5m": 0, "1m": 1, "3m": 2, "1h": 3}
+        sets = [sets[keys[k]] for k in only]
     rng = np.random.default_rng(5)
-    for label, fname, or_bars in sets:
+    for label, fname, or_bars, rule in sets:
         path = CACHE / fname
         if not path.exists():
             emit(f"\n(skipped {label}: {fname} not cached)")
             continue
         b = pickle.loads(path.read_bytes())
+        if rule:
+            b = resample_bars(b, rule)
         O, H, L, C, V = (b[k].astype(float) for k in ("open", "high", "low", "close", "volume"))
         day_id = C.index.normalize().to_numpy()
         day_start = np.r_[True, day_id[1:] != day_id[:-1]]
@@ -244,8 +262,9 @@ def main() -> None:
                 emit("B by quarter, per trade after costs: " + ", ".join(f"{k} {v:+.2%}" for k, v in g.items()) + ".")
 
     OUT.mkdir(exist_ok=True)
-    (OUT / "vwap_ema.md").write_text("\n".join(lines) + "\n")
-    print(f"\nwrote {OUT / 'vwap_ema.md'}")
+    name = "vwap_ema.md" if not only else f"vwap_ema_{'_'.join(only)}.md"
+    (OUT / name).write_text("\n".join(lines) + "\n")
+    print(f"\nwrote {OUT / name}")
 
 
 if __name__ == "__main__":

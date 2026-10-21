@@ -35,6 +35,22 @@ B: how trades ended: close 338, stop 293, target 84.
 A: 2.1 trades per stock per day; how they ended: cross back 4058, close 942.
 B: how trades ended: stop 163, target 67, close 31.
 
+## 3-minute bars (~30 days, built from 1-minute), 2026-09-23 to 2026-10-20
+
+| rules | trades | win rate | per trade before costs | per trade after 0.03% | after 0.10% | t-stat | avg R |
+|---|---|---|---|---|---|---|---|
+| A both sides | 2904 | 30% | +0.001% | -0.059% | -0.199% | -4.4 |  |
+| A long only | 1462 | 31% | +0.004% | -0.056% | -0.196% | -3.0 |  |
+| B base (2R) | 134 | 34% | -0.090% | -0.150% | -0.290% | -2.8 | -0.08 |
+| B 3R target | 134 | 33% | -0.095% | -0.155% | -0.295% | -2.9 | -0.08 |
+| B without the volume rule | 383 | 38% | -0.055% | -0.115% | -0.255% | -2.7 | -0.02 |
+| B first pullback entry | 101 | 28% | -0.103% | -0.163% | -0.303% | -2.6 | -0.15 |
+| B best case (stop from the next bar) | 131 | 34% | -0.093% | -0.153% | -0.293% | -2.8 | -0.11 |
+| B control: random bars | 128 | 30% | -0.018% | -0.078% | -0.218% | -2.3 | -0.00 |
+
+A: 1.2 trades per stock per day; how they ended: cross back 2014, close 890.
+B: how trades ended: stop 61, close 56, target 17.
+
 ## Hourly bars (~3 years), 2023-11-21 to 2026-10-20
 
 | rules | trades | win rate | per trade before costs | per trade after 0.03% | after 0.10% | t-stat | avg R |
@@ -46,7 +62,7 @@ B: how trades ended: stop 163, target 67, close 31.
 | B without the volume rule | 15941 | 45% | -0.011% | -0.071% | -0.211% | -10.7 | -0.00 |
 | B first pullback entry | 564 | 44% | -0.063% | -0.123% | -0.263% | -3.0 | -0.01 |
 | B best case (stop from the next bar) | 879 | 48% | +0.011% | -0.049% | -0.189% | -1.1 | +0.02 |
-| B control: random bars | 1014 | 55% | +0.197% | +0.137% | -0.003% | 4.1 | +0.20 |
+| B control: random bars | 1015 | 55% | +0.191% | +0.131% | -0.009% | 4.0 | +0.21 |
 
 A: 0.1 trades per stock per day; how they ended: close 9791, cross back 2648.
 B: how trades ended: close 963, stop 48, target 3.

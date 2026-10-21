@@ -22,19 +22,20 @@ at the close. Also tested:
 - a control that enters on random bars on the same days, with the same stop and target.
 
 VWAP only exists intraday, so it needs intraday bars, and Yahoo keeps only 60 days of 5-minute
-bars, 30 days of 1-minute bars and 3 years of hourly bars (where VWAP and EMAs are coarse).
+bars, 30 days of 1-minute bars and 3 years of hourly bars (where VWAP and EMAs are coarse). Yahoo has
+no 3-minute interval, so 3-minute bars were built from the 1-minute ones (same 30 days).
 
 ## Results: per trade, after 0.03% each way
 
-| | 5-min (60 days) | 1-min (30 days) | Hourly (3 years) |
-|---|---|---|---|
-| **A: EMA9/VWAP crossover** | −0.067% (14,996 trades, t −10.5) | −0.058% | −0.078% (t −12.5) |
-| A, long only | −0.066% | −0.058% | −0.060% |
-| **B: Trend + Momentum + Confirmation** | −0.107% (715 trades) | −0.137% | −0.069% (1,014 trades) |
-| B, 3R target | −0.097% | −0.131% | −0.068% |
-| B, without the volume rule | −0.092% | −0.084% | −0.071% |
-| B, first-pullback entry | −0.150% | −0.101% | −0.123% |
-| **B control: random bars, same days** | **+0.039%** | −0.025% | **+0.137%** |
+| | 5-min (60 days) | 3-min (30 days) | 1-min (30 days) | Hourly (3 years) |
+|---|---|---|---|---|
+| **A: EMA9/VWAP crossover** | −0.067% (14,996 trades, t −10.5) | −0.059% (2,904) | −0.058% | −0.078% (t −12.5) |
+| A, long only | −0.066% | −0.056% | −0.058% | −0.060% |
+| **B: Trend + Momentum + Confirmation** | −0.107% (715 trades) | −0.150% (134) | −0.137% | −0.069% (1,014 trades) |
+| B, 3R target | −0.097% | −0.155% | −0.131% | −0.068% |
+| B, without the volume rule | −0.092% | −0.115% | −0.084% | −0.071% |
+| B, first-pullback entry | −0.150% | −0.163% | −0.101% | −0.123% |
+| **B control: random bars, same days** | **+0.039%** | −0.023% | −0.025% | **+0.137%** |
 
 **What it means:**
 - **A is a coin flip that pays costs twice a day.** Before costs it averages about zero (−0.007%
@@ -58,7 +59,7 @@ pattern matches every other intraday test so far (ICT, opening range breakout): 
 from price itself (EMAs, VWAP, breakouts) describe what has already happened. On large caps that's
 priced in within minutes, and the spread is paid on every trade.
 
-**One caveat:** the 5- and 1-minute samples are short (about 30-60 days). A proper verdict would
+**One caveat:** the 5-, 3- and 1-minute samples are short (about 30-60 days). A proper verdict would
 use years of minute data, from Alpaca once `data.alpaca.markets` is allowed in the environment's
 network settings. But the hourly test covers 3 years, and nothing in the short samples points the
 other way.

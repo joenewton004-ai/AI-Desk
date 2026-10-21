@@ -30,3 +30,12 @@ def test_tmc_signal_needs_all_four_conditions():
     assert ve.tmc_signal(c, v, e20, e50, vw, pdh=102.0, orh=104.0, k=1, avg_vol=1.5)
     assert not ve.tmc_signal(c, v, e20, e50, vw, pdh=102.0, orh=104.0, k=1, avg_vol=2.5)   # volume too low
     assert not ve.tmc_signal(c, v, e50, e20, vw, pdh=102.0, orh=104.0, k=1, avg_vol=1.5)   # EMAs inverted
+
+
+def test_resample_to_three_minute_bars_starts_at_the_open():
+    import pandas as pd
+    idx = pd.date_range("2026-10-01 09:30", periods=6, freq="1min")
+    b = {k: pd.DataFrame({"A": [1.0, 2, 3, 4, 5, 6]}, index=idx) for k in ("open", "high", "low", "close", "volume")}
+    r = ve.resample_bars(b, "3min")
+    assert list(r["close"].index.strftime("%H:%M")) == ["09:30", "09:33"]
+    assert r["open"]["A"].tolist() == [1, 4] and r["high"]["A"].tolist() == [3, 6] and r["volume"]["A"].tolist() == [6, 15]
