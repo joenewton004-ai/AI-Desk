@@ -1,10 +1,10 @@
 {
- "generated_utc": "2026-10-21T12:34:20+00:00",
+ "generated_utc": "2026-10-21T12:41:33+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
   "bottleneck": 0.2,
-  "index_momentum": 0.3
+  "overnight_drift": 0.3
  },
  "presets": {
   "thesis": [
@@ -45,8 +45,8 @@
  "methods": [
   {
    "name": "index_momentum",
-   "in_live_mix": true,
-   "allocation": 0.3,
+   "in_live_mix": false,
+   "allocation": 0.0,
    "description": "The thesis's index sleeve: hold `symbol` while its 12-month return is positive (checked monthly), otherwise cash.",
    "parameters": {
     "symbol": "SPY",
@@ -88,7 +88,7 @@
      "rationale": "Owner's request 2026-10-21: 'change the SPY momentum sleeve for the overnight trade - high conviction desk'.",
      "author": "you",
      "status": "accepted",
-     "evidence": "Accepted by the user 2026-10-21 ('Swap now') after the backtest (research/DESK_OVERNIGHT.md: 18.6%/yr, Sharpe 0.98, worst -26.8% at 0.02% costs vs 16.5%, 0.91, -24.2%; break-even ~0.03%). Takes effect at `overnight activate`, once the overnight paper account works and holds ~3/7 of the desk account's equity.",
+     "evidence": "Accepted by the user 2026-10-21 ('Swap now') after the backtest (research/DESK_OVERNIGHT.md: 18.6%/yr, Sharpe 0.98, worst -26.8% at 0.02% costs vs 16.5%, 0.91, -24.2%; break-even ~0.03%). Takes effect at `overnight activate`, once the overnight paper account works and holds ~3/7 of the desk account's equity. Implemented in the desk's own account (your choice, 2026-10-21): 50% quality, 20% momentum, 30% overnight; activated 2026-10-21.",
      "decided_utc": "2026-10-21T12:34:20+00:00"
     }
    ]
@@ -361,8 +361,8 @@
   },
   {
    "name": "overnight_drift",
-   "in_live_mix": false,
-   "allocation": 0.0,
+   "in_live_mix": true,
+   "allocation": 0.3,
    "description": "Overnight momentum (Lou, Polk & Skouras 2019): each month take the 20 large stocks with the highest average overnight return (close to next open) over the past 12 months; hold them only overnight - buy at the close, sell at the next open - via the closing and opening auctions.",
    "parameters": {
     "stocks": 20,
@@ -371,7 +371,7 @@
     "hold": "close to next open, daily",
     "orders": "market-on-close buy, market-on-open sell"
    },
-   "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`; own paper account",
+   "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`",
    "evidence_summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
    "docs": [
     "research/OVERNIGHT.md",
@@ -387,7 +387,7 @@
      "rationale": "research/OVERNIGHT.md: persistent (t 6.4, 82% of months), 15.5%/yr at 0.02% costs, break-even ~0.045% per trade. The open question is the real cost.",
      "author": "you",
      "status": "accepted",
-     "evidence": "Accepted by the user 2026-10-21 ('build it'), as a paper experiment in its own account, separate from the desk. Paper fills are simulated: this tests the mechanics, not real auction costs.",
+     "evidence": "Accepted by the user 2026-10-21 ('build it'), as a paper experiment in its own account, separate from the desk. Paper fills are simulated: this tests the mechanics, not real auction costs. Superseded by 330e76e0: the sleeve runs inside the desk's account instead of a separate one.",
      "decided_utc": "2026-10-21T11:12:02+00:00"
     }
    ]

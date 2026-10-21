@@ -38,16 +38,10 @@ def format_limit(price: float) -> str:
 
 
 class AlpacaPaper:
-    def __init__(self, key_id: str | None = None, secret: str | None = None, timeout: float = 15,
-                 key_env: tuple[str, str] = ("APCA_API_KEY_ID", "APCA_API_SECRET_KEY"), require_keys: bool = False):
-        """key_env: which environment variables hold the keys (a second paper account uses its own pair).
-        require_keys: refuse to run on the network secret's injected keys (those belong to the desk's account)."""
+    def __init__(self, key_id: str | None = None, secret: str | None = None, timeout: float = 15):
         load_dotenv()
-        self.key_id = key_id or os.environ.get(key_env[0])
-        self.secret = secret or os.environ.get(key_env[1])
-        if require_keys and not (self.key_id and self.secret):
-            raise RuntimeError(f"No keys for this paper account: set {key_env[0]} and {key_env[1]} (paper keys, "
-                               "starting PK) in .env or the cloud environment's secrets.")
+        self.key_id = key_id or os.environ.get("APCA_API_KEY_ID")
+        self.secret = secret or os.environ.get("APCA_API_SECRET_KEY")
         # Without keys here, assume a cloud session's network secret adds the
         # APCA-API-KEY-ID / APCA-API-SECRET-KEY headers on the way out (the keys
         # never enter the session). If nothing adds them, Alpaca answers 401/403

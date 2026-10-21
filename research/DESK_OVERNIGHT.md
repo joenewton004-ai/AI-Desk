@@ -32,18 +32,20 @@ momentum.
 - **The current list is narrow** (mostly AI hardware: LITE, BE, SNDK, MU, MRVL...), and some of those
   names overlap with the momentum sleeve today.
 
-## What it would take to run
+## How it runs (as built, one account)
 
-The overnight sleeve trades twice a day in auctions; the desk trades at the evening run. In one
-account they'd fight over the same positions. The clean way:
-- the desk's paper account holds the quality screen and momentum, scaled from 50/20 to 71/29;
-- the overnight paper account (keys still to be added) holds the 30%, sized to 30/70 of the desk
-  account's equity;
-- the scorecard adds the two accounts together.
+You chose to run it inside the desk's own paper account: 50% quality screen, 20% momentum, 30% overnight.
+- **3:32pm New York:** market-on-close buys of the 20 picks with 30% of equity. That 30% is cash during the day,
+  because the shares were sold at the open.
+- **4:30pm:** the desk's evening run sells those shares at the next open, inside the desk's own order for each
+  stock. A stock held by both, e.g. MU in momentum and overnight, gets one net order, because Alpaca rejects
+  opposite orders in one stock as possible wash trades.
+- **The sale is a market order at the open**, not a market-on-open auction order. The open is what the research
+  assumed, but `overnight review` measures the real fills against the official open and close.
 
 ## Verdict
 
 **Better on paper only if trading costs come in at about 0.02% or less, with a deeper worst drop.**
-Logged as an amendment for your decision. A cautious path is to run the overnight sleeve in its
-own paper account first, measure its fill costs for a few weeks, then make the swap if they come
-in under about 0.02%.
+Accepted by you on 2026-10-21 (amendment 330e76e0) and active from that day.
+Watch `overnight review`: if fills average worse than about 0.02-0.03% per trade, the swap is losing
+the desk money, and it's time for an amendment to reverse it.

@@ -415,3 +415,35 @@ def test_momentum_sleeve_equal_weight_trend_passers_and_exit(tmp_path):
     assert w["AAA"] == pytest.approx(w["BBB"]) and w["CCC"] == 0   # equal weight; CCC below its 100-day avg
     assert "momentum" in m.exit_reason("OLD") and "amendment" in m.exit_reason("OLD")
     assert m.repick_status()["scan_command"].startswith("python -m ai_desk momentum scan")
+
+
+def test_evening_run_sells_the_overnight_book_inside_the_desks_own_orders(tmp_path, monkeypatch):
+    import pandas as pd
+
+    from ai_desk import overnight
+    from ai_desk.portfolio import methods
+    monkeypatch.setattr(executor, "JOURNAL", tmp_path / "journal.csv")
+    methods.OVERNIGHT_SWAP.write_text('{"from": "2020-01-01", "share": 0.3}')
+    today = pd.Timestamp.now(tz="America/New_York").date().isoformat()
+
+    class Broker(FakeBroker):
+        def get_order(self, oid):
+            return {"filled_qty": "30", "status": "filled"}
+
+        def submit_limit_order(self, symbol, qty, side, limit_price):
+            return self.submit_market_order(symbol, qty, side)
+
+    def run(pos):
+        b = Broker(positions=dict(pos))
+        b.submit_market_order = lambda s, q, side, b=b: (b.sent.append((s, q, side)), {"id": s})[1]
+        executor.run(build(["sma_crossover:0.7"], {"symbols": "AA,BB"}), execute=True, source="synthetic",
+                     max_data_age_days=None, broker=b)
+        return {s: (q if side == "buy" else -q) for s, q, side in b.sent}
+
+    base = run({"AA": 100.0})
+    overnight._append("orders.jsonl", {"kind": "buy_moc", "date": today, "symbol": "AA", "qty": 30, "order_id": "m1"})
+    netted = run({"AA": 130.0})                               # the same desk, plus 30 overnight shares in AA
+    assert abs(netted.get("AA", 0.0) - (base.get("AA", 0.0) - 30)) < 1e-6   # one order: the desk's change minus 30
+    assert overnight.load_book()["sell_sent"] is True
+    sold = [o for o in overnight._read("orders.jsonl") if o["kind"] == "sell_open"]
+    assert sold and sold[0]["symbol"] == "AA" and sold[0]["qty"] == 30

@@ -141,19 +141,15 @@ changes plainly and be honest about whether a strategy has a real edge.
   before the re-pick, "worth a test" only beyond chance. Baseline: `python research/near_misses.py` ->
   `research/NEAR_MISSES.md` (picks beat near misses ~2 re-picks in 3; no re-weighting helped in both halves).
   A "worth a test" is a reason to backtest, never to change the scoring directly.
-- Overnight sleeve (`ai_desk/overnight.py`, `python -m ai_desk overnight scan|status|buy|sell|review [--execute]`):
-  its OWN Alpaca paper account, keys APCA_OVERNIGHT_KEY_ID / APCA_OVERNIGHT_SECRET_KEY - never the desk's (the desk's
-  evening run would sell its positions). Every run checks the account number differs from the desk's and refuses
-  otherwise; it never uses the network secret's injected keys. Market-on-close buys 3:30-3:49pm New York, whole shares,
-  equal weight (2% cash buffer); market-on-open sells of everything 7:00-9:27am. No buys while anything is still held.
-  Picks locked in data/portfolio/overnight.json, re-picked at the first run after each month-end. Journal in
-  journal/overnight/ (orders, runs, review of fills vs the official open/close) - commit it with data/portfolio/.
-- Desk swap (amendment 330e76e0, accepted 2026-10-21): the overnight sleeve replaces the 30% SPY momentum sleeve.
-  It starts only at `python -m ai_desk overnight activate`, which checks the overnight account works, is a different
-  account, and holds ~3/7 of the desk account's equity (target_equity), then writes data/portfolio/overnight_live.json.
-  From that date `methods.preset("desk")` drops index_momentum and rescales the rest to 100% of the desk account
-  (50/20 -> 71/29); the first desk run after it resizes locked holdings once (Blend.unfreeze_once, then "rescaled").
-  The scorecard combines both accounts (snapshot records overnight_equity; scorecard.combine_accounts, no jump).
+- Overnight sleeve = the desk's 30% (amendment 330e76e0, accepted 2026-10-21; replaces SPY momentum), in the SAME
+  Alpaca paper account (`ai_desk/overnight.py`, `python -m ai_desk overnight scan|status|buy|review|activate`):
+  3:32pm New York (scheduled) `overnight buy --execute` = market-on-close buys, whole shares, equal weight, 30% of
+  equity capped by cash less 1%; the 4:30pm desk run reads the fills into data/portfolio/overnight_book.json and sells
+  them at the next open INSIDE the desk's own order for each stock (`net_with_desk`: one net order per symbol -
+  Alpaca rejects opposite-side orders in one stock as wash trades). No buys while a book is unsold. Picks locked in
+  data/portfolio/overnight.json, re-picked after each month-end. Active from data/portfolio/overnight_live.json
+  (2026-10-21); from then `methods.preset("desk")` = quality 50% + momentum 20% (SPY momentum dropped, no rescaling).
+  Journal in journal/overnight/ - commit it with data/portfolio/. Paper fills can't measure real auction costs.
 - Methodology changes go through register.py amendments: proposed -> testing
   (backtest it) -> accepted/rejected by the user. Never change live method
   parameters without an accepted amendment.

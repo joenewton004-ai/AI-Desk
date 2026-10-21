@@ -1,8 +1,8 @@
 [
  {
   "method": "index_momentum",
-  "live": true,
-  "allocation": 0.3,
+  "live": false,
+  "allocation": 0.0,
   "status": "proven as crash insurance",
   "description": "The thesis's index sleeve: hold `symbol` while its 12-month return is positive (checked monthly), otherwise cash.",
   "evidence": "SPY 1994-2026: 10.6%/yr vs 10.8% buy & hold, worst drop -34% vs -55%; robust across periods, markets and costs. Cost ~1%/yr in 2014-2026 (fast rebounds).",
@@ -145,9 +145,9 @@
  },
  {
   "method": "overnight_drift",
-  "live": false,
-  "allocation": 0.0,
-  "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`; own paper account",
+  "live": true,
+  "allocation": 0.3,
+  "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`",
   "description": "Overnight momentum (Lou, Polk & Skouras 2019): each month take the 20 large stocks with the highest average overnight return (close to next open) over the past 12 months; hold them only overnight - buy at the close, sell at the next open - via the closing and opening auctions.",
   "evidence": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
   "parameters": "stocks=20; look_back=12 months; re_pick=monthly; hold=close to next open, daily; orders=market-on-close buy, market-on-open sell",

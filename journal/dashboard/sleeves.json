@@ -22,9 +22,20 @@
   "win_rate": null
  },
  {
-  "sleeve": "index_momentum",
+  "sleeve": "overnight_drift",
   "allocation": 0.3,
-  "planned_weight": 0.3,
+  "planned_weight": 0.0,
+  "open_positions": 0,
+  "invested": 0.0,
+  "unrealized_pnl": 0.0,
+  "realized_pnl": 0.0,
+  "closed_trades": 0,
+  "win_rate": null
+ },
+ {
+  "sleeve": "index_momentum",
+  "allocation": 0.0,
+  "planned_weight": 0.0,
   "open_positions": 1,
   "invested": 29656.12,
   "unrealized_pnl": 163.95,

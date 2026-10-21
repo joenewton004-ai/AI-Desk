@@ -509,14 +509,13 @@ def _overnight(a) -> None:
             print(f"  {i:>2}. {r['symbol']:6} {r['overnight_yr']:+6.0%}/yr overnight, past 12 months   {r['name']}")
         print("(Research ranking, not a recommendation. `overnight buy` locks it at the monthly re-pick.)")
     elif a.action == "status":
-        ovn, acct = ov.brokers()
-        lock = ov.load_lock()
-        print(f"Overnight paper account {acct.get('account_number')}: equity ${float(acct.get('equity', 0)):,.0f}, "
-              f"positions {ovn.positions() or 'none'}, open orders {len(ovn.open_orders())}")
-        print(f"Picks: {', '.join(lock['picks']) if lock else 'none yet'}"
-              + (f" (from the {lock['ref_date']} close)" if lock else ""))
-    elif a.action in ("buy", "sell"):
-        out = (ov.buy if a.action == "buy" else ov.sell)(execute=a.execute)
+        from ai_desk.portfolio.methods import overnight_swap
+        lock, book, sw = ov.load_lock(), ov.load_book(), overnight_swap()
+        print(f"Swap: {'active from ' + sw['from'] if sw else 'not active (desk still holds SPY momentum)'}")
+        print(f"Picks: {', '.join(lock['picks']) if lock else 'none yet'}" + (f" (from the {lock['ref_date']} close)" if lock else ""))
+        print(f"Book: {book.get('holdings') or 'empty'}" + (f" (bought {book.get('date')}, sale sent: {book.get('sell_sent')})" if book else ""))
+    elif a.action == "buy":
+        out = ov.buy(execute=a.execute)
         for n in out.get("notes", []):
             print("  " + n)
         for o in out["orders"]:
@@ -524,16 +523,15 @@ def _overnight(a) -> None:
         if out["blocked"]:
             print(f"Nothing sent: {out['blocked']}")
         elif out["dry_run"]:
-            print(f"Dry run: {len(out['orders'])} orders planned. Add --execute to send them "
-                  f"({'market-on-close' if a.action == 'buy' else 'market-on-open'}).")
+            print(f"Dry run: {len(out['orders'])} market-on-close buys planned. Add --execute to send them.")
         else:
-            print(f"Sent {out['sent']} {'market-on-close buys' if a.action == 'buy' else 'market-on-open sells'} "
-                  f"to paper account {out['account']}.")
+            print(f"Sent {out['sent']} market-on-close buys to paper account {out['account']}. "
+                  "Tonight's desk run sells them at the next open.")
     elif a.action == "activate":
         row = ov.activate()
-        print(f"Desk swap active from {row['from']} (amendment {row['amendment']}): the desk account "
-              f"{row['desk_account']} drops SPY momentum at tonight's run and rescales; overnight account "
-              f"{row['overnight_account']} is the {row['share']:.0%} sleeve. Commit data/portfolio/overnight_live.json.")
+        print(f"Desk swap active from {row['from']} (amendment {row['amendment']}): that evening's desk run sells SPY "
+              f"at the next open; the overnight sleeve ({row['share']:.0%}) buys from the next trading afternoon. "
+              "Commit data/portfolio/overnight_live.json.")
     elif a.action == "review":
         r = ov.review()
         s = r["summary"]
@@ -769,8 +767,8 @@ def build_parser() -> argparse.ArgumentParser:
     mo.add_argument("--top", type=int, default=20)
     mo.set_defaults(func=cmd_momentum)
 
-    on = sub.add_parser("overnight", help="overnight sleeve (own paper account): buy at the close, sell at the open")
-    on.add_argument("action", choices=["scan", "status", "buy", "sell", "review", "activate"])
+    on = sub.add_parser("overnight", help="overnight sleeve (30% of the desk): buy at the close, sold at the next open")
+    on.add_argument("action", choices=["scan", "status", "buy", "review", "activate"])
     on.add_argument("--execute", action="store_true", help="send the orders (default: dry run)")
     on.set_defaults(func=cmd_overnight)
 

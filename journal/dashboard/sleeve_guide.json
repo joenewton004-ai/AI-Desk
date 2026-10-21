@@ -20,13 +20,13 @@
   "watch": "Do stocks keep falling after the 100-day exit? Does it beat SPY after its higher trading costs?"
  },
  {
-  "sleeve": "index_momentum",
-  "label": "SPY momentum (crash insurance)",
+  "sleeve": "overnight_drift",
+  "label": "Overnight",
   "allocation": 0.3,
-  "line": "SPY momentum (crash insurance) - 30% - SPY, 252-day momentum, checked monthly; Holds SPY while its 12-month return is above zero; otherwise cash.",
-  "plain": "Holds SPY while its 12-month return is positive; moves to cash (earning T-bills) when it turns negative. Checked monthly, so it trades about once a year.",
-  "screen": "Holds SPY while its 12-month return is above zero; otherwise cash.",
-  "metrics": "Worst drop vs SPY buy and hold. Backtest 1994-2026: 10.6%/yr vs 10.8%, worst drop -34% vs -55%.",
-  "watch": "It should lag in strong bull markets and justify itself in a long bear market. Judge it on the worst drop, not return."
+  "line": "Overnight - 30% - Top 20 by average overnight return (close to next open) over 12 months; price over $10, $20M a day traded; equal weight; re-picked monthly.",
+  "plain": "Holds the 20 large US stocks that have earned the most overnight over the past year - bought in the closing auction (3:32pm New York), sold at the next open by the evening run, every trading day. Replaced SPY momentum (amendment 330e76e0, accepted 2026-10-21).",
+  "screen": "Top 20 by average overnight return (close to next open) over 12 months; price over $10, $20M a day traded; equal weight; re-picked monthly.",
+  "metrics": "Fill cost vs the official close/open (break-even about 0.045% per trade; the desk-level case needs about 0.02%). Backtest 2014-2026 at 0.02%: 16.7%/yr, Sharpe 0.81, worst drop -28%.",
+  "watch": "Costs first: `overnight review`. No crash switch - it stays invested in falling markets (March 2020: -20%)."
  }
 ]

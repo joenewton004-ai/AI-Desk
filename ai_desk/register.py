@@ -112,8 +112,8 @@ SLEEVE_TEXT = {
     "overnight_drift": {
         "label": "Overnight",
         "plain": "Holds the 20 large US stocks that have earned the most overnight over the past year - bought in the "
-                 "closing auction, sold in the next morning's opening auction, every trading day. Runs in its own paper "
-                 "account. Replaced SPY momentum (amendment 330e76e0, accepted 2026-10-21).",
+                 "closing auction (3:32pm New York), sold at the next open by the evening run, every trading day. "
+                 "Replaced SPY momentum (amendment 330e76e0, accepted 2026-10-21).",
         "screen": "Top 20 by average overnight return (close to next open) over 12 months; price over $10, $20M a day "
                   "traded; equal weight; re-picked monthly.",
         "metrics": "Fill cost vs the official close/open (break-even about 0.045% per trade; the desk-level case needs "
@@ -124,8 +124,8 @@ SLEEVE_TEXT = {
 
 
 def desk_allocation(today=None) -> dict[str, float]:
-    """The whole desk's split across both paper accounts: after the overnight swap (amendment 330e76e0) the desk's
-    own account holds the other sleeves, rescaled, and the overnight account holds its share."""
+    """The whole desk's split: after the overnight swap (amendment 330e76e0) SPY momentum's 30% goes to the
+    overnight sleeve, which trades in the same account outside the desk method."""
     import pandas as pd
 
     from ai_desk.portfolio.methods import overnight_swap
@@ -133,8 +133,7 @@ def desk_allocation(today=None) -> dict[str, float]:
     live = dict(preset(LIVE_PRESET, today))
     today = (pd.Timestamp(today) if today else pd.Timestamp.today()).normalize()
     if sw and today >= pd.Timestamp(sw["from"]):
-        share = float(sw.get("share", 0.3))
-        return {k: w * (1 - share) for k, w in live.items()} | {"overnight_drift": share}
+        return live | {"overnight_drift": float(sw.get("share", 0.3))}
     return live
 
 
@@ -301,7 +300,7 @@ RESEARCH_METHODS = {
                        "buy at the close, sell at the next open - via the closing and opening auctions.",
         "parameters": {"stocks": 20, "look_back": "12 months", "re_pick": "monthly", "hold": "close to next open, daily",
                        "orders": "market-on-close buy, market-on-open sell"},
-        "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`; own paper account",
+        "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`",
         "summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, "
                    "both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the "
                    "average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",

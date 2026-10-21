@@ -51,7 +51,7 @@
   "rationale": "research/OVERNIGHT.md: persistent (t 6.4, 82% of months), 15.5%/yr at 0.02% costs, break-even ~0.045% per trade. The open question is the real cost.",
   "author": "you",
   "status": "accepted",
-  "evidence": "Accepted by the user 2026-10-21 ('build it'), as a paper experiment in its own account, separate from the desk. Paper fills are simulated: this tests the mechanics, not real auction costs.",
+  "evidence": "Accepted by the user 2026-10-21 ('build it'), as a paper experiment in its own account, separate from the desk. Paper fills are simulated: this tests the mechanics, not real auction costs. Superseded by 330e76e0: the sleeve runs inside the desk's account instead of a separate one.",
   "decided": "2026-10-21"
  },
  {
@@ -62,7 +62,7 @@
   "rationale": "Owner's request 2026-10-21: 'change the SPY momentum sleeve for the overnight trade - high conviction desk'.",
   "author": "you",
   "status": "accepted",
-  "evidence": "Accepted by the user 2026-10-21 ('Swap now') after the backtest (research/DESK_OVERNIGHT.md: 18.6%/yr, Sharpe 0.98, worst -26.8% at 0.02% costs vs 16.5%, 0.91, -24.2%; break-even ~0.03%). Takes effect at `overnight activate`, once the overnight paper account works and holds ~3/7 of the desk account's equity.",
+  "evidence": "Accepted by the user 2026-10-21 ('Swap now') after the backtest (research/DESK_OVERNIGHT.md: 18.6%/yr, Sharpe 0.98, worst -26.8% at 0.02% costs vs 16.5%, 0.91, -24.2%; break-even ~0.03%). Takes effect at `overnight activate`, once the overnight paper account works and holds ~3/7 of the desk account's equity. Implemented in the desk's own account (your choice, 2026-10-21): 50% quality, 20% momentum, 30% overnight; activated 2026-10-21.",
   "decided": "2026-10-21"
  }
 ]
