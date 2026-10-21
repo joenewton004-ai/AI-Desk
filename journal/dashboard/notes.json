@@ -14,5 +14,13 @@
   "author": "claude",
   "kind": "research",
   "text": "Winners study (research/WINNERS.md): the 2021-26 top 25 shared a theme (AI hardware and power), not a fundamental profile - median ROIC and margins sat below the universe's. Price momentum and growth showed no reliable edge across 31 windows. Case for this sleeve is following the theme and exiting when the trend breaks, not finding it early; the 100-day exit matters more than the entry."
+ },
+ {
+  "id": "e1e98229",
+  "date": "2026-10-21",
+  "target": "desk",
+  "author": "owner",
+  "kind": "note",
+  "text": "Owner decision 2026-10-21: no rebalancing between sleeves for now. Sleeves drift between re-picks (quality every 3 months, momentum every 28 days); overnight buys 30% of equity daily, capped by cash less 1%, so it is squeezed when quality+momentum grow above 70%. Known gap: research/DESK_OVERNIGHT.md combined sleeves at fixed 50/20/30 monthly (an implied monthly rebalance). Reassess with more live data: track each sleeve's share of equity vs target; options = keep, monthly sleeve rebalance, or ~3-point drift bands (each needs an amendment + backtest)."
  }
 ]

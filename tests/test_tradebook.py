@@ -1,3 +1,4 @@
+import json
 import pandas as pd
 import pytest
 
@@ -274,3 +275,12 @@ def test_watchlist_daily_log_keeps_one_row_per_cohort_per_day(tmp_path, monkeypa
     watchlist.log_checks([c, {**c, "asof": "2026-11-05"}])
     h = watchlist.daily_history()
     assert [r["asof"] for r in h] == ["2026-11-04", "2026-11-05"] and "sectors" not in h[0]
+
+
+def test_open_position_kept_by_the_successor_sleeve_moves_to_it(tmp_path, monkeypatch):
+    lock = tmp_path / "momentum.json"
+    lock.write_text(json.dumps({"picks": ["AMD"], "locked_on": "2026-10-21"}))
+    monkeypatch.setattr(tradebook, "HANDOVERS", {"bottleneck": ("momentum", lock)})
+    assert tradebook.handed_over("bottleneck", "AMD") == "momentum"
+    assert tradebook.handed_over("bottleneck", "COP") == "bottleneck"     # sold on the switch: stays on record
+    assert tradebook.handed_over("quality_screen", "AMD") == "quality_screen"
