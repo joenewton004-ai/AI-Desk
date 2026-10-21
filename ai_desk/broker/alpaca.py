@@ -38,10 +38,16 @@ def format_limit(price: float) -> str:
 
 
 class AlpacaPaper:
-    def __init__(self, key_id: str | None = None, secret: str | None = None, timeout: float = 15):
+    def __init__(self, key_id: str | None = None, secret: str | None = None, timeout: float = 15,
+                 key_env: tuple[str, str] = ("APCA_API_KEY_ID", "APCA_API_SECRET_KEY"), require_keys: bool = False):
+        """key_env: which environment variables hold the keys (a second paper account uses its own pair).
+        require_keys: refuse to run on the network secret's injected keys (those belong to the desk's account)."""
         load_dotenv()
-        self.key_id = key_id or os.environ.get("APCA_API_KEY_ID")
-        self.secret = secret or os.environ.get("APCA_API_SECRET_KEY")
+        self.key_id = key_id or os.environ.get(key_env[0])
+        self.secret = secret or os.environ.get(key_env[1])
+        if require_keys and not (self.key_id and self.secret):
+            raise RuntimeError(f"No keys for this paper account: set {key_env[0]} and {key_env[1]} (paper keys, "
+                               "starting PK) in .env or the cloud environment's secrets.")
         # Without keys here, assume a cloud session's network secret adds the
         # APCA-API-KEY-ID / APCA-API-SECRET-KEY headers on the way out (the keys
         # never enter the session). If nothing adds them, Alpaca answers 401/403
@@ -131,12 +137,17 @@ class AlpacaPaper:
             "limit_price": format_limit(limit_price), "time_in_force": "day",
         })
 
-    def submit_market_order(self, symbol: str, qty: float, side: str) -> dict:
+    def submit_market_order(self, symbol: str, qty: float, side: str, time_in_force: str = "day") -> dict:
         """Market order, good for the day. Submitted after the close, Alpaca
         queues it for the next open - matching how the backtest fills.
         Fractional quantities are allowed for fractionable stocks (day market
-        orders only, which is what this sends)."""
+        orders only). time_in_force "cls" = market-on-close (the closing auction),
+        "opg" = market-on-open (the opening auction); both need whole shares."""
+        if time_in_force not in ("day", "cls", "opg"):
+            raise ValueError(f"unsupported time_in_force {time_in_force!r}")
+        if time_in_force != "day" and float(qty) != int(float(qty)):
+            raise ValueError("auction orders (cls/opg) need whole shares")
         return self._request("POST", "/orders", json={
             "symbol": symbol, "qty": format_qty(qty), "side": side,
-            "type": "market", "time_in_force": "day",
+            "type": "market", "time_in_force": time_in_force,
         })

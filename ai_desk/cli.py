@@ -490,6 +490,53 @@ def cmd_momentum(a) -> None:
     print(f"Saved {path} and {path.with_suffix('.csv')}")
 
 
+def cmd_overnight(a) -> None:
+    try:
+        _overnight(a)
+    except RuntimeError as e:          # missing keys, same-account guard: say why, don't dump a traceback
+        print(f"Overnight sleeve: {e}")
+        raise SystemExit(1)
+
+
+def _overnight(a) -> None:
+    from ai_desk import overnight as ov
+
+    pct = lambda x: "n/a" if x is None or x != x else f"{x:+.3%}"  # noqa: E731
+    if a.action == "scan":
+        s = ov.scan()
+        print(f"Overnight ranking from the {s['ref_date']} close ({s['universe']} large US companies):")
+        for i, r in enumerate(s["rows"], 1):
+            print(f"  {i:>2}. {r['symbol']:6} {r['overnight_yr']:+6.0%}/yr overnight, past 12 months   {r['name']}")
+        print("(Research ranking, not a recommendation. `overnight buy` locks it at the monthly re-pick.)")
+    elif a.action == "status":
+        ovn, acct = ov.brokers()
+        lock = ov.load_lock()
+        print(f"Overnight paper account {acct.get('account_number')}: equity ${float(acct.get('equity', 0)):,.0f}, "
+              f"positions {ovn.positions() or 'none'}, open orders {len(ovn.open_orders())}")
+        print(f"Picks: {', '.join(lock['picks']) if lock else 'none yet'}"
+              + (f" (from the {lock['ref_date']} close)" if lock else ""))
+    elif a.action in ("buy", "sell"):
+        out = (ov.buy if a.action == "buy" else ov.sell)(execute=a.execute)
+        for n in out.get("notes", []):
+            print("  " + n)
+        for o in out["orders"]:
+            print(f"  {o['side']:4} {o['qty']:>6} {o['symbol']}" + (f"  (~${o['notional']:,.0f})" if "notional" in o else ""))
+        if out["blocked"]:
+            print(f"Nothing sent: {out['blocked']}")
+        elif out["dry_run"]:
+            print(f"Dry run: {len(out['orders'])} orders planned. Add --execute to send them "
+                  f"({'market-on-close' if a.action == 'buy' else 'market-on-open'}).")
+        else:
+            print(f"Sent {out['sent']} {'market-on-close buys' if a.action == 'buy' else 'market-on-open sells'} "
+                  f"to paper account {out['account']}.")
+    elif a.action == "review":
+        r = ov.review()
+        s = r["summary"]
+        print(f"{s['filled']} of {s['orders']} orders filled. Average cost vs the official auction price: {pct(s['avg_cost'])} "
+              f"(buys {pct(s['avg_cost_buys'])}, sells {pct(s['avg_cost_sells'])}); break-even is about +0.045%.")
+        print(f"Note: {s['note']}. Saved journal/overnight/review.json")
+
+
 def cmd_journal(a) -> None:
     from ai_desk import register, tradebook
 
@@ -705,6 +752,11 @@ def build_parser() -> argparse.ArgumentParser:
     mo.add_argument("--min-cap", type=float, default=10e9)
     mo.add_argument("--top", type=int, default=20)
     mo.set_defaults(func=cmd_momentum)
+
+    on = sub.add_parser("overnight", help="overnight sleeve (own paper account): buy at the close, sell at the open")
+    on.add_argument("action", choices=["scan", "status", "buy", "sell", "review"])
+    on.add_argument("--execute", action="store_true", help="send the orders (default: dry run)")
+    on.set_defaults(func=cmd_overnight)
 
     jn = sub.add_parser("journal", help="trade journal, notes, methodology register and amendments")
     jn.add_argument("action", choices=["sync", "review", "note", "methods", "propose", "decide", "amendments", "export",

@@ -270,11 +270,11 @@ RESEARCH_METHODS = {
                        "buy at the close, sell at the next open - via the closing and opening auctions.",
         "parameters": {"stocks": 20, "look_back": "12 months", "re_pick": "monthly", "hold": "close to next open, daily",
                        "orders": "market-on-close buy, market-on-open sell"},
-        "status": "promising - needs a cost test (not in the live mix)",
+        "status": "paper experiment in its own Alpaca paper account (built 2026-10-21; not part of the desk)",
         "summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, "
                    "both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the "
                    "average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
-        "docs": ["research/OVERNIGHT.md", "research/output/overnight.md"],
+        "docs": ["research/OVERNIGHT.md", "research/output/overnight.md", "ai_desk/overnight.py"],
     },
     "drawdown_breaker": {
         "description": "Account-level circuit breaker (drawdown-circuit-breaker skill, tradermonty/claude-trading-skills): "

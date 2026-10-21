@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-21T11:01:55+00:00",
+ "generated_utc": "2026-10-21T11:12:04+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -360,13 +360,26 @@
     "hold": "close to next open, daily",
     "orders": "market-on-close buy, market-on-open sell"
    },
-   "status": "promising - needs a cost test (not in the live mix)",
+   "status": "paper experiment in its own Alpaca paper account (built 2026-10-21; not part of the desk)",
    "evidence_summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
    "docs": [
     "research/OVERNIGHT.md",
-    "research/output/overnight.md"
+    "research/output/overnight.md",
+    "ai_desk/overnight.py"
    ],
-   "amendments": []
+   "amendments": [
+    {
+     "id": "cb9d0af7",
+     "created_utc": "2026-10-21T11:12:02+00:00",
+     "method": "overnight_drift",
+     "proposal": "Run the overnight drift strategy as a separate paper experiment in its own Alpaca paper account: each month lock the 20 large US stocks with the highest 12-month average overnight return; buy them market-on-close every trading day and sell everything market-on-open; log every fill against the official close/open to measure the auction cost.",
+     "rationale": "research/OVERNIGHT.md: persistent (t 6.4, 82% of months), 15.5%/yr at 0.02% costs, break-even ~0.045% per trade. The open question is the real cost.",
+     "author": "you",
+     "status": "accepted",
+     "evidence": "Accepted by the user 2026-10-21 ('build it'), as a paper experiment in its own account, separate from the desk. Paper fills are simulated: this tests the mechanics, not real auction costs.",
+     "decided_utc": "2026-10-21T11:12:02+00:00"
+    }
+   ]
   },
   {
    "name": "drawdown_breaker",

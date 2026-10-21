@@ -40,8 +40,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   `python research/orb.py` -> `research/SWING_EDGES.md`. None is a strategy; the bad-earnings-surprise filter is
   the one follow-up idea (untested inside the desk). Events cached in data/backtest/earnings_events.pkl.
 - Overnight drift per stock (Lou, Polk & Skouras): `python research/overnight.py` -> `research/OVERNIGHT.md`. Strong
-  and persistent (t 6.4), profitable only if costs <= ~0.02% each way (break-even ~0.045%). Status 'promising - needs
-  a cost test'; NOT in the live mix. Paper fills can't measure real auction costs - say so.
+  and persistent (t 6.4), profitable only if costs <= ~0.02% each way (break-even ~0.045%). Built as a separate paper
+  experiment (amendment accepted by the user 2026-10-21); NOT part of the desk. Paper fills can't measure real
+  auction costs - say so.
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
@@ -133,6 +134,13 @@ changes plainly and be honest about whether a strategy has a real edge.
   before the re-pick, "worth a test" only beyond chance. Baseline: `python research/near_misses.py` ->
   `research/NEAR_MISSES.md` (picks beat near misses ~2 re-picks in 3; no re-weighting helped in both halves).
   A "worth a test" is a reason to backtest, never to change the scoring directly.
+- Overnight sleeve (`ai_desk/overnight.py`, `python -m ai_desk overnight scan|status|buy|sell|review [--execute]`):
+  its OWN Alpaca paper account, keys APCA_OVERNIGHT_KEY_ID / APCA_OVERNIGHT_SECRET_KEY - never the desk's (the desk's
+  evening run would sell its positions). Every run checks the account number differs from the desk's and refuses
+  otherwise; it never uses the network secret's injected keys. Market-on-close buys 3:30-3:49pm New York, whole shares,
+  equal weight (2% cash buffer); market-on-open sells of everything 7:00-9:27am. No buys while anything is still held.
+  Picks locked in data/portfolio/overnight.json, re-picked at the first run after each month-end. Journal in
+  journal/overnight/ (orders, runs, review of fills vs the official open/close) - commit it with data/portfolio/.
 - Methodology changes go through register.py amendments: proposed -> testing
   (backtest it) -> accepted/rejected by the user. Never change live method
   parameters without an accepted amendment.
