@@ -120,6 +120,18 @@
   "notes": ""
  },
  {
+  "method": "lynch_rules",
+  "live": false,
+  "allocation": 0.0,
+  "status": "tested, no edge (not in the live mix)",
+  "description": "Peter Lynch's checkable rules (One Up on Wall Street, 1989): PEG under 1 (P/E / earnings growth %), the dividend-adjusted Lynch ratio (growth + yield) / P/E of 2+, growth categories (stalwarts, fast growers 18-30%), low debt, inventory not outpacing sales, no share dilution.",
+  "evidence": "2014-2026 point-in-time SEC data: every Lynch version made 9.2-10.6%/yr (Sharpe 0.42-0.53) vs the average stock 11.5% (0.61), SPY 13.8% (0.83) and the desk's quality screen 17.9% (0.89). PEG under 1 alone: -0.07%/quarter vs the average stock, flipping sign between 2014-19 and 2020-26. Survivors-only prices.",
+  "parameters": "growth=3-year net-income growth (trailing); peg=< 1; lynch_ratio=>= 2; debt_equity=< 0.5 or net cash; rebalance=quarterly; universe=750 largest US companies",
+  "docs": "research/LYNCH.md, research/output/lynch.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
   "method": "drawdown_breaker",
   "live": false,
   "allocation": 0.0,
