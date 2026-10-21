@@ -168,6 +168,18 @@
   "notes": ""
  },
  {
+  "method": "leveraged_spy",
+  "live": false,
+  "allocation": 0.0,
+  "status": "tested: risk control works, no edge (not in the live mix)",
+  "description": "A 2x/3x S&P 500 fund (SSO/UPRO, simulated back to 1994 and checked against the real funds) traded on SPY's signals with strict risk rules: SPY above its 200-day average, leverage capped at 25% / SPY's volatility, out while the VIX is above 30, a 10% stop with a trend re-entry.",
+  "evidence": "1994-2026: 3x strict 12.7%/yr, Sharpe 0.53, worst -37%; 2x strict 11.6%, 0.53, -31%; vs SPY 10.8%, 0.51, -55% and 3x buy and hold 14.9%, 0.49, -98%. 2010-2026 plain SPY was better (Sharpe 0.77 vs 0.58-0.61). Walk-forward tuning did worse than a fixed 200-day.",
+  "parameters": "leverage=2x or 3x; trend=200-day average, 1% band; vol_cap=25% annual; vix=out above 30; stop=10% from entry; fills=next open",
+  "docs": "research/LEVERAGED.md, research/output/leveraged.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
   "method": "drawdown_breaker",
   "live": false,
   "allocation": 0.0,

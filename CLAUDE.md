@@ -45,6 +45,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   `research/DESK_OVERNIGHT.md` (better only at <= ~0.02-0.03% costs; deeper worst drop).
 - EMA9/VWAP crossover and Trend+Momentum+Confirmation (EMA20/50, VWAP, volume, breakout): `python research/vwap_ema.py`
   -> `research/VWAP_EMA.md` (cached 5m/1m/1h bars). No edge; research-only.
+- Leveraged S&P fund (2x/3x, simulated + checked vs real SSO/UPRO) on SPY signals with strict risk rules:
+  `python research/leveraged.py` -> `research/LEVERAGED.md`. Risk control works, no Sharpe edge; research-only.
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
