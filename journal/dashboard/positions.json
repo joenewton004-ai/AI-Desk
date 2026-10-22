@@ -52,7 +52,7 @@
  },
  {
   "symbol": "BE",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 1.0,
@@ -256,7 +256,7 @@
  },
  {
   "symbol": "FTAI",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 10.0,
@@ -511,7 +511,7 @@
  },
  {
   "symbol": "MU",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 1.0,
@@ -562,7 +562,7 @@
  },
  {
   "symbol": "NVT",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 4.0,
@@ -715,7 +715,7 @@
  },
  {
   "symbol": "SITM",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 3.0,
@@ -749,7 +749,7 @@
  },
  {
   "symbol": "STX",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 1.0,
@@ -783,7 +783,7 @@
  },
  {
   "symbol": "TER",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 1.0,
@@ -851,7 +851,7 @@
  },
  {
   "symbol": "VRT",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 7.0,

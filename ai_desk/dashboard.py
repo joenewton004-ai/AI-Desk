@@ -136,8 +136,18 @@ def tables() -> dict[str, list[dict]]:
         "notes": notes_for(m["name"]),
     } for m in reg["methods"]]
 
+    from ai_desk import overnight, scorecard
+    smap = scorecard.sleeve_map()                           # labels as of now (the snapshot's may predate a buy)
+    lock = overnight.load_lock() or {}
+    on_rank = {r["symbol"]: (k + 1, r.get("overnight_yr")) for k, r in enumerate(lock.get("rows", []))}
+
+    def on_why(sym):
+        k, yr = on_rank.get(sym, (None, None))
+        return (f"overnight #{k} of {len(on_rank)}" + (f" · {yr:+.0%}/yr overnight (12 months)" if yr is not None else "")
+                if k else "overnight sleeve")
+
     positions = [{
-        "symbol": r["symbol"], "sleeve": r["sleeve"] or "", "target": r["target"] or 0.0,
+        "symbol": r["symbol"], "sleeve": r["sleeve"] or smap.get(r["symbol"], ""), "target": r["target"] or 0.0,
         "target_usd": round((r["target"] or 0.0) * (plan.get("equity") or 0.0), 2),
         "held_qty": r["held_qty"], "order": f"{r['side']} {r['qty']:g}" if r["side"] else "",
         "order_usd": r["notional"], "reason": r["reason"], "blocked": r["blocked"],
@@ -154,9 +164,10 @@ def tables() -> dict[str, list[dict]]:
         "sleeve": t.get("sleeve") or "", "action": t.get("action") or "", "status": t.get("status") or "",
         "order_type": t.get("order_type") or "market", "limit_price": t.get("limit_price"),
         "reason": t.get("reason") or "", "exit_reason": t.get("exit_reason") or "",
-        "why": _why(t.get("rationale")), "rationale": _compact(t.get("rationale") or {}),
+        "why": on_why(t["symbol"]) if t.get("sleeve") == tradebook.OVERNIGHT else _why(t.get("rationale")),
+        "rationale": _compact(t.get("rationale") or {}),
         "notes": notes_for(t["id"], t["symbol"]),
-    } for t in trades]
+    } for t in sorted(trades, key=lambda t: t.get("filled_utc") or t["created_utc"], reverse=True)]   # newest first
 
     closed = [{
         "symbol": c["symbol"], "sleeve": c.get("sleeve") or "", "entry_date": str(c["entry_utc"])[:10],
@@ -219,10 +230,8 @@ def tables() -> dict[str, list[dict]]:
         names.update({r["symbol"]: r["name"] for r in c.get("rows", []) if r.get("name")})
     names.update({sym: h["name"] for sym, h in (last.get("holdings") or {}).items() if h.get("name")})
     why = {r["symbol"]: r["why"] for r in positions}
-    from ai_desk import overnight
     book = overnight.load_book()                            # shares held overnight, so a stock can be split by sleeve
     book = {**book, "holdings": overnight.held_overnight()}
-    smap = scorecard.sleeve_map()                           # labels as of now (the snapshot's may predate a buy)
     holdings = [{
         "symbol": sym, "name": names.get(sym, ""), "sleeve": smap.get(sym) or h.get("sleeve") or "", "shares": h.get("qty"), "price": h.get("price"),
         "avg_cost": h.get("avg_cost"), "market_value": h.get("market_value"), "cost_basis": h.get("cost_basis"),
