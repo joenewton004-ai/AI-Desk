@@ -136,6 +136,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   uses it while it's newer than the last close and the market is open, and says "(intraday)". Scheduled about
   10:07am, 12:07pm and 3:07pm New York on weekdays; it uploads only holdings, positions and summary. Read-only:
   never places orders.
+- Morning fills (scheduled, weekdays 9:41am New York, set up by the user 2026-10-22; read-only): `journal sync`,
+  `journal review`, `overnight review`, `journal live`, then uploads trades, closed, sleeves, summary, holdings,
+  positions and fills - records the open's sales (the overnight sleeve's night) the same morning.
 - Scorecard (`ai_desk/scorecard.py`, criteria in `research/SUCCESS_CRITERIA.md` = `CRITERIA`):
   `journal snapshot` after each close (scheduled), then `journal scorecard` and `journal export`.
   The criteria were written before results came in - change them only via an amendment
