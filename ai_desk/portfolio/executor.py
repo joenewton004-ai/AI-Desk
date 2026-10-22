@@ -210,11 +210,18 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
     positions = broker.positions()
     # prices for what we hold too - otherwise a stock the methods have dropped
     # would have no price and could never be sold
-    wanted = list(dict.fromkeys(method.symbols() + [s for s, q in positions.items() if q]))
-    prices = load_many(wanted, start, source=source)
+    wanted = list(dict.fromkeys(method.symbols()))
+    held_only = [s for s, q in positions.items() if q and s not in wanted]
+    prices = load_many(wanted or held_only, start, source=source)
     closes = drop_incomplete_bar(prices["close"])
     if len(closes) < 260:
         raise RuntimeError(f"only {len(closes)} days of prices for {wanted} - need about a year")
+    # held-only stocks just need today's price to be sold: join them separately, so a recent listing
+    # (e.g. one the overnight sleeve bought) can't cut the methods' history to its own length
+    extra_held = [s for s in held_only if s not in closes.columns]
+    if extra_held:
+        extra = load_many(extra_held, start, source=source)
+        closes = closes.join(drop_incomplete_bar(extra["close"]), how="left")
     age = (pd.Timestamp.today().normalize() - closes.index[-1]).days
     if max_data_age_days is not None and age > max_data_age_days:
         raise RuntimeError(f"latest prices are from {closes.index[-1].date()} ({age} days old) - not trading")
