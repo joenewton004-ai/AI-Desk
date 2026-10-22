@@ -155,13 +155,17 @@ changes plainly and be honest about whether a strategy has a real edge.
   returns only; a retired sleeve's last cohort stays on record but isn't "current". Reviews drop today's bar while open.
 - Overnight sleeve = the desk's 30% (amendment 330e76e0, accepted 2026-10-21; replaces SPY momentum), in the SAME
   Alpaca paper account (`ai_desk/overnight.py`, `python -m ai_desk overnight scan|status|buy|review|activate`):
-  3:32pm New York (scheduled) `overnight buy --execute` = market-on-close buys, whole shares, equal weight, 30% of
-  equity capped by cash less 1%; the 4:30pm desk run reads the fills into data/portfolio/overnight_book.json and sells
+  3:54pm New York (scheduled) `overnight buy --execute` = market buys in the 3:55-3:59pm window (amendment dc6335fa:
+  Alpaca paper filled market-on-close orders only in part), whole shares, equal weight, 30% of equity capped by cash
+  less 1%; the evening run before a re-pick day ranks ahead (`portfolio prepare` -> journal/overnight/scan_cache.json); the 4:30pm desk run reads the fills into data/portfolio/overnight_book.json and sells
   them at the next open INSIDE the desk's own order for each stock (`net_with_desk`: one net order per symbol -
   Alpaca rejects opposite-side orders in one stock as wash trades). No buys while a book is unsold. Picks locked in
   data/portfolio/overnight.json, re-picked after each month-end. Active from data/portfolio/overnight_live.json
   (2026-10-21); from then `methods.preset("desk")` = quality 50% + momentum 20% (SPY momentum dropped, no rescaling).
   Journal in journal/overnight/ - commit it with data/portfolio/. Paper fills can't measure real auction costs.
+  Its fills are also trade-journal lines (sleeve overnight_drift): the buys from `confirm_book`, the next-open sale as
+  its own line sharing the desk's netted order id (`record_orders(overnight_book=...)`); lots match a sleeve's own
+  buys first, so the desk's P&L stays separate.
 - Methodology changes go through register.py amendments: proposed -> testing
   (backtest it) -> accepted/rejected by the user. Never change live method
   parameters without an accepted amendment.

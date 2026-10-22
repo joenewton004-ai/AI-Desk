@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-21T20:33:24+00:00",
+ "generated_utc": "2026-10-22T09:16:55+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -403,7 +403,7 @@
     "look_back": "12 months",
     "re_pick": "monthly",
     "hold": "close to next open, daily",
-    "orders": "market-on-close buy, market-on-open sell"
+    "orders": "market buy at 3:55-3:59pm (market-on-close until 2026-10-21: paper filled only part), market sell at the open"
    },
    "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`",
    "evidence_summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
@@ -423,6 +423,17 @@
      "status": "accepted",
      "evidence": "Accepted by the user 2026-10-21 ('build it'), as a paper experiment in its own account, separate from the desk. Paper fills are simulated: this tests the mechanics, not real auction costs. Superseded by 330e76e0: the sleeve runs inside the desk's account instead of a separate one.",
      "decided_utc": "2026-10-21T11:12:02+00:00"
+    },
+    {
+     "id": "dc6335fa",
+     "created_utc": "2026-10-22T09:16:24+00:00",
+     "method": "overnight_drift",
+     "proposal": "Buy with ordinary market orders in the last minutes before the close (3:55-3:59pm New York) instead of market-on-close orders. Same picks, sizing and next-open sale.",
+     "rationale": "2026-10-21, the first night: Alpaca's paper account filled the closing-auction orders only in part - 5 of 20 in full, 5 partly, 10 not at all (expired) - so about $8,600 was invested instead of $30,000. Paper market orders fill in full; prices 1-5 minutes before the close are close to what the research assumed. Paper fills still can't measure real costs.",
+     "author": "you",
+     "status": "accepted",
+     "evidence": "Owner chose 'Market orders at 3:57pm' on 2026-10-22 after the partial auction fills. Implemented as a 3:55-3:59pm window; the scheduled buy now fires at 3:54pm.",
+     "decided_utc": "2026-10-22T09:16:29+00:00"
     }
    ]
   },

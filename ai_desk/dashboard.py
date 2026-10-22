@@ -221,9 +221,10 @@ def tables() -> dict[str, list[dict]]:
     why = {r["symbol"]: r["why"] for r in positions}
     from ai_desk import overnight
     book = overnight.load_book()                            # shares held overnight, so a stock can be split by sleeve
-    book = {} if book.get("sell_sent") else book
+    book = {**book, "holdings": overnight.held_overnight()}
+    smap = scorecard.sleeve_map()                           # labels as of now (the snapshot's may predate a buy)
     holdings = [{
-        "symbol": sym, "name": names.get(sym, ""), "sleeve": h.get("sleeve") or "", "shares": h.get("qty"), "price": h.get("price"),
+        "symbol": sym, "name": names.get(sym, ""), "sleeve": smap.get(sym) or h.get("sleeve") or "", "shares": h.get("qty"), "price": h.get("price"),
         "avg_cost": h.get("avg_cost"), "market_value": h.get("market_value"), "cost_basis": h.get("cost_basis"),
         "unrealized_pl": h.get("unrealized_pl"), "unrealized_pct": h.get("unrealized_pct"),
         "day_pl": h.get("day_pl"), "day_pct": h.get("day_pct"), "last_close": h.get("last_close"),

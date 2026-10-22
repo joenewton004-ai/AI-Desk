@@ -394,6 +394,12 @@ def cmd_portfolio(a) -> None:
             if st["needs_scan"]:
                 print(f"  running: {st['scan_command']}")
                 subprocess.run([sys.executable, *shlex.split(st["scan_command"])[1:]], check=True)
+        from ai_desk import overnight
+        try:                      # tomorrow's overnight re-pick ranks on today's close: rank now, not at 3:55pm
+            r = overnight.prepare_repick()
+            print(f"overnight: {r}")
+        except Exception as e:  # noqa: BLE001 - the buy falls back to scanning itself
+            print(f"overnight: ranking ahead of a re-pick failed ({e}); the buy will rank itself")
         return
 
     if a.action == "backtest":
@@ -523,9 +529,9 @@ def _overnight(a) -> None:
         if out["blocked"]:
             print(f"Nothing sent: {out['blocked']}")
         elif out["dry_run"]:
-            print(f"Dry run: {len(out['orders'])} market-on-close buys planned. Add --execute to send them.")
+            print(f"Dry run: {len(out['orders'])} buys near the close planned. Add --execute to send them.")
         else:
-            print(f"Sent {out['sent']} market-on-close buys to paper account {out['account']}. "
+            print(f"Sent {out['sent']} market buys (near the close) to paper account {out['account']}. "
                   "Tonight's desk run sells them at the next open.")
     elif a.action == "activate":
         row = ov.activate()

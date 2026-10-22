@@ -61,8 +61,10 @@ def test_net_with_desk_sells_the_overnight_shares_inside_the_desks_own_order():
 
 
 def test_windows_and_fill_cost():
-    assert ov.in_window(datetime(2026, 10, 21, 19, 40, tzinfo=timezone.utc), ov.BUY_WINDOW)      # 3:40pm New York
-    assert not ov.in_window(datetime(2026, 10, 21, 19, 55, tzinfo=timezone.utc), ov.BUY_WINDOW)  # 3:55pm: too late
+    assert ov.in_window(datetime(2026, 10, 21, 19, 56, tzinfo=timezone.utc), ov.BUY_WINDOW)      # 3:56pm New York
+    assert not ov.in_window(datetime(2026, 10, 21, 19, 32, tzinfo=timezone.utc), ov.BUY_WINDOW)  # 3:32pm: too early
+    assert ov.in_window(datetime(2026, 10, 21, 19, 59, tzinfo=timezone.utc), ov.BUY_WINDOW)      # 3:59pm: last minute
+    assert not ov.in_window(datetime(2026, 10, 21, 20, 0, tzinfo=timezone.utc), ov.BUY_WINDOW)   # 4pm: closed
     assert abs(ov.fill_cost("buy", 100.05, 100.0) - 0.0005) < 1e-12
     assert abs(ov.fill_cost("sell", 99.95, 100.0) - 0.0005) < 1e-12
 
@@ -81,6 +83,8 @@ def test_book_lifecycle(tmp_path, monkeypatch):
     ov.mark_sold({"MU": 30.0}, {"MU": "s1"}, "2026-10-22")
     assert not ov.book_open("2026-10-23")
     assert ov.confirm_book(B(), "2026-10-23") == {}           # nothing bought that day
+    ov._append("orders.jsonl", {"kind": "buy_mkt", "date": "2026-10-24", "symbol": "LRCX", "qty": 6, "order_id": "x2"})
+    assert ov.confirm_book(B(), "2026-10-24") == {"LRCX": 30.0}   # market buys near the close count too
 
 
 def test_auction_orders_need_whole_shares():
@@ -96,3 +100,10 @@ def test_desk_swap_drops_spy_momentum_from_the_activation_date_without_rescaling
     before = dict(m.preset("desk", pd.Timestamp("2026-11-09"), swap=sw))
     after = dict(m.preset("desk", pd.Timestamp("2026-11-10"), swap=sw))
     assert "index_momentum" in before and after == {"quality_screen": 0.5, "momentum": 0.2}
+
+
+def test_a_ranking_saved_the_evening_before_is_used_only_for_its_own_close():
+    ov.DIR.mkdir(parents=True, exist_ok=True)
+    (ov.DIR / "scan_cache.json").write_text('{"ref_date": "2026-10-30", "picks": ["A"], "rows": [], "latest_price": {}}')
+    assert ov._cached_scan(pd.Timestamp("2026-10-30"))["picks"] == ["A"]
+    assert ov._cached_scan(pd.Timestamp("2026-11-02")) is None

@@ -5,7 +5,7 @@
   "planned_weight": 0.5,
   "open_positions": 25,
   "invested": 49701.46,
-  "unrealized_pnl": 113.95,
+  "unrealized_pnl": -570.45,
   "realized_pnl": 0.0,
   "closed_trades": 0,
   "win_rate": null
@@ -16,7 +16,7 @@
   "planned_weight": 0.2,
   "open_positions": 19,
   "invested": 19989.11,
-  "unrealized_pnl": 22.28,
+  "unrealized_pnl": -342.37,
   "realized_pnl": 0.0,
   "closed_trades": 0,
   "win_rate": null
@@ -25,9 +25,9 @@
   "sleeve": "overnight_drift",
   "allocation": 0.3,
   "planned_weight": 0.0,
-  "open_positions": 0,
-  "invested": 0.0,
-  "unrealized_pnl": 0.0,
+  "open_positions": 9,
+  "invested": 8475.86,
+  "unrealized_pnl": -355.41,
   "realized_pnl": 0.0,
   "closed_trades": 0,
   "win_rate": null

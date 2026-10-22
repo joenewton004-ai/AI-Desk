@@ -284,3 +284,55 @@ def test_open_position_kept_by_the_successor_sleeve_moves_to_it(tmp_path, monkey
     assert tradebook.handed_over("bottleneck", "AMD") == "momentum"
     assert tradebook.handed_over("bottleneck", "COP") == "bottleneck"     # sold on the switch: stays on record
     assert tradebook.handed_over("quality_screen", "AMD") == "quality_screen"
+
+
+class _M:
+    def describe(self):
+        return "desk"
+
+    def exit_reason(self, s):
+        return None
+
+    def rationale(self, s):
+        return {}
+
+
+def test_netted_overnight_sale_is_split_by_sleeve_and_fills_shared():
+    from ai_desk.portfolio.executor import Order, Plan
+    tradebook._append("trades.jsonl", {"id": "q1", "created_utc": "2026-10-20T14:00:00+00:00", "symbol": "LRCX",
+                                       "side": "buy", "qty": 7.0, "sleeve": "quality_screen", "fill_price": 250.0,
+                                       "filled_qty": 7.0, "filled_utc": "2026-10-20T14:00:00+00:00"})
+    tradebook.record_overnight_buys([{"order_id": "b1", "date": "2026-10-21", "symbol": "LRCX", "qty": 6, "ref_price": 262.0,
+                                      "filled_qty": 4.0, "fill_price": 261.0, "filled_utc": "2026-10-21T19:59:57Z"}])
+    tradebook.record_overnight_buys([{"order_id": "b1", "symbol": "LRCX", "filled_qty": 4.0, "fill_price": 261.0}])  # once
+    sleeves = {"quality_screen": pd.Series({"LRCX": 0.012, "KO": 0.02})}
+    plan = Plan(orders=[Order("LRCX", "sell", 5.0, 260.0, "resize")])  # overnight's 4 + 1 the quality sleeve trims
+    rows = tradebook.record_orders(plan, _M(), sleeves, "2026-10-21", {"LRCX": {"id": "s1"}},
+                                   overnight_book={"LRCX": 4.0, "KO": 2.0}, prices={"KO": 60.0})
+    by = [(r["symbol"], r["side"], r["qty"], r["sleeve"], r["order_id"]) for r in rows]
+    assert ("LRCX", "sell", 4.0, "overnight_drift", "s1") in by and ("LRCX", "sell", 1.0, "quality_screen", "s1") in by
+    # KO: the desk kept exactly the overnight shares - no order, they change hands at the last close
+    assert ("KO", "sell", 2.0, "overnight_drift", None) in by and ("KO", "buy", 2.0, None, None) in by
+
+    class B:
+        def get_order(self, oid):
+            return {"status": "filled", "filled_qty": "5", "filled_avg_price": "264", "filled_at": "2026-10-22T13:30:01Z"}
+    tradebook.sync_fills(B())
+    sold = {(t["sleeve"], t["side"]): t for t in tradebook.trades() if t["symbol"] == "LRCX"}
+    assert sold[("overnight_drift", "sell")]["filled_qty"] == pytest.approx(4.0)
+    assert sold[("quality_screen", "sell")]["filled_qty"] == pytest.approx(1.0)
+    op, cl = tradebook.lots()
+    on = cl[cl["sleeve"] == "overnight_drift"]
+    assert len(on) == 1 and on.iloc[0]["entry_price"] == 261.0 and on.iloc[0]["exit_price"] == 264.0
+    left = op[op["symbol"] == "LRCX"]
+    assert left["sleeve"].tolist() == ["quality_screen"] and left["qty"].iloc[0] == pytest.approx(6.0)   # 7 - 1
+
+
+def test_overnight_shares_count_as_held_until_the_next_open(tmp_path, monkeypatch):
+    from datetime import datetime, timezone
+
+    from ai_desk import overnight as ov
+    monkeypatch.setattr(ov, "BOOK", tmp_path / "book.json")
+    ov.BOOK.write_text(json.dumps({"date": "2026-10-21", "holdings": {"BE": 1.0}, "sell_sent": True}))
+    assert ov.held_overnight(datetime(2026, 10, 22, 8, 0, tzinfo=timezone.utc)) == {"BE": 1.0}   # 4am New York
+    assert ov.held_overnight(datetime(2026, 10, 22, 14, 0, tzinfo=timezone.utc)) == {}          # 10am: sold

@@ -65,7 +65,7 @@
  {
   "symbol": "BE",
   "name": "Bloom Energy Corporation",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 1.0,
   "price": 240.75,
   "avg_cost": 238.85,
@@ -80,8 +80,8 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T20:21:22+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": null
+  "overnight_shares": 1.0,
+  "overnight_cost": 238.85
  },
  {
   "symbol": "BKNG",
@@ -317,7 +317,7 @@
  {
   "symbol": "FTAI",
   "name": "FTAI Aviation Ltd.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 10.0,
   "price": 163.52,
   "avg_cost": 163.65,
@@ -332,8 +332,8 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T20:21:22+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": null
+  "overnight_shares": 10.0,
+  "overnight_cost": 163.65
  },
  {
   "symbol": "FTNT",
@@ -506,7 +506,7 @@
  {
   "symbol": "LRCX",
   "name": "Lam Research Corporation",
-  "sleeve": "quality_screen",
+  "sleeve": "quality_screen + overnight_drift",
   "shares": 11.274,
   "price": 244.5,
   "avg_cost": 265.979351,
@@ -521,8 +521,8 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T20:21:22+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": null
+  "overnight_shares": 4.0,
+  "overnight_cost": 260.85
  },
  {
   "symbol": "MA",
@@ -632,7 +632,7 @@
  {
   "symbol": "MU",
   "name": "Micron Technology, Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 1.0,
   "price": 911.84,
   "avg_cost": 914.0,
@@ -647,8 +647,8 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T20:21:22+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": null
+  "overnight_shares": 1.0,
+  "overnight_cost": 914.0
  },
  {
   "symbol": "NTAP",
@@ -695,7 +695,7 @@
  {
   "symbol": "NVT",
   "name": "nVent Electric plc",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 4.0,
   "price": 146.13,
   "avg_cost": 146.16,
@@ -710,8 +710,8 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T20:21:22+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": null
+  "overnight_shares": 4.0,
+  "overnight_cost": 146.16
  },
  {
   "symbol": "NXT",
@@ -884,7 +884,7 @@
  {
   "symbol": "SITM",
   "name": "SiTime Corporation",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 3.0,
   "price": 508.0,
   "avg_cost": 509.88,
@@ -899,8 +899,8 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T20:21:22+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": null
+  "overnight_shares": 3.0,
+  "overnight_cost": 509.88
  },
  {
   "symbol": "SNOW",
@@ -926,7 +926,7 @@
  {
   "symbol": "STX",
   "name": "Seagate Technology Holdings plc",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 1.0,
   "price": 697.48,
   "avg_cost": 697.29,
@@ -941,8 +941,8 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T20:21:22+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": null
+  "overnight_shares": 1.0,
+  "overnight_cost": 697.29
  },
  {
   "symbol": "TEAM",
@@ -968,7 +968,7 @@
  {
   "symbol": "TER",
   "name": "Teradyne, Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 1.0,
   "price": 341.0,
   "avg_cost": 345.58,
@@ -983,8 +983,8 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T20:21:22+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": null
+  "overnight_shares": 1.0,
+  "overnight_cost": 345.58
  },
  {
   "symbol": "TWLO",
@@ -1052,7 +1052,7 @@
  {
   "symbol": "VRT",
   "name": "Vertiv Holdings Co",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 7.0,
   "price": 213.0,
   "avg_cost": 212.28,
@@ -1067,8 +1067,8 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-21T20:21:22+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": null
+  "overnight_shares": 7.0,
+  "overnight_cost": 212.28
  },
  {
   "symbol": "WES",
