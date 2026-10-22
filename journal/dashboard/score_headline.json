@@ -1,11 +1,11 @@
 [
  {
-  "asof": "2026-10-20",
+  "asof": "2026-10-21",
   "launch": "2026-10-20",
-  "days": 0,
-  "desk_return": 0.0,
-  "spy_return": 0.0,
-  "rsp_return": 0.0,
+  "days": 1,
+  "desk_return": 0.0002864326628946312,
+  "spy_return": 0.005253285386680906,
+  "rsp_return": 0.0036134474988021026,
   "sharpe": null,
   "sharpe_low": null,
   "sharpe_high": null,

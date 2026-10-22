@@ -271,7 +271,8 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
         status = "submitted"
         if book:
             overnight.mark_sold(book, {s: responses.get(s, {}).get("id") for s in book}, today_ny)
-        tradebook.record_orders(plan, method, sleeves, closes.index[-1].date(), responses)
+        tradebook.record_orders(plan, method, sleeves, closes.index[-1].date(), responses, overnight_book=book,
+                                prices=closes.iloc[-1].dropna().to_dict())
         if not any(o.blocked for o in plan.orders):
             method.on_executed()       # e.g. lock in the new stock picks
             from ai_desk import watchlist

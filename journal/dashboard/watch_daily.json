@@ -16,5 +16,32 @@
   "gap": -0.0068,
   "chance": 0.946,
   "verdict": "too early"
+ },
+ {
+  "cohort": "momentum:2026-10-21",
+  "sleeve": "momentum",
+  "asof": "2026-10-21",
+  "days": 1,
+  "gap": 0.0242,
+  "chance": 0.0,
+  "verdict": "too early"
+ },
+ {
+  "cohort": "overnight_drift:2026-10-21",
+  "sleeve": "overnight_drift",
+  "asof": "2026-10-21",
+  "days": 1,
+  "gap": 0.01404,
+  "chance": 0.003,
+  "verdict": "too early"
+ },
+ {
+  "cohort": "quality_screen:2026-10-20",
+  "sleeve": "quality_screen",
+  "asof": "2026-10-21",
+  "days": 2,
+  "gap": -0.00471,
+  "chance": 0.826,
+  "verdict": "too early"
  }
 ]

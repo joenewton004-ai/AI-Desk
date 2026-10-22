@@ -69,15 +69,13 @@ def sleeve_map() -> dict[str, str]:
     """symbol -> the sleeve that bought it (most recent buy); the overnight sleeve's shares from its book."""
     out = {}
     for t in tradebook.trades():
-        if t["side"] == "buy" and t.get("sleeve"):
+        if t["side"] == "buy" and t.get("sleeve") and t["sleeve"] != tradebook.OVERNIGHT:   # overnight: from the book
             out[t["symbol"]] = t["sleeve"]
     out = {s: tradebook.handed_over(sl, s) for s, sl in out.items()}   # e.g. AMD: kept by momentum on the switch
     try:
         from ai_desk import overnight
-        b = overnight.load_book()
-        if not b.get("sell_sent"):
-            for s in b.get("holdings") or {}:
-                out[s] = "overnight_drift" if s not in out else out[s] + " + overnight_drift"
+        for s in overnight.held_overnight():
+            out[s] = "overnight_drift" if s not in out else out[s] + " + overnight_drift"
     except Exception:  # noqa: BLE001 - attribution is cosmetic
         pass
     return out

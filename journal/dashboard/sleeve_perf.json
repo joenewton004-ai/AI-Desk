@@ -1,1 +1,26 @@
-[]
+[
+ {
+  "sleeve": "quality_screen",
+  "benchmark": "RSP",
+  "days": 1,
+  "return": 0.00293,
+  "benchmark_return": 0.00361,
+  "excess": -0.00069
+ },
+ {
+  "sleeve": "bottleneck",
+  "benchmark": "SPY",
+  "days": 1,
+  "return": 0.00039,
+  "benchmark_return": 0.00525,
+  "excess": -0.00486
+ },
+ {
+  "sleeve": "index_momentum",
+  "benchmark": "SPY",
+  "days": 1,
+  "return": 0.00525,
+  "benchmark_return": 0.00525,
+  "excess": 0.0
+ }
+]

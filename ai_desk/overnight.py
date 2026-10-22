@@ -4,8 +4,9 @@ Research: research/OVERNIGHT.md (Lou, Polk & Skouras 2019), research/DESK_OVERNI
 stocks with the highest average overnight return (previous close -> open) over the past 12 months are locked in
 data/portfolio/overnight.json. It trades in the DESK'S paper account, alongside the quality screen (50%) and momentum
 (20%) sleeves:
-  ~3:32pm New York  `overnight buy --execute`  market-on-close buys (the closing auction) with the sleeve's share of
-                    equity, capped by the cash on hand; whole shares, equal weight
+  ~3:55pm New York  `overnight buy --execute`  market buys a few minutes before the close with the sleeve's share of
+                    equity, capped by the cash on hand; whole shares, equal weight. (Until 2026-10-22 these were
+                    market-on-close orders; Alpaca's paper account filled only part of them - amendment dc6335fa.)
   4:30pm            the desk's evening run (`portfolio run --method desk --execute`) reads today's fills into the
                     overnight book (data/portfolio/overnight_book.json) and sells those shares at the next open in
                     the SAME order as any desk trade in that stock - one net order per symbol, because Alpaca rejects
@@ -33,9 +34,11 @@ DIR = Path("journal/overnight")
 N, LOOK_BACK, MIN_DAYS = 20, 252, 200
 SHARE = 0.30
 MIN_PRICE, MIN_DOLLAR_VOLUME = 10.0, 20e6
-CASH_BUFFER = 0.01            # of equity: a closing price above the 3:32pm price must not overdraw the account
+CASH_BUFFER = 0.01            # of equity: a fill above the planning price must not overdraw the account
 NY = ZoneInfo("America/New_York")
-BUY_WINDOW = ((15, 30), (15, 49))    # market-on-close orders must be in before 3:50pm (NYSE)
+BUY_WINDOW = ((15, 55), (15, 59))    # market orders in the last minutes before the 4pm close
+EARLY_WAIT = 110                      # seconds: a run that starts just before 3:55pm waits (under a 2-minute tool limit)
+BUY_KINDS = ("buy_moc", "buy_mkt")    # market-on-close (until 2026-10-21), then market orders near the close
 
 
 # --- pure pieces (unit-tested) --------------------------------------------------------
@@ -68,7 +71,7 @@ def repick_due(lock: dict | None, last_full_day: pd.Timestamp) -> bool:
 
 def plan_buys(picks: list[str], equity: float, cash: float, prices: dict[str, float], book_open: bool,
               share: float = SHARE, buffer: float = CASH_BUFFER) -> list[dict]:
-    """Whole-share market-on-close buys: an equal slice of the sleeve's budget per pick. The budget is `share` of
+    """Whole-share buys near the close: an equal slice of the sleeve's budget per pick. The budget is `share` of
     equity, capped by the cash on hand less a buffer (the desk's other sleeves are invested). Nothing is bought while
     the book still holds last night's shares - their sale at the open didn't go through."""
     if book_open:
@@ -223,6 +226,19 @@ def load_book() -> dict:
     return json.loads(BOOK.read_text()) if BOOK.exists() else {}
 
 
+def held_overnight(now: datetime | None = None) -> dict[str, float]:
+    """Shares the overnight sleeve holds right now: the book until its sale at the next open has had time to fill
+    (9:31am New York on the next weekday)."""
+    b = load_book()
+    if not b.get("holdings"):
+        return {}
+    if not b.get("sell_sent"):
+        return dict(b["holdings"])
+    ny = (now or datetime.now(timezone.utc)).astimezone(NY)
+    sold_by = (pd.Timestamp(b["date"]) + pd.offsets.BDay(1)).replace(hour=9, minute=31)
+    return dict(b["holdings"]) if pd.Timestamp(ny.replace(tzinfo=None)) < sold_by else {}
+
+
 def book_open(today: str) -> bool:
     """True if shares bought on an earlier day were never sent for sale."""
     b = load_book()
@@ -230,15 +246,21 @@ def book_open(today: str) -> bool:
 
 
 def confirm_book(broker, today: str) -> dict[str, float]:
-    """Today's filled market-on-close buys -> the overnight book (what the evening run sells at the next open)."""
-    orders = [o for o in _read("orders.jsonl") if o.get("kind") == "buy_moc" and o.get("date") == today]
-    held, paid = {}, {}
+    """Today's filled buys near the close -> the overnight book (what the evening run sells at the next open)."""
+    orders = [o for o in _read("orders.jsonl") if o.get("kind") in BUY_KINDS and o.get("date") == today]
+    held, paid, fills = {}, {}, []
     for o in orders:
         info = broker.get_order(o["order_id"]) if o.get("order_id") else {}
         q = float(info.get("filled_qty") or 0)
         if q:
             held[o["symbol"]] = held.get(o["symbol"], 0.0) + q
             paid[o["symbol"]] = paid.get(o["symbol"], 0.0) + q * float(info.get("filled_avg_price") or 0)
+            fills.append({**o, "filled_qty": q, "fill_price": float(info.get("filled_avg_price") or 0),
+                          "filled_utc": info.get("filled_at"),
+                          "order_type": "market-on-close" if o.get("kind") == "buy_moc" else "market"})
+    if fills:                                  # into the trade journal too, as the overnight sleeve's buys
+        from ai_desk import tradebook
+        tradebook.record_overnight_buys(fills)
     if orders:
         BOOK.parent.mkdir(parents=True, exist_ok=True)
         costs = {s: round(paid[s] / q, 4) for s, q in held.items() if paid.get(s)}  # fill price per share (dashboard)
@@ -281,9 +303,43 @@ def latest_prices(symbols: list[str]) -> dict[str, float]:
     return {k: float(x) for k, x in last.items() if np.isfinite(x)}
 
 
+def _scan_cache() -> Path:
+    return DIR / "scan_cache.json"
+
+
+def prepare_repick(today: pd.Timestamp | None = None) -> str:
+    """At the evening run: if tomorrow's buy will re-pick (today was the month's last trading day), rank now on
+    today's close and save it, so the buy near tomorrow's close doesn't spend its few minutes downloading prices."""
+    t = (today or pd.Timestamp.now(tz="America/New_York").tz_localize(None)).normalize()
+    if not swap_active(t):
+        return "not active"
+    if not repick_due(load_lock(), t):
+        return "no re-pick due tomorrow"
+    s = scan()
+    if s["ref_date"] != t.date().isoformat():
+        return f"latest full day is {s['ref_date']}, not today - not cached"
+    DIR.mkdir(parents=True, exist_ok=True)
+    _scan_cache().write_text(json.dumps({**s, "latest_price": {}}, indent=1))
+    return f"re-pick ranked ahead from the {s['ref_date']} close: {', '.join(s['picks'])}"
+
+
+def _cached_scan(last_full_day: pd.Timestamp) -> dict | None:
+    if not _scan_cache().exists():
+        return None
+    s = json.loads(_scan_cache().read_text())
+    return s if s.get("ref_date") == pd.Timestamp(last_full_day).date().isoformat() else None
+
+
 def buy(execute: bool = False, now: datetime | None = None, broker=None) -> dict:
     from ai_desk.broker.alpaca import AlpacaPaper
     now = now or datetime.now(timezone.utc)
+    start = datetime.combine(now.astimezone(NY).date(), datetime.min.time(), NY).replace(
+        hour=BUY_WINDOW[0][0], minute=BUY_WINDOW[0][1])
+    early = (start - now.astimezone(NY)).total_seconds()
+    if execute and 0 < early <= EARLY_WAIT:             # a few seconds early: wait for the window
+        import time
+        time.sleep(early + 1)
+        now = datetime.now(timezone.utc)
     today = now.astimezone(NY).date().isoformat()
     broker = broker or AlpacaPaper()
     acct = broker.account() or {}
@@ -295,7 +351,7 @@ def buy(execute: bool = False, now: datetime | None = None, broker=None) -> dict
     lock = load_lock()
     ref = None
     if lock is None or repick_due(lock, pd.Timestamp(today) - pd.offsets.BDay(1)):
-        s = scan()
+        s = _cached_scan(pd.Timestamp(today) - pd.offsets.BDay(1)) or scan()
         ref = s["ref_date"]
         if repick_due(lock, pd.Timestamp(ref)):
             new_lock = {"picked_on": today, "ref_date": ref, "picks": s["picks"], "rows": s["rows"], "n": N,
@@ -310,7 +366,7 @@ def buy(execute: bool = False, now: datetime | None = None, broker=None) -> dict
                 except Exception as e:  # noqa: BLE001 - the watchlist must never block the buys
                     notes.append(f"watchlist not saved: {e}")
             lock = new_lock
-        prices = {k: v for k, v in s["latest_price"].items() if k in lock["picks"]}
+        prices = {k: v for k, v in s["latest_price"].items() if k in lock["picks"]} or latest_prices(lock["picks"])
     else:
         prices = latest_prices(lock["picks"])
     equity, cash = float(acct.get("equity", 0)), float(acct.get("cash", 0))
@@ -325,13 +381,13 @@ def buy(execute: bool = False, now: datetime | None = None, broker=None) -> dict
     if not clock.get("is_open"):
         blocked = "market is closed (holiday or early close) - nothing sent"
     elif not in_window(now, BUY_WINDOW):
-        blocked = "outside the 3:30-3:49pm New York window for market-on-close orders - nothing sent"
+        blocked = "outside the 3:55-3:59pm New York buy window - nothing sent (the scheduled 3:54pm run buys)"
     sent = []
     if execute and not blocked:
         for o in orders:
-            r = broker.submit_market_order(o["symbol"], o["qty"], "buy", time_in_force="cls")
+            r = broker.submit_market_order(o["symbol"], o["qty"], "buy", time_in_force="day")
             sent.append(o["symbol"])
-            _append("orders.jsonl", {"utc": _now(), "date": today, "kind": "buy_moc", **o, "order_id": r.get("id")})
+            _append("orders.jsonl", {"utc": _now(), "date": today, "kind": "buy_mkt", **o, "order_id": r.get("id")})
     out = {"account": acct.get("account_number"), "equity": equity, "cash": cash, "picks": lock["picks"],
            "orders": orders, "sent": len(sent), "blocked": blocked, "notes": notes, "dry_run": not execute}
     _append("runs.jsonl", {"utc": _now(), "kind": "buy", **{k: out[k] for k in ("equity", "cash", "sent", "blocked", "dry_run")},

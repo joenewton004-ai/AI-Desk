@@ -63,9 +63,37 @@ def notes() -> list[dict]:
 
 # --- recording -------------------------------------------------------------------
 
-def record_orders(plan, method, sleeves: dict[str, pd.Series], signal_date, responses: dict[str, dict]) -> list[dict]:
-    """Write one journal line per submitted order."""
+OVERNIGHT = "overnight_drift"
+
+
+def _overnight_rows(sym: str, qty: float, price: float, side: str, signal_date, order_id: str | None,
+                    transfer_to: str | None = None) -> dict:
+    """One journal line for the overnight sleeve's part of a netted order (or, with no order of its own, a transfer
+    of its shares to a desk sleeve at the last close)."""
+    transfer = order_id is None
+    return {
+        "id": uuid.uuid4().hex[:8], "created_utc": _now(), "signal_date": str(signal_date), "symbol": sym,
+        "side": side, "qty": qty, "est_price": round(price, 4), "est_notional": round(qty * price, 2),
+        "sleeve": OVERNIGHT if side == "sell" else transfer_to, "target_by_sleeve": {}, "action": "close" if side == "sell" else "open",
+        "reason": ("overnight: sold at the open inside the desk's order for this stock" if not transfer else
+                   f"overnight: {qty:g} shares handed to {transfer_to} at the last close (the desk kept them - no order)"),
+        "exit_reason": "overnight: held from the close to the next open" if side == "sell" else None,
+        "rationale": {}, "method": "overnight_drift (amendment 330e76e0)", "order_id": order_id,
+        "order_type": "market" if not transfer else "transfer", "limit_price": None,
+        "status": "submitted" if not transfer else "transfer",
+        "filled_qty": qty if transfer else None, "fill_price": round(price, 4) if transfer else None,
+        "filled_utc": _now() if transfer else None,
+    }
+
+
+def record_orders(plan, method, sleeves: dict[str, pd.Series], signal_date, responses: dict[str, dict],
+                  overnight_book: dict[str, float] | None = None, prices: dict | None = None) -> list[dict]:
+    """Write one journal line per submitted order. Shares the overnight sleeve holds (`overnight_book`) are sold
+    inside the desk's own order for the stock: that order is written as two lines - the overnight sleeve's part
+    and the desk's - sharing the order id, so each sleeve's P&L stays its own."""
     rows = []
+    book = dict(overnight_book or {})
+    prices = {**{k: float(v) for k, v in dict(prices or {}).items()}, **{o.symbol: o.price for o in plan.orders}}
     for o in plan.sendable:
         by_sleeve = {name: round(float(w.get(o.symbol, 0.0)), 5) for name, w in sleeves.items()
                      if abs(float(w.get(o.symbol, 0.0))) > 1e-9}
@@ -83,9 +111,58 @@ def record_orders(plan, method, sleeves: dict[str, pd.Series], signal_date, resp
             "limit_price": responses.get(o.symbol, {}).get("limit_price"),
             "status": "submitted", "filled_qty": None, "fill_price": None, "filled_utc": None,
         }
-        _append("trades.jsonl", row)
-        rows.append(row)
+        on = book.pop(o.symbol, 0.0)
+        if on > 1e-9:
+            oid = row["order_id"]
+            desk_sleeve = max(by_sleeve, key=lambda k: abs(by_sleeve[k])) if by_sleeve else None
+            if o.side == "sell":
+                take = min(on, o.qty)
+                rows.append(_overnight_rows(o.symbol, take, o.price, "sell", signal_date, oid))
+                if on - take > 1e-9:          # the desk wants some of them: they change hands, no order
+                    rows.append(_overnight_rows(o.symbol, on - take, o.price, "sell", signal_date, None, desk_sleeve))
+                    rows.append(_overnight_rows(o.symbol, on - take, o.price, "buy", signal_date, None, desk_sleeve))
+                rest = o.qty - take
+                if rest <= 1e-9:
+                    row = None
+                else:
+                    row.update(qty=round(rest, 6), est_notional=round(rest * o.price, 2))
+            else:                             # the desk buys more than the overnight shares: they change hands
+                rows.append(_overnight_rows(o.symbol, on, o.price, "sell", signal_date, None, desk_sleeve))
+                rows.append(_overnight_rows(o.symbol, on, o.price, "buy", signal_date, None, desk_sleeve))
+        if row is not None:
+            rows.append(row)
+    for sym, on in book.items():              # no order at all: the desk kept exactly the overnight shares
+        price = prices.get(sym)
+        if price and on > 1e-9:
+            to = _sleeve_of_open_lot(sym, exclude=OVERNIGHT)
+            rows.append(_overnight_rows(sym, on, price, "sell", signal_date, None, to))
+            rows.append(_overnight_rows(sym, on, price, "buy", signal_date, None, to))
+    for r in rows:
+        _append("trades.jsonl", r)
     return rows
+
+
+def record_overnight_buys(fills: list[dict]) -> int:
+    """The overnight sleeve's filled buys near the close, as journal lines (once per order)."""
+    seen = {t.get("order_id") for t in trades()}
+    n = 0
+    for f in fills:
+        if not f.get("order_id") or f["order_id"] in seen or not f.get("filled_qty"):
+            continue
+        _append("trades.jsonl", {
+            "id": uuid.uuid4().hex[:8], "created_utc": _now(), "signal_date": f.get("date"), "symbol": f["symbol"],
+            "side": "buy", "qty": f["filled_qty"], "est_price": f.get("ref_price"),
+            "est_notional": round(f["filled_qty"] * (f.get("ref_price") or 0), 2), "sleeve": OVERNIGHT,
+            "target_by_sleeve": {}, "action": "open",
+            "reason": f"overnight: bought near the close ({f['filled_qty']:g} of {f.get('qty', f['filled_qty']):g} "
+                      "shares filled), to sell at the next open",
+            "exit_reason": None, "rationale": {"overnight_drift": f.get("rationale") or {}},
+            "method": "overnight_drift (amendment 330e76e0)", "order_id": f["order_id"],
+            "order_type": f.get("order_type", "market"), "limit_price": None, "status": "filled",
+            "filled_qty": f["filled_qty"], "fill_price": f["fill_price"], "filled_utc": f.get("filled_utc"),
+        })
+        n += 1
+    return n
 
 
 def save_plan(plan, method, sleeves: dict[str, pd.Series], signal_date, equity, positions, status) -> dict:
@@ -115,9 +192,9 @@ def save_plan(plan, method, sleeves: dict[str, pd.Series], signal_date, equity, 
     return out
 
 
-def _sleeve_of_open_lot(symbol: str) -> str | None:
+def _sleeve_of_open_lot(symbol: str, exclude: str | None = None) -> str | None:
     for t in reversed(trades()):
-        if t["symbol"] == symbol and t["side"] == "buy":
+        if t["symbol"] == symbol and t["side"] == "buy" and t.get("sleeve") != exclude:
             return t.get("sleeve")
     return None
 
@@ -125,13 +202,21 @@ def _sleeve_of_open_lot(symbol: str) -> str | None:
 def sync_fills(broker) -> int:
     """Fill prices and statuses from Alpaca for orders not yet final."""
     rows, changed = trades(), 0
+    # one order can carry two lines (the overnight sleeve's shares and the desk's): share the fill by quantity
+    per_order: dict[str, float] = {}
+    for r in rows:
+        if r.get("order_id"):
+            per_order[r["order_id"]] = per_order.get(r["order_id"], 0.0) + float(r.get("qty") or 0)
+    cache: dict[str, dict] = {}
     for r in rows:
         if r.get("order_id") and r.get("status") not in ("filled", "canceled", "rejected", "expired"):
-            o = broker.get_order(r["order_id"]) or {}
+            o = cache.get(r["order_id"]) or broker.get_order(r["order_id"]) or {}
+            cache[r["order_id"]] = o
             r["status"] = o.get("status", r["status"])
             if o.get("filled_avg_price"):
+                share = float(r.get("qty") or 0) / per_order[r["order_id"]] if per_order.get(r["order_id"]) else 1.0
                 r["fill_price"] = float(o["filled_avg_price"])
-                r["filled_qty"] = float(o.get("filled_qty") or 0)
+                r["filled_qty"] = round(float(o.get("filled_qty") or 0) * share, 6)
                 r["filled_utc"] = o.get("filled_at")
             changed += 1
     _write("trades.jsonl", rows)
@@ -162,7 +247,9 @@ def lots(rows: list[dict] | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
                 "entry_price": r["fill_price"], "entry_utc": r.get("filled_utc") or r["created_utc"],
                 "entry_rationale": r.get("rationale", {})})
             continue
-        for lot in open_lots.get(r["symbol"], []):
+        # a sleeve's sale closes that sleeve's own lots first (the overnight sleeve shares stocks with the desk)
+        mine = [lt for lt in open_lots.get(r["symbol"], []) if lt["sleeve"] == r.get("sleeve")]
+        for lot in mine + [lt for lt in open_lots.get(r["symbol"], []) if lt["sleeve"] != r.get("sleeve")]:
             if q <= 1e-9:
                 break
             take = min(q, lot["qty"])

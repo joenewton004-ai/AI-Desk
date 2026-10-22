@@ -112,7 +112,7 @@ SLEEVE_TEXT = {
     "overnight_drift": {
         "label": "Overnight",
         "plain": "Holds the 20 large US stocks that have earned the most overnight over the past year - bought in the "
-                 "closing auction (3:32pm New York), sold at the next open by the evening run, every trading day. "
+                 "last minutes before the close (3:55-3:59pm New York), sold at the next open by the evening run, every trading day. "
                  "Replaced SPY momentum (amendment 330e76e0, accepted 2026-10-21).",
         "screen": "Top 20 by average overnight return (close to next open) over 12 months; price over $10, $20M a day "
                   "traded; equal weight; re-picked monthly.",
@@ -232,7 +232,7 @@ RESEARCH_METHODS = {
                        "average overnight return (close to next open) over the past 12 months; hold them only overnight - "
                        "buy at the close, sell at the next open - via the closing and opening auctions.",
         "parameters": {"stocks": 20, "look_back": "12 months", "re_pick": "monthly", "hold": "close to next open, daily",
-                       "orders": "market-on-close buy, market-on-open sell"},
+                       "orders": "market buy at 3:55-3:59pm (market-on-close until 2026-10-21: paper filled only part), market sell at the open"},
         "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`",
         "summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, "
                    "both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the "

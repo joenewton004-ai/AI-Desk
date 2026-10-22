@@ -97,5 +97,16 @@
   "status": "testing",
   "evidence": "Backtested: research/desk_top10.py -> research/DESK_TOP10.md (2014-2026 monthly, survivors-only). Desk Sharpe 1.06 vs 0.98, 90% bootstrap range of the gap +0.02 to +0.12; return gap t 3.0. Awaiting the owner's decision.",
   "decided": ""
+ },
+ {
+  "id": "dc6335fa",
+  "date": "2026-10-22",
+  "method": "overnight_drift",
+  "proposal": "Buy with ordinary market orders in the last minutes before the close (3:55-3:59pm New York) instead of market-on-close orders. Same picks, sizing and next-open sale.",
+  "rationale": "2026-10-21, the first night: Alpaca's paper account filled the closing-auction orders only in part - 5 of 20 in full, 5 partly, 10 not at all (expired) - so about $8,600 was invested instead of $30,000. Paper market orders fill in full; prices 1-5 minutes before the close are close to what the research assumed. Paper fills still can't measure real costs.",
+  "author": "you",
+  "status": "accepted",
+  "evidence": "Owner chose 'Market orders at 3:57pm' on 2026-10-22 after the partial auction fills. Implemented as a 3:55-3:59pm window; the scheduled buy now fires at 3:54pm.",
+  "decided": "2026-10-22"
  }
 ]
