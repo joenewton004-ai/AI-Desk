@@ -150,7 +150,7 @@
   "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`",
   "description": "Overnight momentum (Lou, Polk & Skouras 2019): each month take the 20 large stocks with the highest average overnight return (close to next open) over the past 12 months; hold them only overnight - buy at the close, sell at the next open - via the closing and opening auctions.",
   "evidence": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
-  "parameters": "stocks=20; look_back=12 months; re_pick=monthly; hold=close to next open, daily; orders=market buy at 3:55-3:59pm (market-on-close until 2026-10-21: paper filled only part), market sell at the open; regime=cash for the night when SPY < its 200-day average or tech lags defensives by more than on 90% of past days (amendment 7a8b29ec)",
+  "parameters": "stocks=20; look_back=12 months; re_pick=monthly; hold=close to next open, daily; orders=market buy at 3:55-3:59pm (market-on-close until 2026-10-21: paper filled only part), market sell at the open; regime=cash for the night when SPY < its 200-day average (7a8b29ec) or tonight's picks are down 1.9%+ since the open (9b951502)",
   "docs": "research/OVERNIGHT.md, research/output/overnight.md, ai_desk/overnight.py",
   "open_amendments": 0,
   "notes": ""

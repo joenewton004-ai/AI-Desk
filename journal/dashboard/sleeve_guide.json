@@ -24,7 +24,7 @@
   "label": "Overnight",
   "allocation": 0.3,
   "line": "Overnight - 30% - Top 20 by average overnight return (close to next open) over 12 months; price over $10, $20M a day traded; equal weight; re-picked monthly.",
-  "plain": "Holds the 20 large US stocks that have earned the most overnight over the past year - bought in the last minutes before the close (3:55-3:59pm New York), sold at the next open by the evening run, every trading day. Replaced SPY momentum (amendment 330e76e0, accepted 2026-10-21). Sits in cash on nights when SPY is below its 200-day average or tech had one of its worst days against defensive stocks (amendment 7a8b29ec).",
+  "plain": "Holds the 20 large US stocks that have earned the most overnight over the past year - bought in the last minutes before the close (3:55-3:59pm New York), sold at the next open by the evening run, every trading day. Replaced SPY momentum (amendment 330e76e0, accepted 2026-10-21). Sits in cash on nights when SPY is below its 200-day average or its picks have fallen 1.9% or more since the open (amendments 7a8b29ec, 9b951502).",
   "screen": "Top 20 by average overnight return (close to next open) over 12 months; price over $10, $20M a day traded; equal weight; re-picked monthly.",
   "metrics": "Fill cost vs the official close/open (break-even about 0.045% per trade; the desk-level case needs about 0.02%). Backtest 2014-2026 at 0.02%: 16.7%/yr, Sharpe 0.81, worst drop -28%.",
   "watch": "Costs first: `overnight review`. No crash switch - it stays invested in falling markets (March 2020: -20%)."
