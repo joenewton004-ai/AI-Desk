@@ -52,3 +52,7 @@ Live: the 6-month (26-week) return, skipping the latest week.
 are at or near the best window. The only leads are small tweaks to the overnight sleeve, daily re-picking or the
 plain 12-month return, and both are within the noise. Not worth an amendment on this evidence alone; worth
 re-testing once the desk has its own live history.
+
+**Update 2026-10-23:** you chose both overnight tweaks. Tested as they'd run live (ranked the evening before, with the
+SPY and picks-day checks) in `research/overnight_v2.py`: Sharpe 1.54 vs 1.31, worst drop −15% vs −17%, both halves,
+9 of 13 years; the gain is +1.1 bp a night (t 1.1), so not proven. Live from 2026-10-23 (amendment 82c84226).

@@ -510,10 +510,10 @@ def _overnight(a) -> None:
     pct = lambda x: "n/a" if x is None or x != x else f"{x:+.3%}"  # noqa: E731
     if a.action == "scan":
         s = ov.scan()
-        print(f"Overnight ranking from the {s['ref_date']} close ({s['universe']} large US companies):")
+        print(f"Overnight ranking from the {s['ref_date']} close ({s['universe']} large US companies, 12-month return):")
         for i, r in enumerate(s["rows"], 1):
-            print(f"  {i:>2}. {r['symbol']:6} {r['overnight_yr']:+6.0%}/yr overnight, past 12 months   {r['name']}")
-        print("(Research ranking, not a recommendation. `overnight buy` locks it at the monthly re-pick.)")
+            print(f"  {i:>2}. {r['symbol']:6} {r['ret_12m']:+7.0%} over 12 months   {r['name']}")
+        print("(Research ranking, not a recommendation. The evening run ranks daily; `overnight buy` buys it.)")
     elif a.action == "status":
         from ai_desk.portfolio.methods import overnight_swap
         lock, book, sw = ov.load_lock(), ov.load_book(), overnight_swap()

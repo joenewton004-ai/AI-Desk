@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T19:26:05+00:00",
+ "generated_utc": "2026-10-23T19:38:13+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -400,11 +400,12 @@
    "description": "Overnight momentum (Lou, Polk & Skouras 2019): each month take the 20 large stocks with the highest average overnight return (close to next open) over the past 12 months; hold them only overnight - buy at the close, sell at the next open - via the closing and opening auctions.",
    "parameters": {
     "stocks": 20,
+    "ranking": "plain 12-month return (82c84226; was average overnight return)",
     "look_back": "12 months",
-    "re_pick": "monthly",
+    "re_pick": "daily (82c84226; was monthly)",
     "hold": "close to next open, daily",
     "orders": "market buy at 3:55-3:59pm (market-on-close until 2026-10-21: paper filled only part), market sell at the open",
-    "regime": "cash for the night when SPY < its 200-day average (7a8b29ec) or tonight's picks are down 1.9%+ since the open (9b951502)"
+    "regime": "cash for the night when SPY < its 200-day average (7a8b29ec) or tonight's picks are down 2.0%+ since the open (9b951502, 82c84226)"
    },
    "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`",
    "evidence_summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
@@ -457,6 +458,17 @@
      "status": "accepted",
      "evidence": "Owner: 'Swap to D and merge it into main' (2026-10-23). Supersedes the tech-vs-defensive part of 7a8b29ec; its SPY 200-day rule stays.",
      "decided_utc": "2026-10-23T19:25:40+00:00"
+    },
+    {
+     "id": "82c84226",
+     "created_utc": "2026-10-23T19:37:35+00:00",
+     "method": "overnight_drift",
+     "proposal": "Rank by the plain 12-month return (adjusted closes) instead of the 12-month average overnight return, and re-pick every trading day instead of monthly: the evening run ranks on that day's close, the next afternoon's buy uses it. Picks-day cut-off -2.0% (this version's worst 10%). Watchlist cohort kept monthly.",
+     "rationale": "research/lookbacks.py and research/overnight_v2.py (2014-2026, survivors-only): as it would run live (ranked the evening before) with the SPY and picks-day checks, Sharpe 1.54 vs 1.31, worst drop -15% vs -17%, better in both halves (1.43/1.71 vs 1.20/1.45) and 9 of 13 years; nightly gain +1.1 bp, t 1.1 - not significant. Daily re-picking costs nothing extra (all shares are sold each morning). Caveat: this ranks momentum stocks and holds them overnight - a different idea from the researched overnight effect; only 37% of nights' picks overlap with the old ranking.",
+     "author": "you",
+     "status": "accepted",
+     "evidence": "Owner: 'Change overnight to add both small improvements' (2026-10-23).",
+     "decided_utc": "2026-10-23T19:37:44+00:00"
     }
    ]
   },

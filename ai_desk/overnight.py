@@ -62,11 +62,23 @@ def pick(score_row: pd.Series, eligible_row: pd.Series, n: int = N) -> list[str]
     return list(s.nlargest(n).index)
 
 
+def twelve_month_return(adj: pd.DataFrame, days: int = LOOK_BACK) -> pd.DataFrame:
+    """The ranking since 2026-10-23 (amendment 82c84226): each stock's plain return over the past `days` trading days,
+    on dividend- and split-adjusted closes. Row t uses closes up to t only."""
+    return adj / adj.shift(days) - 1
+
+
 def repick_due(lock: dict | None, last_full_day: pd.Timestamp) -> bool:
-    """Re-pick at the first run after a month-end: the research picks at each month's last close."""
+    """Re-pick every trading day (amendment 82c84226): due whenever the lock was ranked on an earlier close.
+    (Until 2026-10-23 it re-picked only after a month-end.)"""
     if not lock:
         return True
-    return pd.Timestamp(last_full_day).to_period("M") > pd.Timestamp(lock["ref_date"]).to_period("M")
+    return pd.Timestamp(last_full_day).normalize() > pd.Timestamp(lock["ref_date"])
+
+
+def new_month(lock: dict | None, ref_date: str) -> bool:
+    """The watchlist keeps one cohort a month: the first ranking of each month."""
+    return not lock or pd.Timestamp(ref_date).to_period("M") > pd.Timestamp(lock["ref_date"]).to_period("M")
 
 
 def plan_buys(picks: list[str], equity: float, cash: float, prices: dict[str, float], book_open: bool,
@@ -154,7 +166,7 @@ def daily_bars(symbols: list[str], period: str = "15mo") -> dict[str, pd.DataFra
     import yfinance as yf
 
     from ai_desk.fundamentals.yahoo import with_retry
-    parts = {k: [] for k in ("Open", "Close", "Volume")}
+    parts = {k: [] for k in ("Open", "Close", "Adj Close", "Volume")}
     for i in range(0, len(symbols), 100):
         chunk = symbols[i:i + 100]
         d = with_retry(lambda chunk=chunk: yf.download(chunk, period=period, interval="1d", auto_adjust=False,
@@ -167,12 +179,12 @@ def daily_bars(symbols: list[str], period: str = "15mo") -> dict[str, pd.DataFra
         df = pd.concat(v, axis=1)
         df = df.loc[:, ~df.columns.duplicated()]
         df.index = pd.to_datetime(df.index).tz_localize(None)
-        out[k.lower()] = df
+        out[k.lower().replace("adj close", "adj")] = df
     return out
 
 
 def scan(universe_size: int = 750) -> dict:
-    """Today's ranking from the last full trading day (no lock written - `buy` locks on a re-pick)."""
+    """Today's ranking (12-month return) from the last full trading day (no lock written - `buy` locks it)."""
     from ai_desk.fundamentals.universe import large_caps
     from ai_desk.live import drop_incomplete_bar
 
@@ -180,13 +192,13 @@ def scan(universe_size: int = 750) -> dict:
     syms = uni["symbol"].tolist()[:universe_size]
     bars = daily_bars(syms)
     latest = bars["close"].ffill().iloc[-1]                 # during the day: the latest price, for sizing only
-    o, c, v = (drop_incomplete_bar(bars[k]) for k in ("open", "close", "volume"))
-    sc, el = overnight_score(o, c), eligible(c, v)
+    c, v, adj = (drop_incomplete_bar(bars[k]) for k in ("close", "volume", "adj"))
+    sc, el = twelve_month_return(adj), eligible(c, v)
     last = c.index[-1]
     picks = pick(sc.loc[last], el.loc[last])
     names = uni.set_index("symbol")["name"].to_dict() if "name" in uni else {}
-    rows = [{"symbol": s, "name": names.get(s, ""), "score": float(sc.at[last, s]),
-             "overnight_yr": float((1 + sc.at[last, s]) ** 252 - 1), "close": float(c.at[last, s])} for s in picks]
+    rows = [{"symbol": s, "name": names.get(s, ""), "score": float(sc.at[last, s]), "ret_12m": float(sc.at[last, s]),
+             "close": float(c.at[last, s])} for s in picks]
     return {"ref_date": last.date().isoformat(), "picks": picks, "rows": rows, "universe": len(syms),
             "near": near_misses(sc.loc[last], el.loc[last], c, v, names),
             "latest_price": {k: float(x) for k, x in latest.items() if np.isfinite(x)}}
@@ -205,7 +217,7 @@ def near_misses(score_row: pd.Series, eligible_row: pd.Series, closes: pd.DataFr
 
     def row(sym, eligible, reason=""):
         return {"symbol": sym, "name": names.get(sym, ""), "score": float(s[sym]),
-                "overnight_yr": float((1 + s[sym]) ** 252 - 1), "close": float(px.get(sym, np.nan)),
+                "ret_12m": float(s[sym]), "close": float(px.get(sym, np.nan)),
                 "passes": bool(eligible), "gate_reason": reason}
 
     out = [row(sym, True) for sym in ranked.index[n:n + more]]
@@ -311,7 +323,7 @@ def latest_prices(symbols: list[str]) -> dict[str, float]:
 
 REGIME_AMENDMENT = "9b951502"
 MA_DAYS = 200
-PICKS_DAY_CUTOFF = -0.019      # research/overnight_picks_check.py: the 10th percentile, all history to 2026 (-1.5..-1.9%)
+PICKS_DAY_CUTOFF = -0.020      # the picks' worst 10% of days: -1.98% for the daily 12-month ranking (research/overnight_v2.py)
 
 
 def picks_day_return(opens: pd.Series, prices: pd.Series) -> float | None:
@@ -358,19 +370,26 @@ def _scan_cache() -> Path:
 
 
 def prepare_repick(today: pd.Timestamp | None = None) -> str:
-    """At the evening run: if tomorrow's buy will re-pick (today was the month's last trading day), rank now on
-    today's close and save it, so the buy near tomorrow's close doesn't spend its few minutes downloading prices."""
+    """At the evening run: rank on today's close for tomorrow's buy (re-picked daily, amendment 82c84226), so the buy
+    near tomorrow's close doesn't spend its few minutes downloading 750 stocks' prices."""
     t = (today or pd.Timestamp.now(tz="America/New_York").tz_localize(None)).normalize()
     if not swap_active(t):
         return "not active"
-    if not repick_due(load_lock(), t):
-        return "no re-pick due tomorrow"
     s = scan()
     if s["ref_date"] != t.date().isoformat():
         return f"latest full day is {s['ref_date']}, not today - not cached"
     DIR.mkdir(parents=True, exist_ok=True)
     _scan_cache().write_text(json.dumps({**s, "latest_price": {}}, indent=1))
-    return f"re-pick ranked ahead from the {s['ref_date']} close: {', '.join(s['picks'])}"
+    return f"tomorrow's picks ranked from the {s['ref_date']} close: {', '.join(s['picks'])}"
+
+
+def _newer_ranking(lock: dict | None, today: str) -> dict | None:
+    """The evening run's ranking, if it is newer than the held picks and from a close before today."""
+    if not _scan_cache().exists():
+        return None
+    s = json.loads(_scan_cache().read_text())
+    ref = s.get("ref_date", "")
+    return s if ref < today and (lock is None or ref > lock["ref_date"]) else None
 
 
 def _cached_scan(last_full_day: pd.Timestamp) -> dict | None:
@@ -400,25 +419,32 @@ def buy(execute: bool = False, now: datetime | None = None, broker=None, regime_
                 "notes": [], "dry_run": not execute, "picks": [], "equity": float(acct.get("equity", 0))}
     lock = load_lock()
     ref = None
-    if lock is None or repick_due(lock, pd.Timestamp(today) - pd.offsets.BDay(1)):
-        s = _cached_scan(pd.Timestamp(today) - pd.offsets.BDay(1)) or scan()
+    last_full = pd.Timestamp(today) - pd.offsets.BDay(1)
+    s = _newer_ranking(lock, today)
+    if s is None and lock is None:
+        s = scan()                                      # first ever pick: no ranking prepared - rank now (slow)
+    elif s is None and repick_due(lock, last_full):
+        notes.append(f"no ranking prepared since the {lock['ref_date']} close - keeping those picks")
+    if s is not None:
         ref = s["ref_date"]
         if repick_due(lock, pd.Timestamp(ref)):
             new_lock = {"picked_on": today, "ref_date": ref, "picks": s["picks"], "rows": s["rows"], "n": N,
                         "look_back_days": LOOK_BACK}
-            notes.append(f"re-picked from the {ref} close: {', '.join(s['picks'])}")
+            changed = sorted(set(s["picks"]) - set((lock or {}).get("picks", [])))
+            notes.append(f"picks from the {ref} close" + (f" - new: {', '.join(changed)}" if lock else
+                                                          f": {', '.join(s['picks'])}"))
             if execute:
                 LOCK.parent.mkdir(parents=True, exist_ok=True)
                 LOCK.write_text(json.dumps(new_lock, indent=1))
-                try:                                     # the rest of the ranking goes on the watchlist
+                try:                                     # once a month, the rest of the ranking goes on the watchlist
                     from ai_desk import watchlist
-                    watchlist.capture_overnight(new_lock, s.get("near", []))
+                    if new_month(lock, ref):
+                        watchlist.capture_overnight(new_lock, s.get("near", []))
                 except Exception as e:  # noqa: BLE001 - the watchlist must never block the buys
                     notes.append(f"watchlist not saved: {e}")
             lock = new_lock
-        prices = {k: v for k, v in s["latest_price"].items() if k in lock["picks"]} or latest_prices(lock["picks"])
-    else:
-        prices = latest_prices(lock["picks"])
+    prices = ({k: v for k, v in s["latest_price"].items() if k in lock["picks"]} if s is not None else {}) \
+        or latest_prices(lock["picks"])
     equity, cash = float(acct.get("equity", 0)), float(acct.get("cash", 0))
     regime = None
     if regime_check:                                   # tonight's picks are settled: check them and SPY
