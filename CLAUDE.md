@@ -59,6 +59,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   `python research/minervini_checks.py` -> same write-up. Small caps/IPOs need delisted-inclusive data (not available).
 - Momentum top 10 instead of top 20 inside the desk: `python research/desk_top10.py` -> `research/DESK_TOP10.md`
   (desk Sharpe 1.06 vs 0.98 at 0.02% overnight costs; both halves, 11/13 years; not live - needs an amendment).
+- Ranking windows (1 day to 12 months) for the overnight and momentum sleeves: `python research/lookbacks.py` ->
+  `research/LOOKBACKS.md`. Short windows don't work; the live 12-month (overnight) and 6-month (momentum) windows are at
+  or near the best. Leads within noise: daily re-pick / plain 12-month return for overnight. Not live.
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
