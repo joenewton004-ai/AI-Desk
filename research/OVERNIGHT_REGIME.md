@@ -67,3 +67,33 @@ its worst drop from −36% to −16%, in both halves. The evidence is moderate, 
 **Live from 2026-10-23** (amendment 7a8b29ec, accepted by you). The checks run at the 3:55pm buy
 (`python -m ai_desk overnight regime` shows tonight's verdict). The tech cut-off comes from the past 5 years of daily
 closes, refreshed each evening: −1.32% on 2026-10-22, a day when tech lagged by 3.07%.
+
+## Follow-up: a check on the sleeve's own picks instead of industries
+
+_Code: `research/overnight_picks_check.py`. Tables: [`output/overnight_picks_check.md`](output/overnight_picks_check.md)._
+
+Your point: industries change, and so does what the sleeve holds. Rather than "tech vs defensive", look at the 20
+stocks the sleeve is about to buy. All of these go to cash on the flagged nights, with the cut-off set from earlier
+days only:
+
+| Check (that day's worst 10%) | Alone: Sharpe | Worst drop | With the SPY rule: Sharpe | Worst drop | 2014-19 | 2020-26 | Flagged nights: 2014-19 / 2020-26 |
+|---|---|---|---|---|---|---|---|
+| None | 0.70 | −36% | 0.95 | −19% | 1.03 | 1.01 | |
+| A. Tech minus defensive (**live now**) | 0.96 | −29% | 1.03 | −16% | 1.00 | 1.13 | −5.7 / −10.6 bp |
+| B. Picks minus the average stock | 0.81 | −34% | 1.06 | −18% | 1.03 | 1.15 | −12.6 / **+7.3** bp |
+| C. Picks' own return that day | 1.02 | −26% | 1.12 | −18% | 1.15 | 1.18 | −7.4 / −11.8 bp |
+| **D. Picks' return since that day's open** | **1.03** | −34% | **1.31** | **−17%** | **1.20** | **1.45** | **−12.7 / −13.9 bp** |
+
+- **Yes: checking the picks works better than checking industries, if it's the picks' own move.** D, the picks
+  falling hard during the day, flags nights that average −13.6 bp against +9.2 bp otherwise (t −2.3), about the same
+  in both halves. It fits the original research: overnight winners tend to give back during the day, and a big
+  give-back is followed by a bad night.
+- **The picks lagging the market (B) isn't the signal.** It fails in 2020-26, where its flagged nights did *better*
+  than average. What matters is the picks falling, not falling more than everything else.
+- **D only overlaps half the time with the live tech check** (49%), so they're different warnings.
+- **Easier to run live:** it needs only the 20 picks' open and 3:55pm prices, and no industry lists to keep current.
+  Its cut-off has been stable, about −1.5% to −1.9% through the years (−1.9% using all history to 2026, −2.3% using the
+  last 3 years), so live it can use a fixed −1.9%, reviewed when the research is re-run.
+- **The catches:** this is the sixth variant tested on top of about 20, so the multiple-testing risk keeps growing.
+  D was the variant that fits the earlier research's mechanism, and it holds in both halves; that's the best defence.
+  Live judges it at 3:55pm, not at the close the backtest used. Survivors-only prices, as before.
