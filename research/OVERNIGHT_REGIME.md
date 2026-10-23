@@ -62,5 +62,8 @@ days, threshold set from past days only). The next night averages −9.6 bp agai
 
 **Don't switch to defensive stocks; consider switching to cash.** The combined rule (cash when SPY is below its
 200-day average, or on a day tech lags defensives the most) lifted the sleeve's Sharpe from 0.70 to 1.03 and cut
-its worst drop from −36% to −16%, in both halves. The evidence is moderate, with a multiple-testing caveat. Changing
-the live sleeve needs an amendment and your decision.
+its worst drop from −36% to −16%, in both halves. The evidence is moderate, with a multiple-testing caveat.
+
+**Live from 2026-10-23** (amendment 7a8b29ec, accepted by you). The checks run at the 3:55pm buy
+(`python -m ai_desk overnight regime` shows tonight's verdict). The tech cut-off comes from the past 5 years of daily
+closes, refreshed each evening: −1.32% on 2026-10-22, a day when tech lagged by 3.07%.

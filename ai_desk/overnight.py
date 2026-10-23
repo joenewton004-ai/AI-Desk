@@ -303,6 +303,73 @@ def latest_prices(symbols: list[str]) -> dict[str, float]:
     return {k: float(x) for k, x in last.items() if np.isfinite(x)}
 
 
+# --- the regime checks (amendment 7a8b29ec, research/OVERNIGHT_REGIME.md) ------------------------------
+# cash for the night when SPY is below its 200-day average, or on a day tech stocks lag defensive stocks by more
+# than on 90% of past days. Defensive stocks are NOT a substitute: they lose on the same nights and earn little.
+
+GROUPS = Path(__file__).with_name("overnight_groups.json")      # tech / defensive symbols (SIC), as researched
+REGIME_AMENDMENT = "7a8b29ec"
+GAP_QUANTILE, MA_DAYS = 0.10, 200
+
+
+def _regime_file() -> Path:
+    return DIR / "regime.json"
+
+
+def tech_gap(closes: pd.DataFrame, tech: list[str], defensive: list[str]) -> pd.Series:
+    """Pure: each day's average return (close to close) of the tech stocks minus that of the defensive stocks.
+    Prices under $10 are left out, as in the research's eligibility rule."""
+    c = closes.where(closes > 10)
+    r = c.pct_change(fill_method=None).where(lambda x: x.abs() < 0.5)
+    t = r[[s for s in tech if s in r]].mean(axis=1)
+    d = r[[s for s in defensive if s in r]].mean(axis=1)
+    return (t - d).dropna()
+
+
+def regime_flags(spy: pd.Series, gap_today: float | None, threshold: float | None) -> list[str]:
+    """Pure: the reasons to sit in cash tonight (empty = buy). `spy` ends with today's price (3:55pm)."""
+    out = []
+    if len(spy) >= MA_DAYS:
+        ma = spy.iloc[-MA_DAYS:].mean()
+        if spy.iloc[-1] < ma:
+            out.append(f"SPY ${spy.iloc[-1]:,.2f} is below its 200-day average ${ma:,.2f}")
+    if gap_today is not None and threshold is not None and np.isfinite(gap_today) and gap_today <= threshold:
+        out.append(f"tech lagged defensive stocks by {-gap_today:.2%} today (cut-off {-threshold:.2%}: the worst "
+                   f"{GAP_QUANTILE:.0%} of past days)")
+    return out
+
+
+def prepare_regime(period: str = "5y") -> str:
+    """At the evening run: the cut-off for a bad tech-vs-defensive day, from every past day up to today's close."""
+    g = json.loads(GROUPS.read_text())
+    bars = daily_bars(sorted(set(g["tech"]) | set(g["defensive"])), period=period)
+    from ai_desk.live import drop_incomplete_bar
+    gaps = tech_gap(drop_incomplete_bar(bars["close"]), g["tech"], g["defensive"])
+    thr = float(gaps.quantile(GAP_QUANTILE))
+    DIR.mkdir(parents=True, exist_ok=True)
+    _regime_file().write_text(json.dumps({"as_of": gaps.index[-1].date().isoformat(), "threshold": thr, "days": len(gaps),
+                                          "quantile": GAP_QUANTILE, "groups_as_of": g["as_of"],
+                                          "computed_utc": _now()}, indent=1))
+    return f"tech-vs-defensive cut-off {thr:+.2%} from {len(gaps)} days to {gaps.index[-1].date()}"
+
+
+def check_regime() -> dict:
+    """Live, just before the buy: today's SPY trend and today's tech-vs-defensive move (prices as of now)."""
+    g = json.loads(GROUPS.read_text())
+    rf = _regime_file()
+    if not rf.exists():
+        prepare_regime("2y")                                   # fallback: slower, a shorter history
+    thr = json.loads(rf.read_text())["threshold"]
+    spy = daily_bars(["SPY"], period="15mo")["close"]["SPY"].dropna()
+    now = daily_bars(sorted(set(g["tech"]) | set(g["defensive"])), period="5d")["close"].ffill()
+    gap = tech_gap(now.iloc[-2:], g["tech"], g["defensive"])
+    gap_today = float(gap.iloc[-1]) if len(gap) else None
+    reasons = regime_flags(spy, gap_today, thr)
+    return {"cash": bool(reasons), "reasons": reasons, "spy": float(spy.iloc[-1]),
+            "spy_ma200": float(spy.iloc[-MA_DAYS:].mean()), "gap_today": gap_today, "threshold": thr,
+            "prices_to": now.index[-1].date().isoformat()}
+
+
 def _scan_cache() -> Path:
     return DIR / "scan_cache.json"
 
@@ -330,9 +397,17 @@ def _cached_scan(last_full_day: pd.Timestamp) -> dict | None:
     return s if s.get("ref_date") == pd.Timestamp(last_full_day).date().isoformat() else None
 
 
-def buy(execute: bool = False, now: datetime | None = None, broker=None) -> dict:
+def buy(execute: bool = False, now: datetime | None = None, broker=None, regime_check: bool = True) -> dict:
     from ai_desk.broker.alpaca import AlpacaPaper
+    now_is_live = now is None
     now = now or datetime.now(timezone.utc)
+    regime = None
+    if regime_check:
+        try:
+            regime = check_regime()
+        except Exception as e:  # noqa: BLE001 - a failed check must not stop the sleeve; it buys as before
+            regime = {"cash": False, "reasons": [], "error": str(e)}
+        now = datetime.now(timezone.utc) if now_is_live else now
     start = datetime.combine(now.astimezone(NY).date(), datetime.min.time(), NY).replace(
         hour=BUY_WINDOW[0][0], minute=BUY_WINDOW[0][1])
     early = (start - now.astimezone(NY)).total_seconds()
@@ -348,6 +423,17 @@ def buy(execute: bool = False, now: datetime | None = None, broker=None) -> dict
     if not swap_active(pd.Timestamp(today)):
         return {"orders": [], "sent": 0, "blocked": "the overnight swap isn't active yet (`overnight activate`)",
                 "notes": [], "dry_run": not execute, "picks": [], "equity": float(acct.get("equity", 0))}
+    if regime and regime.get("error"):
+        notes.append(f"regime check failed ({regime['error']}) - buying as usual")
+    if regime and regime["cash"]:
+        why = "; ".join(regime["reasons"])
+        out = {"account": acct.get("account_number"), "equity": float(acct.get("equity", 0)),
+               "cash": float(acct.get("cash", 0)), "picks": (load_lock() or {}).get("picks", []), "orders": [],
+               "sent": 0, "blocked": f"in cash tonight (amendment {REGIME_AMENDMENT}): {why}", "notes": notes,
+               "dry_run": not execute, "regime": regime}
+        _append("runs.jsonl", {"utc": _now(), "kind": "buy", "equity": out["equity"], "cash": out["cash"], "sent": 0,
+                               "blocked": out["blocked"], "dry_run": not execute, "notes": notes, "regime": regime})
+        return out
     lock = load_lock()
     ref = None
     if lock is None or repick_due(lock, pd.Timestamp(today) - pd.offsets.BDay(1)):
@@ -390,8 +476,9 @@ def buy(execute: bool = False, now: datetime | None = None, broker=None) -> dict
             _append("orders.jsonl", {"utc": _now(), "date": today, "kind": "buy_mkt", **o, "order_id": r.get("id")})
     out = {"account": acct.get("account_number"), "equity": equity, "cash": cash, "picks": lock["picks"],
            "orders": orders, "sent": len(sent), "blocked": blocked, "notes": notes, "dry_run": not execute}
+    out["regime"] = regime
     _append("runs.jsonl", {"utc": _now(), "kind": "buy", **{k: out[k] for k in ("equity", "cash", "sent", "blocked", "dry_run")},
-                           "notes": notes})
+                           "notes": notes, "regime": regime})
     return out
 
 

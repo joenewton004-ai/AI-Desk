@@ -22,3 +22,5 @@ def isolated_journal(tmp_path, monkeypatch):
     monkeypatch.setattr(overnight, "LOCK", tmp_path / "overnight.json")
     monkeypatch.setattr(overnight, "DIR", tmp_path / "journal_overnight")
     monkeypatch.setattr(methods, "OVERNIGHT_SWAP", tmp_path / "overnight_live.json")
+    # the overnight buy's regime checks download prices: tests see "buy as usual" unless they set their own
+    monkeypatch.setattr(overnight, "check_regime", lambda: {"cash": False, "reasons": []})

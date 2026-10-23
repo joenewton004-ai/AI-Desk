@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-22T20:41:30+00:00",
+ "generated_utc": "2026-10-23T11:25:00+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -403,7 +403,8 @@
     "look_back": "12 months",
     "re_pick": "monthly",
     "hold": "close to next open, daily",
-    "orders": "market buy at 3:55-3:59pm (market-on-close until 2026-10-21: paper filled only part), market sell at the open"
+    "orders": "market buy at 3:55-3:59pm (market-on-close until 2026-10-21: paper filled only part), market sell at the open",
+    "regime": "cash for the night when SPY < its 200-day average or tech lags defensives by more than on 90% of past days (amendment 7a8b29ec)"
    },
    "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`",
    "evidence_summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
@@ -434,6 +435,17 @@
      "status": "accepted",
      "evidence": "Owner chose 'Market orders at 3:57pm' on 2026-10-22 after the partial auction fills. Implemented as a 3:55-3:59pm window; the scheduled buy now fires at 3:54pm.",
      "decided_utc": "2026-10-22T09:16:29+00:00"
+    },
+    {
+     "id": "7a8b29ec",
+     "created_utc": "2026-10-23T11:23:33+00:00",
+     "method": "overnight_drift",
+     "proposal": "Regime checks: no overnight buys (cash for the night) when SPY is below its 200-day average, or on a day tech stocks lag defensive stocks by more than on 90% of past days (SIC groups in ai_desk/overnight_groups.json). Checked at the 3:55pm buy from prices up to then; the cut-off is refreshed by each evening run from 5 years of daily closes.",
+     "rationale": "research/OVERNIGHT_REGIME.md: 2014-2026, cash on either signal (25% of nights) gave Sharpe 1.03 vs 0.70, worst drop -16% vs -36%, both halves (1.00 / 1.13). Switching into defensive or low-beta stocks instead does not help. Caveats: ~20 rules tested; survivors-only prices; part of the gain is trading less; the tech signal only works same-day, so live it is judged at 3:55pm, a few minutes before the close the backtest used; live cut-off from a 5-year window vs the backtest's expanding one.",
+     "author": "you",
+     "status": "accepted",
+     "evidence": "Backtested in research/overnight_regime.py. Owner: 'Add in the checks to the overnight sleeve' (2026-10-23) after reading the results.",
+     "decided_utc": "2026-10-23T11:23:39+00:00"
     }
    ]
   },
