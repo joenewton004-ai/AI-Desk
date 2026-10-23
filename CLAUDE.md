@@ -43,6 +43,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   and persistent (t 6.4), profitable only if costs <= ~0.02% each way (break-even ~0.045%). Paper fills can't measure
   real auction costs - say so. Desk with it instead of SPY momentum: `python research/desk_overnight.py` ->
   `research/DESK_OVERNIGHT.md` (better only at <= ~0.02-0.03% costs; deeper worst drop).
+- Overnight sleeve vs the fear index (VIX levels/changes, SPY 200-day, tech-vs-defensive days; defensive/low-beta lists):
+  `python research/overnight_regime.py` -> `research/OVERNIGHT_REGIME.md`. Defensive lists don't earn overnight; cash
+  when SPY < 200-day or on a day tech lags defensives most: Sharpe 1.03 vs 0.70 (both halves; ~20 rules tested). Not live.
 - EMA9/VWAP crossover and Trend+Momentum+Confirmation (EMA20/50, VWAP, volume, breakout): `python research/vwap_ema.py`
   -> `research/VWAP_EMA.md` (cached 5m/1m/1h bars). No edge; research-only.
 - Leveraged S&P fund (2x/3x, simulated + checked vs real SSO/UPRO) on SPY signals with strict risk rules:
