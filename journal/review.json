@@ -1,15 +1,15 @@
 {
- "asof_utc": "2026-10-22T14:05:46+00:00",
- "equity": 98939.23,
+ "asof_utc": "2026-10-23T13:43:32+00:00",
+ "equity": 96948.4,
  "by_sleeve": {
   "bottleneck": {
    "open_positions": 0,
    "invested": 0.0,
    "unrealized_pnl": 0.0,
-   "realized_pnl": -202.08,
-   "closed_trades": 7,
+   "realized_pnl": -258.27,
+   "closed_trades": 8,
    "win_rate": 0.0,
-   "avg_closed_return": -0.0109
+   "avg_closed_return": -0.0145
   },
   "index_momentum": {
    "open_positions": 0,
@@ -21,9 +21,9 @@
    "avg_closed_return": 0.0068
   },
   "momentum": {
-   "open_positions": 19,
-   "invested": 19989.11,
-   "unrealized_pnl": -374.94,
+   "open_positions": 18,
+   "invested": 18574.59,
+   "unrealized_pnl": -915.23,
    "realized_pnl": 0.0,
    "closed_trades": 0,
    "win_rate": null,
@@ -33,15 +33,15 @@
    "open_positions": 0,
    "invested": 0.0,
    "unrealized_pnl": 0.0,
-   "realized_pnl": -462.88,
-   "closed_trades": 9,
-   "win_rate": 0.0,
-   "avg_closed_return": -0.0568
+   "realized_pnl": -1054.5,
+   "closed_trades": 29,
+   "win_rate": 0.207,
+   "avg_closed_return": -0.0314
   },
   "quality_screen": {
    "open_positions": 25,
    "invested": 49701.43,
-   "unrealized_pnl": -218.31,
+   "unrealized_pnl": -1022.81,
    "realized_pnl": -0.0,
    "closed_trades": 1,
    "win_rate": 0.0,
@@ -75,11 +75,11 @@
      "weaknesses": "FCF/net income 0.18x (bottom 1%); FCF yield 0.5% (bottom 2%); EV/EBIT 39 (bottom 10%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 1302.3,
-   "unrealized_pnl": 59.65373099999983,
-   "return": 0.02954313677436682,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 1287.0,
+   "unrealized_pnl": 35.230340999999896,
+   "return": 0.01744760579636817,
+   "held_days": 3
   },
   {
    "trade_id": "76ce6579",
@@ -107,11 +107,11 @@
      "weaknesses": "share count +1.5%/yr (bottom 1%); stock comp 3.4% of revenue (bottom 18%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 80.1,
-   "unrealized_pnl": 19.626048999999803,
-   "return": 0.009960912873534067,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 76.925,
+   "unrealized_pnl": -59.25079350000013,
+   "return": -0.030071869877695168,
+   "held_days": 3
   },
   {
    "trade_id": "0924be15",
@@ -139,11 +139,11 @@
      "weaknesses": "FCF yield 1.4% (bottom 4%); EV/EBIT 39 (bottom 11%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 239.325,
-   "unrealized_pnl": -214.39820250000017,
-   "return": -0.1096540178571429,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 227.36,
+   "unrealized_pnl": -301.430416,
+   "return": -0.15416666666666667,
+   "held_days": 3
   },
   {
    "trade_id": "c0674fec",
@@ -171,11 +171,11 @@
      "weaknesses": "forward P/E 45 (bottom 1%); EV/EBIT 52 (bottom 4%); FCF yield 1.8% (bottom 12%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 173.165,
-   "unrealized_pnl": 37.92565349999996,
-   "return": 0.019337179185307196,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 171.955,
+   "unrealized_pnl": 23.956082500000196,
+   "return": 0.01221450435601601,
+   "held_days": 3
   },
   {
    "trade_id": "87da470e",
@@ -203,11 +203,11 @@
      "weaknesses": "EV/EBIT 38 (bottom 12%); gross margin 24% (bottom 13%); FCF yield 2.0% (bottom 16%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 1323.5675,
-   "unrealized_pnl": -140.0340457499997,
-   "return": -0.07256047143898181,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 1158.03,
+   "unrealized_pnl": -363.8904069999999,
+   "return": -0.18855457144458765,
+   "held_days": 3
   },
   {
    "trade_id": "0d2321dc",
@@ -235,11 +235,11 @@
      "weaknesses": "forward P/E 32 (bottom 11%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 661.95,
-   "unrealized_pnl": 83.30147100000016,
-   "return": 0.04099830156633333,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 652.84,
+   "unrealized_pnl": 54.19228800000012,
+   "return": 0.02667169906271627,
+   "held_days": 3
   },
   {
    "trade_id": "1cd174b9",
@@ -267,11 +267,11 @@
      "weaknesses": "forward P/E 27 (bottom 17%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 627.35,
-   "unrealized_pnl": 30.60464468039995,
-   "return": 0.01542179272985389,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 625.815,
+   "unrealized_pnl": 25.674071180400052,
+   "return": 0.012937258655030703,
+   "held_days": 3
   },
   {
    "trade_id": "aac14d6e",
@@ -299,11 +299,11 @@
      "weaknesses": "12-1 month price change -41% (bottom 4%); stock comp 7.9% of revenue (bottom 7%); net debt/EBITDA 3.1x (bottom 8%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 810.22,
-   "unrealized_pnl": 49.60799300000013,
-   "return": 0.02475178650477461,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 819.205,
+   "unrealized_pnl": 72.38406950000017,
+   "return": 0.03611585404414108,
+   "held_days": 3
   },
   {
    "trade_id": "67e9257b",
@@ -331,11 +331,11 @@
      "weaknesses": "gross margin 19% (bottom 8%); operating margin 9% (bottom 10%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 675.15,
-   "unrealized_pnl": -93.83533100000008,
-   "return": -0.047904444945848446,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 648.86,
+   "unrealized_pnl": -166.456198,
+   "return": -0.08497856498194944,
+   "held_days": 3
   },
   {
    "trade_id": "d8e852f1",
@@ -363,11 +363,11 @@
      "weaknesses": "stock comp 10.2% of revenue (bottom 3%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 656.0,
-   "unrealized_pnl": -97.99880456079998,
-   "return": -0.05053584341242601,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 640.88,
+   "unrealized_pnl": -140.4361085608,
+   "return": -0.07241983433865185,
+   "held_days": 3
   },
   {
    "trade_id": "e92e71e6",
@@ -411,42 +411,11 @@
      "forward_pe": 13.6409
     }
    },
-   "handed_over_from": NaN,
-   "price": 216.58,
-   "unrealized_pnl": 3.3048676512001416,
-   "return": 0.0016758669024095063,
-   "held_days": 2
-  },
-  {
-   "trade_id": "31e34566",
-   "symbol": "AMD",
-   "sleeve": "momentum",
-   "qty": 2.6634,
-   "entry_price": 531.098797,
-   "entry_utc": "2026-10-20T13:31:52.416433035Z",
-   "entry_rationale": {
-    "bottleneck": {
-     "rank": 2,
-     "source_file": "bottleneck_2026-10-20.csv",
-     "score": 70.8548,
-     "flow_score": 64.7059,
-     "bottleneck_score": 69.6691,
-     "asymmetry_score": 91.1765,
-     "industry": "Semiconductors",
-     "segment": "compute",
-     "source": "theme",
-     "rev_growth": 0.5011,
-     "gm_change": 0.1397,
-     "backlog_growth": 0.0183,
-     "rs_6m": 0.8699,
-     "forward_pe": 34.1357
-    }
-   },
-   "handed_over_from": "bottleneck",
-   "price": 525.92,
-   "unrealized_pnl": -13.793207929800085,
-   "return": -0.009751099097292881,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 212.02,
+   "unrealized_pnl": -38.285068348799875,
+   "return": -0.019413993440535404,
+   "held_days": 3
   },
   {
    "trade_id": "aa774d72",
@@ -474,11 +443,11 @@
      "weaknesses": "FCF yield 1.7% (bottom 10%); stock comp 6.2% of revenue (bottom 11%); FCF/net income 0.75x (bottom 14%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 328.08,
-   "unrealized_pnl": -83.72437003440001,
-   "return": -0.04247589815843933,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 321.84,
+   "unrealized_pnl": -119.62184203440006,
+   "return": -0.060687768420239374,
+   "held_days": 3
   },
   {
    "trade_id": "fb41d968",
@@ -506,11 +475,11 @@
      "weaknesses": "net debt/EBITDA 3.0x (bottom 10%); stock comp 3.6% of revenue (bottom 18%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 611.77,
-   "unrealized_pnl": 92.67542788759984,
-   "return": 0.04505451630737212,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 616.53,
+   "unrealized_pnl": 109.40111588759981,
+   "return": 0.05318577396568003,
+   "held_days": 3
   },
   {
    "trade_id": "370c03f6",
@@ -538,11 +507,11 @@
      "weaknesses": "avg ROIC 13% (bottom 3%); net debt/EBITDA 3.2x (bottom 6%); growing -6%/yr vs industry peers (bottom 9%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 412.39,
-   "unrealized_pnl": 5.955083712000067,
-   "return": 0.0029445844017887968,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 407.55,
+   "unrealized_pnl": -17.85045628799981,
+   "return": -0.008826437661075603,
+   "held_days": 3
   },
   {
    "trade_id": "18d7f530",
@@ -570,11 +539,11 @@
      "weaknesses": "stock comp 8.2% of revenue (bottom 5%); 12-1 month price change -25% (bottom 12%); growing -4%/yr vs industry peers (bottom 15%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 261.13,
-   "unrealized_pnl": 70.94929749959994,
-   "return": 0.035096699091967,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 267.82,
+   "unrealized_pnl": 124.55760549959992,
+   "return": 0.06161527955734902,
+   "held_days": 3
   },
   {
    "trade_id": "5c85255a",
@@ -602,11 +571,11 @@
      "weaknesses": "share count +0.1%/yr (bottom 12%); net debt/EBITDA 2.5x (bottom 17%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 199.445,
-   "unrealized_pnl": -27.269823371199937,
-   "return": -0.013693491948649106,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 200.77,
+   "unrealized_pnl": -14.22095837119977,
+   "return": -0.00714102824603402,
+   "held_days": 3
   },
   {
    "trade_id": "0b304395",
@@ -634,11 +603,11 @@
      "weaknesses": "growing -5%/yr vs industry peers (bottom 10%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 114.48,
-   "unrealized_pnl": 37.67959751040005,
-   "return": 0.018755350067404475,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 118.41,
+   "unrealized_pnl": 107.94053051039992,
+   "return": 0.05372834557548356,
+   "held_days": 3
   },
   {
    "trade_id": "7be89524",
@@ -666,11 +635,11 @@
      "weaknesses": "stock comp 4.8% of revenue (bottom 14%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 116.49,
-   "unrealized_pnl": 30.380274777599915,
-   "return": 0.015142733129197339,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 115.74,
+   "unrealized_pnl": 17.267724777599916,
+   "return": 0.008606918468308855,
+   "held_days": 3
   },
   {
    "trade_id": "14d10f5e",
@@ -698,11 +667,11 @@
      "weaknesses": "FCF yield 1.7% (bottom 8%); EV/EBIT 37 (bottom 13%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 153.43,
-   "unrealized_pnl": -120.40161406699985,
-   "return": -0.061869260625370015,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 148.115,
+   "unrealized_pnl": -183.6447990669998,
+   "return": -0.09436723937643665,
+   "held_days": 3
   },
   {
    "trade_id": "229edaca",
@@ -730,11 +699,11 @@
      "weaknesses": "forward P/E 27 (bottom 16%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 411.12,
-   "unrealized_pnl": 29.997794205300142,
-   "return": 0.015072094747410114,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 410.35,
+   "unrealized_pnl": 26.213937205300233,
+   "return": 0.013170933254523565,
+   "held_days": 3
   },
   {
    "trade_id": "0200e924",
@@ -762,11 +731,11 @@
      "weaknesses": "12-1 month price change -21% (bottom 15%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 85.91,
-   "unrealized_pnl": -37.10008448800001,
-   "return": -0.018672219764238496,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 81.435,
+   "unrealized_pnl": -138.6646844879999,
+   "return": -0.06978899099640035,
+   "held_days": 3
   },
   {
    "trade_id": "c6dd0376",
@@ -794,11 +763,11 @@
      "weaknesses": "latest-quarter revenue -2% y/y (bottom 3%); gross margin -4.2% over the period (bottom 5%); stock comp 4.6% of revenue (bottom 15%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 577.57,
-   "unrealized_pnl": 95.07203200000015,
-   "return": 0.0472900687229143,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 580.47,
+   "unrealized_pnl": 105.64369200000007,
+   "return": 0.052548550291029894,
+   "held_days": 3
   },
   {
    "trade_id": "4041d8ac",
@@ -826,11 +795,11 @@
      "weaknesses": "EV/EBIT 54 (bottom 2%); forward P/E 35 (bottom 7%); share count +0.3%/yr (bottom 11%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 177.84,
-   "unrealized_pnl": -33.786198309399865,
-   "return": -0.017251257846827794,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 172.0,
+   "unrealized_pnl": -96.9901823093999,
+   "return": -0.049523258826216776,
+   "held_days": 3
   },
   {
    "trade_id": "9efb3eb4",
@@ -858,11 +827,11 @@
      "weaknesses": "growing -5%/yr vs industry peers (bottom 10%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 164.61,
-   "unrealized_pnl": 4.626262946500135,
-   "return": 0.0023133094036942303,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 157.245,
+   "unrealized_pnl": -85.05807855349997,
+   "return": -0.04253231069082131,
+   "held_days": 3
   },
   {
    "trade_id": "f8a889c9",
@@ -890,11 +859,11 @@
      "weaknesses": "net debt/EBITDA 3.4x (bottom 5%); avg ROIC 15% (bottom 10%)"
     }
    },
-   "handed_over_from": NaN,
-   "price": 44.43,
-   "unrealized_pnl": -21.12315129120005,
-   "return": -0.010539194005671382,
-   "held_days": 2
+   "handed_over_from": null,
+   "price": 44.915,
+   "unrealized_pnl": 0.5247267087999251,
+   "return": 0.0002618073651872166,
+   "held_days": 3
   },
   {
    "trade_id": "650143eb",
@@ -910,11 +879,11 @@
      "score": 98.8447
     }
    },
-   "handed_over_from": NaN,
-   "price": 238.9475,
-   "unrealized_pnl": 6.813951999999935,
-   "return": 0.006518534119629216,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 237.26,
+   "unrealized_pnl": -0.616448000000065,
+   "return": -0.0005897219882056159,
+   "held_days": 1
   },
   {
    "trade_id": "410fea70",
@@ -946,11 +915,11 @@
      "score": 99.4865
     }
    },
-   "handed_over_from": NaN,
-   "price": 113.525,
-   "unrealized_pnl": -36.83943049999997,
-   "return": -0.03637212460741868,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 104.2,
+   "unrealized_pnl": -117.009253,
+   "return": -0.11552499787793902,
+   "held_days": 1
   },
   {
    "trade_id": "4dcb3c8e",
@@ -966,11 +935,11 @@
      "score": 97.561
     }
    },
-   "handed_over_from": NaN,
-   "price": 124.935,
-   "unrealized_pnl": -20.093592500000003,
-   "return": -0.019733228717144002,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 122.945,
+   "unrealized_pnl": -35.99269750000008,
+   "return": -0.03534719497842298,
+   "held_days": 1
   },
   {
    "trade_id": "44691d18",
@@ -986,11 +955,11 @@
      "score": 98.7163
     }
    },
-   "handed_over_from": NaN,
-   "price": 263.38,
-   "unrealized_pnl": -41.65781400000006,
-   "return": -0.038934501003466626,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 257.0,
+   "unrealized_pnl": -66.56661000000004,
+   "return": -0.06221492428388986,
+   "held_days": 1
   },
   {
    "trade_id": "f777b5d8",
@@ -1006,11 +975,11 @@
      "score": 97.0475
     }
    },
-   "handed_over_from": NaN,
-   "price": 427.115,
-   "unrealized_pnl": -8.655537499999983,
-   "return": -0.008576866832246233,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 417.14,
+   "unrealized_pnl": -32.02197500000003,
+   "return": -0.03173092546598277,
+   "held_days": 1
   },
   {
    "trade_id": "70508bd5",
@@ -1026,11 +995,11 @@
      "score": 97.1759
     }
    },
-   "handed_over_from": NaN,
-   "price": 94.625,
-   "unrealized_pnl": -24.766200999999963,
-   "return": -0.023578578062119493,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 92.48,
+   "unrealized_pnl": -48.01499799999992,
+   "return": -0.04571251676813526,
+   "held_days": 1
   },
   {
    "trade_id": "4eb3d30c",
@@ -1046,11 +1015,11 @@
      "score": 99.3582
     }
    },
-   "handed_over_from": NaN,
-   "price": 56.28,
-   "unrealized_pnl": -30.889111551999946,
-   "return": -0.029831809932536424,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 55.64,
+   "unrealized_pnl": -42.31259955199996,
+   "return": -0.04086428402001285,
+   "held_days": 1
   },
   {
    "trade_id": "bb2e7c36",
@@ -1066,11 +1035,11 @@
      "score": 100.0
     }
    },
-   "handed_over_from": NaN,
-   "price": 237.58,
-   "unrealized_pnl": -34.82175199999995,
-   "return": -0.03422764227642272,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 195.34,
+   "unrealized_pnl": -209.50949599999998,
+   "return": -0.2059349593495935,
+   "held_days": 1
   },
   {
    "trade_id": "e76d38f2",
@@ -1086,11 +1055,11 @@
      "score": 96.9191
     }
    },
-   "handed_over_from": NaN,
-   "price": 277.53,
-   "unrealized_pnl": 2.466155999999881,
-   "return": 0.0023837902264598476,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 266.855,
+   "unrealized_pnl": -37.42204899999995,
+   "return": -0.03617221078484478,
+   "held_days": 1
   },
   {
    "trade_id": "6e12a163",
@@ -1106,11 +1075,11 @@
      "score": 98.973
     }
    },
-   "handed_over_from": NaN,
-   "price": 125.52,
-   "unrealized_pnl": -57.92389200000006,
-   "return": -0.05510388437217706,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 121.66,
+   "unrealized_pnl": -88.46845800000006,
+   "return": -0.08416139716952731,
+   "held_days": 1
   },
   {
    "trade_id": "68e798e3",
@@ -1126,11 +1095,11 @@
      "score": 97.3042
     }
    },
-   "handed_over_from": NaN,
-   "price": 81.075,
-   "unrealized_pnl": -50.842173000000045,
-   "return": -0.04941962715441439,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 78.77,
+   "unrealized_pnl": -78.64554400000013,
+   "return": -0.07644506976198862,
+   "held_days": 1
   },
   {
    "trade_id": "aca8f0ea",
@@ -1146,11 +1115,11 @@
      "score": 99.6149
     }
    },
-   "handed_over_from": NaN,
-   "price": 206.0,
-   "unrealized_pnl": 7.998155000000058,
-   "return": 0.007581315725116111,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 199.98,
+   "unrealized_pnl": -23.065646999999995,
+   "return": -0.02186353631694793,
+   "held_days": 1
   },
   {
    "trade_id": "22748372",
@@ -1166,11 +1135,11 @@
      "score": 97.9461
     }
    },
-   "handed_over_from": NaN,
-   "price": 119.785,
-   "unrealized_pnl": -0.3931605000000149,
-   "return": -0.00037553200367190787,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 119.955,
+   "unrealized_pnl": 1.0921125,
+   "return": 0.0010431444546441515,
+   "held_days": 1
   },
   {
    "trade_id": "3d2391fd",
@@ -1186,11 +1155,11 @@
      "score": 98.5879
     }
    },
-   "handed_over_from": NaN,
-   "price": 214.0,
-   "unrealized_pnl": -8.667218543099937,
-   "return": -0.00842262043588804,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 213.295,
+   "unrealized_pnl": -12.028729043099997,
+   "return": -0.011689265541461435,
+   "held_days": 1
   },
   {
    "trade_id": "4032c6fe",
@@ -1206,11 +1175,11 @@
      "score": 98.4596
     }
    },
-   "handed_over_from": NaN,
-   "price": 312.81,
-   "unrealized_pnl": -36.61775599999999,
-   "return": -0.03602465331278892,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 312.9,
+   "unrealized_pnl": -36.33584000000007,
+   "return": -0.035747303543913755,
+   "held_days": 1
   },
   {
    "trade_id": "b059d0e5",
@@ -1226,11 +1195,11 @@
      "score": 99.8716
     }
    },
-   "handed_over_from": NaN,
-   "price": 226.784,
-   "unrealized_pnl": 8.666400599999943,
-   "return": 0.008511584471027733,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 221.96,
+   "unrealized_pnl": -13.176188999999985,
+   "return": -0.012940810245919865,
+   "held_days": 1
   },
   {
    "trade_id": "66439ee1",
@@ -1246,11 +1215,11 @@
      "score": 97.4326
     }
    },
-   "handed_over_from": NaN,
-   "price": 260.145,
-   "unrealized_pnl": -35.81777549999998,
-   "return": -0.03435412026726059,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 254.865,
+   "unrealized_pnl": -56.25190349999988,
+   "return": -0.05395322939866354,
+   "held_days": 1
   },
   {
    "trade_id": "1c5d6293",
@@ -1266,11 +1235,11 @@
      "score": 98.0745
     }
    },
-   "handed_over_from": NaN,
-   "price": 33.42,
-   "unrealized_pnl": 0.8923020000000339,
-   "return": 0.0008984725965859308,
-   "held_days": 0
+   "handed_over_from": null,
+   "price": 32.755,
+   "unrealized_pnl": -18.88705899999994,
+   "return": -0.01901766996106613,
+   "held_days": 1
   }
  ],
  "closed": [
@@ -1543,13 +1512,333 @@
    "pnl": -97.83999900000003,
    "return": -0.06396276182631211,
    "held_days": 0
+  },
+  {
+   "trade_id": "31e34566",
+   "symbol": "AMD",
+   "sleeve": "bottleneck",
+   "entry_price": 531.098797,
+   "entry_utc": "2026-10-20T13:31:52.416433035Z",
+   "qty": 2.6634,
+   "exit_trade_id": "d3aa13cd",
+   "exit_price": 510.0,
+   "exit_utc": "2026-10-23T13:30:02.854877327Z",
+   "exit_reason": "exit rule: closed below its 100-day average",
+   "pnl": -56.194535929799976,
+   "return": -0.03972668949577751,
+   "held_days": 2
+  },
+  {
+   "trade_id": "e4a535c7",
+   "symbol": "VRT",
+   "sleeve": "overnight_drift",
+   "entry_price": 195.735,
+   "entry_utc": "2026-10-22T19:55:24.803301383Z",
+   "qty": 8.0,
+   "exit_trade_id": "2d6d3836",
+   "exit_price": 191.35,
+   "exit_utc": "2026-10-23T13:30:47.157073004Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -35.080000000000155,
+   "return": -0.022402738396301247,
+   "held_days": 0
+  },
+  {
+   "trade_id": "1bea1345",
+   "symbol": "LITE",
+   "sleeve": "overnight_drift",
+   "entry_price": 753.755,
+   "entry_utc": "2026-10-22T19:55:15.568780045Z",
+   "qty": 2.0,
+   "exit_trade_id": "3b562241",
+   "exit_price": 757.13,
+   "exit_utc": "2026-10-23T13:30:49.740752411Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": 6.75,
+   "return": 0.004477582238260336,
+   "held_days": 0
+  },
+  {
+   "trade_id": "a2d13580",
+   "symbol": "COHR",
+   "sleeve": "overnight_drift",
+   "entry_price": 207.515714,
+   "entry_utc": "2026-10-22T19:55:23.081589811Z",
+   "qty": 7.0,
+   "exit_trade_id": "0b359453",
+   "exit_price": 208.01,
+   "exit_utc": "2026-10-23T13:30:51.286859256Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": 3.4600019999999176,
+   "return": 0.0023819208216684373,
+   "held_days": 0
+  },
+  {
+   "trade_id": "e16105d9",
+   "symbol": "MU",
+   "sleeve": "overnight_drift",
+   "entry_price": 857.5,
+   "entry_utc": "2026-10-22T19:55:18.2966614Z",
+   "qty": 1.0,
+   "exit_trade_id": "19800645",
+   "exit_price": 863.98,
+   "exit_utc": "2026-10-23T13:31:05.192671386Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": 6.480000000000018,
+   "return": 0.007556851311953272,
+   "held_days": 0
+  },
+  {
+   "trade_id": "4e4135e0",
+   "symbol": "STX",
+   "sleeve": "overnight_drift",
+   "entry_price": 642.08,
+   "entry_utc": "2026-10-22T19:55:22.646547488Z",
+   "qty": 2.0,
+   "exit_trade_id": "6084dbbb",
+   "exit_price": 631.65,
+   "exit_utc": "2026-10-23T13:31:06.947465567Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -20.860000000000127,
+   "return": -0.016244081734363425,
+   "held_days": 0
+  },
+  {
+   "trade_id": "d20560eb",
+   "symbol": "ESLT",
+   "sleeve": "overnight_drift",
+   "entry_price": 743.84,
+   "entry_utc": "2026-10-22T19:55:20.417347265Z",
+   "qty": 2.0,
+   "exit_trade_id": "bff9f83d",
+   "exit_price": 720.69,
+   "exit_utc": "2026-10-23T13:31:11.420910123Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -46.299999999999955,
+   "return": -0.031122284362228414,
+   "held_days": 0
+  },
+  {
+   "trade_id": "162652bb",
+   "symbol": "ATI",
+   "sleeve": "overnight_drift",
+   "entry_price": 162.128889,
+   "entry_utc": "2026-10-22T19:55:28.733990988Z",
+   "qty": 9.0,
+   "exit_trade_id": "70670759",
+   "exit_price": 156.6,
+   "exit_utc": "2026-10-23T13:32:16.298239049Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -49.76000099999993,
+   "return": -0.034101812663380415,
+   "held_days": 0
+  },
+  {
+   "trade_id": "ec1e27f6",
+   "symbol": "LRCX",
+   "sleeve": "overnight_drift",
+   "entry_price": 230.241667,
+   "entry_utc": "2026-10-22T19:55:22.152451236Z",
+   "qty": 6.0,
+   "exit_trade_id": "daaf6068",
+   "exit_price": 227.78,
+   "exit_utc": "2026-10-23T13:32:16.490756746Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -14.770002000000034,
+   "return": -0.010691665987633825,
+   "held_days": 0
+  },
+  {
+   "trade_id": "7552f438",
+   "symbol": "SNDK",
+   "sleeve": "overnight_drift",
+   "entry_price": 1262.51,
+   "entry_utc": "2026-10-22T19:55:16.666507277Z",
+   "qty": 1.0,
+   "exit_trade_id": "cad18673",
+   "exit_price": 1263.0,
+   "exit_utc": "2026-10-23T13:32:25.005993516Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": 0.4900000000000091,
+   "return": 0.0003881157376970368,
+   "held_days": 0
+  },
+  {
+   "trade_id": "edd96cff",
+   "symbol": "SITM",
+   "sleeve": "overnight_drift",
+   "entry_price": 462.91,
+   "entry_utc": "2026-10-22T19:55:18.146876382Z",
+   "qty": 3.0,
+   "exit_trade_id": "b5647ed7",
+   "exit_price": 455.97,
+   "exit_utc": "2026-10-23T13:32:45.171643702Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -20.819999999999993,
+   "return": -0.014992115097967162,
+   "held_days": 0
+  },
+  {
+   "trade_id": "30198168",
+   "symbol": "BE",
+   "sleeve": "overnight_drift",
+   "entry_price": 215.665714,
+   "entry_utc": "2026-10-22T19:55:18.634025374Z",
+   "qty": 7.0,
+   "exit_trade_id": "3fb9c7f7",
+   "exit_price": 201.384286,
+   "exit_utc": "2026-10-23T13:33:00.989818281Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -99.96999600000004,
+   "return": -0.06622020596189904,
+   "held_days": 0
+  },
+  {
+   "trade_id": "ce6967b6",
+   "symbol": "MRVL",
+   "sleeve": "overnight_drift",
+   "entry_price": 223.09,
+   "entry_utc": "2026-10-22T19:55:17.941861416Z",
+   "qty": 7.0,
+   "exit_trade_id": "6196a550",
+   "exit_price": 223.455714,
+   "exit_utc": "2026-10-23T13:33:01.888877756Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": 2.559997999999979,
+   "return": 0.0016393114886368298,
+   "held_days": 0
+  },
+  {
+   "trade_id": "28de43cf",
+   "symbol": "CRDO",
+   "sleeve": "overnight_drift",
+   "entry_price": 163.28,
+   "entry_utc": "2026-10-22T19:55:20.010387041Z",
+   "qty": 9.0,
+   "exit_trade_id": "f6aba3b3",
+   "exit_price": 147.142222,
+   "exit_utc": "2026-10-23T13:33:21.070942118Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -145.24000199999998,
+   "return": -0.09883499510044091,
+   "held_days": 0
+  },
+  {
+   "trade_id": "7d472dc5",
+   "symbol": "TSEM",
+   "sleeve": "overnight_drift",
+   "entry_price": 167.52,
+   "entry_utc": "2026-10-22T19:55:19.179840345Z",
+   "qty": 9.0,
+   "exit_trade_id": "f1aaa789",
+   "exit_price": 164.532222,
+   "exit_utc": "2026-10-23T13:33:29.983055371Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -26.89000200000018,
+   "return": -0.017835351002865485,
+   "held_days": 0
+  },
+  {
+   "trade_id": "c1cf7e62",
+   "symbol": "FTAI",
+   "sleeve": "overnight_drift",
+   "entry_price": 157.57,
+   "entry_utc": "2026-10-22T19:55:26.042821862Z",
+   "qty": 9.0,
+   "exit_trade_id": "d0bfad73",
+   "exit_price": 150.447778,
+   "exit_utc": "2026-10-23T13:33:30.150039009Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -64.09999799999994,
+   "return": -0.045200368090372534,
+   "held_days": 0
+  },
+  {
+   "trade_id": "92180314",
+   "symbol": "TER",
+   "sleeve": "overnight_drift",
+   "entry_price": 311.51,
+   "entry_utc": "2026-10-22T19:55:22.461696721Z",
+   "qty": 5.0,
+   "exit_trade_id": "61448443",
+   "exit_price": 307.514,
+   "exit_utc": "2026-10-23T13:33:35.454095231Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -19.979999999999905,
+   "return": -0.012827838592661456,
+   "held_days": 0
+  },
+  {
+   "trade_id": "5a02e6c1",
+   "symbol": "INTC",
+   "sleeve": "overnight_drift",
+   "entry_price": 85.349474,
+   "entry_utc": "2026-10-22T19:55:24.882343751Z",
+   "qty": 19.0,
+   "exit_trade_id": "b17f3163",
+   "exit_price": 85.830526,
+   "exit_utc": "2026-10-23T13:33:39.953496096Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": 9.139988000000102,
+   "return": 0.005636262034842909,
+   "held_days": 0
+  },
+  {
+   "trade_id": "3188bf34",
+   "symbol": "NBIS",
+   "sleeve": "overnight_drift",
+   "entry_price": 159.033333,
+   "entry_utc": "2026-10-22T19:55:20.791742029Z",
+   "qty": 9.0,
+   "exit_trade_id": "6b5be6b0",
+   "exit_price": 158.387778,
+   "exit_utc": "2026-10-23T13:34:01.427659611Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -5.809995000000015,
+   "return": -0.004059243353718767,
+   "held_days": 0
+  },
+  {
+   "trade_id": "97c7fd66",
+   "symbol": "Q",
+   "sleeve": "overnight_drift",
+   "entry_price": 108.99,
+   "entry_utc": "2026-10-22T19:55:27.564161237Z",
+   "qty": 14.0,
+   "exit_trade_id": "ca19d906",
+   "exit_price": 106.894286,
+   "exit_utc": "2026-10-23T13:34:08.344150627Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -29.339996000000014,
+   "return": -0.019228498027341945,
+   "held_days": 0
+  },
+  {
+   "trade_id": "48b9853c",
+   "symbol": "NVT",
+   "sleeve": "overnight_drift",
+   "entry_price": 126.941666,
+   "entry_utc": "2026-10-22T19:55:28.068700629Z",
+   "qty": 12.0,
+   "exit_trade_id": "6cc16c43",
+   "exit_price": 123.476667,
+   "exit_utc": "2026-10-23T13:34:37.995849116Z",
+   "exit_reason": "overnight: held from the close to the next open",
+   "pnl": -41.5799879999999,
+   "return": -0.027295994366420162,
+   "held_days": 0
   }
  ],
  "exit_reasons": [
   {
+   "exit_reason": "exit rule",
+   "count": 1,
+   "mean": -0.0397
+  },
+  {
    "exit_reason": "overnight",
-   "count": 9,
-   "mean": -0.0568
+   "count": 29,
+   "mean": -0.0314
   },
   {
    "exit_reason": "resize",
@@ -1567,6 +1856,6 @@
    "mean": -0.0109
   }
  ],
- "trades_logged": 79,
+ "trades_logged": 120,
  "notes": 3
 }
