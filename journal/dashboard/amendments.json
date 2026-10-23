@@ -119,5 +119,16 @@
   "status": "accepted",
   "evidence": "Backtested in research/overnight_regime.py. Owner: 'Add in the checks to the overnight sleeve' (2026-10-23) after reading the results.",
   "decided": "2026-10-23"
+ },
+ {
+  "id": "9b951502",
+  "date": "2026-10-23",
+  "method": "overnight_drift",
+  "proposal": "Replace the regime check's tech-vs-defensive test with one on tonight's own picks: cash for the night when the 20 picks' average return from today's open to 3:55pm is -1.9% or worse (the research's worst 10% of days). The SPY 200-day rule stays.",
+  "rationale": "research/overnight_picks_check.py (OVERNIGHT_REGIME.md follow-up): with the SPY rule, Sharpe 1.31 vs 1.03 for the tech-vs-defensive check, worst drop -17%, both halves (1.20 / 1.45); flagged nights -12.7 / -13.9 bp. Needs no industry lists (industries and the picks change). Caveats: the sixth variant on top of ~20 rules; judged at 3:55pm not the close; fixed cut-off from the backtest (stable -1.5% to -1.9% since 2015); survivors-only prices.",
+  "author": "you",
+  "status": "accepted",
+  "evidence": "Owner: 'Swap to D and merge it into main' (2026-10-23). Supersedes the tech-vs-defensive part of 7a8b29ec; its SPY 200-day rule stays.",
+  "decided": "2026-10-23"
  }
 ]

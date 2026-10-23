@@ -97,3 +97,6 @@ days only:
 - **The catches:** this is the sixth variant tested on top of about 20, so the multiple-testing risk keeps growing.
   D was the variant that fits the earlier research's mechanism, and it holds in both halves; that's the best defence.
   Live judges it at 3:55pm, not at the close the backtest used. Survivors-only prices, as before.
+
+**Live from 2026-10-23** (amendment 9b951502, accepted by you): D replaced the tech-vs-defensive check; the SPY 200-day
+rule stays. Cut-off fixed at −1.9% (`overnight.PICKS_DAY_CUTOFF`).

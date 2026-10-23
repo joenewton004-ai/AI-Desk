@@ -400,10 +400,6 @@ def cmd_portfolio(a) -> None:
             print(f"overnight: {r}")
         except Exception as e:  # noqa: BLE001 - the buy falls back to scanning itself
             print(f"overnight: ranking ahead of a re-pick failed ({e}); the buy will rank itself")
-        try:                      # the regime checks' cut-off for a bad tech day, from history up to today's close
-            print(f"overnight: {overnight.prepare_regime()}")
-        except Exception as e:  # noqa: BLE001 - the buy computes it itself if missing
-            print(f"overnight: regime cut-off not updated ({e})")
         return
 
     if a.action == "backtest":
@@ -539,8 +535,8 @@ def _overnight(a) -> None:
                   "Tonight's desk run sells them at the next open.")
     elif a.action == "regime":
         r = ov.check_regime()
-        print(f"SPY ${r['spy']:,.2f} vs its 200-day average ${r['spy_ma200']:,.2f}; tech minus defensive today "
-              f"{pct(r['gap_today'])} (cut-off {pct(r['threshold'])}); prices to {r['prices_to']}")
+        print(f"SPY ${r['spy']:,.2f} vs its 200-day average ${r['spy_ma200']:,.2f}; tonight's {r['picks']} picks since "
+              f"today's open {pct(r['picks_day'])} (cut-off {r['cutoff']:+.1%})" + (f"; {r['note']}" if r["note"] else ""))
         print("Tonight: " + ("IN CASH - " + "; ".join(r["reasons"]) if r["cash"] else "buy as usual") +
               f"  (amendment {ov.REGIME_AMENDMENT})")
     elif a.action == "activate":

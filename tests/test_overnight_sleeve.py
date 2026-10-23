@@ -109,26 +109,29 @@ def test_a_ranking_saved_the_evening_before_is_used_only_for_its_own_close():
     assert ov._cached_scan(pd.Timestamp("2026-11-02")) is None
 
 
-def test_regime_flags_spy_trend_and_a_bad_tech_day():
+def test_regime_flags_spy_trend_and_a_bad_day_for_the_picks():
     up = pd.Series(np.linspace(100, 200, 250))
-    assert ov.regime_flags(up, 0.0, -0.02) == []
+    assert ov.regime_flags(up, 0.0) == []
     down = pd.concat([up, pd.Series([140.0])], ignore_index=True)     # today well below the 200-day average
-    assert "200-day" in ov.regime_flags(down, 0.0, -0.02)[0]
-    flags = ov.regime_flags(up, -0.025, -0.02)                        # tech lagged by 2.5%, cut-off 2%
-    assert len(flags) == 1 and "tech lagged" in flags[0]
-    assert ov.regime_flags(up.iloc[:50], None, None) == []            # not enough history: no flags
+    assert "200-day" in ov.regime_flags(down, 0.0)[0]
+    flags = ov.regime_flags(up, -0.025)                               # picks down 2.5% since the open, cut-off 1.9%
+    assert len(flags) == 1 and "picks are down" in flags[0]
+    assert ov.regime_flags(up, -0.010) == []
+    assert ov.regime_flags(up.iloc[:50], None) == []                  # not enough history, no prices: no flags
 
 
-def test_tech_gap_is_tech_minus_defensive_and_ignores_cheap_stocks():
-    idx = pd.bdate_range("2026-10-20", periods=2)
-    c = pd.DataFrame({"T": [100, 98], "D": [50, 51], "P": [5, 9]}, index=idx, dtype=float)
-    g = ov.tech_gap(c, ["T", "P"], ["D"])
-    assert abs(g.iloc[-1] - (-0.02 - 0.02)) < 1e-12
+def test_picks_day_return_is_open_to_now_and_drops_bad_data():
+    opens = pd.Series({"A": 100.0, "B": 50.0, "C": 10.0})
+    now = pd.Series({"A": 97.0, "B": 49.0, "C": 30.0})                # C +200%: bad data
+    assert abs(ov.picks_day_return(opens, now) - (-0.03 - 0.02) / 2) < 1e-12
+    assert ov.picks_day_return(pd.Series(dtype=float), pd.Series(dtype=float)) is None
 
 
 def test_buy_stays_in_cash_when_a_check_fires(monkeypatch):
     monkeypatch.setattr(ov, "swap_active", lambda t=None: True)
-    monkeypatch.setattr(ov, "check_regime", lambda: {"cash": True, "reasons": ["SPY below its 200-day average"]})
+    monkeypatch.setattr(ov, "check_regime", lambda *a, **k: {"cash": True, "reasons": ["SPY below its 200-day average"]})
+    monkeypatch.setattr(ov, "latest_prices", lambda syms: {s: 100.0 for s in syms})
+    ov.LOCK.write_text('{"picked_on": "2026-10-21", "ref_date": "2026-10-20", "picks": ["MU", "LRCX"], "rows": []}')
 
     class B:
         def account(self):
