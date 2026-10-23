@@ -2,16 +2,16 @@
  {
   "tier": "1 process",
   "metric": "Slippage vs the open (bps, $-weighted)",
-  "value": 32.84472956951514,
+  "value": 26.167604732793006,
   "format": "bps",
   "target": "\u2264 10",
   "status": "flag",
-  "note": "59 fills; the backtest assumes 3bps"
+  "note": "78 fills; the backtest assumes 3bps"
  },
  {
   "tier": "1 process",
   "metric": "Fill vs signal close (bps)",
-  "value": 120.99152542372883,
+  "value": 162.9846153846154,
   "format": "bps",
   "target": "info only",
   "status": "info",
@@ -38,7 +38,7 @@
  {
   "tier": "2 behaviour",
   "metric": "Drawdown from peak (now)",
-  "value": 0.0,
+  "value": -0.021962309022693915,
   "format": "pct",
   "target": "above -15%",
   "status": "ok",
@@ -65,7 +65,16 @@
  {
   "tier": "2 behaviour",
   "metric": "quality_screen vs RSP",
-  "value": -0.00069,
+  "value": -0.02079,
+  "format": "pct",
+  "target": "above -10% over 12m",
+  "status": "too early",
+  "note": "since launch over 2 days"
+ },
+ {
+  "tier": "2 behaviour",
+  "metric": "bottleneck vs SPY",
+  "value": -0.00486,
   "format": "pct",
   "target": "above -10% over 12m",
   "status": "too early",
@@ -73,8 +82,8 @@
  },
  {
   "tier": "2 behaviour",
-  "metric": "bottleneck vs SPY",
-  "value": -0.00486,
+  "metric": "momentum vs SPY",
+  "value": -0.03093,
   "format": "pct",
   "target": "above -10% over 12m",
   "status": "too early",
@@ -101,16 +110,16 @@
  {
   "tier": "3 edge",
   "metric": "Sharpe (above T-bills)",
-  "value": null,
+  "value": -9.427229864021392,
   "format": "num",
   "target": "\u2265 SPY's",
   "status": "too early",
-  "note": ""
+  "note": "SPY -4.53; 90% range for the desk -133.9 to 115.0"
  },
  {
   "tier": "3 edge",
   "metric": "Return vs SPY since launch",
-  "value": -0.004966852723786275,
+  "value": -0.013301924572372226,
   "format": "pct",
   "target": "\u2265 0",
   "status": "too early",
@@ -119,11 +128,11 @@
  {
   "tier": "3 edge",
   "metric": "Worst drop vs SPY's",
-  "value": 0.0,
+  "value": -0.01015255263513759,
   "format": "pct",
   "target": "\u2265 0 (shallower)",
   "status": "too early",
-  "note": "desk 0.0%, SPY 0.0%"
+  "note": "desk -2.2%, SPY -1.2%"
  },
  {
   "tier": "3 edge",

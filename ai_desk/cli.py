@@ -400,6 +400,10 @@ def cmd_portfolio(a) -> None:
             print(f"overnight: {r}")
         except Exception as e:  # noqa: BLE001 - the buy falls back to scanning itself
             print(f"overnight: ranking ahead of a re-pick failed ({e}); the buy will rank itself")
+        try:                      # the regime checks' cut-off for a bad tech day, from history up to today's close
+            print(f"overnight: {overnight.prepare_regime()}")
+        except Exception as e:  # noqa: BLE001 - the buy computes it itself if missing
+            print(f"overnight: regime cut-off not updated ({e})")
         return
 
     if a.action == "backtest":
@@ -533,6 +537,12 @@ def _overnight(a) -> None:
         else:
             print(f"Sent {out['sent']} market buys (near the close) to paper account {out['account']}. "
                   "Tonight's desk run sells them at the next open.")
+    elif a.action == "regime":
+        r = ov.check_regime()
+        print(f"SPY ${r['spy']:,.2f} vs its 200-day average ${r['spy_ma200']:,.2f}; tech minus defensive today "
+              f"{pct(r['gap_today'])} (cut-off {pct(r['threshold'])}); prices to {r['prices_to']}")
+        print("Tonight: " + ("IN CASH - " + "; ".join(r["reasons"]) if r["cash"] else "buy as usual") +
+              f"  (amendment {ov.REGIME_AMENDMENT})")
     elif a.action == "activate":
         row = ov.activate()
         print(f"Desk swap active from {row['from']} (amendment {row['amendment']}): that evening's desk run sells SPY "
@@ -774,7 +784,7 @@ def build_parser() -> argparse.ArgumentParser:
     mo.set_defaults(func=cmd_momentum)
 
     on = sub.add_parser("overnight", help="overnight sleeve (30% of the desk): buy at the close, sold at the next open")
-    on.add_argument("action", choices=["scan", "status", "buy", "review", "activate"])
+    on.add_argument("action", choices=["scan", "status", "buy", "review", "activate", "regime"])
     on.add_argument("--execute", action="store_true", help="send the orders (default: dry run)")
     on.set_defaults(func=cmd_overnight)
 

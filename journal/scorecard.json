@@ -1,49 +1,49 @@
 {
- "asof_utc": "2026-10-21T20:21:28+00:00",
+ "asof_utc": "2026-10-22T20:20:44+00:00",
  "launch": "2026-10-20",
  "criteria_as_of": "2026-10-20",
  "desk": {
-  "days": 1,
-  "total_return": 0.0002864326628946312,
-  "max_drawdown": 0.0,
-  "current_drawdown": 0.0,
+  "days": 2,
+  "total_return": -0.019920435593898667,
+  "max_drawdown": -0.021962309022693915,
+  "current_drawdown": -0.021962309022693915,
   "cagr": NaN,
-  "volatility": NaN,
-  "sharpe": NaN,
-  "sharpe_low": NaN,
-  "sharpe_high": NaN
+  "volatility": 0.26996095880623805,
+  "sharpe": -9.427229864021392,
+  "sharpe_low": -133.89382358242074,
+  "sharpe_high": 115.03936385437794
  },
  "spy": {
-  "days": 1,
-  "total_return": 0.005253285386680906,
-  "max_drawdown": 0.0,
-  "current_drawdown": 0.0,
+  "days": 2,
+  "total_return": -0.006618511021526441,
+  "max_drawdown": -0.011809756387556325,
+  "current_drawdown": -0.011809756387556325,
   "cagr": NaN,
-  "volatility": NaN,
-  "sharpe": NaN,
-  "sharpe_low": NaN,
-  "sharpe_high": NaN
+  "volatility": 0.19153216888622124,
+  "sharpe": -4.525947904811671,
+  "sharpe_low": -66.43796302824845,
+  "sharpe_high": 57.3860672186251
  },
  "rsp": {
-  "days": 1,
-  "total_return": 0.0036134474988021026,
+  "days": 2,
+  "total_return": 0.010933014934117358,
   "max_drawdown": 0.0,
   "current_drawdown": 0.0,
   "cagr": NaN,
-  "volatility": NaN,
-  "sharpe": NaN,
-  "sharpe_low": NaN,
-  "sharpe_high": NaN
+  "volatility": 0.04130527417728732,
+  "sharpe": 32.278684143261195,
+  "sharpe_low": -389.581388980832,
+  "sharpe_high": 454.13875726735444
  },
  "capture": {},
  "sleeves": [
   {
    "sleeve": "quality_screen",
    "benchmark": "RSP",
-   "days": 1,
-   "return": 0.00293,
-   "benchmark_return": 0.00361,
-   "excess": -0.00069
+   "days": 2,
+   "return": -0.00986,
+   "benchmark_return": 0.01093,
+   "excess": -0.02079
   },
   {
    "sleeve": "bottleneck",
@@ -52,6 +52,14 @@
    "return": 0.00039,
    "benchmark_return": 0.00525,
    "excess": -0.00486
+  },
+  {
+   "sleeve": "momentum",
+   "benchmark": "SPY",
+   "days": 1,
+   "return": -0.04274,
+   "benchmark_return": -0.01181,
+   "excess": -0.03093
   },
   {
    "sleeve": "index_momentum",
@@ -66,16 +74,16 @@
   {
    "tier": "1 process",
    "metric": "Slippage vs the open (bps, $-weighted)",
-   "value": 32.84472956951514,
+   "value": 26.167604732793006,
    "format": "bps",
    "target": "\u2264 10",
    "status": "flag",
-   "note": "59 fills; the backtest assumes 3bps"
+   "note": "78 fills; the backtest assumes 3bps"
   },
   {
    "tier": "1 process",
    "metric": "Fill vs signal close (bps)",
-   "value": 120.99152542372883,
+   "value": 162.9846153846154,
    "format": "bps",
    "target": "info only",
    "status": "info",
@@ -102,7 +110,7 @@
   {
    "tier": "2 behaviour",
    "metric": "Drawdown from peak (now)",
-   "value": 0.0,
+   "value": -0.021962309022693915,
    "format": "pct",
    "target": "above -15%",
    "status": "ok",
@@ -129,7 +137,16 @@
   {
    "tier": "2 behaviour",
    "metric": "quality_screen vs RSP",
-   "value": -0.00069,
+   "value": -0.02079,
+   "format": "pct",
+   "target": "above -10% over 12m",
+   "status": "too early",
+   "note": "since launch over 2 days"
+  },
+  {
+   "tier": "2 behaviour",
+   "metric": "bottleneck vs SPY",
+   "value": -0.00486,
    "format": "pct",
    "target": "above -10% over 12m",
    "status": "too early",
@@ -137,8 +154,8 @@
   },
   {
    "tier": "2 behaviour",
-   "metric": "bottleneck vs SPY",
-   "value": -0.00486,
+   "metric": "momentum vs SPY",
+   "value": -0.03093,
    "format": "pct",
    "target": "above -10% over 12m",
    "status": "too early",
@@ -165,16 +182,16 @@
   {
    "tier": "3 edge",
    "metric": "Sharpe (above T-bills)",
-   "value": null,
+   "value": -9.427229864021392,
    "format": "num",
    "target": "\u2265 SPY's",
    "status": "too early",
-   "note": ""
+   "note": "SPY -4.53; 90% range for the desk -133.9 to 115.0"
   },
   {
    "tier": "3 edge",
    "metric": "Return vs SPY since launch",
-   "value": -0.004966852723786275,
+   "value": -0.013301924572372226,
    "format": "pct",
    "target": "\u2265 0",
    "status": "too early",
@@ -183,11 +200,11 @@
   {
    "tier": "3 edge",
    "metric": "Worst drop vs SPY's",
-   "value": 0.0,
+   "value": -0.01015255263513759,
    "format": "pct",
    "target": "\u2265 0 (shallower)",
    "status": "too early",
-   "note": "desk 0.0%, SPY 0.0%"
+   "note": "desk -2.2%, SPY -1.2%"
   },
   {
    "tier": "3 edge",
@@ -1034,6 +1051,272 @@
    "notional": 1042.6,
    "vs_close_bps": 414.0,
    "vs_open_bps": 311.6
+  },
+  {
+   "id": "a3db3ccc",
+   "date": "2026-10-22",
+   "symbol": "BE",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 238.53,
+   "day_open": 228.14999389648438,
+   "fill": 225.11,
+   "notional": 225.11,
+   "vs_close_bps": 562.6,
+   "vs_open_bps": 133.2
+  },
+  {
+   "id": "d4f27da9",
+   "date": "2026-10-22",
+   "symbol": "FTAI",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 163.52,
+   "day_open": 158.0,
+   "fill": 158.09,
+   "notional": 1580.9,
+   "vs_close_bps": 332.1,
+   "vs_open_bps": -5.7
+  },
+  {
+   "id": "59528642",
+   "date": "2026-10-22",
+   "symbol": "LRCX",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 260.81,
+   "day_open": 234.625,
+   "fill": 235.40247,
+   "notional": 941.61,
+   "vs_close_bps": 974.2,
+   "vs_open_bps": -33.1
+  },
+  {
+   "id": "f1aab5db",
+   "date": "2026-10-22",
+   "symbol": "LRCX",
+   "side": "sell",
+   "sleeve": "quality_screen",
+   "order_type": "market",
+   "signal_close": 260.81,
+   "day_open": 234.625,
+   "fill": 235.40247,
+   "notional": 0.02,
+   "vs_close_bps": 974.2,
+   "vs_open_bps": -33.1
+  },
+  {
+   "id": "3a4c63fc",
+   "date": "2026-10-22",
+   "symbol": "MU",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 913.67,
+   "day_open": 880.0800170898438,
+   "fill": 880.29,
+   "notional": 880.29,
+   "vs_close_bps": 365.3,
+   "vs_open_bps": -2.4
+  },
+  {
+   "id": "b42a0d93",
+   "date": "2026-10-22",
+   "symbol": "NVT",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 146.13,
+   "day_open": 140.0,
+   "fill": 138.82,
+   "notional": 555.28,
+   "vs_close_bps": 500.2,
+   "vs_open_bps": 84.3
+  },
+  {
+   "id": "9912d948",
+   "date": "2026-10-22",
+   "symbol": "SITM",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 509.2,
+   "day_open": 478.0,
+   "fill": 477.266667,
+   "notional": 1431.8,
+   "vs_close_bps": 627.1,
+   "vs_open_bps": 15.3
+  },
+  {
+   "id": "9743803c",
+   "date": "2026-10-22",
+   "symbol": "STX",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 696.89,
+   "day_open": 669.5574951171875,
+   "fill": 664.0,
+   "notional": 664.0,
+   "vs_close_bps": 472.0,
+   "vs_open_bps": 83.0
+  },
+  {
+   "id": "ce81540a",
+   "date": "2026-10-22",
+   "symbol": "TER",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 345.49,
+   "day_open": 323.6549987792969,
+   "fill": 319.6,
+   "notional": 319.6,
+   "vs_close_bps": 749.4,
+   "vs_open_bps": 125.3
+  },
+  {
+   "id": "c055e7f0",
+   "date": "2026-10-22",
+   "symbol": "VRT",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 212.15,
+   "day_open": 203.61000061035156,
+   "fill": 202.055714,
+   "notional": 1414.39,
+   "vs_close_bps": 475.8,
+   "vs_open_bps": 76.3
+  },
+  {
+   "id": "6eef9ae1",
+   "date": "2026-10-21",
+   "symbol": "BE",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market-on-close",
+   "signal_close": 240.38839721679688,
+   "day_open": 235.36000061035156,
+   "fill": 238.85,
+   "notional": 238.85,
+   "vs_close_bps": -64.0,
+   "vs_open_bps": 148.3
+  },
+  {
+   "id": "269665b0",
+   "date": "2026-10-21",
+   "symbol": "SITM",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market-on-close",
+   "signal_close": 511.1449890136719,
+   "day_open": 515.0,
+   "fill": 509.88,
+   "notional": 1529.64,
+   "vs_close_bps": -24.7,
+   "vs_open_bps": -99.4
+  },
+  {
+   "id": "99f971e9",
+   "date": "2026-10-21",
+   "symbol": "MU",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market-on-close",
+   "signal_close": 919.293701171875,
+   "day_open": 923.739990234375,
+   "fill": 914.0,
+   "notional": 914.0,
+   "vs_close_bps": -57.6,
+   "vs_open_bps": -105.4
+  },
+  {
+   "id": "b2e1faf0",
+   "date": "2026-10-21",
+   "symbol": "LRCX",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market-on-close",
+   "signal_close": 262.92999267578125,
+   "day_open": 270.8999938964844,
+   "fill": 260.85,
+   "notional": 1043.4,
+   "vs_close_bps": -79.1,
+   "vs_open_bps": -371.0
+  },
+  {
+   "id": "1d15d5de",
+   "date": "2026-10-21",
+   "symbol": "STX",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market-on-close",
+   "signal_close": 703.2550048828125,
+   "day_open": 708.25,
+   "fill": 697.29,
+   "notional": 697.29,
+   "vs_close_bps": -84.8,
+   "vs_open_bps": -154.7
+  },
+  {
+   "id": "30543ae2",
+   "date": "2026-10-21",
+   "symbol": "FTAI",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market-on-close",
+   "signal_close": 163.91000366210938,
+   "day_open": 161.8000030517578,
+   "fill": 163.65,
+   "notional": 1636.5,
+   "vs_close_bps": -15.9,
+   "vs_open_bps": 114.3
+  },
+  {
+   "id": "76b068aa",
+   "date": "2026-10-21",
+   "symbol": "TER",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market-on-close",
+   "signal_close": 348.4049987792969,
+   "day_open": 345.54998779296875,
+   "fill": 345.58,
+   "notional": 345.58,
+   "vs_close_bps": -81.1,
+   "vs_open_bps": 0.9
+  },
+  {
+   "id": "bdefc81d",
+   "date": "2026-10-21",
+   "symbol": "VRT",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market-on-close",
+   "signal_close": 213.19000244140625,
+   "day_open": 216.5800018310547,
+   "fill": 212.28,
+   "notional": 1485.96,
+   "vs_close_bps": -42.7,
+   "vs_open_bps": -198.5
+  },
+  {
+   "id": "1d202c68",
+   "date": "2026-10-21",
+   "symbol": "NVT",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market-on-close",
+   "signal_close": 146.28750610351562,
+   "day_open": 144.25,
+   "fill": 146.16,
+   "notional": 584.64,
+   "vs_close_bps": -8.7,
+   "vs_open_bps": 132.4
   }
  ],
  "exits": [
@@ -1044,8 +1327,8 @@
    "sleeve": "index_momentum",
    "exit_price": 770.52,
    "reason": "sleeve replaced by the overnight sleeve (amendment 330e76e0)",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.0085,
    "complete": false
   },
   {
@@ -1055,8 +1338,8 @@
    "sleeve": "bottleneck",
    "exit_price": 146.295659,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.0046,
    "complete": false
   },
   {
@@ -1066,8 +1349,8 @@
    "sleeve": "bottleneck",
    "exit_price": 50.03,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.017,
    "complete": false
   },
   {
@@ -1077,8 +1360,8 @@
    "sleeve": "bottleneck",
    "exit_price": 158.43,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.003,
    "complete": false
   },
   {
@@ -1088,8 +1371,8 @@
    "sleeve": "bottleneck",
    "exit_price": 46.11,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": 0.0067,
    "complete": false
   },
   {
@@ -1099,8 +1382,8 @@
    "sleeve": "bottleneck",
    "exit_price": 70.5,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.017,
    "complete": false
   },
   {
@@ -1110,8 +1393,8 @@
    "sleeve": "bottleneck",
    "exit_price": 62.77,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.0043,
    "complete": false
   },
   {
@@ -1121,6 +1404,116 @@
    "sleeve": "bottleneck",
    "exit_price": 24.9,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+   "days_after": 1,
+   "return_after": -0.0201,
+   "complete": false
+  },
+  {
+   "id": "a3db3ccc",
+   "date": "2026-10-22",
+   "symbol": "BE",
+   "sleeve": "overnight_drift",
+   "exit_price": 225.11,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "d4f27da9",
+   "date": "2026-10-22",
+   "symbol": "FTAI",
+   "sleeve": "overnight_drift",
+   "exit_price": 158.09,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "59528642",
+   "date": "2026-10-22",
+   "symbol": "LRCX",
+   "sleeve": "overnight_drift",
+   "exit_price": 235.40247,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "f1aab5db",
+   "date": "2026-10-22",
+   "symbol": "LRCX",
+   "sleeve": "quality_screen",
+   "exit_price": 235.40247,
+   "reason": "resize: +11.274 -> +7.2739 shares (target +1.9%) | includes the overnight sleeve's 4 shares, sold at the open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "3a4c63fc",
+   "date": "2026-10-22",
+   "symbol": "MU",
+   "sleeve": "overnight_drift",
+   "exit_price": 880.29,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "b42a0d93",
+   "date": "2026-10-22",
+   "symbol": "NVT",
+   "sleeve": "overnight_drift",
+   "exit_price": 138.82,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "9912d948",
+   "date": "2026-10-22",
+   "symbol": "SITM",
+   "sleeve": "overnight_drift",
+   "exit_price": 477.266667,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "9743803c",
+   "date": "2026-10-22",
+   "symbol": "STX",
+   "sleeve": "overnight_drift",
+   "exit_price": 664.0,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "ce81540a",
+   "date": "2026-10-22",
+   "symbol": "TER",
+   "sleeve": "overnight_drift",
+   "exit_price": 319.6,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "c055e7f0",
+   "date": "2026-10-22",
+   "symbol": "VRT",
+   "sleeve": "overnight_drift",
+   "exit_price": 202.055714,
+   "reason": "overnight: held from the close to the next open",
    "days_after": 0,
    "return_after": null,
    "complete": false
@@ -1139,13 +1532,23 @@
   },
   {
    "date": "2026-10-21",
-   "desk": 0.00029,
+   "desk": 0.00209,
    "spy": 0.00525,
    "rsp": 0.00361,
    "expected": 0.0006,
    "low": -0.01642,
    "high": 0.0178,
    "drawdown": 0.0
+  },
+  {
+   "date": "2026-10-22",
+   "desk": -0.01992,
+   "spy": -0.00662,
+   "rsp": 0.01093,
+   "expected": 0.0012,
+   "low": -0.02283,
+   "high": 0.02559,
+   "drawdown": -0.02196
   }
  ]
 }

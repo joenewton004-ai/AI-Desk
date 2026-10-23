@@ -138,6 +138,26 @@ def test_executor_run_dry_then_execute(tmp_path, monkeypatch):
     assert len(broker.sent) == len(plan.sendable)
 
 
+def test_a_recently_listed_holding_does_not_cut_the_methods_history(tmp_path, monkeypatch):
+    # e.g. the overnight sleeve bought a stock listed under a year ago: it only needs today's price to be sold
+    import ai_desk.data as data
+    monkeypatch.setattr(executor, "JOURNAL", tmp_path / "journal.csv")
+    real = data.load_many
+
+    def fake(symbols, start="2005-01-01", end=None, source="yahoo"):
+        out = real([s if s != "NEW" else "ZZ" for s in symbols], start, end, source=source)
+        out = {k: v.rename(columns={"ZZ": "NEW"}) for k, v in out.items()}
+        if "NEW" in symbols:      # like the real download: only the dates every symbol traded
+            out = {k: v.iloc[-100:] for k, v in out.items()}
+        return out
+
+    monkeypatch.setattr(data, "load_many", fake)
+    broker = FakeBroker(positions={"NEW": 10.0})
+    plan = executor.run(build(["sma_crossover"], {"symbols": "AA,BB"}), source="synthetic",
+                        max_data_age_days=None, broker=broker)
+    assert ("NEW", "sell") in by_symbol(plan)
+
+
 def test_executor_refuses_to_stack_on_pending_orders(tmp_path, monkeypatch):
     monkeypatch.setattr(executor, "JOURNAL", tmp_path / "journal.csv")
     broker = FakeBroker(pending=True)

@@ -107,3 +107,37 @@ def test_a_ranking_saved_the_evening_before_is_used_only_for_its_own_close():
     (ov.DIR / "scan_cache.json").write_text('{"ref_date": "2026-10-30", "picks": ["A"], "rows": [], "latest_price": {}}')
     assert ov._cached_scan(pd.Timestamp("2026-10-30"))["picks"] == ["A"]
     assert ov._cached_scan(pd.Timestamp("2026-11-02")) is None
+
+
+def test_regime_flags_spy_trend_and_a_bad_tech_day():
+    up = pd.Series(np.linspace(100, 200, 250))
+    assert ov.regime_flags(up, 0.0, -0.02) == []
+    down = pd.concat([up, pd.Series([140.0])], ignore_index=True)     # today well below the 200-day average
+    assert "200-day" in ov.regime_flags(down, 0.0, -0.02)[0]
+    flags = ov.regime_flags(up, -0.025, -0.02)                        # tech lagged by 2.5%, cut-off 2%
+    assert len(flags) == 1 and "tech lagged" in flags[0]
+    assert ov.regime_flags(up.iloc[:50], None, None) == []            # not enough history: no flags
+
+
+def test_tech_gap_is_tech_minus_defensive_and_ignores_cheap_stocks():
+    idx = pd.bdate_range("2026-10-20", periods=2)
+    c = pd.DataFrame({"T": [100, 98], "D": [50, 51], "P": [5, 9]}, index=idx, dtype=float)
+    g = ov.tech_gap(c, ["T", "P"], ["D"])
+    assert abs(g.iloc[-1] - (-0.02 - 0.02)) < 1e-12
+
+
+def test_buy_stays_in_cash_when_a_check_fires(monkeypatch):
+    monkeypatch.setattr(ov, "swap_active", lambda t=None: True)
+    monkeypatch.setattr(ov, "check_regime", lambda: {"cash": True, "reasons": ["SPY below its 200-day average"]})
+
+    class B:
+        def account(self):
+            return {"equity": "100000", "cash": "30000", "account_number": "PA1"}
+
+        def clock(self):
+            return {"is_open": True}
+
+        def submit_market_order(self, *a, **k):
+            raise AssertionError("no orders on a cash night")
+    out = ov.buy(execute=True, now=datetime(2026, 10, 23, 19, 56, tzinfo=timezone.utc), broker=B())
+    assert out["sent"] == 0 and "in cash tonight" in out["blocked"]

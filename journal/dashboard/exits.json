@@ -6,8 +6,8 @@
   "sleeve": "index_momentum",
   "exit_price": 770.52,
   "reason": "sleeve replaced by the overnight sleeve (amendment 330e76e0)",
-  "days_after": 0,
-  "return_after": null,
+  "days_after": 1,
+  "return_after": -0.0085,
   "complete": false
  },
  {
@@ -17,8 +17,8 @@
   "sleeve": "bottleneck",
   "exit_price": 146.295659,
   "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-  "days_after": 0,
-  "return_after": null,
+  "days_after": 1,
+  "return_after": -0.0046,
   "complete": false
  },
  {
@@ -28,8 +28,8 @@
   "sleeve": "bottleneck",
   "exit_price": 50.03,
   "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-  "days_after": 0,
-  "return_after": null,
+  "days_after": 1,
+  "return_after": -0.017,
   "complete": false
  },
  {
@@ -39,8 +39,8 @@
   "sleeve": "bottleneck",
   "exit_price": 158.43,
   "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-  "days_after": 0,
-  "return_after": null,
+  "days_after": 1,
+  "return_after": -0.003,
   "complete": false
  },
  {
@@ -50,8 +50,8 @@
   "sleeve": "bottleneck",
   "exit_price": 46.11,
   "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-  "days_after": 0,
-  "return_after": null,
+  "days_after": 1,
+  "return_after": 0.0067,
   "complete": false
  },
  {
@@ -61,8 +61,8 @@
   "sleeve": "bottleneck",
   "exit_price": 70.5,
   "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-  "days_after": 0,
-  "return_after": null,
+  "days_after": 1,
+  "return_after": -0.017,
   "complete": false
  },
  {
@@ -72,8 +72,8 @@
   "sleeve": "bottleneck",
   "exit_price": 62.77,
   "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-  "days_after": 0,
-  "return_after": null,
+  "days_after": 1,
+  "return_after": -0.0043,
   "complete": false
  },
  {
@@ -83,6 +83,116 @@
   "sleeve": "bottleneck",
   "exit_price": 24.9,
   "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
+  "days_after": 1,
+  "return_after": -0.0201,
+  "complete": false
+ },
+ {
+  "id": "a3db3ccc",
+  "date": "2026-10-22",
+  "symbol": "BE",
+  "sleeve": "overnight_drift",
+  "exit_price": 225.11,
+  "reason": "overnight: held from the close to the next open",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "d4f27da9",
+  "date": "2026-10-22",
+  "symbol": "FTAI",
+  "sleeve": "overnight_drift",
+  "exit_price": 158.09,
+  "reason": "overnight: held from the close to the next open",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "59528642",
+  "date": "2026-10-22",
+  "symbol": "LRCX",
+  "sleeve": "overnight_drift",
+  "exit_price": 235.40247,
+  "reason": "overnight: held from the close to the next open",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "f1aab5db",
+  "date": "2026-10-22",
+  "symbol": "LRCX",
+  "sleeve": "quality_screen",
+  "exit_price": 235.40247,
+  "reason": "resize: +11.274 -> +7.2739 shares (target +1.9%) | includes the overnight sleeve's 4 shares, sold at the open",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "3a4c63fc",
+  "date": "2026-10-22",
+  "symbol": "MU",
+  "sleeve": "overnight_drift",
+  "exit_price": 880.29,
+  "reason": "overnight: held from the close to the next open",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "b42a0d93",
+  "date": "2026-10-22",
+  "symbol": "NVT",
+  "sleeve": "overnight_drift",
+  "exit_price": 138.82,
+  "reason": "overnight: held from the close to the next open",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "9912d948",
+  "date": "2026-10-22",
+  "symbol": "SITM",
+  "sleeve": "overnight_drift",
+  "exit_price": 477.266667,
+  "reason": "overnight: held from the close to the next open",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "9743803c",
+  "date": "2026-10-22",
+  "symbol": "STX",
+  "sleeve": "overnight_drift",
+  "exit_price": 664.0,
+  "reason": "overnight: held from the close to the next open",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "ce81540a",
+  "date": "2026-10-22",
+  "symbol": "TER",
+  "sleeve": "overnight_drift",
+  "exit_price": 319.6,
+  "reason": "overnight: held from the close to the next open",
+  "days_after": 0,
+  "return_after": null,
+  "complete": false
+ },
+ {
+  "id": "c055e7f0",
+  "date": "2026-10-22",
+  "symbol": "VRT",
+  "sleeve": "overnight_drift",
+  "exit_price": 202.055714,
+  "reason": "overnight: held from the close to the next open",
   "days_after": 0,
   "return_after": null,
   "complete": false

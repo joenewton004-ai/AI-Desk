@@ -43,6 +43,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   and persistent (t 6.4), profitable only if costs <= ~0.02% each way (break-even ~0.045%). Paper fills can't measure
   real auction costs - say so. Desk with it instead of SPY momentum: `python research/desk_overnight.py` ->
   `research/DESK_OVERNIGHT.md` (better only at <= ~0.02-0.03% costs; deeper worst drop).
+- Overnight sleeve vs the fear index (VIX levels/changes, SPY 200-day, tech-vs-defensive days; defensive/low-beta lists):
+  `python research/overnight_regime.py` -> `research/OVERNIGHT_REGIME.md`. Defensive lists don't earn overnight; cash
+  when SPY < 200-day or on a day tech lags defensives most: Sharpe 1.03 vs 0.70 (both halves; ~20 rules tested). Live
+  from 2026-10-23 (amendment 7a8b29ec).
 - EMA9/VWAP crossover and Trend+Momentum+Confirmation (EMA20/50, VWAP, volume, breakout): `python research/vwap_ema.py`
   -> `research/VWAP_EMA.md` (cached 5m/1m/1h bars). No edge; research-only.
 - Leveraged S&P fund (2x/3x, simulated + checked vs real SSO/UPRO) on SPY signals with strict risk rules:
@@ -166,6 +170,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   data/portfolio/overnight.json, re-picked after each month-end. Active from data/portfolio/overnight_live.json
   (2026-10-21); from then `methods.preset("desk")` = quality 50% + momentum 20% (SPY momentum dropped, no rescaling).
   Journal in journal/overnight/ - commit it with data/portfolio/. Paper fills can't measure real auction costs.
+  Regime checks (amendment 7a8b29ec, accepted 2026-10-23; `overnight regime`): no buys - cash for the night - when SPY
+  is below its 200-day average or today's tech-minus-defensive return (SIC groups, ai_desk/overnight_groups.json) is
+  in the worst 10% of past days; cut-off refreshed by `portfolio prepare` (journal/overnight/regime.json, 5 years).
+  A failed check buys as usual and says so. Never switch to defensive stocks instead (research: they lose the same nights).
   Its fills are also trade-journal lines (sleeve overnight_drift): the buys from `confirm_book`, the next-open sale as
   its own line sharing the desk's netted order id (`record_orders(overnight_book=...)`); lots match a sleeve's own
   buys first, so the desk's P&L stays separate.
