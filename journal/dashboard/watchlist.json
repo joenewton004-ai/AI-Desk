@@ -10,8 +10,8 @@
   "status": "picked",
   "reason": "held",
   "score": 100.0,
-  "return": -0.16296,
-  "vs_picks": -0.14916,
+  "return": -0.17341,
+  "vs_picks": -0.17102,
   "details": "6-month +315% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -25,8 +25,8 @@
   "status": "picked",
   "reason": "held",
   "score": 99.87163,
-  "return": 0.00927,
-  "vs_picks": 0.02307,
+  "return": 0.0294,
+  "vs_picks": 0.03179,
   "details": "6-month +227% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -40,8 +40,8 @@
   "status": "picked",
   "reason": "held",
   "score": 99.61489,
-  "return": 0.03768,
-  "vs_picks": 0.05148,
+  "return": 0.09808,
+  "vs_picks": 0.10047,
   "details": "6-month +198% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -55,8 +55,8 @@
   "status": "picked",
   "reason": "held",
   "score": 99.48652,
-  "return": -0.07686,
-  "vs_picks": -0.06306,
+  "return": -0.26269,
+  "vs_picks": -0.2603,
   "details": "6-month +181% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -70,8 +70,8 @@
   "status": "picked",
   "reason": "held",
   "score": 99.35815,
-  "return": -0.01105,
-  "vs_picks": 0.00275,
+  "return": 0.0107,
+  "vs_picks": 0.01309,
   "details": "6-month +177% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -85,8 +85,8 @@
   "status": "picked",
   "reason": "held",
   "score": 99.22978,
-  "return": -0.05014,
-  "vs_picks": -0.03634,
+  "return": -0.03357,
+  "vs_picks": -0.03118,
   "details": "6-month +161% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -100,8 +100,8 @@
   "status": "picked",
   "reason": "held",
   "score": 98.97304,
-  "return": -0.04205,
-  "vs_picks": -0.02825,
+  "return": -0.02521,
+  "vs_picks": -0.02282,
   "details": "6-month +152% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -115,8 +115,8 @@
   "status": "picked",
   "reason": "held",
   "score": 98.84467,
-  "return": 0.04649,
-  "vs_picks": 0.06029,
+  "return": 0.13282,
+  "vs_picks": 0.13521,
   "details": "6-month +145% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -130,8 +130,8 @@
   "status": "picked",
   "reason": "held",
   "score": 98.7163,
-  "return": 0.00515,
-  "vs_picks": 0.01895,
+  "return": 0.05155,
+  "vs_picks": 0.05394,
   "details": "6-month +143% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -145,8 +145,8 @@
   "status": "picked",
   "reason": "held",
   "score": 98.58793,
-  "return": 0.0121,
-  "vs_picks": 0.0259,
+  "return": 0.02624,
+  "vs_picks": 0.02863,
   "details": "6-month +142% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -160,8 +160,8 @@
   "status": "picked",
   "reason": "held",
   "score": 98.45956,
-  "return": -0.01768,
-  "vs_picks": -0.00388,
+  "return": 0.01821,
+  "vs_picks": 0.0206,
   "details": "6-month +139% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -175,8 +175,8 @@
   "status": "picked",
   "reason": "held",
   "score": 98.07445,
-  "return": -0.0101,
-  "vs_picks": 0.0037,
+  "return": -0.07932,
+  "vs_picks": -0.07693,
   "details": "6-month +131% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -190,8 +190,8 @@
   "status": "picked",
   "reason": "held",
   "score": 97.94608,
-  "return": 0.05376,
-  "vs_picks": 0.06756,
+  "return": 0.12348,
+  "vs_picks": 0.12587,
   "details": "6-month +129% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -205,8 +205,8 @@
   "status": "picked",
   "reason": "held",
   "score": 97.68935,
-  "return": 0.01199,
-  "vs_picks": 0.02579,
+  "return": 0.053,
+  "vs_picks": 0.05539,
   "details": "6-month +128% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -220,8 +220,8 @@
   "status": "picked",
   "reason": "held",
   "score": 97.56098,
-  "return": -0.02386,
-  "vs_picks": -0.01006,
+  "return": -0.02913,
+  "vs_picks": -0.02674,
   "details": "6-month +123% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -235,8 +235,8 @@
   "status": "picked",
   "reason": "held",
   "score": 97.43261,
-  "return": -0.01956,
-  "vs_picks": -0.00576,
+  "return": 0.01198,
+  "vs_picks": 0.01437,
   "details": "6-month +117% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -250,8 +250,8 @@
   "status": "picked",
   "reason": "held",
   "score": 97.30424,
-  "return": -0.04518,
-  "vs_picks": -0.03138,
+  "return": -0.08229,
+  "vs_picks": -0.0799,
   "details": "6-month +114% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -265,8 +265,8 @@
   "status": "picked",
   "reason": "held",
   "score": 97.17587,
-  "return": 0.01646,
-  "vs_picks": 0.03026,
+  "return": 0.08931,
+  "vs_picks": 0.0917,
   "details": "6-month +113% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -280,8 +280,8 @@
   "status": "picked",
   "reason": "held",
   "score": 97.0475,
-  "return": -0.015,
-  "vs_picks": -0.0012,
+  "return": -0.01242,
+  "vs_picks": -0.01003,
   "details": "6-month +112% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -295,8 +295,8 @@
   "status": "picked",
   "reason": "held",
   "score": 96.91913,
-  "return": 0.00549,
-  "vs_picks": 0.01929,
+  "return": 0.00556,
+  "vs_picks": 0.00795,
   "details": "6-month +112% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -310,8 +310,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 96.79076,
-  "return": 0.00274,
-  "vs_picks": 0.01654,
+  "return": 0.01569,
+  "vs_picks": 0.01808,
   "details": "6-month +110% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -325,8 +325,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 96.66239,
-  "return": -0.03318,
-  "vs_picks": -0.01938,
+  "return": -0.03751,
+  "vs_picks": -0.03512,
   "details": "6-month +107% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -340,8 +340,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 96.53402,
-  "return": 0.03923,
-  "vs_picks": 0.05303,
+  "return": 0.04677,
+  "vs_picks": 0.04916,
   "details": "6-month +102% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -355,8 +355,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 96.27728,
-  "return": -0.04508,
-  "vs_picks": -0.03128,
+  "return": -0.04864,
+  "vs_picks": -0.04625,
   "details": "6-month +95% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -370,8 +370,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 96.14891,
-  "return": 0.03189,
-  "vs_picks": 0.04569,
+  "return": 0.04031,
+  "vs_picks": 0.0427,
   "details": "6-month +94% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -385,8 +385,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 96.02054,
-  "return": 0.02698,
-  "vs_picks": 0.04078,
+  "return": 0.07111,
+  "vs_picks": 0.0735,
   "details": "6-month +94% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -400,8 +400,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 95.89217,
-  "return": -0.01647,
-  "vs_picks": -0.00267,
+  "return": -0.03262,
+  "vs_picks": -0.03023,
   "details": "6-month +92% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -415,8 +415,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 95.63543,
-  "return": -0.01121,
-  "vs_picks": 0.00259,
+  "return": -0.00485,
+  "vs_picks": -0.00246,
   "details": "6-month +88% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -430,8 +430,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 95.50706,
-  "return": 0.01979,
-  "vs_picks": 0.03359,
+  "return": 0.0349,
+  "vs_picks": 0.03729,
   "details": "6-month +85% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -445,8 +445,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 95.37869,
-  "return": 0.00607,
-  "vs_picks": 0.01987,
+  "return": -0.00904,
+  "vs_picks": -0.00665,
   "details": "6-month +85% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -460,8 +460,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 95.25032,
-  "return": 0.01789,
-  "vs_picks": 0.03169,
+  "return": 0.05207,
+  "vs_picks": 0.05446,
   "details": "6-month +82% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -475,8 +475,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 95.12195,
-  "return": 0.01218,
-  "vs_picks": 0.02598,
+  "return": 0.01371,
+  "vs_picks": 0.0161,
   "details": "6-month +81% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -490,8 +490,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 94.73684,
-  "return": -0.02199,
-  "vs_picks": -0.00819,
+  "return": -0.02697,
+  "vs_picks": -0.02458,
   "details": "6-month +76% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -505,8 +505,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 94.60847,
-  "return": -0.00424,
-  "vs_picks": 0.00956,
+  "return": 0.00644,
+  "vs_picks": 0.00883,
   "details": "6-month +75% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -520,8 +520,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 94.4801,
-  "return": 0.00021,
-  "vs_picks": 0.01401,
+  "return": 0.00617,
+  "vs_picks": 0.00856,
   "details": "6-month +75% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -535,8 +535,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 94.35173,
-  "return": 0.00215,
-  "vs_picks": 0.01595,
+  "return": 0.03992,
+  "vs_picks": 0.04231,
   "details": "6-month +75% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -550,8 +550,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 94.09499,
-  "return": 0.00865,
-  "vs_picks": 0.02245,
+  "return": 0.01769,
+  "vs_picks": 0.02008,
   "details": "6-month +72% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -565,8 +565,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 93.83825,
-  "return": 0.07675,
-  "vs_picks": 0.09055,
+  "return": 0.09485,
+  "vs_picks": 0.09724,
   "details": "6-month +71% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -580,8 +580,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 93.70988,
-  "return": 0.00221,
-  "vs_picks": 0.01601,
+  "return": -0.01178,
+  "vs_picks": -0.00939,
   "details": "6-month +69% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -595,8 +595,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 93.58151,
-  "return": 0.00137,
-  "vs_picks": 0.01517,
+  "return": 0.01013,
+  "vs_picks": 0.01252,
   "details": "6-month +68% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -610,8 +610,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 93.32478,
-  "return": 0.03998,
-  "vs_picks": 0.05378,
+  "return": 0.02289,
+  "vs_picks": 0.02528,
   "details": "6-month +67% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -625,8 +625,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 93.19641,
-  "return": 0.10839,
-  "vs_picks": 0.12219,
+  "return": 0.18946,
+  "vs_picks": 0.19185,
   "details": "6-month +66% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -640,8 +640,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 93.06804,
-  "return": 0.0817,
-  "vs_picks": 0.0955,
+  "return": 0.07786,
+  "vs_picks": 0.08025,
   "details": "6-month +66% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -655,8 +655,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 92.8113,
-  "return": 0.04087,
-  "vs_picks": 0.05467,
+  "return": 0.1167,
+  "vs_picks": 0.11909,
   "details": "6-month +65% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -670,8 +670,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 92.68293,
-  "return": 0.05145,
-  "vs_picks": 0.06525,
+  "return": 0.06216,
+  "vs_picks": 0.06455,
   "details": "6-month +58% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -685,8 +685,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 92.42619,
-  "return": -0.01452,
-  "vs_picks": -0.00072,
+  "return": -0.00282,
+  "vs_picks": -0.00043,
   "details": "6-month +56% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -701,7 +701,7 @@
   "reason": "outside the top 20",
   "score": 92.29782,
   "return": 0.02946,
-  "vs_picks": 0.04326,
+  "vs_picks": 0.03185,
   "details": "6-month +56% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -715,8 +715,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 92.16945,
-  "return": 0.04316,
-  "vs_picks": 0.05696,
+  "return": 0.13313,
+  "vs_picks": 0.13552,
   "details": "6-month +56% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -730,8 +730,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 92.04108,
-  "return": 0.06453,
-  "vs_picks": 0.07833,
+  "return": 0.06361,
+  "vs_picks": 0.066,
   "details": "6-month +54% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -745,8 +745,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 91.65597,
-  "return": 0.0158,
-  "vs_picks": 0.0296,
+  "return": 0.00641,
+  "vs_picks": 0.0088,
   "details": "6-month +51% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -760,8 +760,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 91.5276,
-  "return": 0.03909,
-  "vs_picks": 0.05289,
+  "return": 0.04297,
+  "vs_picks": 0.04536,
   "details": "6-month +51% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -775,8 +775,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 91.01412,
-  "return": 0.01864,
-  "vs_picks": 0.03244,
+  "return": 0.02155,
+  "vs_picks": 0.02394,
   "details": "6-month +48% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -790,8 +790,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 90.88575,
-  "return": -0.00985,
-  "vs_picks": 0.00395,
+  "return": -0.02922,
+  "vs_picks": -0.02683,
   "details": "6-month +48% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -805,8 +805,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 90.75738,
-  "return": 0.00509,
-  "vs_picks": 0.01889,
+  "return": 0.00035,
+  "vs_picks": 0.00274,
   "details": "6-month +47% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -820,8 +820,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 90.62901,
-  "return": -0.02692,
-  "vs_picks": -0.01312,
+  "return": -0.02767,
+  "vs_picks": -0.02528,
   "details": "6-month +47% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -835,8 +835,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 90.37227,
-  "return": -0.00095,
-  "vs_picks": 0.01285,
+  "return": -0.0109,
+  "vs_picks": -0.00851,
   "details": "6-month +46% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -850,8 +850,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 90.2439,
-  "return": -0.02029,
-  "vs_picks": -0.00649,
+  "return": -0.01384,
+  "vs_picks": -0.01145,
   "details": "6-month +46% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -865,8 +865,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 90.11553,
-  "return": -0.00062,
-  "vs_picks": 0.01318,
+  "return": -0.00942,
+  "vs_picks": -0.00703,
   "details": "6-month +46% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -880,8 +880,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 89.98716,
-  "return": 0.04651,
-  "vs_picks": 0.06031,
+  "return": 0.03223,
+  "vs_picks": 0.03462,
   "details": "6-month +45% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -895,8 +895,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 89.85879,
-  "return": -0.04404,
-  "vs_picks": -0.03024,
+  "return": 0.01296,
+  "vs_picks": 0.01535,
   "details": "6-month +44% \u00b7 above 200-day yes \u00b7 above 100-day yes"
  },
  {
@@ -910,8 +910,8 @@
   "status": "failed a gate",
   "reason": "below its 100-day average (would be sold the same evening)",
   "score": 99.74326,
-  "return": -0.01865,
-  "vs_picks": -0.00485,
+  "return": -0.01109,
+  "vs_picks": -0.0087,
   "details": "6-month +210% \u00b7 above 200-day yes \u00b7 above 100-day no"
  },
  {
@@ -925,8 +925,8 @@
   "status": "failed a gate",
   "reason": "below its 100-day average (would be sold the same evening)",
   "score": 99.10141,
-  "return": -0.09473,
-  "vs_picks": -0.08093,
+  "return": -0.09705,
+  "vs_picks": -0.09466,
   "details": "6-month +159% \u00b7 above 200-day yes \u00b7 above 100-day no"
  },
  {
@@ -940,8 +940,8 @@
   "status": "failed a gate",
   "reason": "below its 100-day average (would be sold the same evening)",
   "score": 98.33119,
-  "return": -0.0705,
-  "vs_picks": -0.0567,
+  "return": -0.04954,
+  "vs_picks": -0.04715,
   "details": "6-month +135% \u00b7 above 200-day yes \u00b7 above 100-day no"
  },
  {
@@ -955,8 +955,8 @@
   "status": "failed a gate",
   "reason": "below its 100-day average (would be sold the same evening)",
   "score": 98.20282,
-  "return": -0.04417,
-  "vs_picks": -0.03037,
+  "return": -0.02067,
+  "vs_picks": -0.01828,
   "details": "6-month +134% \u00b7 above 200-day yes \u00b7 above 100-day no"
  },
  {
@@ -970,8 +970,8 @@
   "status": "failed a gate",
   "reason": "below its 100-day average (would be sold the same evening)",
   "score": 97.81772,
-  "return": 0.04302,
-  "vs_picks": 0.05682,
+  "return": 0.11834,
+  "vs_picks": 0.12073,
   "details": "6-month +128% \u00b7 above 200-day yes \u00b7 above 100-day no"
  },
  {
@@ -985,8 +985,8 @@
   "status": "failed a gate",
   "reason": "below its 100-day average (would be sold the same evening)",
   "score": 96.40565,
-  "return": -0.08135,
-  "vs_picks": -0.06755,
+  "return": -0.03084,
+  "vs_picks": -0.02845,
   "details": "6-month +99% \u00b7 above 200-day yes \u00b7 above 100-day no"
  },
  {
@@ -1000,8 +1000,8 @@
   "status": "failed a gate",
   "reason": "below its 100-day average (would be sold the same evening)",
   "score": 95.7638,
-  "return": -0.0765,
-  "vs_picks": -0.0627,
+  "return": -0.09327,
+  "vs_picks": -0.09088,
   "details": "6-month +90% \u00b7 above 200-day yes \u00b7 above 100-day no"
  },
  {
@@ -1015,8 +1015,8 @@
   "status": "failed a gate",
   "reason": "below its 200-day average",
   "score": 94.99358,
-  "return": -0.05096,
-  "vs_picks": -0.03716,
+  "return": -0.14122,
+  "vs_picks": -0.13883,
   "details": "6-month +80% \u00b7 above 200-day no \u00b7 above 100-day no"
  },
  {
@@ -1030,8 +1030,8 @@
   "status": "failed a gate",
   "reason": "below its 100-day average (would be sold the same evening)",
   "score": 94.86521,
-  "return": -0.02192,
-  "vs_picks": -0.00812,
+  "return": -0.13182,
+  "vs_picks": -0.12943,
   "details": "6-month +79% \u00b7 above 200-day yes \u00b7 above 100-day no"
  },
  {
@@ -1045,8 +1045,8 @@
   "status": "failed a gate",
   "reason": "below its 100-day average (would be sold the same evening)",
   "score": 94.22336,
-  "return": -0.06762,
-  "vs_picks": -0.05382,
+  "return": -0.05159,
+  "vs_picks": -0.0492,
   "details": "6-month +74% \u00b7 above 200-day yes \u00b7 above 100-day no"
  },
  {
@@ -1060,8 +1060,8 @@
   "status": "failed a gate",
   "reason": "below its 200-day average",
   "score": 93.96662,
-  "return": -0.04958,
-  "vs_picks": -0.03578,
+  "return": -0.04854,
+  "vs_picks": -0.04615,
   "details": "6-month +72% \u00b7 above 200-day no \u00b7 above 100-day no"
  },
  {
@@ -1075,8 +1075,8 @@
   "status": "failed a gate",
   "reason": "below its 200-day average",
   "score": 93.45315,
-  "return": 0.0385,
-  "vs_picks": 0.0523,
+  "return": 0.01447,
+  "vs_picks": 0.01686,
   "details": "6-month +67% \u00b7 above 200-day no \u00b7 above 100-day no"
  },
  {
@@ -1090,8 +1090,8 @@
   "status": "failed a gate",
   "reason": "below its 200-day average",
   "score": 92.93967,
-  "return": -0.07162,
-  "vs_picks": -0.05782,
+  "return": -0.07413,
+  "vs_picks": -0.07174,
   "details": "6-month +65% \u00b7 above 200-day no \u00b7 above 100-day no"
  },
  {
@@ -1105,8 +1105,8 @@
   "status": "failed a gate",
   "reason": "below its 100-day average (would be sold the same evening)",
   "score": 92.55456,
-  "return": -0.01963,
-  "vs_picks": -0.00583,
+  "return": -0.05105,
+  "vs_picks": -0.04866,
   "details": "6-month +56% \u00b7 above 200-day yes \u00b7 above 100-day no"
  },
  {
@@ -1120,8 +1120,8 @@
   "status": "failed a gate",
   "reason": "below its 100-day average (would be sold the same evening)",
   "score": 91.91271,
-  "return": -0.0166,
-  "vs_picks": -0.0028,
+  "return": -0.03197,
+  "vs_picks": -0.02958,
   "details": "6-month +54% \u00b7 above 200-day yes \u00b7 above 100-day no"
  },
  {
@@ -1135,8 +1135,8 @@
   "status": "failed a gate",
   "reason": "below its 200-day average",
   "score": 91.78434,
-  "return": -0.12344,
-  "vs_picks": -0.10964,
+  "return": -0.12504,
+  "vs_picks": -0.12265,
   "details": "6-month +51% \u00b7 above 200-day no \u00b7 above 100-day no"
  },
  {
@@ -1150,8 +1150,8 @@
   "status": "failed a gate",
   "reason": "below its 200-day average",
   "score": 91.39923,
-  "return": -0.04886,
-  "vs_picks": -0.03506,
+  "return": -0.06612,
+  "vs_picks": -0.06373,
   "details": "6-month +51% \u00b7 above 200-day no \u00b7 above 100-day no"
  },
  {
@@ -1165,8 +1165,8 @@
   "status": "failed a gate",
   "reason": "below its 100-day average (would be sold the same evening)",
   "score": 91.27086,
-  "return": -0.02573,
-  "vs_picks": -0.01193,
+  "return": -0.02405,
+  "vs_picks": -0.02166,
   "details": "6-month +50% \u00b7 above 200-day yes \u00b7 above 100-day no"
  },
  {
@@ -1180,8 +1180,8 @@
   "status": "failed a gate",
   "reason": "below its 100-day average (would be sold the same evening)",
   "score": 91.14249,
-  "return": -0.01076,
-  "vs_picks": 0.00304,
+  "return": 0.01341,
+  "vs_picks": 0.0158,
   "details": "6-month +49% \u00b7 above 200-day yes \u00b7 above 100-day no"
  },
  {
@@ -1195,8 +1195,8 @@
   "status": "failed a gate",
   "reason": "below its 200-day average",
   "score": 90.50064,
-  "return": -0.06918,
-  "vs_picks": -0.05538,
+  "return": -0.07421,
+  "vs_picks": -0.07182,
   "details": "6-month +47% \u00b7 above 200-day no \u00b7 above 100-day no"
  },
  {
@@ -1210,8 +1210,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.0062,
-  "return": -0.00814,
-  "vs_picks": 0.00796,
+  "return": -0.00021,
+  "vs_picks": 0.03025,
   "details": "overnight +375%/yr \u00b7 price $823"
  },
  {
@@ -1225,8 +1225,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00607,
-  "return": 0.01108,
-  "vs_picks": 0.02718,
+  "return": -0.05744,
+  "vs_picks": -0.02698,
   "details": "overnight +360%/yr \u00b7 price $223"
  },
  {
@@ -1240,8 +1240,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00559,
-  "return": -0.02749,
-  "vs_picks": -0.01139,
+  "return": -0.03323,
+  "vs_picks": -0.00278,
   "details": "overnight +308%/yr \u00b7 price $497"
  },
  {
@@ -1255,8 +1255,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00496,
-  "return": -0.00934,
-  "vs_picks": 0.00676,
+  "return": -0.00094,
+  "vs_picks": 0.02951,
   "details": "overnight +248%/yr \u00b7 price $1,365"
  },
  {
@@ -1270,8 +1270,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00494,
-  "return": -0.00702,
-  "vs_picks": 0.00908,
+  "return": -0.00089,
+  "vs_picks": 0.02957,
   "details": "overnight +247%/yr \u00b7 price $896"
  },
  {
@@ -1285,8 +1285,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00487,
-  "return": -0.02957,
-  "vs_picks": -0.01347,
+  "return": -0.02955,
+  "vs_picks": 0.0009,
   "details": "overnight +240%/yr \u00b7 price $240"
  },
  {
@@ -1300,8 +1300,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00453,
-  "return": -0.02609,
-  "vs_picks": -0.00999,
+  "return": -0.04334,
+  "vs_picks": -0.01288,
   "details": "overnight +212%/yr \u00b7 price $184"
  },
  {
@@ -1315,8 +1315,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00411,
-  "return": -0.01085,
-  "vs_picks": 0.00525,
+  "return": -0.01427,
+  "vs_picks": 0.01618,
   "details": "overnight +181%/yr \u00b7 price $171"
  },
  {
@@ -1330,8 +1330,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00373,
-  "return": 0.01876,
-  "vs_picks": 0.03486,
+  "return": -0.0584,
+  "vs_picks": -0.02795,
   "details": "overnight +156%/yr \u00b7 price $172"
  },
  {
@@ -1345,8 +1345,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00363,
-  "return": -0.07496,
-  "vs_picks": -0.05886,
+  "return": -0.08799,
+  "vs_picks": -0.05754,
   "details": "overnight +149%/yr \u00b7 price $263"
  },
  {
@@ -1360,8 +1360,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00347,
-  "return": -0.00079,
-  "vs_picks": 0.01531,
+  "return": -0.02414,
+  "vs_picks": 0.00631,
   "details": "overnight +139%/yr \u00b7 price $744"
  },
  {
@@ -1375,8 +1375,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00337,
-  "return": 0.00971,
-  "vs_picks": 0.02581,
+  "return": -0.00643,
+  "vs_picks": 0.02402,
   "details": "overnight +134%/yr \u00b7 price $675"
  },
  {
@@ -1390,8 +1390,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00337,
-  "return": -0.02552,
-  "vs_picks": -0.00942,
+  "return": -0.02538,
+  "vs_picks": 0.00507,
   "details": "overnight +133%/yr \u00b7 price $232"
  },
  {
@@ -1405,8 +1405,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.0033,
-  "return": -0.0372,
-  "vs_picks": -0.0211,
+  "return": -0.03198,
+  "vs_picks": -0.00153,
   "details": "overnight +129%/yr \u00b7 price $92"
  },
  {
@@ -1420,8 +1420,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.0031,
-  "return": -0.01021,
-  "vs_picks": 0.00589,
+  "return": -0.0322,
+  "vs_picks": -0.00175,
   "details": "overnight +118%/yr \u00b7 price $158"
  },
  {
@@ -1435,8 +1435,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00307,
-  "return": -0.03826,
-  "vs_picks": -0.02216,
+  "return": -0.04572,
+  "vs_picks": -0.01526,
   "details": "overnight +117%/yr \u00b7 price $337"
  },
  {
@@ -1450,8 +1450,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00293,
-  "return": -0.00918,
-  "vs_picks": 0.00692,
+  "return": -0.01628,
+  "vs_picks": 0.01418,
   "details": "overnight +109%/yr \u00b7 price $118"
  },
  {
@@ -1465,8 +1465,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00289,
-  "return": 0.02113,
-  "vs_picks": 0.03723,
+  "return": 0.0003,
+  "vs_picks": 0.03076,
   "details": "overnight +107%/yr \u00b7 price $204"
  },
  {
@@ -1480,8 +1480,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00287,
-  "return": -0.01131,
-  "vs_picks": 0.00479,
+  "return": -0.02401,
+  "vs_picks": 0.00644,
   "details": "overnight +106%/yr \u00b7 price $140"
  },
  {
@@ -1495,8 +1495,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.00284,
-  "return": -0.05678,
-  "vs_picks": -0.04068,
+  "return": -0.077,
+  "vs_picks": -0.04655,
   "details": "overnight +104%/yr \u00b7 price $183"
  },
  {
@@ -1510,8 +1510,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00269,
-  "return": -0.0104,
-  "vs_picks": 0.0057,
+  "return": -0.02079,
+  "vs_picks": 0.00966,
   "details": "overnight +97%/yr \u00b7 price $334"
  },
  {
@@ -1525,8 +1525,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.0026,
-  "return": -0.04955,
-  "vs_picks": -0.03345,
+  "return": -0.04935,
+  "vs_picks": -0.01889,
   "details": "overnight +93%/yr \u00b7 price $405"
  },
  {
@@ -1540,8 +1540,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00259,
-  "return": -0.02461,
-  "vs_picks": -0.00851,
+  "return": -0.02196,
+  "vs_picks": 0.00849,
   "details": "overnight +92%/yr \u00b7 price $221"
  },
  {
@@ -1555,8 +1555,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00259,
-  "return": 0.00188,
-  "vs_picks": 0.01798,
+  "return": -0.00105,
+  "vs_picks": 0.02941,
   "details": "overnight +92%/yr \u00b7 price $890"
  },
  {
@@ -1570,8 +1570,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00256,
-  "return": -0.0071,
-  "vs_picks": 0.009,
+  "return": -0.02403,
+  "vs_picks": 0.00643,
   "details": "overnight +90%/yr \u00b7 price $596"
  },
  {
@@ -1585,8 +1585,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00251,
-  "return": -0.02038,
-  "vs_picks": -0.00428,
+  "return": -0.02212,
+  "vs_picks": 0.00833,
   "details": "overnight +88%/yr \u00b7 price $132"
  },
  {
@@ -1600,8 +1600,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.0025,
-  "return": -0.00541,
-  "vs_picks": 0.01069,
+  "return": -0.05794,
+  "vs_picks": -0.02748,
   "details": "overnight +87%/yr \u00b7 price $1,397"
  },
  {
@@ -1615,8 +1615,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00249,
-  "return": 0.00305,
-  "vs_picks": 0.01915,
+  "return": -0.01986,
+  "vs_picks": 0.0106,
   "details": "overnight +87%/yr \u00b7 price $364"
  },
  {
@@ -1630,8 +1630,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00248,
-  "return": 0.00161,
-  "vs_picks": 0.01771,
+  "return": -0.01015,
+  "vs_picks": 0.02031,
   "details": "overnight +87%/yr \u00b7 price $181"
  },
  {
@@ -1645,8 +1645,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00247,
-  "return": -0.03063,
-  "vs_picks": -0.01453,
+  "return": -0.03234,
+  "vs_picks": -0.00189,
   "details": "overnight +86%/yr \u00b7 price $107"
  },
  {
@@ -1660,8 +1660,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00244,
-  "return": -0.01218,
-  "vs_picks": 0.00392,
+  "return": -0.01231,
+  "vs_picks": 0.01815,
   "details": "overnight +85%/yr \u00b7 price $79"
  },
  {
@@ -1675,8 +1675,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00243,
-  "return": -0.03272,
-  "vs_picks": -0.01662,
+  "return": -0.04034,
+  "vs_picks": -0.00989,
   "details": "overnight +84%/yr \u00b7 price $143"
  },
  {
@@ -1690,8 +1690,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00237,
-  "return": -0.01161,
-  "vs_picks": 0.00449,
+  "return": -0.01027,
+  "vs_picks": 0.02019,
   "details": "overnight +81%/yr \u00b7 price $163"
  },
  {
@@ -1705,8 +1705,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00233,
-  "return": 0.02188,
-  "vs_picks": 0.03798,
+  "return": 0.01888,
+  "vs_picks": 0.04934,
   "details": "overnight +80%/yr \u00b7 price $462"
  },
  {
@@ -1720,8 +1720,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00232,
-  "return": -0.00036,
-  "vs_picks": 0.01574,
+  "return": -0.01292,
+  "vs_picks": 0.01754,
   "details": "overnight +79%/yr \u00b7 price $150"
  },
  {
@@ -1736,7 +1736,7 @@
   "reason": "outside the top 20",
   "score": 0.00231,
   "return": 0.02665,
-  "vs_picks": 0.04275,
+  "vs_picks": 0.05711,
   "details": "overnight +79%/yr \u00b7 price $86"
  },
  {
@@ -1750,8 +1750,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00224,
-  "return": -0.01942,
-  "vs_picks": -0.00332,
+  "return": -0.02437,
+  "vs_picks": 0.00609,
   "details": "overnight +76%/yr \u00b7 price $263"
  },
  {
@@ -1765,8 +1765,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00223,
-  "return": -0.01893,
-  "vs_picks": -0.00283,
+  "return": -0.02039,
+  "vs_picks": 0.01007,
   "details": "overnight +75%/yr \u00b7 price $40"
  },
  {
@@ -1780,8 +1780,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00223,
-  "return": 0.0052,
-  "vs_picks": 0.0213,
+  "return": -0.00513,
+  "vs_picks": 0.02533,
   "details": "overnight +75%/yr \u00b7 price $56"
  },
  {
@@ -1795,8 +1795,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00219,
-  "return": 0.00864,
-  "vs_picks": 0.02474,
+  "return": -0.00253,
+  "vs_picks": 0.02792,
   "details": "overnight +74%/yr \u00b7 price $193"
  },
  {
@@ -1810,8 +1810,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00218,
-  "return": -0.02552,
-  "vs_picks": -0.00942,
+  "return": -0.0469,
+  "vs_picks": -0.01644,
   "details": "overnight +73%/yr \u00b7 price $63"
  },
  {
@@ -1826,7 +1826,7 @@
   "reason": "outside the top 20",
   "score": 0.00216,
   "return": -0.01967,
-  "vs_picks": -0.00357,
+  "vs_picks": 0.01078,
   "details": "overnight +72%/yr \u00b7 price $47"
  },
  {
@@ -1840,8 +1840,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00211,
-  "return": -0.01239,
-  "vs_picks": 0.00371,
+  "return": -0.01845,
+  "vs_picks": 0.012,
   "details": "overnight +70%/yr \u00b7 price $87"
  },
  {
@@ -1855,8 +1855,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.0021,
-  "return": 0.0011,
-  "vs_picks": 0.0172,
+  "return": -0.01266,
+  "vs_picks": 0.01779,
   "details": "overnight +70%/yr \u00b7 price $725"
  },
  {
@@ -1870,8 +1870,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.0021,
-  "return": -0.01713,
-  "vs_picks": -0.00103,
+  "return": -0.02115,
+  "vs_picks": 0.00931,
   "details": "overnight +70%/yr \u00b7 price $76"
  },
  {
@@ -1885,8 +1885,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.0021,
-  "return": -0.09761,
-  "vs_picks": -0.08151,
+  "return": -0.12312,
+  "vs_picks": -0.09266,
   "details": "overnight +70%/yr \u00b7 price $373"
  },
  {
@@ -1900,8 +1900,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00208,
-  "return": -0.00106,
-  "vs_picks": 0.01504,
+  "return": -0.00749,
+  "vs_picks": 0.02296,
   "details": "overnight +69%/yr \u00b7 price $216"
  },
  {
@@ -1915,8 +1915,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00207,
-  "return": 0.00162,
-  "vs_picks": 0.01772,
+  "return": -0.01104,
+  "vs_picks": 0.01942,
   "details": "overnight +69%/yr \u00b7 price $349"
  },
  {
@@ -1930,8 +1930,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00207,
-  "return": -0.01695,
-  "vs_picks": -0.00085,
+  "return": -0.03245,
+  "vs_picks": -0.002,
   "details": "overnight +68%/yr \u00b7 price $46"
  },
  {
@@ -1945,8 +1945,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00205,
-  "return": -0.00931,
-  "vs_picks": 0.00679,
+  "return": -0.01659,
+  "vs_picks": 0.01386,
   "details": "overnight +67%/yr \u00b7 price $384"
  },
  {
@@ -1960,8 +1960,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.002,
-  "return": -0.03195,
-  "vs_picks": -0.01585,
+  "return": -0.02759,
+  "vs_picks": 0.00286,
   "details": "overnight +65%/yr \u00b7 price $535"
  },
  {
@@ -1975,8 +1975,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00198,
-  "return": -0.02278,
-  "vs_picks": -0.00668,
+  "return": -0.02804,
+  "vs_picks": 0.00242,
   "details": "overnight +65%/yr \u00b7 price $334"
  },
  {
@@ -1990,8 +1990,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00194,
-  "return": -0.01437,
-  "vs_picks": 0.00173,
+  "return": -0.00426,
+  "vs_picks": 0.02619,
   "details": "overnight +63%/yr \u00b7 price $342"
  },
  {
@@ -2005,8 +2005,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00193,
-  "return": -0.0045,
-  "vs_picks": 0.0116,
+  "return": -0.00643,
+  "vs_picks": 0.02402,
   "details": "overnight +62%/yr \u00b7 price $1,284"
  },
  {
@@ -2020,8 +2020,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00192,
-  "return": -0.01087,
-  "vs_picks": 0.00523,
+  "return": -0.0255,
+  "vs_picks": 0.00496,
   "details": "overnight +62%/yr \u00b7 price $945"
  },
  {
@@ -2035,8 +2035,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00192,
-  "return": -0.02082,
-  "vs_picks": -0.00472,
+  "return": -0.0429,
+  "vs_picks": -0.01245,
   "details": "overnight +62%/yr \u00b7 price $212"
  },
  {
@@ -2050,8 +2050,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00187,
-  "return": -0.01081,
-  "vs_picks": 0.00529,
+  "return": -0.03538,
+  "vs_picks": -0.00493,
   "details": "overnight +60%/yr \u00b7 price $30"
  },
  {
@@ -2065,8 +2065,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00187,
-  "return": -0.01227,
-  "vs_picks": 0.00383,
+  "return": -0.02131,
+  "vs_picks": 0.00915,
   "details": "overnight +60%/yr \u00b7 price $76"
  },
  {
@@ -2080,8 +2080,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00186,
-  "return": -0.03364,
-  "vs_picks": -0.01754,
+  "return": -0.04043,
+  "vs_picks": -0.00998,
   "details": "overnight +60%/yr \u00b7 price $1,249"
  },
  {
@@ -2095,8 +2095,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.00175,
-  "return": 0.02218,
-  "vs_picks": 0.03828,
+  "return": 0.01733,
+  "vs_picks": 0.04779,
   "details": "overnight +56%/yr \u00b7 price $259"
  },
  {
@@ -2110,8 +2110,8 @@
   "status": "picked",
   "reason": "held",
   "score": 73.00593,
-  "return": 0.03249,
-  "vs_picks": 0.03701,
+  "return": 0.02172,
+  "vs_picks": 0.03662,
   "details": "Q 72 \u00b7 G 59 \u00b7 V 88 \u00b7 M 90 \u00b7 P/E 13"
  },
  {
@@ -2125,8 +2125,8 @@
   "status": "picked",
   "reason": "held",
   "score": 72.17883,
-  "return": -0.02247,
-  "vs_picks": -0.01795,
+  "return": -0.0705,
+  "vs_picks": -0.0556,
   "details": "Q 75 \u00b7 G 70 \u00b7 V 97 \u00b7 M 15 \u00b7 P/E 10"
  },
  {
@@ -2140,8 +2140,8 @@
   "status": "picked",
   "reason": "held",
   "score": 69.88415,
-  "return": -0.00923,
-  "vs_picks": -0.00471,
+  "return": -0.04164,
+  "vs_picks": -0.02674,
   "details": "Q 94 \u00b7 G 46 \u00b7 V 86 \u00b7 M 21 \u00b7 P/E 13"
  },
  {
@@ -2155,8 +2155,8 @@
   "status": "picked",
   "reason": "held",
   "score": 69.45128,
-  "return": 0.09495,
-  "vs_picks": 0.09947,
+  "return": 0.06771,
+  "vs_picks": 0.08261,
   "details": "Q 90 \u00b7 G 49 \u00b7 V 98 \u00b7 M 12 \u00b7 P/E 9"
  },
  {
@@ -2170,8 +2170,8 @@
   "status": "picked",
   "reason": "held",
   "score": 68.46626,
-  "return": -0.02248,
-  "vs_picks": -0.01796,
+  "return": -0.02824,
+  "vs_picks": -0.01334,
   "details": "Q 68 \u00b7 G 100 \u00b7 V 38 \u00b7 M 74 \u00b7 P/E 14"
  },
  {
@@ -2185,8 +2185,8 @@
   "status": "picked",
   "reason": "held",
   "score": 66.24135,
-  "return": 0.00863,
-  "vs_picks": 0.01315,
+  "return": 0.0495,
+  "vs_picks": 0.0644,
   "details": "Q 90 \u00b7 G 73 \u00b7 V 5 \u00b7 M 99 \u00b7 P/E 45"
  },
  {
@@ -2200,8 +2200,8 @@
   "status": "picked",
   "reason": "held",
   "score": 65.0387,
-  "return": -0.15448,
-  "vs_picks": -0.14996,
+  "return": -0.15467,
+  "vs_picks": -0.13977,
   "details": "Q 71 \u00b7 G 81 \u00b7 V 19 \u00b7 M 99 \u00b7 P/E 23"
  },
  {
@@ -2215,8 +2215,8 @@
   "status": "picked",
   "reason": "held",
   "score": 64.85388,
-  "return": 0.00225,
-  "vs_picks": 0.00677,
+  "return": 0.01736,
+  "vs_picks": 0.03226,
   "details": "Q 52 \u00b7 G 71 \u00b7 V 86 \u00b7 M 85 \u00b7 P/E 12"
  },
  {
@@ -2230,8 +2230,8 @@
   "status": "picked",
   "reason": "held",
   "score": 64.39878,
-  "return": -0.06494,
-  "vs_picks": -0.06042,
+  "return": -0.05783,
+  "vs_picks": -0.04293,
   "details": "Q 84 \u00b7 G 83 \u00b7 V 8 \u00b7 M 87 \u00b7 P/E 35"
  },
  {
@@ -2245,8 +2245,8 @@
   "status": "picked",
   "reason": "held",
   "score": 63.99776,
-  "return": 0.05535,
-  "vs_picks": 0.05987,
+  "return": 0.07994,
+  "vs_picks": 0.09484,
   "details": "Q 71 \u00b7 G 75 \u00b7 V 30 \u00b7 M 71 \u00b7 P/E 32"
  },
  {
@@ -2260,8 +2260,8 @@
   "status": "picked",
   "reason": "held",
   "score": 63.55508,
-  "return": 0.02727,
-  "vs_picks": 0.03179,
+  "return": 0.01168,
+  "vs_picks": 0.02658,
   "details": "Q 87 \u00b7 G 67 \u00b7 V 29 \u00b7 M 52 \u00b7 P/E 27"
  },
  {
@@ -2275,8 +2275,8 @@
   "status": "picked",
   "reason": "held",
   "score": 63.46406,
-  "return": 0.05403,
-  "vs_picks": 0.05855,
+  "return": 0.04384,
+  "vs_picks": 0.05874,
   "details": "Q 88 \u00b7 G 67 \u00b7 V 62 \u00b7 M 4 \u00b7 P/E 16"
  },
  {
@@ -2290,8 +2290,8 @@
   "status": "picked",
   "reason": "held",
   "score": 62.12655,
-  "return": 0.07278,
-  "vs_picks": 0.0773,
+  "return": 0.06582,
+  "vs_picks": 0.08072,
   "details": "Q 78 \u00b7 G 49 \u00b7 V 75 \u00b7 M 41 \u00b7 P/E 17"
  },
  {
@@ -2305,8 +2305,8 @@
   "status": "picked",
   "reason": "held",
   "score": 62.07072,
-  "return": 0.05349,
-  "vs_picks": 0.05801,
+  "return": 0.0267,
+  "vs_picks": 0.0416,
   "details": "Q 61 \u00b7 G 96 \u00b7 V 10 \u00b7 M 92 \u00b7 P/E 26"
  },
  {
@@ -2320,8 +2320,8 @@
   "status": "picked",
   "reason": "held",
   "score": 62.01537,
-  "return": -0.08022,
-  "vs_picks": -0.0757,
+  "return": -0.08905,
+  "vs_picks": -0.07415,
   "details": "Q 68 \u00b7 G 84 \u00b7 V 47 \u00b7 M 37 \u00b7 P/E 20"
  },
  {
@@ -2335,8 +2335,8 @@
   "status": "picked",
   "reason": "held",
   "score": 61.35725,
-  "return": -0.02597,
-  "vs_picks": -0.02145,
+  "return": -0.01016,
+  "vs_picks": 0.00474,
   "details": "Q 52 \u00b7 G 83 \u00b7 V 76 \u00b7 M 35 \u00b7 P/E 14"
  },
  {
@@ -2350,8 +2350,8 @@
   "status": "picked",
   "reason": "held",
   "score": 61.32184,
-  "return": -0.1116,
-  "vs_picks": -0.10708,
+  "return": -0.12494,
+  "vs_picks": -0.11004,
   "details": "Q 77 \u00b7 G 65 \u00b7 V 17 \u00b7 M 95 \u00b7 P/E 25"
  },
  {
@@ -2365,8 +2365,8 @@
   "status": "picked",
   "reason": "held",
   "score": 60.24863,
-  "return": -0.12616,
-  "vs_picks": -0.12164,
+  "return": -0.2071,
+  "vs_picks": -0.1922,
   "details": "Q 45 \u00b7 G 95 \u00b7 V 21 \u00b7 M 98 \u00b7 P/E 24"
  },
  {
@@ -2380,8 +2380,8 @@
   "status": "picked",
   "reason": "held",
   "score": 60.23777,
-  "return": 0.10071,
-  "vs_picks": 0.10523,
+  "return": 0.09251,
+  "vs_picks": 0.10741,
   "details": "Q 87 \u00b7 G 55 \u00b7 V 36 \u00b7 M 57 \u00b7 P/E 25"
  },
  {
@@ -2395,8 +2395,8 @@
   "status": "picked",
   "reason": "held",
   "score": 60.17704,
-  "return": 0.03093,
-  "vs_picks": 0.03545,
+  "return": 0.01466,
+  "vs_picks": 0.02956,
   "details": "Q 58 \u00b7 G 47 \u00b7 V 78 \u00b7 M 88 \u00b7 P/E 13"
  },
  {
@@ -2410,8 +2410,8 @@
   "status": "picked",
   "reason": "held",
   "score": 60.06147,
-  "return": -0.07866,
-  "vs_picks": -0.07414,
+  "return": -0.09644,
+  "vs_picks": -0.08154,
   "details": "Q 43 \u00b7 G 74 \u00b7 V 59 \u00b7 M 62 \u00b7 P/E 19"
  },
  {
@@ -2425,8 +2425,8 @@
   "status": "picked",
   "reason": "held",
   "score": 59.79488,
-  "return": 0.02834,
-  "vs_picks": 0.03286,
+  "return": 0.01241,
+  "vs_picks": 0.02731,
   "details": "Q 84 \u00b7 G 51 \u00b7 V 27 \u00b7 M 61 \u00b7 P/E 27"
  },
  {
@@ -2440,8 +2440,8 @@
   "status": "picked",
   "reason": "held",
   "score": 59.2873,
-  "return": 0.07666,
-  "vs_picks": 0.08118,
+  "return": 0.08165,
+  "vs_picks": 0.09655,
   "details": "Q 60 \u00b7 G 48 \u00b7 V 77 \u00b7 M 69 \u00b7 P/E 16"
  },
  {
@@ -2455,8 +2455,8 @@
   "status": "picked",
   "reason": "held",
   "score": 59.23475,
-  "return": 0.00343,
-  "vs_picks": 0.00795,
+  "return": -0.00786,
+  "vs_picks": 0.00704,
   "details": "Q 71 \u00b7 G 63 \u00b7 V 46 \u00b7 M 76 \u00b7 P/E 22"
  },
  {
@@ -2470,8 +2470,8 @@
   "status": "picked",
   "reason": "held",
   "score": 59.11601,
-  "return": -0.05799,
-  "vs_picks": -0.05347,
+  "return": -0.06964,
+  "vs_picks": -0.05474,
   "details": "Q 65 \u00b7 G 65 \u00b7 V 31 \u00b7 M 86 \u00b7 P/E 23"
  },
  {
@@ -2485,8 +2485,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 58.88583,
-  "return": 0.06444,
-  "vs_picks": 0.06896,
+  "return": 0.01279,
+  "vs_picks": 0.02769,
   "details": "Q 59 \u00b7 G 46 \u00b7 V 95 \u00b7 M 4 \u00b7 P/E 11"
  },
  {
@@ -2500,8 +2500,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 58.74682,
-  "return": 0.08992,
-  "vs_picks": 0.09444,
+  "return": 0.05457,
+  "vs_picks": 0.06947,
   "details": "Q 60 \u00b7 G 63 \u00b7 V 92 \u00b7 M 1 \u00b7 P/E 12"
  },
  {
@@ -2515,8 +2515,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 58.70087,
-  "return": -0.09085,
-  "vs_picks": -0.08633,
+  "return": -0.08683,
+  "vs_picks": -0.07193,
   "details": "Q 68 \u00b7 G 58 \u00b7 V 24 \u00b7 M 97 \u00b7 P/E 22"
  },
  {
@@ -2530,8 +2530,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 58.0382,
-  "return": 0.007,
-  "vs_picks": 0.01152,
+  "return": -0.00686,
+  "vs_picks": 0.00804,
   "details": "Q 66 \u00b7 G 89 \u00b7 V 23 \u00b7 M 18 \u00b7 P/E 30"
  },
  {
@@ -2545,8 +2545,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 58.03758,
-  "return": 0.01068,
-  "vs_picks": 0.0152,
+  "return": -0.01303,
+  "vs_picks": 0.00187,
   "details": "Q 63 \u00b7 G 75 \u00b7 V 13 \u00b7 M 79 \u00b7 P/E 36"
  },
  {
@@ -2560,8 +2560,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 57.7547,
-  "return": 0.09393,
-  "vs_picks": 0.09845,
+  "return": 0.14468,
+  "vs_picks": 0.15958,
   "details": "Q 81 \u00b7 G 18 \u00b7 V 90 \u00b7 M 8 \u00b7 P/E 12"
  },
  {
@@ -2575,8 +2575,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 57.68656,
-  "return": -0.09015,
-  "vs_picks": -0.08563,
+  "return": -0.08311,
+  "vs_picks": -0.06821,
   "details": "Q 61 \u00b7 G 73 \u00b7 V 26 \u00b7 M 94 \u00b7 P/E 27"
  },
  {
@@ -2590,8 +2590,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 57.33816,
-  "return": 0.05543,
-  "vs_picks": 0.05995,
+  "return": 0.05459,
+  "vs_picks": 0.06949,
   "details": "Q 60 \u00b7 G 68 \u00b7 V 67 \u00b7 M 21 \u00b7 P/E 18"
  },
  {
@@ -2605,8 +2605,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 57.20782,
-  "return": -0.08981,
-  "vs_picks": -0.08529,
+  "return": -0.07711,
+  "vs_picks": -0.06221,
   "details": "Q 48 \u00b7 G 94 \u00b7 V 25 \u00b7 M 77 \u00b7 P/E 24"
  },
  {
@@ -2620,8 +2620,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 57.18085,
-  "return": 0.07751,
-  "vs_picks": 0.08203,
+  "return": 0.08534,
+  "vs_picks": 0.10024,
   "details": "Q 63 \u00b7 G 48 \u00b7 V 57 \u00b7 M 68 \u00b7 P/E 18"
  },
  {
@@ -2635,8 +2635,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 56.88387,
-  "return": 0.04816,
-  "vs_picks": 0.05268,
+  "return": 0.02152,
+  "vs_picks": 0.03642,
   "details": "Q 67 \u00b7 G 33 \u00b7 V 75 \u00b7 M 34 \u00b7 P/E 18"
  },
  {
@@ -2650,8 +2650,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 56.82096,
-  "return": 0.12863,
-  "vs_picks": 0.13315,
+  "return": 0.10861,
+  "vs_picks": 0.12351,
   "details": "Q 71 \u00b7 G 30 \u00b7 V 91 \u00b7 M 17 \u00b7 P/E 13"
  },
  {
@@ -2665,8 +2665,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 56.67183,
-  "return": 0.04738,
-  "vs_picks": 0.0519,
+  "return": 0.02938,
+  "vs_picks": 0.04428,
   "details": "Q 54 \u00b7 G 31 \u00b7 V 82 \u00b7 M 85 \u00b7 P/E 13"
  },
  {
@@ -2680,8 +2680,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 56.26692,
-  "return": -0.1196,
-  "vs_picks": -0.11508,
+  "return": -0.161,
+  "vs_picks": -0.1461,
   "details": "Q 46 \u00b7 G 71 \u00b7 V 44 \u00b7 M 93 \u00b7 P/E 16"
  },
  {
@@ -2695,8 +2695,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 56.23717,
-  "return": 0.01815,
-  "vs_picks": 0.02267,
+  "return": 0.0197,
+  "vs_picks": 0.0346,
   "details": "Q 88 \u00b7 G 60 \u00b7 V 18 \u00b7 M 32 \u00b7 P/E 31"
  },
  {
@@ -2710,8 +2710,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 55.95757,
-  "return": 0.00189,
-  "vs_picks": 0.00641,
+  "return": -0.00956,
+  "vs_picks": 0.00534,
   "details": "Q 50 \u00b7 G 52 \u00b7 V 61 \u00b7 M 63 \u00b7 P/E 20"
  },
  {
@@ -2725,8 +2725,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 55.95045,
-  "return": 0.04878,
-  "vs_picks": 0.0533,
+  "return": 0.01271,
+  "vs_picks": 0.02761,
   "details": "Q 64 \u00b7 G 47 \u00b7 V 54 \u00b7 M 65 \u00b7 P/E 23"
  },
  {
@@ -2740,8 +2740,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 55.53884,
-  "return": 0.07285,
-  "vs_picks": 0.07737,
+  "return": 0.05968,
+  "vs_picks": 0.07458,
   "details": "Q 71 \u00b7 G 35 \u00b7 V 59 \u00b7 M 47 \u00b7 P/E 21"
  },
  {
@@ -2755,8 +2755,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 55.37982,
-  "return": 0.02034,
-  "vs_picks": 0.02486,
+  "return": 0.00455,
+  "vs_picks": 0.01945,
   "details": "Q 65 \u00b7 G 71 \u00b7 V 34 \u00b7 M 49 \u00b7 P/E 26"
  },
  {
@@ -2770,8 +2770,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 55.33716,
-  "return": 0.07334,
-  "vs_picks": 0.07786,
+  "return": 0.05551,
+  "vs_picks": 0.07041,
   "details": "Q 50 \u00b7 G 50 \u00b7 V 63 \u00b7 M 53 \u00b7 P/E 18"
  },
  {
@@ -2785,8 +2785,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 54.8463,
-  "return": -0.00017,
-  "vs_picks": 0.00435,
+  "return": 0.00485,
+  "vs_picks": 0.01975,
   "details": "Q 50 \u00b7 G 69 \u00b7 V 35 \u00b7 M 79 \u00b7 P/E 25"
  },
  {
@@ -2800,8 +2800,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 54.51943,
-  "return": 0.07463,
-  "vs_picks": 0.07915,
+  "return": 0.03525,
+  "vs_picks": 0.05015,
   "details": "Q 70 \u00b7 G 47 \u00b7 V 60 \u00b7 M 12 \u00b7 P/E 22"
  },
  {
@@ -2815,8 +2815,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 54.1865,
-  "return": 0.02733,
-  "vs_picks": 0.03185,
+  "return": 0.03111,
+  "vs_picks": 0.04601,
   "details": "Q 37 \u00b7 G 49 \u00b7 V 88 \u00b7 M 51 \u00b7 P/E 14"
  },
  {
@@ -2830,8 +2830,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 54.06007,
-  "return": 0.03028,
-  "vs_picks": 0.0348,
+  "return": 0.01809,
+  "vs_picks": 0.03299,
   "details": "Q 62 \u00b7 G 36 \u00b7 V 91 \u00b7 M 1 \u00b7 P/E 12"
  },
  {
@@ -2845,8 +2845,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 53.87215,
-  "return": 0.13562,
-  "vs_picks": 0.14014,
+  "return": 0.15144,
+  "vs_picks": 0.16634,
   "details": "Q 46 \u00b7 G 63 \u00b7 V 75 \u00b7 M 26 \u00b7 P/E 16"
  },
  {
@@ -2860,8 +2860,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 53.77784,
-  "return": -0.02811,
-  "vs_picks": -0.02359,
+  "return": -0.02429,
+  "vs_picks": -0.00939,
   "details": "Q 58 \u00b7 G 77 \u00b7 V 22 \u00b7 M 60 \u00b7 P/E 23"
  },
  {
@@ -2875,8 +2875,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 52.89197,
-  "return": -0.03175,
-  "vs_picks": -0.02723,
+  "return": -0.01843,
+  "vs_picks": -0.00353,
   "details": "Q 77 \u00b7 G 55 \u00b7 V 6 \u00b7 M 67"
  },
  {
@@ -2890,8 +2890,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 52.52507,
-  "return": 0.04121,
-  "vs_picks": 0.04573,
+  "return": 0.04997,
+  "vs_picks": 0.06487,
   "details": "Q 62 \u00b7 G 59 \u00b7 V 39 \u00b7 M 56 \u00b7 P/E 24"
  },
  {
@@ -2905,8 +2905,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 52.47309,
-  "return": -0.04103,
-  "vs_picks": -0.03651,
+  "return": -0.23408,
+  "vs_picks": -0.21918,
   "details": "Q 60 \u00b7 G 75 \u00b7 V 2 \u00b7 M 88"
  },
  {
@@ -2920,8 +2920,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 52.23454,
-  "return": -0.02332,
-  "vs_picks": -0.0188,
+  "return": -0.01689,
+  "vs_picks": -0.00199,
   "details": "Q 67 \u00b7 G 58 \u00b7 V 33 \u00b7 M 44 \u00b7 P/E 22"
  },
  {
@@ -2935,8 +2935,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 52.1786,
-  "return": -0.02305,
-  "vs_picks": -0.01853,
+  "return": -0.02151,
+  "vs_picks": -0.00661,
   "details": "Q 49 \u00b7 G 26 \u00b7 V 79 \u00b7 M 65 \u00b7 P/E 17"
  },
  {
@@ -2950,8 +2950,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 52.09263,
-  "return": -0.04009,
-  "vs_picks": -0.03557,
+  "return": -0.05727,
+  "vs_picks": -0.04237,
   "details": "Q 46 \u00b7 G 77 \u00b7 V 51 \u00b7 M 7 \u00b7 P/E 18"
  },
  {
@@ -2965,8 +2965,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 51.6512,
-  "return": -0.11989,
-  "vs_picks": -0.11537,
+  "return": -0.14863,
+  "vs_picks": -0.13373,
   "details": "Q 24 \u00b7 G 83 \u00b7 V 31 \u00b7 M 96"
  },
  {
@@ -2980,8 +2980,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 51.57777,
-  "return": 0.05257,
-  "vs_picks": 0.05709,
+  "return": 0.0337,
+  "vs_picks": 0.0486,
   "details": "Q 50 \u00b7 G 51 \u00b7 V 52 \u00b7 M 82 \u00b7 P/E 17"
  },
  {
@@ -2995,8 +2995,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 51.36333,
-  "return": 0.01983,
-  "vs_picks": 0.02435,
+  "return": 0.02218,
+  "vs_picks": 0.03708,
   "details": "Q 41 \u00b7 G 51 \u00b7 V 59 \u00b7 M 78 \u00b7 P/E 22"
  },
  {
@@ -3010,8 +3010,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 51.33575,
-  "return": 0.10633,
-  "vs_picks": 0.11085,
+  "return": 0.09271,
+  "vs_picks": 0.10761,
   "details": "Q 53 \u00b7 G 33 \u00b7 V 83 \u00b7 M 50 \u00b7 P/E 14"
  },
  {
@@ -3025,8 +3025,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 51.30636,
-  "return": 0.05743,
-  "vs_picks": 0.06195,
+  "return": 0.05416,
+  "vs_picks": 0.06906,
   "details": "Q 58 \u00b7 G 36 \u00b7 V 80 \u00b7 M 7 \u00b7 P/E 16"
  },
  {
@@ -3040,8 +3040,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 51.04504,
-  "return": -0.00803,
-  "vs_picks": -0.00351,
+  "return": -0.01607,
+  "vs_picks": -0.00117,
   "details": "Q 47 \u00b7 G 75 \u00b7 V 43 \u00b7 M 29 \u00b7 P/E 33"
  },
  {
@@ -3055,8 +3055,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 50.96497,
-  "return": 0.04021,
-  "vs_picks": 0.04473,
+  "return": 0.02682,
+  "vs_picks": 0.04172,
   "details": "Q 63 \u00b7 G 30 \u00b7 V 83 \u00b7 M 10 \u00b7 P/E 15"
  },
  {
@@ -3070,8 +3070,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 50.78573,
-  "return": 0.03229,
-  "vs_picks": 0.03681,
+  "return": 0.02649,
+  "vs_picks": 0.04139,
   "details": "Q 50 \u00b7 G 68 \u00b7 V 27 \u00b7 M 64 \u00b7 P/E 26"
  },
  {
@@ -3085,8 +3085,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 50.53049,
-  "return": 0.06419,
-  "vs_picks": 0.06871,
+  "return": 0.05785,
+  "vs_picks": 0.07275,
   "details": "Q 60 \u00b7 G 29 \u00b7 V 79 \u00b7 M 13 \u00b7 P/E 16"
  },
  {
@@ -3100,8 +3100,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 50.36674,
-  "return": 0.05409,
-  "vs_picks": 0.05861,
+  "return": 0.03938,
+  "vs_picks": 0.05428,
   "details": "Q 25 \u00b7 G 90 \u00b7 V 26 \u00b7 M 96 \u00b7 P/E 25"
  },
  {
@@ -3115,8 +3115,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 50.21549,
-  "return": -0.00062,
-  "vs_picks": 0.0039,
+  "return": -0.03292,
+  "vs_picks": -0.01802,
   "details": "Q 50 \u00b7 G 80 \u00b7 V 42 \u00b7 M 24 \u00b7 P/E 23"
  },
  {
@@ -3130,8 +3130,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 50.20212,
-  "return": 0.01972,
-  "vs_picks": 0.02424,
+  "return": 0.00824,
+  "vs_picks": 0.02314,
   "details": "Q 70 \u00b7 G 60 \u00b7 V 19 \u00b7 M 19 \u00b7 P/E 33"
  },
  {
@@ -3145,8 +3145,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 50.03415,
-  "return": 0.05888,
-  "vs_picks": 0.0634,
+  "return": 0.04756,
+  "vs_picks": 0.06246,
   "details": "Q 59 \u00b7 G 34 \u00b7 V 83 \u00b7 M 23 \u00b7 P/E 14"
  },
  {
@@ -3160,8 +3160,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 49.79081,
-  "return": 0.05579,
-  "vs_picks": 0.06031,
+  "return": 0.03321,
+  "vs_picks": 0.04811,
   "details": "Q 56 \u00b7 G 41 \u00b7 V 65 \u00b7 M 9 \u00b7 P/E 16"
  },
  {
@@ -3175,8 +3175,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 49.42236,
-  "return": 0.04409,
-  "vs_picks": 0.04861,
+  "return": 0.03842,
+  "vs_picks": 0.05332,
   "details": "Q 60 \u00b7 G 41 \u00b7 V 57 \u00b7 M 35 \u00b7 P/E 21"
  },
  {
@@ -3190,8 +3190,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 49.37081,
-  "return": 0.09205,
-  "vs_picks": 0.09657,
+  "return": 0.0525,
+  "vs_picks": 0.0674,
   "details": "Q 55 \u00b7 G 28 \u00b7 V 87 \u00b7 M 14 \u00b7 P/E 15"
  },
  {
@@ -3205,8 +3205,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 49.29791,
-  "return": -0.12413,
-  "vs_picks": -0.11961,
+  "return": -0.13166,
+  "vs_picks": -0.11676,
   "details": "Q 33 \u00b7 G 77 \u00b7 V 42 \u00b7 M 40 \u00b7 P/E 17"
  },
  {
@@ -3220,8 +3220,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 48.98167,
-  "return": -0.0016,
-  "vs_picks": 0.00292,
+  "return": 0.01025,
+  "vs_picks": 0.02515,
   "details": "Q 55 \u00b7 G 33 \u00b7 V 35 \u00b7 M 91 \u00b7 P/E 25"
  },
  {
@@ -3235,8 +3235,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 48.92634,
-  "return": 0.05897,
-  "vs_picks": 0.06349,
+  "return": 0.06388,
+  "vs_picks": 0.07878,
   "details": "Q 39 \u00b7 G 47 \u00b7 V 68 \u00b7 M 54 \u00b7 P/E 19"
  },
  {
@@ -3250,8 +3250,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 48.92258,
-  "return": 0.0329,
-  "vs_picks": 0.03742,
+  "return": 0.00954,
+  "vs_picks": 0.02444,
   "details": "Q 60 \u00b7 G 48 \u00b7 V 34 \u00b7 M 20 \u00b7 P/E 24"
  },
  {
@@ -3265,8 +3265,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 48.84491,
-  "return": -0.06838,
-  "vs_picks": -0.06386,
+  "return": -0.09057,
+  "vs_picks": -0.07567,
   "details": "Q 54 \u00b7 G 70 \u00b7 V 3 \u00b7 M 75 \u00b7 P/E 36"
  },
  {
@@ -3280,8 +3280,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 48.82581,
-  "return": -0.03492,
-  "vs_picks": -0.0304,
+  "return": -0.04331,
+  "vs_picks": -0.02841,
   "details": "Q 40 \u00b7 G 69 \u00b7 V 29 \u00b7 M 55 \u00b7 P/E 26"
  },
  {
@@ -3295,8 +3295,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 48.59388,
-  "return": 0.01814,
-  "vs_picks": 0.02266,
+  "return": 0.00902,
+  "vs_picks": 0.02392,
   "details": "Q 47 \u00b7 G 20 \u00b7 V 99 \u00b7 M 15 \u00b7 P/E 10"
  },
  {
@@ -3310,8 +3310,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 48.40644,
-  "return": 0.06618,
-  "vs_picks": 0.0707,
+  "return": 0.04379,
+  "vs_picks": 0.05869,
   "details": "Q 61 \u00b7 G 37 \u00b7 V 32 \u00b7 M 76 \u00b7 P/E 25"
  },
  {
@@ -3325,8 +3325,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 48.39748,
-  "return": -0.00834,
-  "vs_picks": -0.00382,
+  "return": -0.03922,
+  "vs_picks": -0.02432,
   "details": "Q 42 \u00b7 G 47 \u00b7 V 31 \u00b7 M 93 \u00b7 P/E 27"
  },
  {
@@ -3340,8 +3340,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 48.11966,
-  "return": 0.04369,
-  "vs_picks": 0.04821,
+  "return": 0.03698,
+  "vs_picks": 0.05188,
   "details": "Q 44 \u00b7 G 16 \u00b7 V 80 \u00b7 M 66 \u00b7 P/E 12"
  },
  {
@@ -3355,8 +3355,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 48.05057,
-  "return": -0.14204,
-  "vs_picks": -0.13752,
+  "return": -0.1704,
+  "vs_picks": -0.1555,
   "details": "Q 58 \u00b7 G 26 \u00b7 V 58 \u00b7 M 39 \u00b7 P/E 23"
  },
  {
@@ -3370,8 +3370,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 48.02206,
-  "return": 0.08114,
-  "vs_picks": 0.08566,
+  "return": 0.06614,
+  "vs_picks": 0.08104,
   "details": "Q 60 \u00b7 G 54 \u00b7 V 44 \u00b7 M 5 \u00b7 P/E 26"
  },
  {
@@ -3385,8 +3385,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 47.85923,
-  "return": -0.04975,
-  "vs_picks": -0.04523,
+  "return": -0.02875,
+  "vs_picks": -0.01385,
   "details": "Q 77 \u00b7 G 53 \u00b7 V 7 \u00b7 M 26 \u00b7 P/E 34"
  },
  {
@@ -3400,8 +3400,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 47.62219,
-  "return": 0.03188,
-  "vs_picks": 0.0364,
+  "return": 0.02416,
+  "vs_picks": 0.03906,
   "details": "Q 46 \u00b7 G 45 \u00b7 V 26 \u00b7 M 82 \u00b7 P/E 26"
  },
  {
@@ -3415,8 +3415,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 47.53978,
-  "return": 0.05445,
-  "vs_picks": 0.05897,
+  "return": 0.03948,
+  "vs_picks": 0.05438,
   "details": "Q 39 \u00b7 G 37 \u00b7 V 51 \u00b7 M 89 \u00b7 P/E 22"
  },
  {
@@ -3430,8 +3430,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 47.0411,
-  "return": 0.0501,
-  "vs_picks": 0.05462,
+  "return": 0.02112,
+  "vs_picks": 0.03602,
   "details": "Q 48 \u00b7 G 34 \u00b7 V 58 \u00b7 M 48 \u00b7 P/E 21"
  },
  {
@@ -3445,8 +3445,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 47.01822,
-  "return": -0.0432,
-  "vs_picks": -0.03868,
+  "return": -0.05039,
+  "vs_picks": -0.03549,
   "details": "Q 38 \u00b7 G 41 \u00b7 V 44 \u00b7 M 81 \u00b7 P/E 25"
  },
  {
@@ -3460,8 +3460,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 46.88632,
-  "return": 0.03624,
-  "vs_picks": 0.04076,
+  "return": 0.02741,
+  "vs_picks": 0.04231,
   "details": "Q 72 \u00b7 G 22 \u00b7 V 22 \u00b7 M 54 \u00b7 P/E 31"
  },
  {
@@ -3475,8 +3475,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 46.75428,
-  "return": 0.07737,
-  "vs_picks": 0.08189,
+  "return": 0.09279,
+  "vs_picks": 0.10769,
   "details": "Q 28 \u00b7 G 20 \u00b7 V 97 \u00b7 M 40 \u00b7 P/E 10"
  },
  {
@@ -3490,8 +3490,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 45.89999,
-  "return": 0.10376,
-  "vs_picks": 0.10828,
+  "return": 0.05615,
+  "vs_picks": 0.07105,
   "details": "Q 34 \u00b7 G 17 \u00b7 V 96 \u00b7 M 36 \u00b7 P/E 11"
  },
  {
@@ -3505,8 +3505,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 45.67504,
-  "return": 0.06281,
-  "vs_picks": 0.06733,
+  "return": 0.0466,
+  "vs_picks": 0.0615,
   "details": "Q 32 \u00b7 G 52 \u00b7 V 83 \u00b7 M 10 \u00b7 P/E 15"
  },
  {
@@ -3520,8 +3520,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 45.48419,
-  "return": -0.05729,
-  "vs_picks": -0.05277,
+  "return": -0.07806,
+  "vs_picks": -0.06316,
   "details": "Q 38 \u00b7 G 60 \u00b7 V 53 \u00b7 M 18 \u00b7 P/E 22"
  },
  {
@@ -3535,8 +3535,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 45.11252,
-  "return": 0.07596,
-  "vs_picks": 0.08048,
+  "return": 0.06696,
+  "vs_picks": 0.08186,
   "details": "Q 19 \u00b7 G 28 \u00b7 V 97 \u00b7 M 46 \u00b7 P/E 10"
  },
  {
@@ -3550,8 +3550,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 45.02946,
-  "return": 0.0553,
-  "vs_picks": 0.05982,
+  "return": 0.05558,
+  "vs_picks": 0.07048,
   "details": "Q 54 \u00b7 G 50 \u00b7 V 17 \u00b7 M 58 \u00b7 P/E 34"
  },
  {
@@ -3565,8 +3565,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 44.92256,
-  "return": 0.0061,
-  "vs_picks": 0.01062,
+  "return": -0.01776,
+  "vs_picks": -0.00286,
   "details": "Q 20 \u00b7 G 55 \u00b7 V 63 \u00b7 M 68 \u00b7 P/E 17"
  },
  {
@@ -3580,8 +3580,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 44.91673,
-  "return": 0.03352,
-  "vs_picks": 0.03804,
+  "return": 0.01744,
+  "vs_picks": 0.03234,
   "details": "Q 53 \u00b7 G 44 \u00b7 V 11 \u00b7 M 73 \u00b7 P/E 36"
  },
  {
@@ -3595,8 +3595,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 44.87809,
-  "return": 0.02841,
-  "vs_picks": 0.03293,
+  "return": -0.00172,
+  "vs_picks": 0.01318,
   "details": "Q 26 \u00b7 G 50 \u00b7 V 80 \u00b7 M 29 \u00b7 P/E 15"
  },
  {
@@ -3610,8 +3610,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 44.71331,
-  "return": 0.03291,
-  "vs_picks": 0.03743,
+  "return": 0.02121,
+  "vs_picks": 0.03611,
   "details": "Q 43 \u00b7 G 45 \u00b7 V 23 \u00b7 M 74 \u00b7 P/E 26"
  },
  {
@@ -3625,8 +3625,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 44.66421,
-  "return": -0.04113,
-  "vs_picks": -0.03661,
+  "return": -0.03618,
+  "vs_picks": -0.02128,
   "details": "Q 35 \u00b7 G 49 \u00b7 V 49 \u00b7 M 59 \u00b7 P/E 20"
  },
  {
@@ -3640,8 +3640,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 44.66212,
-  "return": -0.05194,
-  "vs_picks": -0.04742,
+  "return": -0.02868,
+  "vs_picks": -0.01378,
   "details": "Q 28 \u00b7 G 28 \u00b7 V 56 \u00b7 M 90 \u00b7 P/E 13"
  },
  {
@@ -3655,8 +3655,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 44.63817,
-  "return": -0.01374,
-  "vs_picks": -0.00922,
+  "return": -0.02897,
+  "vs_picks": -0.01407,
   "details": "Q 39 \u00b7 G 37 \u00b7 V 53 \u00b7 M 57 \u00b7 P/E 18"
  },
  {
@@ -3670,8 +3670,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 44.63756,
-  "return": 0.05714,
-  "vs_picks": 0.06166,
+  "return": 0.04764,
+  "vs_picks": 0.06254,
   "details": "Q 39 \u00b7 G 35 \u00b7 V 76 \u00b7 M 38 \u00b7 P/E 16"
  },
  {
@@ -3685,8 +3685,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 44.34771,
-  "return": 0.07603,
-  "vs_picks": 0.08055,
+  "return": 0.10206,
+  "vs_picks": 0.11696,
   "details": "Q 33 \u00b7 G 24 \u00b7 V 70 \u00b7 M 62 \u00b7 P/E 17"
  },
  {
@@ -3700,8 +3700,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 43.87302,
-  "return": -0.00447,
-  "vs_picks": 5e-05,
+  "return": -0.02647,
+  "vs_picks": -0.01157,
   "details": "Q 31 \u00b7 G 41 \u00b7 V 57 \u00b7 M 42 \u00b7 P/E 17"
  },
  {
@@ -3715,8 +3715,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 42.9283,
-  "return": -0.07247,
-  "vs_picks": -0.06795,
+  "return": -0.06279,
+  "vs_picks": -0.04789,
   "details": "Q 47 \u00b7 G 31 \u00b7 V 21 \u00b7 M 100 \u00b7 P/E 24"
  },
  {
@@ -3730,8 +3730,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 42.63958,
-  "return": -0.0575,
-  "vs_picks": -0.05298,
+  "return": -0.06485,
+  "vs_picks": -0.04995,
   "details": "Q 22 \u00b7 G 74 \u00b7 V 27 \u00b7 M 70 \u00b7 P/E 24"
  },
  {
@@ -3745,8 +3745,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 42.53214,
-  "return": -0.0756,
-  "vs_picks": -0.07108,
+  "return": -0.08868,
+  "vs_picks": -0.07378,
   "details": "Q 33 \u00b7 G 47 \u00b7 V 38 \u00b7 M 80 \u00b7 P/E 24"
  },
  {
@@ -3760,8 +3760,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 42.39305,
-  "return": -0.01596,
-  "vs_picks": -0.01144,
+  "return": -0.01556,
+  "vs_picks": -0.00066,
   "details": "Q 42 \u00b7 G 30 \u00b7 V 37 \u00b7 M 84 \u00b7 P/E 25"
  },
  {
@@ -3775,8 +3775,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 42.36531,
-  "return": 0.02917,
-  "vs_picks": 0.03369,
+  "return": -0.0027,
+  "vs_picks": 0.0122,
   "details": "Q 23 \u00b7 G 35 \u00b7 V 73 \u00b7 M 51 \u00b7 P/E 15"
  },
  {
@@ -3790,8 +3790,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 41.84443,
-  "return": 0.02463,
-  "vs_picks": 0.02915,
+  "return": 0.04412,
+  "vs_picks": 0.05902,
   "details": "Q 48 \u00b7 G 69 \u00b7 V 5 \u00b7 M 28 \u00b7 P/E 36"
  },
  {
@@ -3805,8 +3805,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 41.42744,
-  "return": 0.00014,
-  "vs_picks": 0.00466,
+  "return": -0.01561,
+  "vs_picks": -0.00071,
   "details": "Q 42 \u00b7 G 40 \u00b7 V 38 \u00b7 M 30 \u00b7 P/E 26"
  },
  {
@@ -3820,8 +3820,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 41.42018,
-  "return": 0.03485,
-  "vs_picks": 0.03937,
+  "return": 0.00626,
+  "vs_picks": 0.02116,
   "details": "Q 15 \u00b7 G 67 \u00b7 V 69 \u00b7 M 2 \u00b7 P/E 11"
  },
  {
@@ -3835,8 +3835,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 41.40345,
-  "return": 0.04228,
-  "vs_picks": 0.0468,
+  "return": 0.01644,
+  "vs_picks": 0.03134,
   "details": "Q 31 \u00b7 G 53 \u00b7 V 39 \u00b7 M 46 \u00b7 P/E 25"
  },
  {
@@ -3850,8 +3850,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 40.40683,
-  "return": 0.03476,
-  "vs_picks": 0.03928,
+  "return": 0.01037,
+  "vs_picks": 0.02527,
   "details": "Q 41 \u00b7 G 42 \u00b7 V 18 \u00b7 M 72 \u00b7 P/E 33"
  },
  {
@@ -3865,8 +3865,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 39.68234,
-  "return": 0.0148,
-  "vs_picks": 0.01932,
+  "return": -0.02702,
+  "vs_picks": -0.01212,
   "details": "Q 21 \u00b7 G 60 \u00b7 V 42 \u00b7 M 43 \u00b7 P/E 22"
  },
  {
@@ -3880,8 +3880,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 39.29504,
-  "return": 0.0042,
-  "vs_picks": 0.00872,
+  "return": 0.00221,
+  "vs_picks": 0.01711,
   "details": "Q 26 \u00b7 G 35 \u00b7 V 58 \u00b7 M 33 \u00b7 P/E 18"
  },
  {
@@ -3895,8 +3895,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 38.91677,
-  "return": 0.04448,
-  "vs_picks": 0.049,
+  "return": 0.02755,
+  "vs_picks": 0.04245,
   "details": "Q 22 \u00b7 G 30 \u00b7 V 61 \u00b7 M 60 \u00b7 P/E 18"
  },
  {
@@ -3910,8 +3910,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 38.62328,
-  "return": 0.05174,
-  "vs_picks": 0.05626,
+  "return": 0.01581,
+  "vs_picks": 0.03071,
   "details": "Q 31 \u00b7 G 31 \u00b7 V 60 \u00b7 M 38 \u00b7 P/E 17"
  },
  {
@@ -3925,8 +3925,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 38.22457,
-  "return": 0.0576,
-  "vs_picks": 0.06212,
+  "return": 0.03211,
+  "vs_picks": 0.04701,
   "details": "Q 44 \u00b7 G 16 \u00b7 V 61 \u00b7 M 16 \u00b7 P/E 19"
  },
  {
@@ -3940,8 +3940,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 38.16846,
-  "return": 0.09127,
-  "vs_picks": 0.09579,
+  "return": 0.08994,
+  "vs_picks": 0.10484,
   "details": "Q 15 \u00b7 G 14 \u00b7 V 95 \u00b7 M 32 \u00b7 P/E 12"
  },
  {
@@ -3955,8 +3955,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 38.05667,
-  "return": 0.02278,
-  "vs_picks": 0.0273,
+  "return": 0.00782,
+  "vs_picks": 0.02272,
   "details": "Q 38 \u00b7 G 49 \u00b7 V 9 \u00b7 M 43 \u00b7 P/E 40"
  },
  {
@@ -3970,8 +3970,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 37.94991,
-  "return": 0.11238,
-  "vs_picks": 0.1169,
+  "return": 0.09857,
+  "vs_picks": 0.11347,
   "details": "Q 40 \u00b7 G 16 \u00b7 V 61 \u00b7 M 25 \u00b7 P/E 22"
  },
  {
@@ -3985,8 +3985,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 37.48261,
-  "return": 0.03938,
-  "vs_picks": 0.0439,
+  "return": 0.01647,
+  "vs_picks": 0.03137,
   "details": "Q 29 \u00b7 G 28 \u00b7 V 67 \u00b7 M 27 \u00b7 P/E 15"
  },
  {
@@ -4000,8 +4000,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 35.81773,
-  "return": 0.02636,
-  "vs_picks": 0.03088,
+  "return": 0.02146,
+  "vs_picks": 0.03636,
   "details": "Q 37 \u00b7 G 27 \u00b7 V 6 \u00b7 M 83 \u00b7 P/E 38"
  },
  {
@@ -4015,8 +4015,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 34.56731,
-  "return": 0.00849,
-  "vs_picks": 0.01301,
+  "return": 0.00589,
+  "vs_picks": 0.02079,
   "details": "Q 45 \u00b7 G 34 \u00b7 V 25 \u00b7 M 22 \u00b7 P/E 28"
  },
  {
@@ -4030,8 +4030,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 34.04015,
-  "return": 0.05852,
-  "vs_picks": 0.06304,
+  "return": 0.01859,
+  "vs_picks": 0.03349,
   "details": "Q 20 \u00b7 G 28 \u00b7 V 72 \u00b7 M 6 \u00b7 P/E 16"
  },
  {
@@ -4045,8 +4045,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 33.22594,
-  "return": 0.02983,
-  "vs_picks": 0.03435,
+  "return": 0.00242,
+  "vs_picks": 0.01732,
   "details": "Q 39 \u00b7 G 9 \u00b7 V 60 \u00b7 M 3 \u00b7 P/E 23"
  },
  {
@@ -4060,8 +4060,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 32.35606,
-  "return": 0.03918,
-  "vs_picks": 0.0437,
+  "return": 0.03148,
+  "vs_picks": 0.04638,
   "details": "Q 8 \u00b7 G 41 \u00b7 V 48 \u00b7 M 45 \u00b7 P/E 20"
  },
  {
@@ -4075,8 +4075,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 32.11359,
-  "return": 0.08166,
-  "vs_picks": 0.08618,
+  "return": 0.07988,
+  "vs_picks": 0.09478,
   "details": "Q 8 \u00b7 G 20 \u00b7 V 72 \u00b7 M 31 \u00b7 P/E 17"
  },
  {
@@ -4090,8 +4090,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 30.6186,
-  "return": -0.07061,
-  "vs_picks": -0.06609,
+  "return": -0.05376,
+  "vs_picks": -0.03886,
   "details": "Q 38 \u00b7 G 55 \u00b7 V 5 \u00b7 M 24"
  },
  {
@@ -4105,8 +4105,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 26.00834,
-  "return": -0.0628,
-  "vs_picks": -0.05828,
+  "return": -0.06361,
+  "vs_picks": -0.04871,
   "details": "Q 12 \u00b7 G 52 \u00b7 V 23 \u00b7 M 11 \u00b7 P/E 26"
  },
  {
@@ -4120,8 +4120,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 23.87395,
-  "return": 0.04128,
-  "vs_picks": 0.0458,
+  "return": 0.02994,
+  "vs_picks": 0.04484,
   "details": "Q 20 \u00b7 G 16 \u00b7 V 14 \u00b7 M 71 \u00b7 P/E 31"
  },
  {
@@ -4135,8 +4135,8 @@
   "status": "near miss",
   "reason": "outside the top 25",
   "score": 23.38079,
-  "return": 0.02039,
-  "vs_picks": 0.02491,
+  "return": 0.01003,
+  "vs_picks": 0.02493,
   "details": "Q 9 \u00b7 G 37 \u00b7 V 11 \u00b7 M 49 \u00b7 P/E 37"
  }
 ]

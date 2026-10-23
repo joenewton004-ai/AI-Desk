@@ -2,16 +2,16 @@
  {
   "tier": "1 process",
   "metric": "Slippage vs the open (bps, $-weighted)",
-  "value": 26.167604732793006,
+  "value": -31.707797700198164,
   "format": "bps",
   "target": "\u2264 10",
-  "status": "flag",
-  "note": "78 fills; the backtest assumes 3bps"
+  "status": "ok",
+  "note": "119 fills; the backtest assumes 3bps"
  },
  {
   "tier": "1 process",
   "metric": "Fill vs signal close (bps)",
-  "value": 162.9846153846154,
+  "value": 139.03781512605042,
   "format": "bps",
   "target": "info only",
   "status": "info",
@@ -38,7 +38,7 @@
  {
   "tier": "2 behaviour",
   "metric": "Drawdown from peak (now)",
-  "value": -0.021962309022693915,
+  "value": -0.02842244050721532,
   "format": "pct",
   "target": "above -15%",
   "status": "ok",
@@ -65,11 +65,11 @@
  {
   "tier": "2 behaviour",
   "metric": "quality_screen vs RSP",
-  "value": -0.02079,
+  "value": -0.02307,
   "format": "pct",
   "target": "above -10% over 12m",
   "status": "too early",
-  "note": "since launch over 2 days"
+  "note": "since launch over 3 days"
  },
  {
   "tier": "2 behaviour",
@@ -83,11 +83,11 @@
  {
   "tier": "2 behaviour",
   "metric": "momentum vs SPY",
-  "value": -0.03093,
+  "value": -0.01604,
   "format": "pct",
   "target": "above -10% over 12m",
   "status": "too early",
-  "note": "since launch over 1 days"
+  "note": "since launch over 2 days"
  },
  {
   "tier": "2 behaviour",
@@ -110,16 +110,16 @@
  {
   "tier": "3 edge",
   "metric": "Sharpe (above T-bills)",
-  "value": -9.427229864021392,
+  "value": -13.886216996269402,
   "format": "num",
   "target": "\u2265 SPY's",
   "status": "too early",
-  "note": "SPY -4.53; 90% range for the desk -133.9 to 115.0"
+  "note": "SPY -7.54; 90% range for the desk -162.7 to 134.9"
  },
  {
   "tier": "3 edge",
   "metric": "Return vs SPY since launch",
-  "value": -0.013301924572372226,
+  "value": -0.014587257052922742,
   "format": "pct",
   "target": "\u2265 0",
   "status": "too early",
@@ -128,11 +128,11 @@
  {
   "tier": "3 edge",
   "metric": "Worst drop vs SPY's",
-  "value": -0.01015255263513759,
+  "value": -0.011451511253724123,
   "format": "pct",
   "target": "\u2265 0 (shallower)",
   "status": "too early",
-  "note": "desk -2.2%, SPY -1.2%"
+  "note": "desk -2.8%, SPY -1.7%"
  },
  {
   "tier": "3 edge",
