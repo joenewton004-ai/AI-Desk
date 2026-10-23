@@ -100,3 +100,35 @@ days only:
 
 **Live from 2026-10-23** (amendment 9b951502, accepted by you): D replaced the tech-vs-defensive check; the SPY 200-day
 rule stays. Cut-off fixed at −1.9% (`overnight.PICKS_DAY_CUTOFF`).
+
+## Follow-up: skip single fallen picks instead of the whole night?
+
+_Code: `research/overnight_perstock.py`. Tables: [`output/overnight_perstock.md`](output/overnight_perstock.md).
+On the live v2 picks (12-month return, ranked the evening before); every rule keeps the SPY 200-day rule._
+
+| Rule | Sharpe | Worst drop | 2014-19 | 2020-26 |
+|---|---|---|---|---|
+| SPY rule only | 1.17 | −17% | 1.34 | 1.22 |
+| **Group rule (live): all 20 out when their average is −2%+** | **1.54** | −15% | 1.43 | 1.71 |
+| Per-stock: skip picks down 2%+ (their share in cash) | 1.43 | −15% | 1.54 | 1.49 |
+| Per-stock: skip picks down 3%+ (in cash) | 1.42 | −15% | 1.53 | 1.48 |
+| Per-stock: skip picks down 5%+ (in cash) | 1.25 | −15% | 1.40 | 1.29 |
+| Per-stock, money spread over the other picks (2-8%) | 1.01-1.13 | −17% to −18% | | |
+| Group rule + skip single picks down 3%+ | 1.64 | −13% | 1.58 | 1.79 |
+
+What a single fallen pick did that night, against the other picks on the same nights (before costs):
+
+| Down since the open | Stock-nights | That pick | The other picks | t |
+|---|---|---|---|---|
+| 2%+ | 11,323 | +5.0 bp | +14.1 bp | −3.7 |
+| 3%+ | 6,761 | +2.6 bp | +12.0 bp | −2.7 |
+| 5%+ | 2,518 | +6.9 bp | +6.3 bp | 0.1 |
+| 8%+ | 620 | +24.4 bp | −2.1 bp | 1.7 |
+
+- **The group rule beats per-stock skipping.** The warning is the picks falling *together*; one stock's bad day says
+  much less about the night.
+- **Spreading the skipped money over the other picks is clearly worse**: it concentrates the sleeve on fewer names.
+- **A pick down 2-3% does earn less that night** (t −3.7), but still about break-even after costs, so skipping it
+  mostly just holds cash. **Big single falls (5%+) tend to bounce overnight**, so skipping them costs money.
+- **Both together scored best** (1.64, worst drop −13%, both halves). The gain over the live rule (+0.10) is well
+  inside the noise, and it's yet another variant on top of many tested, so on its own it isn't a reason to change.

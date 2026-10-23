@@ -47,7 +47,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   `python research/overnight_regime.py` -> `research/OVERNIGHT_REGIME.md`. Defensive lists don't earn overnight; cash
   when SPY < 200-day or on a day tech lags defensives most: Sharpe 1.03 vs 0.70 (both halves; ~20 rules tested).
   Follow-up `research/overnight_picks_check.py`: the picks' own fall since the open beats tech-vs-defensive (1.31 with
-  the SPY rule) - live from 2026-10-23 (amendments 7a8b29ec + 9b951502).
+  the SPY rule) - live from 2026-10-23 (amendments 7a8b29ec + 9b951502). Per-stock skipping instead of the group rule
+  (`research/overnight_perstock.py`): worse alone (1.43 vs 1.54); group + skip picks down 3%+ 1.64 (inside noise). Not live.
 - EMA9/VWAP crossover and Trend+Momentum+Confirmation (EMA20/50, VWAP, volume, breakout): `python research/vwap_ema.py`
   -> `research/VWAP_EMA.md` (cached 5m/1m/1h bars). No edge; research-only.
 - Leveraged S&P fund (2x/3x, simulated + checked vs real SSO/UPRO) on SPY signals with strict risk rules:
