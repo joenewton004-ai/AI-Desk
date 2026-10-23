@@ -40,7 +40,7 @@ KEEP = {
     "bottleneck": ["name", "sector", "industry", "source", "score", "flow_score", "bottleneck_score",
                    "asymmetry_score", "rs_6m", "rev_growth", "gm_change", "above_ma", "passes", "forward_pe"],
     "momentum": ["name", "sector", "industry", "score", "mom_6m", "above_200", "above_100", "passes", "market_cap"],
-    "overnight_drift": ["name", "score", "overnight_yr", "close", "passes"],
+    "overnight_drift": ["name", "score", "ret_12m", "overnight_yr", "close", "passes"],
 }
 
 

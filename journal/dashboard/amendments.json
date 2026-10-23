@@ -130,5 +130,16 @@
   "status": "accepted",
   "evidence": "Owner: 'Swap to D and merge it into main' (2026-10-23). Supersedes the tech-vs-defensive part of 7a8b29ec; its SPY 200-day rule stays.",
   "decided": "2026-10-23"
+ },
+ {
+  "id": "82c84226",
+  "date": "2026-10-23",
+  "method": "overnight_drift",
+  "proposal": "Rank by the plain 12-month return (adjusted closes) instead of the 12-month average overnight return, and re-pick every trading day instead of monthly: the evening run ranks on that day's close, the next afternoon's buy uses it. Picks-day cut-off -2.0% (this version's worst 10%). Watchlist cohort kept monthly.",
+  "rationale": "research/lookbacks.py and research/overnight_v2.py (2014-2026, survivors-only): as it would run live (ranked the evening before) with the SPY and picks-day checks, Sharpe 1.54 vs 1.31, worst drop -15% vs -17%, better in both halves (1.43/1.71 vs 1.20/1.45) and 9 of 13 years; nightly gain +1.1 bp, t 1.1 - not significant. Daily re-picking costs nothing extra (all shares are sold each morning). Caveat: this ranks momentum stocks and holds them overnight - a different idea from the researched overnight effect; only 37% of nights' picks overlap with the old ranking.",
+  "author": "you",
+  "status": "accepted",
+  "evidence": "Owner: 'Change overnight to add both small improvements' (2026-10-23).",
+  "decided": "2026-10-23"
  }
 ]

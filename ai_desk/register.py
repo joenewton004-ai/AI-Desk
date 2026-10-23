@@ -111,12 +111,13 @@ SLEEVE_TEXT = {
     },
     "overnight_drift": {
         "label": "Overnight",
-        "plain": "Holds the 20 large US stocks that have earned the most overnight over the past year - bought in the "
+        "plain": "Holds the 20 large US stocks with the highest return over the past 12 months, re-ranked every day "
+                 "(amendment 82c84226; until 2026-10-23: the highest average overnight return, monthly) - bought in the "
                  "last minutes before the close (3:55-3:59pm New York), sold at the next open by the evening run, every trading day. "
                  "Replaced SPY momentum (amendment 330e76e0, accepted 2026-10-21). Sits in cash on nights when SPY is below its "
-                 "200-day average or its picks have fallen 1.9% or more since the open (amendments 7a8b29ec, 9b951502).",
-        "screen": "Top 20 by average overnight return (close to next open) over 12 months; price over $10, $20M a day "
-                  "traded; equal weight; re-picked monthly.",
+                 "200-day average or its picks have fallen 2.0% or more since the open (amendments 7a8b29ec, 9b951502).",
+        "screen": "Top 20 by 12-month return (adjusted closes); price over $10, $20M a day traded; equal weight; "
+                  "re-ranked every evening on that day's close, bought the next afternoon.",
         "metrics": "Fill cost vs the official close/open (break-even about 0.045% per trade; the desk-level case needs "
                    "about 0.02%). Backtest 2014-2026 at 0.02%: 16.7%/yr, Sharpe 0.81, worst drop -28%.",
         "watch": "Costs first: `overnight review`. No crash switch - it stays invested in falling markets (March 2020: -20%).",
@@ -232,10 +233,11 @@ RESEARCH_METHODS = {
         "description": "Overnight momentum (Lou, Polk & Skouras 2019): each month take the 20 large stocks with the highest "
                        "average overnight return (close to next open) over the past 12 months; hold them only overnight - "
                        "buy at the close, sell at the next open - via the closing and opening auctions.",
-        "parameters": {"stocks": 20, "look_back": "12 months", "re_pick": "monthly", "hold": "close to next open, daily",
+        "parameters": {"stocks": 20, "ranking": "plain 12-month return (82c84226; was average overnight return)",
+                       "look_back": "12 months", "re_pick": "daily (82c84226; was monthly)", "hold": "close to next open, daily",
                        "orders": "market buy at 3:55-3:59pm (market-on-close until 2026-10-21: paper filled only part), market sell at the open",
                        "regime": "cash for the night when SPY < its 200-day average (7a8b29ec) or tonight's picks are down "
-                                 "1.9%+ since the open (9b951502)"},
+                                 "2.0%+ since the open (9b951502, 82c84226)"},
         "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`",
         "summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, "
                    "both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the "

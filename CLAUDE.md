@@ -47,7 +47,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   `python research/overnight_regime.py` -> `research/OVERNIGHT_REGIME.md`. Defensive lists don't earn overnight; cash
   when SPY < 200-day or on a day tech lags defensives most: Sharpe 1.03 vs 0.70 (both halves; ~20 rules tested).
   Follow-up `research/overnight_picks_check.py`: the picks' own fall since the open beats tech-vs-defensive (1.31 with
-  the SPY rule) - live from 2026-10-23 (amendments 7a8b29ec + 9b951502).
+  the SPY rule) - live from 2026-10-23 (amendments 7a8b29ec + 9b951502). Per-stock skipping instead of the group rule
+  (`research/overnight_perstock.py`): worse alone (1.43 vs 1.54); group + skip picks down 3%+ 1.64 (inside noise). Not live.
 - EMA9/VWAP crossover and Trend+Momentum+Confirmation (EMA20/50, VWAP, volume, breakout): `python research/vwap_ema.py`
   -> `research/VWAP_EMA.md` (cached 5m/1m/1h bars). No edge; research-only.
 - Leveraged S&P fund (2x/3x, simulated + checked vs real SSO/UPRO) on SPY signals with strict risk rules:
@@ -59,6 +60,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   `python research/minervini_checks.py` -> same write-up. Small caps/IPOs need delisted-inclusive data (not available).
 - Momentum top 10 instead of top 20 inside the desk: `python research/desk_top10.py` -> `research/DESK_TOP10.md`
   (desk Sharpe 1.06 vs 0.98 at 0.02% overnight costs; both halves, 11/13 years; not live - needs an amendment).
+- Ranking windows (1 day to 12 months) for the overnight and momentum sleeves: `python research/lookbacks.py` ->
+  `research/LOOKBACKS.md`. Short windows don't work; the live 12-month (overnight) and 6-month (momentum) windows are at
+  or near the best. Leads within noise: daily re-pick / plain 12-month return for overnight - tested as live in
+  `research/overnight_v2.py` (Sharpe 1.54 vs 1.31 with the checks, t 1.1) and live from 2026-10-23 (amendment 82c84226).
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
@@ -168,11 +173,14 @@ changes plainly and be honest about whether a strategy has a real edge.
   less 1%; the evening run before a re-pick day ranks ahead (`portfolio prepare` -> journal/overnight/scan_cache.json); the 4:30pm desk run reads the fills into data/portfolio/overnight_book.json and sells
   them at the next open INSIDE the desk's own order for each stock (`net_with_desk`: one net order per symbol -
   Alpaca rejects opposite-side orders in one stock as wash trades). No buys while a book is unsold. Picks locked in
-  data/portfolio/overnight.json, re-picked after each month-end. Active from data/portfolio/overnight_live.json
+  data/portfolio/overnight.json. Since 2026-10-23 (amendment 82c84226): ranked by the plain 12-month return (adjusted
+  closes; was the average overnight return) and re-picked DAILY - the evening run's `portfolio prepare` ranks on that
+  close (journal/overnight/scan_cache.json) and the next afternoon's buy uses it; without a newer ranking it keeps the
+  held picks (it never ranks inside the buy window, except the very first pick). Watchlist cohort monthly. Active from data/portfolio/overnight_live.json
   (2026-10-21); from then `methods.preset("desk")` = quality 50% + momentum 20% (SPY momentum dropped, no rescaling).
   Journal in journal/overnight/ - commit it with data/portfolio/. Paper fills can't measure real auction costs.
   Regime checks (`overnight regime`): no buys - cash for the night - when SPY is below its 200-day average (amendment
-  7a8b29ec) or tonight's 20 picks are down 1.9%+ since today's open (`PICKS_DAY_CUTOFF`, amendment 9b951502, accepted
+  7a8b29ec) or tonight's 20 picks are down 2.0%+ since today's open (`PICKS_DAY_CUTOFF`, amendment 9b951502, accepted
   2026-10-23; replaced 7a8b29ec's tech-vs-defensive test - `research/overnight_picks_check.py`). Checked at the buy,
   after the picks are set. A failed check buys as usual and says so. Never switch to defensive stocks instead.
   Its fills are also trade-journal lines (sleeve overnight_drift): the buys from `confirm_book`, the next-open sale as

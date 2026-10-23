@@ -71,7 +71,8 @@ def _brief(r: dict) -> str:
         parts = [("6-month", n("mom_6m", "{:+.0%}")), ("above 200-day", {True: "yes", False: "no"}.get(r.get("above_200"))),
                  ("above 100-day", {True: "yes", False: "no"}.get(r.get("above_100")))]
     elif r.get("sleeve") == "overnight_drift":
-        parts = [("overnight", n("overnight_yr", "{:+.0%}/yr")), ("price", n("close", "${:,.0f}"))]
+        parts = [("12 months", n("ret_12m", "{:+.0%}")), ("overnight", n("overnight_yr", "{:+.0%}/yr")),
+                 ("price", n("close", "${:,.0f}"))]
     else:
         parts = [("Q", n("quality_score")), ("G", n("growth_score")), ("V", n("value_score")),
                  ("M", n("momentum_score")), ("P/E", n("forward_pe"))]
@@ -139,12 +140,16 @@ def tables() -> dict[str, list[dict]]:
     from ai_desk import overnight, scorecard
     smap = scorecard.sleeve_map()                           # labels as of now (the snapshot's may predate a buy)
     lock = overnight.load_lock() or {}
-    on_rank = {r["symbol"]: (k + 1, r.get("overnight_yr")) for k, r in enumerate(lock.get("rows", []))}
+    on_rank = {r["symbol"]: (k + 1, r) for k, r in enumerate(lock.get("rows", []))}
 
     def on_why(sym):
-        k, yr = on_rank.get(sym, (None, None))
-        return (f"overnight #{k} of {len(on_rank)}" + (f" · {yr:+.0%}/yr overnight (12 months)" if yr is not None else "")
-                if k else "overnight sleeve")
+        k, r = on_rank.get(sym, (None, {}))
+        if not k:
+            return "overnight sleeve"
+        if r.get("ret_12m") is not None:
+            return f"overnight #{k} of {len(on_rank)} · {r['ret_12m']:+.0%} over 12 months"
+        yr = r.get("overnight_yr")                          # picks before 2026-10-23 (average overnight return)
+        return f"overnight #{k} of {len(on_rank)}" + (f" · {yr:+.0%}/yr overnight (12 months)" if yr is not None else "")
 
     positions = [{
         "symbol": r["symbol"], "sleeve": r["sleeve"] or smap.get(r["symbol"], ""), "target": r["target"] or 0.0,

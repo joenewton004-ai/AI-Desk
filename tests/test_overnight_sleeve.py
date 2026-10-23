@@ -144,3 +144,23 @@ def test_buy_stays_in_cash_when_a_check_fires(monkeypatch):
             raise AssertionError("no orders on a cash night")
     out = ov.buy(execute=True, now=datetime(2026, 10, 23, 19, 56, tzinfo=timezone.utc), broker=B())
     assert out["sent"] == 0 and "in cash tonight" in out["blocked"]
+
+
+def test_v2_ranks_on_the_12_month_return_and_repicks_daily():
+    idx = pd.bdate_range("2025-01-01", periods=260)
+    adj = pd.DataFrame({"A": np.linspace(100, 200, 260), "B": np.linspace(100, 110, 260)}, index=idx)
+    r = ov.twelve_month_return(adj)
+    assert np.isnan(r.iloc[251]["A"]) and abs(r.iloc[-1]["A"] - (200 / adj["A"].iloc[-253] - 1)) < 1e-12
+    cut = ov.twelve_month_return(adj.iloc[:255])                       # no lookahead: same values on the shorter history
+    assert np.allclose(cut.iloc[-1], r.iloc[254])
+    lock = {"ref_date": "2026-10-22", "picks": ["A"]}
+    assert ov.repick_due(lock, pd.Timestamp("2026-10-23")) and not ov.repick_due(lock, pd.Timestamp("2026-10-22"))
+    assert ov.new_month(lock, "2026-11-02") and not ov.new_month(lock, "2026-10-23")
+
+
+def test_buy_uses_the_evening_ranking_only_if_newer_than_the_picks():
+    ov.DIR.mkdir(parents=True, exist_ok=True)
+    (ov.DIR / "scan_cache.json").write_text('{"ref_date": "2026-10-23", "picks": ["B"], "rows": [], "latest_price": {}}')
+    assert ov._newer_ranking({"ref_date": "2026-10-22"}, "2026-10-26")["picks"] == ["B"]   # Monday, after a Friday rank
+    assert ov._newer_ranking({"ref_date": "2026-10-23"}, "2026-10-26") is None              # already held
+    assert ov._newer_ranking({"ref_date": "2026-10-22"}, "2026-10-23") is None              # ranked on today: not yet
