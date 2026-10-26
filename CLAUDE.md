@@ -31,6 +31,8 @@ changes plainly and be honest about whether a strategy has a real edge.
 - ICT day trading (Silver Bullet on 5-min, Judas swing on 1h; with/without a quality-score side filter):
   `python research/ict.py` -> `research/ICT.md`. No edge; research-only. Yahoo keeps only 60 days of 5-min bars
   (cached in data/backtest/intraday_*.pkl); data.alpaca.markets is blocked by the network policy here.
+- TJR's model (NQ/ES futures, New York-open liquidity sweep + break of structure / inverse FVG): `python research/tjr.py`
+  -> `research/TJR.md` (bars cached in data/backtest/futures_intraday.pkl: 5m ~60 days, 1h 2 years). No edge; research-only.
 - Peter Lynch's rules (PEG, Lynch ratio, categories, debt, inventory, buybacks) on point-in-time SEC data:
   `python research/lynch.py` -> `research/LYNCH.md` (features cached in data/backtest/lynch_features.pkl; ~30 min
   first run). No edge vs the equal-weight universe; research-only. Jim Simons/Medallion: desk research only

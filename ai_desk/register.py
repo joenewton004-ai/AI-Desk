@@ -270,6 +270,19 @@ RESEARCH_METHODS = {
                    "+0.52%/month vs the universe (t 2.0) is the only lead.",
         "docs": ["research/MINERVINI.md", "research/output/minervini.md"],
     },
+    "tjr_model": {
+        "description": "TJR's ICT-style index-futures day trading (NQ/ES, New York open) as fixed rules: a sweep of the "
+                       "prior day / Asia / London / overnight high or low between 9:30 and 11:00, a break of structure "
+                       "(or inverse FVG) within 30 minutes, entry next bar, stop beyond the sweep, 2R/3R/opposite-"
+                       "liquidity target; optional 1-hour 50-period bias.",
+        "parameters": {"instruments": "NQ=F, ES=F", "window": "9:30-11:00 New York", "confirm": "30 minutes",
+                       "stop": "beyond the sweep", "target": "2R / 3R / opposite liquidity", "bars": "5m (60 days), 1h (2 years)"},
+        "status": "tested: no edge (not in the live mix)",
+        "summary": "5-minute bars, 49 days, 76 trades: -0.18R to +0.05R a trade after costs (t -1.0 to 0.3), inside the "
+                   "random-direction range (-0.26R to +0.12R). Hourly bars, 2024-2026, 264 trades: -0.06R (t -1.3). Same "
+                   "result as the ICT test. His rules aren't published; discretion can't be tested.",
+        "docs": ["research/TJR.md", "research/output/tjr.md"],
+    },
     "leveraged_spy": {
         "description": "A 2x/3x S&P 500 fund (SSO/UPRO, simulated back to 1994 and checked against the real funds) "
                        "traded on SPY's signals with strict risk rules: SPY above its 200-day average, leverage capped "
