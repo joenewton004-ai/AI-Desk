@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-23T20:39:57+00:00",
+ "generated_utc": "2026-10-26T11:35:20+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -509,6 +509,27 @@
    "docs": [
     "research/MINERVINI.md",
     "research/output/minervini.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "tjr_model",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "TJR's ICT-style index-futures day trading (NQ/ES, New York open) as fixed rules: a sweep of the prior day / Asia / London / overnight high or low between 9:30 and 11:00, a break of structure (or inverse FVG) within 30 minutes, entry next bar, stop beyond the sweep, 2R/3R/opposite-liquidity target; optional 1-hour 50-period bias.",
+   "parameters": {
+    "instruments": "NQ=F, ES=F",
+    "window": "9:30-11:00 New York",
+    "confirm": "30 minutes",
+    "stop": "beyond the sweep",
+    "target": "2R / 3R / opposite liquidity",
+    "bars": "5m (60 days), 1h (2 years)"
+   },
+   "status": "tested: no edge (not in the live mix)",
+   "evidence_summary": "5-minute bars, 49 days, 76 trades: -0.18R to +0.05R a trade after costs (t -1.0 to 0.3), inside the random-direction range (-0.26R to +0.12R). Hourly bars, 2024-2026, 264 trades: -0.06R (t -1.3). Same result as the ICT test. His rules aren't published; discretion can't be tested.",
+   "docs": [
+    "research/TJR.md",
+    "research/output/tjr.md"
    ],
    "amendments": []
   },

@@ -22,5 +22,13 @@
   "author": "owner",
   "kind": "note",
   "text": "Owner decision 2026-10-21: no rebalancing between sleeves for now. Sleeves drift between re-picks (quality every 3 months, momentum every 28 days); overnight buys 30% of equity daily, capped by cash less 1%, so it is squeezed when quality+momentum grow above 70%. Known gap: research/DESK_OVERNIGHT.md combined sleeves at fixed 50/20/30 monthly (an implied monthly rebalance). Reassess with more live data: track each sleeve's share of equity vs target; options = keep, monthly sleeve rebalance, or ~3-point drift bands (each needs an amendment + backtest)."
+ },
+ {
+  "id": "024e0c90",
+  "date": "2026-10-26",
+  "target": "research_backlog",
+  "author": "owner",
+  "kind": "note",
+  "text": "TO DO (owner, 2026-10-24): look at Quiver Quantitative for insider (open-market purchases) and congressional buys as a buy signal. Needs api.quiverquant.com allowed in the environment's network settings and a QUIVER_API_KEY secret (never pasted in chat); check the plan includes HISTORICAL data for a backtest. Test on disclosure dates (Congress up to 45 days late; Form 4 within 2 business days) vs the equal-weight universe. Free alternative for insiders: SEC Form 4 via www.sec.gov (currently blocked; only data.sec.gov allowed)."
  }
 ]
