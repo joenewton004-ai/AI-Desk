@@ -283,6 +283,28 @@ RESEARCH_METHODS = {
                    "result as the ICT test. His rules aren't published; discretion can't be tested.",
         "docs": ["research/TJR.md", "research/output/tjr.md"],
     },
+    "soros_macro_trend": {
+        "description": "The rule-based core of George Soros-style global macro: follow each market's trend across asset "
+                       "classes (SPY, QQQ, IWM, DIA, EFA, EEM, TLT, IEF, GLD) - hold markets whose 12-month return beat "
+                       "T-bills; variants long/short, volatility-sized, top 3, 3-month trend. His discretionary bets "
+                       "aren't public or testable.",
+        "parameters": {"markets": "9 ETFs", "trend": "12 months vs T-bills", "rebalance": "monthly", "costs": "0.05%"},
+        "status": "tested: risk control, no return edge (not in the live mix)",
+        "summary": "2006-2026: long-only trend 7.3%/yr, Sharpe 0.79, worst drop -9% (2008 -1%, 2022 -7%) vs SPY 11.1%, "
+                   "0.67, -51% and 60/40 8.2%, 0.72, -29%; both halves. Long/short: Sharpe 0.40 (+25% in 2008).",
+        "docs": ["research/SOROS.md", "research/output/soros.md"],
+    },
+    "cameron_gap_and_go": {
+        "description": "Ross Cameron (Warrior Trading)-style gap-and-go day trading, tested on the 750 largest US stocks "
+                       "(no small-cap history available): buy gap-ups at the open, sell at the close; 5-minute first-"
+                       "pullback entries on gap-ups.",
+        "parameters": {"gap": "4% / 10% / 20%", "hold": "open to close", "costs": "0.10% each way"},
+        "status": "tested: no edge on large caps; his small-cap universe untestable here (not in the live mix)",
+        "summary": "2014-2026: gaps of 4%+ -0.13% a trade after costs (t -4.1), 10%+ -0.35%; 5-minute first pullback "
+                   "-0.44% (144 trades). Only with hindsight (5x full-day volume) +1.5%. FTC settlement 2022 ($3m) over "
+                   "advertising of his results.",
+        "docs": ["research/CAMERON.md", "research/output/cameron.md"],
+    },
     "leveraged_spy": {
         "description": "A 2x/3x S&P 500 fund (SSO/UPRO, simulated back to 1994 and checked against the real funds) "
                        "traded on SPY's signals with strict risk rules: SPY above its 200-day average, leverage capped "

@@ -164,3 +164,46 @@ def test_buy_uses_the_evening_ranking_only_if_newer_than_the_picks():
     assert ov._newer_ranking({"ref_date": "2026-10-22"}, "2026-10-26")["picks"] == ["B"]   # Monday, after a Friday rank
     assert ov._newer_ranking({"ref_date": "2026-10-23"}, "2026-10-26") is None              # already held
     assert ov._newer_ranking({"ref_date": "2026-10-22"}, "2026-10-23") is None              # ranked on today: not yet
+
+
+def test_opg_group_takes_half_of_the_overnight_only_holdings():
+    book = {f"S{i}": 10.0 for i in range(40)} | {"MIX": 5.0, "FRAC": 2.5}
+    pos = {s: q for s, q in book.items()} | {"MIX": 12.0}            # MIX: the desk holds more than the sleeve's 5
+    targets = pd.Series({"KEEP": 0.02})
+    g = ov.opg_group(book, pos, targets, "2026-10-27")
+    assert "MIX" not in g and "FRAC" not in g and 10 <= len(g) <= 30  # a coin-flip half of the 40
+    assert g == ov.opg_group(book, pos, targets, "2026-10-27")        # fixed for the day
+    assert g != ov.opg_group(book, pos, targets, "2026-10-28")        # and different the next
+
+
+def test_market_on_open_sales_flow(tmp_path, monkeypatch):
+    monkeypatch.setattr(ov, "BOOK", tmp_path / "book.json")
+    ov.BOOK.write_text('{"date": "2026-10-26", "holdings": {"A": 3.0, "B": 2.0}, "costs": {"A": 10.0}, "sell_sent": true}')
+    ov.queue_opg({"A": 3.0}, "2026-10-26")
+    sent = []
+
+    class B:
+        def submit_market_order(self, sym, qty, side, time_in_force="day"):
+            sent.append((sym, qty, side, time_in_force))
+            return {"id": "o1"}
+
+        def get_order(self, oid):
+            return {"status": "canceled", "filled_qty": "1"}
+    late = ov.open_sell(execute=True, now=datetime(2026, 10, 27, 13, 40, tzinfo=timezone.utc), broker=B())  # 9:40am
+    assert late["sent"] == 0 and "9:28" in late["blocked"] and not sent
+    out = ov.open_sell(execute=True, now=datetime(2026, 10, 27, 13, 5, tzinfo=timezone.utc), broker=B())    # 9:05am
+    assert out["sent"] == 1 and sent == [("A", 3, "sell", "opg")]
+    assert ov.open_sell(execute=True, now=datetime(2026, 10, 27, 13, 6, tzinfo=timezone.utc), broker=B())["sent"] == 0
+    assert ov.unsold_opg(B()) == {"A": 2.0}                           # the auction sold 1 of 3: 2 go out tonight
+    assert ov.unsold_opg(B()) == {}                                   # counted once
+
+
+def test_opg_ab_compares_like_with_like():
+    fills = [{"kind": "sell_opg", "fill_date": "2026-10-27", "qty": 10, "filled_qty": 10, "cost": 0.0005},
+             {"kind": "sell_opg", "fill_date": "2026-10-27", "qty": 10, "filled_qty": 5, "cost": 0.0015},
+             {"kind": "sell_open", "fill_date": "2026-10-27", "qty": 4, "filled_qty": 4, "cost": 0.005},
+             {"kind": "sell_open", "fill_date": "2026-10-27", "qty": 4, "filled_qty": 9, "cost": 0.02},   # shared order
+             {"kind": "sell_open", "fill_date": "2026-10-26", "qty": 4, "filled_qty": 4, "cost": 0.01}]   # before the test
+    ab = ov.opg_ab(fills)
+    assert abs(ab["opg_cost"] - 0.001) < 1e-12 and abs(ab["market_cost"] - 0.005) < 1e-12
+    assert ab["market_sales"] == 1 and abs(ab["opg_fill_rate"] - 0.75) < 1e-12

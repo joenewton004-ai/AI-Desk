@@ -152,7 +152,7 @@
   "evidence": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
   "parameters": "stocks=20; ranking=plain 12-month return (82c84226; was average overnight return); look_back=12 months; re_pick=daily (82c84226; was monthly); hold=close to next open, daily; orders=market buy at 3:55-3:59pm (market-on-close until 2026-10-21: paper filled only part), market sell at the open; regime=cash for the night when SPY < its 200-day average (7a8b29ec) or tonight's picks are down 2.0%+ since the open (9b951502, 82c84226)",
   "docs": "research/OVERNIGHT.md, research/output/overnight.md, ai_desk/overnight.py",
-  "open_amendments": 0,
+  "open_amendments": 1,
   "notes": ""
  },
  {
@@ -188,6 +188,30 @@
   "evidence": "5-minute bars, 49 days, 76 trades: -0.18R to +0.05R a trade after costs (t -1.0 to 0.3), inside the random-direction range (-0.26R to +0.12R). Hourly bars, 2024-2026, 264 trades: -0.06R (t -1.3). Same result as the ICT test. His rules aren't published; discretion can't be tested.",
   "parameters": "instruments=NQ=F, ES=F; window=9:30-11:00 New York; confirm=30 minutes; stop=beyond the sweep; target=2R / 3R / opposite liquidity; bars=5m (60 days), 1h (2 years)",
   "docs": "research/TJR.md, research/output/tjr.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
+  "method": "soros_macro_trend",
+  "live": false,
+  "allocation": 0.0,
+  "status": "tested: risk control, no return edge (not in the live mix)",
+  "description": "The rule-based core of George Soros-style global macro: follow each market's trend across asset classes (SPY, QQQ, IWM, DIA, EFA, EEM, TLT, IEF, GLD) - hold markets whose 12-month return beat T-bills; variants long/short, volatility-sized, top 3, 3-month trend. His discretionary bets aren't public or testable.",
+  "evidence": "2006-2026: long-only trend 7.3%/yr, Sharpe 0.79, worst drop -9% (2008 -1%, 2022 -7%) vs SPY 11.1%, 0.67, -51% and 60/40 8.2%, 0.72, -29%; both halves. Long/short: Sharpe 0.40 (+25% in 2008).",
+  "parameters": "markets=9 ETFs; trend=12 months vs T-bills; rebalance=monthly; costs=0.05%",
+  "docs": "research/SOROS.md, research/output/soros.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
+  "method": "cameron_gap_and_go",
+  "live": false,
+  "allocation": 0.0,
+  "status": "tested: no edge on large caps; his small-cap universe untestable here (not in the live mix)",
+  "description": "Ross Cameron (Warrior Trading)-style gap-and-go day trading, tested on the 750 largest US stocks (no small-cap history available): buy gap-ups at the open, sell at the close; 5-minute first-pullback entries on gap-ups.",
+  "evidence": "2014-2026: gaps of 4%+ -0.13% a trade after costs (t -4.1), 10%+ -0.35%; 5-minute first pullback -0.44% (144 trades). Only with hindsight (5x full-day volume) +1.5%. FTC settlement 2022 ($3m) over advertising of his results.",
+  "parameters": "gap=4% / 10% / 20%; hold=open to close; costs=0.10% each way",
+  "docs": "research/CAMERON.md, research/output/cameron.md",
   "open_amendments": 0,
   "notes": ""
  },

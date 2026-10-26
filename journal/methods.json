@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-26T14:18:55+00:00",
+ "generated_utc": "2026-10-26T20:58:16+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "quality_screen": 0.5,
@@ -469,6 +469,17 @@
      "status": "accepted",
      "evidence": "Owner: 'Change overnight to add both small improvements' (2026-10-23).",
      "decided_utc": "2026-10-23T19:37:44+00:00"
+    },
+    {
+     "id": "e43f2959",
+     "created_utc": "2026-10-26T20:57:39+00:00",
+     "method": "overnight_drift",
+     "proposal": "Sell the overnight shares with market-on-open orders (the opening auction, which fills at the official open) instead of ordinary market orders at the open. Tested first as a live A/B test on paper: each evening, a fixed coin-flip half of the overnight-only holdings is left out of the evening run's orders and sold by a 9:05am market-on-open run; unfilled shares go out with the next evening's orders.",
+     "rationale": "Live paper fills 2026-10-22 to 10-26: the overnight sales filled 0.45-0.68% below the official open each morning (49 sales), buys about 0.00% - about ten times the research's break-even of ~0.045% per trade, and roughly half of the sleeve's -$954 so far. Paper fills are simulated, so this tests the mechanics. Decision rule fixed in advance: after 10 trading days, adopt market-on-open for all overnight-only sales if its average cost vs the official open is at least 0.10 points lower than market orders' and at least 95% of its shares filled; otherwise keep market orders.",
+     "author": "you",
+     "status": "testing",
+     "evidence": "Owner: 'Propose the market-on-open change and test it' (2026-10-26). Live A/B test from the 2026-10-27 evening run (first market-on-open sales 2026-10-28, 9:05am run); judged after 10 trading days by the rule above.",
+     "decided_utc": null
     }
    ]
   },
@@ -530,6 +541,43 @@
    "docs": [
     "research/TJR.md",
     "research/output/tjr.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "soros_macro_trend",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "The rule-based core of George Soros-style global macro: follow each market's trend across asset classes (SPY, QQQ, IWM, DIA, EFA, EEM, TLT, IEF, GLD) - hold markets whose 12-month return beat T-bills; variants long/short, volatility-sized, top 3, 3-month trend. His discretionary bets aren't public or testable.",
+   "parameters": {
+    "markets": "9 ETFs",
+    "trend": "12 months vs T-bills",
+    "rebalance": "monthly",
+    "costs": "0.05%"
+   },
+   "status": "tested: risk control, no return edge (not in the live mix)",
+   "evidence_summary": "2006-2026: long-only trend 7.3%/yr, Sharpe 0.79, worst drop -9% (2008 -1%, 2022 -7%) vs SPY 11.1%, 0.67, -51% and 60/40 8.2%, 0.72, -29%; both halves. Long/short: Sharpe 0.40 (+25% in 2008).",
+   "docs": [
+    "research/SOROS.md",
+    "research/output/soros.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "cameron_gap_and_go",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Ross Cameron (Warrior Trading)-style gap-and-go day trading, tested on the 750 largest US stocks (no small-cap history available): buy gap-ups at the open, sell at the close; 5-minute first-pullback entries on gap-ups.",
+   "parameters": {
+    "gap": "4% / 10% / 20%",
+    "hold": "open to close",
+    "costs": "0.10% each way"
+   },
+   "status": "tested: no edge on large caps; his small-cap universe untestable here (not in the live mix)",
+   "evidence_summary": "2014-2026: gaps of 4%+ -0.13% a trade after costs (t -4.1), 10%+ -0.35%; 5-minute first pullback -0.44% (144 trades). Only with hindsight (5x full-day volume) +1.5%. FTC settlement 2022 ($3m) over advertising of his results.",
+   "docs": [
+    "research/CAMERON.md",
+    "research/output/cameron.md"
    ],
    "amendments": []
   },

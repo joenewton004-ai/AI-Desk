@@ -1,6 +1,6 @@
 {
- "asof_utc": "2026-10-26T13:57:25+00:00",
- "equity": 97461.41,
+ "asof_utc": "2026-10-26T17:34:49+00:00",
+ "equity": 97656.38,
  "by_sleeve": {
   "bottleneck": {
    "open_positions": 0,
@@ -23,7 +23,7 @@
   "momentum": {
    "open_positions": 17,
    "invested": 17561.74,
-   "unrealized_pnl": -198.05,
+   "unrealized_pnl": 55.58,
    "realized_pnl": -251.9,
    "closed_trades": 1,
    "win_rate": 0.0,
@@ -41,7 +41,7 @@
   "quality_screen": {
    "open_positions": 25,
    "invested": 49701.43,
-   "unrealized_pnl": -1074.73,
+   "unrealized_pnl": -1133.68,
    "realized_pnl": -0.0,
    "closed_trades": 1,
    "win_rate": 0.0,
@@ -76,9 +76,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 1289.22,
-   "unrealized_pnl": 38.77412699999994,
-   "return": 0.019202643624548266,
+   "price": 1280.74,
+   "unrealized_pnl": 25.237502999999915,
+   "return": 0.012498715343931988,
    "held_days": 6
   },
   {
@@ -108,9 +108,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 76.81,
-   "unrealized_pnl": -62.107749999999996,
-   "return": -0.03152187618207036,
+   "price": 77.07,
+   "unrealized_pnl": -55.64854400000023,
+   "return": -0.02824360105913515,
    "held_days": 6
   },
   {
@@ -140,9 +140,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 235.13,
-   "unrealized_pnl": -244.91221300000012,
-   "return": -0.12526041666666676,
+   "price": 240.01,
+   "unrealized_pnl": -209.41558100000015,
+   "return": -0.10710565476190481,
    "held_days": 6
   },
   {
@@ -172,9 +172,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 179.8625,
-   "unrealized_pnl": 115.24896075000018,
-   "return": 0.058762067341653124,
+   "price": 183.68,
+   "unrealized_pnl": 159.32238000000012,
+   "return": 0.08123381210266079,
    "held_days": 6
   },
   {
@@ -204,9 +204,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 1231.1,
-   "unrealized_pnl": -265.07784599999997,
-   "return": -0.1373535512080274,
+   "price": 1262.15,
+   "unrealized_pnl": -223.08893099999975,
+   "return": -0.11559644598912477,
    "held_days": 6
   },
   {
@@ -236,9 +236,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 671.98,
-   "unrealized_pnl": 115.35033000000007,
-   "return": 0.05677171793420155,
+   "price": 675.52,
+   "unrealized_pnl": 126.66169199999996,
+   "return": 0.0623388060640373,
    "held_days": 6
   },
   {
@@ -268,9 +268,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 618.69,
-   "unrealized_pnl": 2.7878586804000527,
-   "return": 0.0014048122165191135,
+   "price": 613.41,
+   "unrealized_pnl": -14.172029319600226,
+   "return": -0.0071413375652832345,
    "held_days": 6
   },
   {
@@ -300,9 +300,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 756.72,
-   "unrealized_pnl": -86.00915699999987,
-   "return": -0.04291405805350024,
+   "price": 689.13,
+   "unrealized_pnl": -257.34304799999995,
+   "return": -0.1284006829823563,
    "held_days": 6
   },
   {
@@ -332,9 +332,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 660.745,
-   "unrealized_pnl": -133.6262625,
-   "return": -0.06821835514440433,
+   "price": 665.55,
+   "unrealized_pnl": -120.35341100000015,
+   "return": -0.06144235108303253,
    "held_days": 6
   },
   {
@@ -364,9 +364,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 630.11,
-   "unrealized_pnl": -170.66426756079994,
-   "return": -0.08800783581189597,
+   "price": 639.63,
+   "unrealized_pnl": -143.9444835608,
+   "return": -0.07422902671019826,
    "held_days": 6
   },
   {
@@ -412,9 +412,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 214.4901,
-   "unrealized_pnl": -15.756274288799858,
-   "return": -0.007989856591169575,
+   "price": 216.01,
+   "unrealized_pnl": -1.8938743488000551,
+   "return": -0.0009603656404587602,
    "held_days": 6
   },
   {
@@ -444,9 +444,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 318.32,
-   "unrealized_pnl": -139.87169803439997,
-   "return": -0.07096113113202385,
+   "price": 318.555,
+   "unrealized_pnl": -138.51979003439988,
+   "return": -0.07027526742825418,
    "held_days": 6
   },
   {
@@ -476,9 +476,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 620.355,
-   "unrealized_pnl": 122.84140088759997,
-   "return": 0.05971982029824918,
+   "price": 617.925,
+   "unrealized_pnl": 114.30286688759975,
+   "return": 0.0555687790987347,
    "held_days": 6
   },
   {
@@ -508,9 +508,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 400.295,
-   "unrealized_pnl": -53.534173787999784,
-   "return": -0.026470810608613116,
+   "price": 397.695,
+   "unrealized_pnl": -66.3222737879999,
+   "return": -0.03279408692337504,
    "held_days": 6
   },
   {
@@ -540,9 +540,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 261.11,
-   "unrealized_pnl": 70.78903349960008,
-   "return": 0.03501742082450687,
+   "price": 254.23,
+   "unrealized_pnl": 15.6582174995999,
+   "return": 0.007745696818254322,
    "held_days": 6
   },
   {
@@ -572,9 +572,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 201.98,
-   "unrealized_pnl": -2.3046363711999693,
-   "return": -0.0011572689402499226,
+   "price": 202.46,
+   "unrealized_pnl": 2.42249962880021,
+   "return": 0.0012164537595653613,
    "held_days": 6
   },
   {
@@ -604,9 +604,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 116.42,
-   "unrealized_pnl": 72.3631115104,
-   "return": 0.03601937329531113,
+   "price": 114.765,
+   "unrealized_pnl": 42.774856010399986,
+   "return": 0.021291559665318482,
    "held_days": 6
   },
   {
@@ -636,9 +636,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 113.77,
-   "unrealized_pnl": -17.174573222400063,
-   "return": -0.008560488040958103,
+   "price": 113.2,
+   "unrealized_pnl": -27.140111222399945,
+   "return": -0.013527707183233262,
    "held_days": 6
   },
   {
@@ -668,9 +668,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 148.15,
-   "unrealized_pnl": -183.22833406699985,
-   "return": -0.09415323575342871,
+   "price": 150.4,
+   "unrealized_pnl": -156.45558406699988,
+   "return": -0.08039585998863097,
    "held_days": 6
   },
   {
@@ -700,9 +700,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 406.27,
-   "unrealized_pnl": 6.1644092053000294,
-   "return": 0.0030972463831249186,
+   "price": 403.7,
+   "unrealized_pnl": -6.4648277946999375,
+   "return": -0.003248188729496393,
    "held_days": 6
   },
   {
@@ -732,9 +732,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 79.12,
-   "unrealized_pnl": -191.20592448799982,
-   "return": -0.09623263913102709,
+   "price": 79.47,
+   "unrealized_pnl": -183.26232448799996,
+   "return": -0.09223467936985252,
    "held_days": 6
   },
   {
@@ -764,9 +764,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 588.25,
-   "unrealized_pnl": 134.00490399999995,
-   "return": 0.06665578704962916,
+   "price": 588.675,
+   "unrealized_pnl": 135.5541989999998,
+   "return": 0.06742642658978393,
    "held_days": 6
   },
   {
@@ -796,9 +796,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 174.025,
-   "unrealized_pnl": -75.07441730939985,
-   "return": -0.03833305300716494,
+   "price": 178.83,
+   "unrealized_pnl": -23.07182430939977,
+   "return": -0.011780490557513512,
    "held_days": 6
   },
   {
@@ -828,9 +828,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 153.72,
-   "unrealized_pnl": -127.98235605350004,
-   "return": -0.06399610034909253,
+   "price": 151.9652,
+   "unrealized_pnl": -149.3507311334999,
+   "return": -0.07468110973698872,
    "held_days": 6
   },
   {
@@ -860,9 +860,9 @@
     }
    },
    "handed_over_from": null,
-   "price": 45.25,
-   "unrealized_pnl": 15.477384708799963,
-   "return": 0.007722292848151513,
+   "price": 45.37,
+   "unrealized_pnl": 20.833560708799848,
+   "return": 0.010394705558466999,
    "held_days": 6
   },
   {
@@ -880,10 +880,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 256.205,
-   "unrealized_pnl": 82.8021759999999,
-   "return": 0.07921229991575385,
-   "held_days": 4
+   "price": 260.25,
+   "unrealized_pnl": 100.61311999999998,
+   "return": 0.09625105307497894,
+   "held_days": 5
   },
   {
    "trade_id": "4dcb3c8e",
@@ -900,10 +900,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 126.98,
-   "unrealized_pnl": -3.7550649999999908,
-   "return": -0.0036877206747744085,
-   "held_days": 4
+   "price": 125.68,
+   "unrealized_pnl": -14.141414999999968,
+   "return": -0.013887799136916401,
+   "held_days": 5
   },
   {
    "trade_id": "44691d18",
@@ -920,10 +920,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 270.765,
-   "unrealized_pnl": -12.825297000000097,
-   "return": -0.011986863711001772,
-   "held_days": 4
+   "price": 281.68,
+   "unrealized_pnl": 29.78904599999998,
+   "return": 0.02784163473818646,
+   "held_days": 5
   },
   {
    "trade_id": "f777b5d8",
@@ -940,10 +940,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 425.19,
-   "unrealized_pnl": -13.16485000000001,
-   "return": -0.01304519393700243,
-   "held_days": 4
+   "price": 420.95,
+   "unrealized_pnl": -23.09705000000003,
+   "return": -0.022887119611893936,
+   "held_days": 5
   },
   {
    "trade_id": "70508bd5",
@@ -960,10 +960,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 98.31,
-   "unrealized_pnl": 15.17404000000006,
-   "return": 0.014446393561036164,
-   "held_days": 4
+   "price": 100.515,
+   "unrealized_pnl": 39.07315300000004,
+   "return": 0.03719946341966773,
+   "held_days": 5
   },
   {
    "trade_id": "4eb3d30c",
@@ -980,10 +980,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 57.375,
-   "unrealized_pnl": -11.344237551999967,
-   "return": -0.010955936298494562,
-   "held_days": 4
+   "price": 59.12,
+   "unrealized_pnl": 19.802616447999988,
+   "return": 0.019124793830640474,
+   "held_days": 5
   },
   {
    "trade_id": "bb2e7c36",
@@ -1000,10 +1000,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 197.17,
-   "unrealized_pnl": -201.94134800000006,
-   "return": -0.1984959349593497,
-   "held_days": 4
+   "price": 195.705,
+   "unrealized_pnl": -208.00000199999997,
+   "return": -0.20445121951219503,
+   "held_days": 5
   },
   {
    "trade_id": "e76d38f2",
@@ -1020,10 +1020,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 270.8,
-   "unrealized_pnl": -22.681161999999976,
-   "return": -0.021923646476685765,
-   "held_days": 4
+   "price": 270.16,
+   "unrealized_pnl": -25.072585999999923,
+   "return": -0.0242352006356773,
+   "held_days": 5
   },
   {
    "trade_id": "6e12a163",
@@ -1040,10 +1040,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 125.23,
-   "unrealized_pnl": -60.21869099999999,
-   "return": -0.05728696175850645,
-   "held_days": 4
+   "price": 133.815,
+   "unrealized_pnl": 7.715272499999955,
+   "return": 0.007339656729900668,
+   "held_days": 5
   },
   {
    "trade_id": "68e798e3",
@@ -1060,10 +1060,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 81.79,
-   "unrealized_pnl": -42.2177,
-   "return": -0.04103646382928827,
-   "held_days": 4
+   "price": 81.3116,
+   "unrealized_pnl": -47.988256480000096,
+   "return": -0.04664556219955451,
+   "held_days": 5
   },
   {
    "trade_id": "aca8f0ea",
@@ -1080,10 +1080,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 213.0,
-   "unrealized_pnl": 44.11885500000006,
-   "return": 0.04181951577402798,
-   "held_days": 4
+   "price": 221.265,
+   "unrealized_pnl": 86.76708149999999,
+   "return": 0.08224504768892138,
+   "held_days": 5
   },
   {
    "trade_id": "22748372",
@@ -1100,10 +1100,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 132.87,
-   "unrealized_pnl": 113.92917600000006,
-   "return": 0.1088208295084705,
-   "held_days": 4
+   "price": 135.6025,
+   "unrealized_pnl": 137.80275524999996,
+   "return": 0.13162396728698988,
+   "held_days": 5
   },
   {
    "trade_id": "3d2391fd",
@@ -1120,10 +1120,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 218.9275,
-   "unrealized_pnl": 14.827594206900104,
-   "return": 0.01440914375944935,
-   "held_days": 4
+   "price": 223.715,
+   "unrealized_pnl": 37.65487295690007,
+   "return": 0.03659221247282862,
+   "held_days": 5
   },
   {
    "trade_id": "4032c6fe",
@@ -1140,10 +1140,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 326.565,
-   "unrealized_pnl": 6.468405999999993,
-   "return": 0.006363636363636349,
-   "held_days": 4
+   "price": 334.085,
+   "unrealized_pnl": 30.024053999999936,
+   "return": 0.029537750385207895,
+   "held_days": 5
   },
   {
    "trade_id": "b059d0e5",
@@ -1160,10 +1160,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 221.66,
-   "unrealized_pnl": -14.534559000000035,
-   "return": -0.01427491439498385,
-   "held_days": 4
+   "price": 221.27,
+   "unrealized_pnl": -16.300439999999973,
+   "return": -0.016009249788766833,
+   "held_days": 5
   },
   {
    "trade_id": "66439ee1",
@@ -1180,10 +1180,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 260.36,
-   "unrealized_pnl": -34.985703999999856,
-   "return": -0.03355605048255372,
-   "held_days": 4
+   "price": 262.94,
+   "unrealized_pnl": -25.00084599999992,
+   "return": -0.023979213066072647,
+   "held_days": 5
   },
   {
    "trade_id": "1c5d6293",
@@ -1200,10 +1200,10 @@
     }
    },
    "handed_over_from": null,
-   "price": 31.45,
-   "unrealized_pnl": -57.70219600000004,
-   "return": -0.05810122791254868,
-   "held_days": 4
+   "price": 30.9,
+   "unrealized_pnl": -74.06106600000007,
+   "return": -0.07457322551662182,
+   "held_days": 5
   }
  ],
  "closed": [

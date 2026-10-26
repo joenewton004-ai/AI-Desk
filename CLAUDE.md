@@ -33,6 +33,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   (cached in data/backtest/intraday_*.pkl); data.alpaca.markets is blocked by the network policy here.
 - TJR's model (NQ/ES futures, New York-open liquidity sweep + break of structure / inverse FVG): `python research/tjr.py`
   -> `research/TJR.md` (bars cached in data/backtest/futures_intraday.pkl: 5m ~60 days, 1h 2 years). No edge; research-only.
+- George Soros (desk research + cross-asset trend on 9 ETFs): `python research/soros.py` -> `research/SOROS.md`.
+  Long-only trend: Sharpe 0.79, worst -9% vs SPY 0.67/-51% - risk control, not return. Research-only.
+- Ross Cameron gap-and-go (large caps only - no small-cap history): `python research/cameron.py` -> `research/CAMERON.md`.
+  Gaps lose after costs; only hindsight volume helps. Research-only.
 - Peter Lynch's rules (PEG, Lynch ratio, categories, debt, inventory, buybacks) on point-in-time SEC data:
   `python research/lynch.py` -> `research/LYNCH.md` (features cached in data/backtest/lynch_features.pkl; ~30 min
   first run). No edge vs the equal-weight universe; research-only. Jim Simons/Medallion: desk research only
@@ -185,6 +189,11 @@ changes plainly and be honest about whether a strategy has a real edge.
   7a8b29ec) or tonight's 20 picks are down 2.0%+ since today's open (`PICKS_DAY_CUTOFF`, amendment 9b951502, accepted
   2026-10-23; replaced 7a8b29ec's tech-vs-defensive test - `research/overnight_picks_check.py`). Checked at the buy,
   after the picks are set. A failed check buys as usual and says so. Never switch to defensive stocks instead.
+  Market-on-open A/B TEST (amendment e43f2959, testing from 2026-10-27; `overnight.OPG_TEST`): each evening run leaves a
+  fixed coin-flip half of the overnight-ONLY holdings (`opg_group`) out of its orders and queues them in the book; the
+  9:05am scheduled `overnight open-sell --execute` sends them as market-on-open (Alpaca rejects opg 9:28am-7pm); unfilled
+  shares (`unsold_opg`) go out with the next evening's orders. `overnight review` prints the comparison (`opg_ab`) and
+  the rule fixed in advance: after 10 trading days adopt market-on-open if >= 0.10 points cheaper and >= 95% filled.
   Its fills are also trade-journal lines (sleeve overnight_drift): the buys from `confirm_book`, the next-open sale as
   its own line sharing the desk's netted order id (`record_orders(overnight_book=...)`); lots match a sleeve's own
   buys first, so the desk's P&L stays separate.

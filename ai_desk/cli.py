@@ -533,6 +533,15 @@ def _overnight(a) -> None:
         else:
             print(f"Sent {out['sent']} market buys (near the close) to paper account {out['account']}. "
                   "Tonight's desk run sells them at the next open.")
+    elif a.action == "open-sell":
+        out = ov.open_sell(execute=a.execute)
+        if out["blocked"]:
+            print(f"Nothing sent: {out['blocked']}")
+        elif out.get("dry_run"):
+            print(f"Dry run: {len(out['orders'])} market-on-open sales queued ({', '.join(out['orders'])}). "
+                  "Add --execute to send them.")
+        else:
+            print(f"Sent {out['sent']} market-on-open sales for the opening auction: {', '.join(out['orders'])}")
     elif a.action == "regime":
         r = ov.check_regime()
         print(f"SPY ${r['spy']:,.2f} vs its 200-day average ${r['spy_ma200']:,.2f}; tonight's {r['picks']} picks since "
@@ -549,6 +558,11 @@ def _overnight(a) -> None:
         s = r["summary"]
         print(f"{s['filled']} of {s['orders']} orders filled. Average cost vs the official auction price: {pct(s['avg_cost'])} "
               f"(buys {pct(s['avg_cost_buys'])}, sells {pct(s['avg_cost_sells'])}); break-even is about +0.045%.")
+        ab = s.get("ab_test") or {}
+        if ab:
+            print(f"Market-on-open test since {ab['since']}: market-on-open {pct(ab['opg_cost'])} over {ab['opg_sales']} "
+                  f"sales ({ab['opg_fill_rate']:.0%} of shares filled) vs market orders {pct(ab['market_cost'])} over "
+                  f"{ab['market_sales']}. Rule: {ab['rule']}.")
         print(f"Note: {s['note']}. Saved journal/overnight/review.json")
 
 
@@ -780,7 +794,7 @@ def build_parser() -> argparse.ArgumentParser:
     mo.set_defaults(func=cmd_momentum)
 
     on = sub.add_parser("overnight", help="overnight sleeve (30% of the desk): buy at the close, sold at the next open")
-    on.add_argument("action", choices=["scan", "status", "buy", "review", "activate", "regime"])
+    on.add_argument("action", choices=["scan", "status", "buy", "review", "activate", "regime", "open-sell"])
     on.add_argument("--execute", action="store_true", help="send the orders (default: dry run)")
     on.set_defaults(func=cmd_overnight)
 
