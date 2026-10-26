@@ -291,6 +291,109 @@ def mark_sold(book: dict[str, float], order_ids: dict[str, str], today: str) -> 
                                  "order_id": order_ids.get(s), "note": "netted into the desk's order for this stock"})
 
 
+# --- the market-on-open test (amendment e43f2959) -------------------------------------------------------------------
+# Paper sales at the open as ordinary market orders filled ~0.5% below the official open on the first three mornings
+# (the research's break-even is ~0.045%). A live A/B test: each evening, half of the stocks held ONLY by the overnight
+# sleeve (chosen by a fixed coin-flip on symbol + date) are left out of the evening run's orders and sold instead with
+# market-on-open orders (Alpaca: only accepted before 9:28am or after 7pm New York), sent by `overnight open-sell` at
+# ~9:05am. Any share the opening auction doesn't fill is sold by the next evening run's orders.
+
+OPG_TEST = True
+
+
+def opg_group(book: dict[str, float], positions: dict[str, float], desk_targets: pd.Series, day: str) -> set[str]:
+    """Pure: tonight's market-on-open half - overnight-only holdings (no desk target, every share the sleeve's),
+    whole shares, picked by a fixed coin-flip on symbol + date."""
+    import hashlib
+    out = set()
+    for s, q in book.items():
+        if not q or float(q) != int(q):
+            continue
+        if abs(float(desk_targets.get(s, 0.0))) > 1e-9 or abs(positions.get(s, 0.0) - q) > 1e-6:
+            continue
+        if int(hashlib.md5(f"{s}:{day}".encode()).hexdigest(), 16) % 2 == 0:
+            out.add(s)
+    return out
+
+
+def queue_opg(shares: dict[str, float], today: str) -> None:
+    """The evening run left these out of its orders: the morning run sells them in the opening auction."""
+    b = load_book()
+    BOOK.write_text(json.dumps({**b, "opg_pending": shares, "opg_sent": False, "opg_day": today}, indent=1))
+
+
+def open_sell(execute: bool = False, now: datetime | None = None, broker=None) -> dict:
+    """~9:05am New York: send the market-on-open sales queued by last evening's run."""
+    from ai_desk import tradebook
+    from ai_desk.broker.alpaca import AlpacaPaper
+    now = now or datetime.now(timezone.utc)
+    ny = now.astimezone(NY)
+    b = load_book()
+    pending = b.get("opg_pending") or {}
+    if not pending or b.get("opg_sent"):
+        return {"sent": 0, "blocked": "nothing queued for the opening auction", "orders": []}
+    if not (ny.weekday() < 5 and (ny.hour, ny.minute) < (9, 28)):
+        return {"sent": 0, "blocked": "market-on-open orders must be in before 9:28am New York - the next evening "
+                                      "run will sell these shares instead", "orders": list(pending)}
+    broker = broker or AlpacaPaper()
+    sent = []
+    if execute:
+        for sym, q in pending.items():
+            r = broker.submit_market_order(sym, int(q), "sell", time_in_force="opg")
+            _append("orders.jsonl", {"utc": _now(), "date": ny.date().isoformat(), "kind": "sell_opg", "symbol": sym,
+                                     "qty": q, "side": "sell", "order_id": r.get("id"),
+                                     "note": "A/B test: market-on-open (amendment e43f2959)"})
+            row = tradebook._overnight_rows(sym, float(q), float((b.get("costs") or {}).get(sym) or 0.0), "sell",
+                                            b.get("date"), r.get("id"))
+            row["reason"] = "overnight: sold in the opening auction (market-on-open test)"
+            row["order_type"] = "market-on-open"
+            tradebook._append("trades.jsonl", row)
+            sent.append(sym)
+        BOOK.write_text(json.dumps({**b, "opg_sent": True, "opg_utc": _now()}, indent=1))
+    return {"sent": len(sent), "blocked": None, "orders": list(pending), "dry_run": not execute}
+
+
+def opg_ab(fills: list[dict]) -> dict:
+    """Pure: the market-on-open test - sale cost vs the official open, by order type, and how much of the
+    market-on-open shares filled. Only overnight-only sales count on the market side (netted desk orders excluded:
+    their fill is the whole order's), and only from the test's first morning."""
+    opg = [f for f in fills if f.get("kind") == "sell_opg"]
+    if not opg:
+        return {}
+    start = min(f["fill_date"] for f in opg)
+    mkt = [f for f in fills if f.get("kind") == "sell_open" and f.get("fill_date", "") >= start
+           and float(f.get("filled_qty") or 0) <= float(f.get("qty") or 0) + 1e-6]       # not shared with a desk trade
+    filled = sum(f.get("filled_qty") or 0 for f in opg)
+    asked = sum(float(f.get("qty") or 0) for f in opg)
+    c = lambda xs: [f["cost"] for f in xs if f.get("cost") is not None]  # noqa: E731
+    return {"since": start, "opg_sales": len(c(opg)), "market_sales": len(c(mkt)),
+            "opg_cost": float(np.mean(c(opg))) if c(opg) else None,
+            "market_cost": float(np.mean(c(mkt))) if c(mkt) else None,
+            "opg_fill_rate": filled / asked if asked else None,
+            "rule": "after 10 trading days: adopt market-on-open if its cost is >= 0.10 points lower and >= 95% of "
+                    "its shares filled; otherwise keep market orders"}
+
+
+def unsold_opg(broker) -> dict[str, float]:
+    """Shares a morning's market-on-open sale didn't sell (the auction can leave some): sold by this evening's orders.
+    Each finished order is resolved once."""
+    done = {o.get("order_id") for o in _read("orders.jsonl") if o.get("kind") == "sell_opg_resolved"}
+    left = {}
+    for o in _read("orders.jsonl"):
+        if o.get("kind") != "sell_opg" or not o.get("order_id") or o["order_id"] in done:
+            continue
+        info = broker.get_order(o["order_id"]) or {}
+        status = info.get("status")
+        if status not in ("filled", "canceled", "expired", "rejected", "done_for_day"):
+            continue
+        rest = float(o["qty"]) - float(info.get("filled_qty") or 0)
+        if rest > 1e-9:
+            left[o["symbol"]] = left.get(o["symbol"], 0.0) + rest
+        _append("orders.jsonl", {"utc": _now(), "kind": "sell_opg_resolved", "order_id": o["order_id"],
+                                 "symbol": o["symbol"], "status": status, "unsold": rest})
+    return left
+
+
 def swap_active(today: pd.Timestamp | None = None) -> bool:
     from ai_desk.portfolio.methods import overnight_swap
     sw = overnight_swap()
@@ -502,6 +605,12 @@ def review(write: bool = True, broker=None) -> dict:
         filled_at = pd.Timestamp(info.get("filled_at")).tz_convert(NY).date().isoformat() if info.get("filled_at") else o["date"]
         fills.append({**o, "fill": float(info["filled_avg_price"]), "filled_qty": float(info["filled_qty"]),
                       "fill_date": filled_at, "netted": o.get("kind") == "sell_open"})
+    for o in orders:                                   # market-on-open orders that never filled count against them
+        if o.get("kind") == "sell_opg" and o.get("order_id"):
+            info = broker.get_order(o["order_id"]) or {}
+            if info.get("status") in ("canceled", "expired", "rejected", "done_for_day"):
+                fills.append({**o, "fill": None, "filled_qty": float(info.get("filled_qty") or 0),
+                              "fill_date": o["date"], "unfilled": True})
     if fills:
         syms = sorted({f["symbol"] for f in fills})
         bars = daily_bars(syms, period="3mo")
@@ -510,13 +619,14 @@ def review(write: bool = True, broker=None) -> dict:
             ref = bars["close" if f["side"] == "buy" else "open"]
             off = ref[f["symbol"]].get(d) if f["symbol"] in ref else None
             f["official"] = float(off) if off is not None and np.isfinite(off) else None
-            f["cost"] = fill_cost(f["side"], f["fill"], f["official"]) if f["official"] else None
+            f["cost"] = fill_cost(f["side"], f["fill"], f["official"]) if f["official"] and f.get("fill") else None
     costs = [f["cost"] for f in fills if f.get("cost") is not None]
     side = lambda sd: [f["cost"] for f in fills if f["side"] == sd and f.get("cost") is not None] or [np.nan]  # noqa: E731
     summary = {"asof_utc": _now(), "orders": len(orders), "filled": len(fills),
                "avg_cost": float(np.mean(costs)) if costs else None,
                "avg_cost_buys": float(np.mean(side("buy"))), "avg_cost_sells": float(np.mean(side("sell"))),
                "break_even": 0.00045,
+               "ab_test": opg_ab(fills),
                "note": "paper fills are simulated: this checks the mechanics, not real auction costs. Sales are netted "
                        "with desk trades in the same stock, so their fill price is the whole order's"}
     out = {"summary": summary, "fills": fills}

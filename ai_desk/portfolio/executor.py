@@ -239,13 +239,24 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
     today_ny = pd.Timestamp.now(tz="America/New_York").date().isoformat()
     if getattr(method, "name", "") == "blend" and overnight.swap_active():
         book = overnight.confirm_book(broker, today_ny) if execute or overnight.BOOK.exists() else {}
+        if execute and overnight.OPG_TEST:              # this morning's market-on-open leftovers go out tonight
+            for s, q in overnight.unsold_opg(broker).items():
+                book[s] = book.get(s, 0.0) + q
         missing = [s for s in book if s not in closes.columns]
         if missing:
             extra = load_many(missing, start, source=source)
             closes = closes.join(drop_incomplete_bar(extra["close"]), how="left")
+        opg = overnight.opg_group(book, positions, targets, today_ny) if overnight.OPG_TEST else set()
         targets, frozen = overnight.net_with_desk(targets, positions, book, closes.iloc[-1], equity, frozen)
+    else:
+        opg = set()
     plan = plan_orders(targets, positions, closes.iloc[-1], equity, limits, shortable, fractionable,
                        frozen=frozen)
+    if opg:                                              # the market-on-open half: sold by the morning run instead
+        plan.orders = [o for o in plan.orders if o.symbol not in opg]
+        plan.notes.append(f"overnight: {len(opg)} stocks left for the 9:05am market-on-open test: {', '.join(sorted(opg))}")
+    opg_book = {s: book[s] for s in opg}
+    book = {s: q for s, q in book.items() if s not in opg}
     for o in plan.orders:
         if o.symbol in book:
             o.reason += f" | includes the overnight sleeve's {book[o.symbol]:g} shares, sold at the open"
@@ -276,8 +287,10 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
             responses[o.symbol] = resp
             o.reason += f" [order {resp.get('id', '?')}]"
         status = "submitted"
-        if book:
+        if book or opg_book:
             overnight.mark_sold(book, {s: responses.get(s, {}).get("id") for s in book}, today_ny)
+        if opg_book:
+            overnight.queue_opg(opg_book, today_ny)
         tradebook.record_orders(plan, method, sleeves, closes.index[-1].date(), responses, overnight_book=book,
                                 prices=closes.iloc[-1].dropna().to_dict())
         if not any(o.blocked for o in plan.orders):

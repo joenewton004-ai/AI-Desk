@@ -152,7 +152,7 @@
   "evidence": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
   "parameters": "stocks=20; ranking=plain 12-month return (82c84226; was average overnight return); look_back=12 months; re_pick=daily (82c84226; was monthly); hold=close to next open, daily; orders=market buy at 3:55-3:59pm (market-on-close until 2026-10-21: paper filled only part), market sell at the open; regime=cash for the night when SPY < its 200-day average (7a8b29ec) or tonight's picks are down 2.0%+ since the open (9b951502, 82c84226)",
   "docs": "research/OVERNIGHT.md, research/output/overnight.md, ai_desk/overnight.py",
-  "open_amendments": 0,
+  "open_amendments": 1,
   "notes": ""
  },
  {
