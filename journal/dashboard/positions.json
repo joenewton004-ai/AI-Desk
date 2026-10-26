@@ -13,8 +13,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.0372,
-  "day": -0.00819
+  "return": 0.01468,
+  "day": -0.02972
  },
  {
   "symbol": "ANET",
@@ -30,8 +30,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.03198,
-  "day": 0.01627
+  "return": -0.0179,
+  "day": 0.03105
  },
  {
   "symbol": "ATI",
@@ -81,8 +81,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.05876,
-  "day": -0.00802
+  "return": -0.07343,
+  "day": -0.02349
  },
  {
   "symbol": "COHR",
@@ -132,8 +132,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.0196,
-  "day": -0.01307
+  "return": -0.03186,
+  "day": -0.02541
  },
  {
   "symbol": "CRDO",
@@ -166,8 +166,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.08983,
-  "day": 0.00448
+  "return": 0.09465,
+  "day": 0.00893
  },
  {
   "symbol": "DDOG",
@@ -183,8 +183,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00452,
-  "day": 0.02092
+  "return": 0.01106,
+  "day": 0.02755
  },
  {
   "symbol": "DECK",
@@ -200,8 +200,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.07807,
-  "day": -0.00469
+  "return": -0.08629,
+  "day": -0.01357
  },
  {
   "symbol": "DINO",
@@ -217,8 +217,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.02346,
-  "day": 0.02301
+  "return": -0.01848,
+  "day": 0.02823
  },
  {
   "symbol": "EME",
@@ -234,8 +234,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.06423,
-  "day": 0.02457
+  "return": -0.06165,
+  "day": 0.0274
  },
  {
   "symbol": "ESLT",
@@ -268,8 +268,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.04191,
-  "day": -0.07089
+  "return": -0.07055,
+  "day": -0.09866
  },
  {
   "symbol": "FIX",
@@ -285,8 +285,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.12919,
-  "day": 0.07054
+  "return": -0.11735,
+  "day": 0.0851
  },
  {
   "symbol": "FROG",
@@ -302,8 +302,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.02136,
-  "day": -0.0163
+  "return": 0.0266,
+  "day": -0.01126
  },
  {
   "symbol": "FTAI",
@@ -336,8 +336,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.0712,
-  "day": 0.01103
+  "return": 0.07623,
+  "day": 0.01578
  },
  {
   "symbol": "GOOGL",
@@ -353,8 +353,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.06501,
-  "day": 0.00047
+  "return": -0.06629,
+  "day": -0.00091
  },
  {
   "symbol": "HPE",
@@ -370,8 +370,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.00561,
-  "day": 0.01755
+  "return": 0.01447,
+  "day": 0.0381
  },
  {
   "symbol": "HUM",
@@ -387,8 +387,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.00368,
-  "day": 0.01695
+  "return": -0.02528,
+  "day": -0.00509
  },
  {
   "symbol": "ILMN",
@@ -404,8 +404,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.0223,
-  "day": 0.00473
+  "return": -0.02386,
+  "day": 0.00314
  },
  {
   "symbol": "INCY",
@@ -421,8 +421,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.01039,
-  "day": -0.01858
+  "return": -0.01327,
+  "day": -0.02143
  },
  {
   "symbol": "INTC",
@@ -455,8 +455,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.08657,
-  "day": 0.02596
+  "return": -0.07896,
+  "day": 0.03451
  },
  {
   "symbol": "LITE",
@@ -489,8 +489,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.0145,
-  "day": 0.0077
+  "return": 0.01176,
+  "day": 0.00498
  },
  {
   "symbol": "LRCX",
@@ -506,8 +506,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.01507,
-  "day": 0.02749
+  "return": 0.02952,
+  "day": 0.04211
  },
  {
   "symbol": "MA",
@@ -523,8 +523,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00022,
-  "day": -0.00904
+  "return": -0.00635,
+  "day": -0.01555
  },
  {
   "symbol": "MEDP",
@@ -540,8 +540,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.04894,
-  "day": -0.00328
+  "return": 0.06192,
+  "day": 0.00906
  },
  {
   "symbol": "META",
@@ -557,8 +557,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.0776,
-  "day": -0.00828
+  "return": -0.06925,
+  "day": 0.0007
  },
  {
   "symbol": "MRNA",
@@ -574,8 +574,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.17807,
-  "day": 0.01047
+  "return": -0.19951,
+  "day": -0.01589
  },
  {
   "symbol": "MRVL",
@@ -608,8 +608,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.06069,
-  "day": 0.00862
+  "return": 0.05455,
+  "day": 0.00278
  },
  {
   "symbol": "MU",
@@ -659,8 +659,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.01743,
-  "day": 0.01903
+  "return": 0.0314,
+  "day": 0.03302
  },
  {
   "symbol": "NVDA",
@@ -676,8 +676,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.00605,
-  "day": 0.01872
+  "return": -0.00342,
+  "day": 0.02142
  },
  {
   "symbol": "NVT",
@@ -710,8 +710,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.01664,
-  "day": -0.01141
+  "return": -0.03089,
+  "day": -0.02573
  },
  {
   "symbol": "OKTA",
@@ -727,8 +727,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.06591,
-  "day": 0.02288
+  "return": 0.07337,
+  "day": 0.03004
  },
  {
   "symbol": "OSCR",
@@ -744,8 +744,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.03609,
-  "day": 0.03856
+  "return": -0.07293,
+  "day": -0.00113
  },
  {
   "symbol": "P",
@@ -761,8 +761,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.04505,
-  "day": 0.02858
+  "return": -0.01095,
+  "day": 0.06531
  },
  {
   "symbol": "PAYX",
@@ -778,8 +778,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.0362,
-  "day": -0.01355
+  "return": 0.02627,
+  "day": -0.023
  },
  {
   "symbol": "PBF",
@@ -795,8 +795,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.05475,
-  "day": 0.05842
+  "return": -0.04907,
+  "day": 0.06479
  },
  {
   "symbol": "PM",
@@ -812,8 +812,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00339,
-  "day": 0.0172
+  "return": 0.00117,
+  "day": 0.01494
  },
  {
   "symbol": "Q",
@@ -846,8 +846,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.12584,
-  "day": 0.04793
+  "return": 0.11475,
+  "day": 0.0376
  },
  {
   "symbol": "SITM",
@@ -897,8 +897,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.01738,
-  "day": 0.01447
+  "return": 0.02407,
+  "day": 0.02114
  },
  {
   "symbol": "STX",
@@ -931,8 +931,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00044,
-  "day": -0.0116
+  "return": -0.01783,
+  "day": -0.02966
  },
  {
   "symbol": "TER",
@@ -982,8 +982,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.03727,
-  "day": -0.00928
+  "return": -0.03452,
+  "day": -0.00646
  },
  {
   "symbol": "UTHR",
@@ -999,8 +999,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.06396,
-  "day": -0.00125
+  "return": 0.07135,
+  "day": 0.00569
  },
  {
   "symbol": "V",
@@ -1016,8 +1016,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00328,
-  "day": -0.00386
+  "return": -0.00335,
+  "day": -0.01044
  },
  {
   "symbol": "VRT",
@@ -1050,7 +1050,7 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00442,
-  "day": -0.00063
+  "return": 0.00828,
+  "day": 0.00321
  }
 ]
