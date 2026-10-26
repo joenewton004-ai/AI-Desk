@@ -33,6 +33,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   (cached in data/backtest/intraday_*.pkl); data.alpaca.markets is blocked by the network policy here.
 - TJR's model (NQ/ES futures, New York-open liquidity sweep + break of structure / inverse FVG): `python research/tjr.py`
   -> `research/TJR.md` (bars cached in data/backtest/futures_intraday.pkl: 5m ~60 days, 1h 2 years). No edge; research-only.
+- George Soros (desk research + cross-asset trend on 9 ETFs): `python research/soros.py` -> `research/SOROS.md`.
+  Long-only trend: Sharpe 0.79, worst -9% vs SPY 0.67/-51% - risk control, not return. Research-only.
+- Ross Cameron gap-and-go (large caps only - no small-cap history): `python research/cameron.py` -> `research/CAMERON.md`.
+  Gaps lose after costs; only hindsight volume helps. Research-only.
 - Peter Lynch's rules (PEG, Lynch ratio, categories, debt, inventory, buybacks) on point-in-time SEC data:
   `python research/lynch.py` -> `research/LYNCH.md` (features cached in data/backtest/lynch_features.pkl; ~30 min
   first run). No edge vs the equal-weight universe; research-only. Jim Simons/Medallion: desk research only
