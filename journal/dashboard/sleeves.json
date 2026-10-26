@@ -5,7 +5,7 @@
   "planned_weight": 0.5,
   "open_positions": 25,
   "invested": 49701.43,
-  "unrealized_pnl": -1022.81,
+  "unrealized_pnl": -1074.73,
   "realized_pnl": -0.0,
   "closed_trades": 1,
   "win_rate": 0.0
@@ -14,12 +14,12 @@
   "sleeve": "momentum",
   "allocation": 0.2,
   "planned_weight": 0.18,
-  "open_positions": 18,
-  "invested": 18574.59,
-  "unrealized_pnl": -915.23,
-  "realized_pnl": 0.0,
-  "closed_trades": 0,
-  "win_rate": null
+  "open_positions": 17,
+  "invested": 17561.74,
+  "unrealized_pnl": -198.05,
+  "realized_pnl": -251.9,
+  "closed_trades": 1,
+  "win_rate": 0.0
  },
  {
   "sleeve": "overnight_drift",
@@ -28,9 +28,9 @@
   "open_positions": 0,
   "invested": 0.0,
   "unrealized_pnl": 0.0,
-  "realized_pnl": -1054.5,
-  "closed_trades": 29,
-  "win_rate": 0.207
+  "realized_pnl": -953.94,
+  "closed_trades": 49,
+  "win_rate": 0.429
  },
  {
   "sleeve": "bottleneck",
