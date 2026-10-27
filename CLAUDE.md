@@ -69,6 +69,14 @@ changes plainly and be honest about whether a strategy has a real edge.
   intraday momentum): `python research/candles.py` -> `research/CANDLES.md`. No edge; NVDA's ORB (t 3.2) fails on QQQ + the
   10 largest companies of 2016 (hindsight). Research-only. Minute bars: `python research/alpaca_bars.py SYM ...` (Alpaca SIP
   feed via the network secret for data.alpaca.markets; cached in data/backtest/alpaca_1m_<SYM>.pkl, from 2016).
+- Daily candles + SMA trend + RSI (72 pre-registered rules, development/holdout, ETFs and point-in-time top-100 stocks):
+  `python research/candle_rsi.py` -> `research/CANDLE_RSI.md`. Candles add nothing. Lead (not live, needs an amendment
+  and a desk test): top-100 stocks above SMA200 with RSI(14)<30, sell above SMA5 (+1.0-1.2%/trade both periods,
+  robust to 25/35 and 4x costs; survivors-only - say so). Inside the desk (amendment 661549dd, testing):
+  `python research/desk_rsi.py` -> `research/DESK_RSI.md`: +0.035 Sharpe at 0.05% costs, fails its pre-set rule at 0.20%
+  (2020-26 Sharpe 1.266 vs 1.268); recommended reject until the market-on-open test shows real open-fill costs.
+  What-if 50% overnight + 50% dips (`python research/desk_5050.py` -> `research/DESK_5050.md`): Sharpe 1.80 at 0.02%
+  overnight costs but 1.10 at 0.05% - mostly half overnight, half cash; not proposed.
 - Mark Minervini's SEPA (Trend Template + RS, point-in-time EPS/sales growth from SEC, base breakout, 7.5% stop to
   break-even, 50-day exit, market filter): `python research/minervini.py` -> `research/MINERVINI.md` (growth cached in
   data/backtest/minervini_fund.pkl). No edge vs the equal-weight universe; research-only. Survivors-only: say so.
@@ -208,6 +216,19 @@ changes plainly and be honest about whether a strategy has a real edge.
   Its fills are also trade-journal lines (sleeve overnight_drift): the buys from `confirm_book`, the next-open sale as
   its own line sharing the desk's netted order id (`record_orders(overnight_book=...)`); lots match a sleeve's own
   buys first, so the desk's P&L stays separate.
+- DESK REARRANGED (amendment c52ce018, accepted by the owner 2026-10-27 against Claude's advice to wait for the
+  market-on-open test; research/DESK_5050.md variant C): from the 2026-10-27 evening run `preset("desk")` =
+  `rsi_dip` alone (`methods.DESK_REARRANGE`); the quality screen and momentum holdings are sold at the 2026-10-28 open
+  (their locks stay as history; `RSIDip.exit_reason` says why). RSI dips (`ai_desk/rsi_dip.py`,
+  `python -m ai_desk rsidip scan`, run by `portfolio prepare`): top 100 US companies by market value, close above the
+  200-day average and RSI(14) < 30 -> buy at the next open, 10% of equity each, at most 5, lowest RSI first; sold at
+  the open after a close above the 5-day average or after 10 trading days; held positions aren't resized. State in
+  data/portfolio/rsi_dip.json, written only when orders are sent (commit it with the other locks). It needs a scan
+  from the same close as the run; otherwise it holds and buys nothing. The overnight sleeve buys with ALL the cash
+  the dips leave, less the 1% buffer (`overnight.share_for`: 30% until 2026-10-27, 100% from the 2026-10-28 buy) -
+  ~95% of the desk on an average night, so its real fill costs decide the desk's result (break-even ~0.045%/trade).
+  `register.desk_allocation()` shows overnight 95% / dips 5% (averages). The scorecard has no benchmark row for
+  rsi_dip (adding one is a "criteria" amendment).
 - Methodology changes go through register.py amendments: proposed -> testing
   (backtest it) -> accepted/rejected by the user. Never change live method
   parameters without an accepted amendment.

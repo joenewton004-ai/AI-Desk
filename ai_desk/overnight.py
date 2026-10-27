@@ -33,6 +33,15 @@ BOOK = Path("data/portfolio/overnight_book.json")
 DIR = Path("journal/overnight")
 N, LOOK_BACK, MIN_DAYS = 20, 252, 200
 SHARE = 0.30
+# Amendment c52ce018 (accepted 2026-10-27): from the 2026-10-28 buy the sleeve buys with all the cash the RSI dip
+# sleeve leaves (less the buffer) - the quality and momentum sleeves are sold at that morning's open.
+SHARE_SWITCH = {"from": "2026-10-28", "share": 1.0, "amendment": "c52ce018"}
+
+
+def share_for(day) -> float:
+    """The sleeve's share of equity on `day` (New York date): 30% until the desk was rearranged, then everything
+    the cash allows."""
+    return SHARE_SWITCH["share"] if pd.Timestamp(day).normalize() >= pd.Timestamp(SHARE_SWITCH["from"]) else SHARE
 MIN_PRICE, MIN_DOLLAR_VOLUME = 10.0, 20e6
 CASH_BUFFER = 0.01            # of equity: a fill above the planning price must not overdraw the account
 NY = ZoneInfo("America/New_York")
@@ -569,7 +578,11 @@ def buy(execute: bool = False, now: datetime | None = None, broker=None, regime_
     stale = book_open(today)
     if stale:
         notes.append("last night's overnight shares were never sent for sale - no new buys until the evening run sells them")
-    orders = plan_buys(lock["picks"], equity, cash, prices, stale)
+    share = share_for(today)
+    orders = plan_buys(lock["picks"], equity, cash, prices, stale, share=share)
+    if share != SHARE:
+        notes.append(f"budget: {share:.0%} of equity capped by cash less {CASH_BUFFER:.0%} (amendment "
+                     f"{SHARE_SWITCH['amendment']}): ${max(0.0, min(share * equity, cash - CASH_BUFFER * equity)):,.0f}")
     if not orders and not stale:
         notes.append(f"no cash free for the sleeve (${cash:,.0f} on hand) - e.g. SPY's sale on the first day "
                      "after activation hasn't happened yet")

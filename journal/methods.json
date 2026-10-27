@@ -1,10 +1,9 @@
 {
- "generated_utc": "2026-10-27T14:13:46+00:00",
+ "generated_utc": "2026-10-27T15:07:20+00:00",
  "live_preset": "desk",
  "live_allocation": {
-  "quality_screen": 0.5,
-  "momentum": 0.2,
-  "overnight_drift": 0.3
+  "overnight_drift": 0.95,
+  "rsi_dip": 0.05
  },
  "presets": {
   "thesis": [
@@ -187,8 +186,8 @@
   },
   {
    "name": "quality_screen",
-   "in_live_mix": true,
-   "allocation": 0.5,
+   "in_live_mix": false,
+   "allocation": 0.0,
    "description": "Top 25 of the quality stock screen, equal weight, re-picked every quarter (backtested: quarterly beat annual - research/screen_backtest.py). Positions drift between re-picks; no stop-loss (none was backtested).",
    "parameters": {
     "top": 25,
@@ -238,8 +237,8 @@
   },
   {
    "name": "momentum",
-   "in_live_mix": true,
-   "allocation": 0.2,
+   "in_live_mix": false,
+   "allocation": 0.0,
    "description": "Top 20 large companies by 6-month price gain (skipping the latest week), above their 200-day average, equal weight (python -m ai_desk momentum scan).",
    "parameters": {
     "top": 20,
@@ -290,6 +289,23 @@
      "decided_utc": null
     }
    ]
+  },
+  {
+   "name": "rsi_dip",
+   "in_live_mix": true,
+   "allocation": 0.05,
+   "description": "Buy big US companies on a short, sharp dip inside an uptrend (amendment c52ce018, ai_desk/rsi_dip.py).",
+   "parameters": {
+    "slot": 0.1,
+    "max_positions": 5,
+    "max_age_days": 3,
+    "state_path": "data/portfolio/rsi_dip.json",
+    "retired_locks": "data/portfolio/quality_screen.json,data/portfolio/momentum.json"
+   },
+   "status": "untested",
+   "evidence_summary": "",
+   "docs": [],
+   "amendments": []
   },
   {
    "name": "asymmetric_bets",
@@ -397,7 +413,7 @@
   {
    "name": "overnight_drift",
    "in_live_mix": true,
-   "allocation": 0.3,
+   "allocation": 0.95,
    "description": "Overnight momentum (Lou, Polk & Skouras 2019): each month take the 20 large stocks with the highest average overnight return (close to next open) over the past 12 months; hold them only overnight - buy at the close, sell at the next open - via the closing and opening auctions.",
    "parameters": {
     "stocks": 20,
@@ -580,6 +596,27 @@
    "docs": [
     "research/CAMERON.md",
     "research/output/cameron.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "candle_rsi",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Daily candle patterns (hammer, bullish engulfing, reversal close) mixed with an SMA trend filter (200-day, 50>200) and RSI (RSI(2)<10, RSI(14)<30), exit above the 5-day SMA or after 5 days: 72 rules picked on a development period, judged on a holdout and a second market (6 equity ETFs 1993-2026; point-in-time top-100 stocks 2014-2026, survivors-only prices).",
+   "parameters": {
+    "bars": "daily",
+    "entry": "next open",
+    "exit": "open after close > SMA5 (max 10 days) / 5 days",
+    "costs": "0.02% ETFs, 0.05% stocks each way"
+   },
+   "status": "tested: candles add no edge (not in the live mix); one RSI-only lead for a desk test",
+   "evidence_summary": "No candle rule passed the pre-registered holdout tests; a candle never reliably beat the same rule without it. Lead (not pre-registered): top-100 stocks above SMA200 with RSI(14)<30, sell above SMA5: +1.0%/trade 2014-19, +1.2% 2020-26 (t ~5 each), RSI 25/30/35 and 4x costs all positive, 11 of 13 years; ~40 trades a year, 6% invested; survivors-only. In the desk (amendment 661549dd): +0.035 Sharpe, +0.9%/yr at 0.05% costs; at 0.20% no better in 2020-26 - fails its pre-set rule.",
+   "docs": [
+    "research/CANDLE_RSI.md",
+    "research/output/candle_rsi.md",
+    "research/DESK_RSI.md",
+    "research/output/desk_rsi.md"
    ],
    "amendments": []
   },

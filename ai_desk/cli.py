@@ -394,6 +394,11 @@ def cmd_portfolio(a) -> None:
             if st["needs_scan"]:
                 print(f"  running: {st['scan_command']}")
                 subprocess.run([sys.executable, *shlex.split(st["scan_command"])[1:]], check=True)
+        if any(getattr(m, "name", "") == "rsi_dip" for m in parts):
+            try:                  # the dip sleeve decides on today's close: rate the top 100 now
+                print(rsidip_scan())
+            except Exception as e:  # noqa: BLE001 - without a scan the sleeve holds and buys nothing new
+                print(f"rsi_dip: scan failed ({e}); the sleeve will hold its positions and buy nothing tonight")
         from ai_desk import overnight
         try:                      # tomorrow's overnight re-pick ranks on today's close: rank now, not at 3:55pm
             r = overnight.prepare_repick()
@@ -494,6 +499,24 @@ def cmd_momentum(a) -> None:
     path = report(df, top=a.top)
     print("\n" + path.read_text())
     print(f"Saved {path} and {path.with_suffix('.csv')}")
+
+
+def rsidip_scan() -> str:
+    """Rate the top 100 (and anything the RSI dip sleeve holds) on the latest close; returns a one-line summary."""
+    import json as _json
+
+    from ai_desk import rsi_dip
+    held = list(_json.loads(rsi_dip.STATE.read_text()).get("positions", {})) if rsi_dip.STATE.exists() else []
+    df = rsi_dip.scan(extra=held)
+    path = rsi_dip.save(df)
+    sig = df[df["signal"]]
+    return (f"rsi_dip: {path} - close of {df['asof'].iloc[0]}, {int(df['in_top100'].sum())} companies, "
+            f"{len(sig)} signals" + (f": {', '.join(f'{s} (RSI {r:.0f})' for s, r in sig['rsi_14'].items())}"
+                                     if len(sig) else ""))
+
+
+def cmd_rsidip(a) -> None:
+    print(rsidip_scan())
 
 
 def cmd_overnight(a) -> None:
@@ -792,6 +815,10 @@ def build_parser() -> argparse.ArgumentParser:
     mo.add_argument("--min-cap", type=float, default=10e9)
     mo.add_argument("--top", type=int, default=20)
     mo.set_defaults(func=cmd_momentum)
+
+    rd = sub.add_parser("rsidip", help="RSI dip sleeve: rate the top 100 on the latest close (amendment c52ce018)")
+    rd.add_argument("action", choices=["scan"])
+    rd.set_defaults(func=cmd_rsidip)
 
     on = sub.add_parser("overnight", help="overnight sleeve (30% of the desk): buy at the close, sold at the next open")
     on.add_argument("action", choices=["scan", "status", "buy", "review", "activate", "regime", "open-sell"])

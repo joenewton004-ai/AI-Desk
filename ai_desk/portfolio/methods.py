@@ -583,9 +583,124 @@ class Momentum(Bottleneck):
         return None
 
 
+@dataclass
+class RSIDip(Method):
+    """Buy big US companies on a short, sharp dip inside an uptrend (amendment c52ce018, ai_desk/rsi_dip.py).
+
+    Each evening the scan (`python -m ai_desk rsidip scan`, run by `portfolio prepare`) rates the 100 largest US
+    companies on that day's close. A holding is sold at the next open once it closes above its 5-day average or has
+    been held 10 trading days; a company above its 200-day average with RSI(14) below 30 is bought at the next open
+    as `slot` of the desk, lowest RSI first, at most `max_positions` at once. Holdings aren't resized (they drift).
+    Without a scan from the latest close it changes nothing: it holds what it has and buys nothing new.
+    The sleeve's state (what it holds and since when) is saved in `state_path` when orders are sent, never on a
+    dry run.
+    """
+
+    name = "rsi_dip"
+    backtestable = False
+    slot: float = 0.10
+    max_positions: int = 5
+    max_age_days: int = 3
+    state_path: str = "data/portfolio/rsi_dip.json"
+    retired_locks: str = "data/portfolio/quality_screen.json,data/portfolio/momentum.json"
+
+    def __post_init__(self):
+        self._cache = None
+
+    def _state(self) -> dict:
+        p = Path(self.state_path)
+        return json.loads(p.read_text()) if p.exists() else {"positions": {}, "closed": []}
+
+    def _decide(self, closes: pd.DataFrame | None = None) -> dict:
+        if self._cache is not None and (closes is None or self._cache.get("asof_close") == closes.index[-1]):
+            return self._cache
+        from ai_desk import rsi_dip
+        state = self._state()
+        held = state.get("positions", {})
+        table, src = rsi_dip.latest_scan(self.max_age_days)
+        last_close = closes.index[-1] if closes is not None and len(closes) else None
+        if last_close is None and table is not None:     # symbols() runs before prices are loaded: use the scan's day
+            last_close = pd.Timestamp(table["asof"].iloc[0])
+        notes = []
+        if table is not None and last_close is not None and str(table["asof"].iloc[0]) != str(last_close.date()):
+            notes.append(f"rsi_dip: the scan ({src}) is from the {table['asof'].iloc[0]} close, not "
+                         f"{last_close.date()} - holding, no new dips tonight")
+            table = None
+        if table is None:
+            if not notes:
+                notes.append(f"rsi_dip: {src} - holding {len(held)}, no new dips tonight")
+            d = {"keep": list(held), "exits": {}, "entries": []}
+        else:
+            idx = closes.index if closes is not None else \
+                pd.bdate_range(min([pd.Timestamp(v["signal_date"]) for v in held.values()] or [last_close]), last_close)
+            days = {s: rsi_dip.trading_days_since(idx, v["signal_date"], last_close) for s, v in held.items()}
+            uni = set(table.index[table["in_top100"].astype(bool)]) if "in_top100" in table else set(table.index)
+            d = rsi_dip.decide(table, held, days, uni, self.max_positions)
+            notes.append(f"rsi_dip: {len(d['keep'])} held, selling {', '.join(sorted(d['exits'])) or 'none'}, "
+                         f"buying {', '.join(d['entries']) or 'none'} (scan {src}; "
+                         f"{int(table['signal'].sum())} signals in the top 100)")
+        self._cache = {**d, "table": table, "src": src, "held": held, "notes": notes, "asof_close": last_close}
+        return self._cache
+
+    def symbols(self):
+        d = self._decide()
+        return list(dict.fromkeys(d["keep"] + d["entries"]))
+
+    def weights(self, closes):
+        d = self._decide(closes)
+        cols = list(dict.fromkeys(d["keep"] + d["entries"]))
+        return pd.DataFrame(self.slot, index=closes.index, columns=cols)
+
+    def frozen(self):
+        return set(self._decide()["keep"])
+
+    def status(self):
+        return list(self._decide()["notes"])
+
+    def rationale(self, symbol):
+        d = self._decide()
+        t = d.get("table")
+        if t is None or symbol not in t.index:
+            return {}
+        r = t.loc[symbol]
+        out = {k: round(float(r[k]), 4) for k in ("rsi_14", "close", "sma_5", "sma_200") if pd.notna(r.get(k))}
+        out["source_file"] = d["src"]
+        if symbol in d["entries"]:
+            out["why"] = "above its 200-day average with RSI(14) below 30"
+        return out
+
+    def exit_reason(self, symbol):
+        d = self._decide()
+        if symbol in d["exits"]:
+            return d["exits"][symbol]
+        for lock in self.retired_locks.split(","):
+            p = Path(lock.strip())
+            if p.exists() and symbol in json.loads(p.read_text()).get("picks", []) \
+                    and symbol not in d["keep"] + d["entries"]:
+                return "desk rearranged: quality screen and momentum retired (amendment c52ce018)"
+        return None
+
+    def on_executed(self):
+        d = self._decide()
+        state = self._state()
+        pos = {s: v for s, v in state.get("positions", {}).items() if s in d["keep"]}
+        t = d.get("table")
+        for s in d["entries"]:
+            r = t.loc[s] if t is not None and s in t.index else {}
+            pos[s] = {"signal_date": str(d["asof_close"].date()), "rsi_14": round(float(r.get("rsi_14", np.nan)), 2),
+                      "signal_close": round(float(r.get("close", np.nan)), 4)}
+        closed = state.get("closed", []) + [{"symbol": s, "signal_date": state["positions"][s]["signal_date"],
+                                             "exit_signal_date": str(d["asof_close"].date()), "why": why}
+                                            for s, why in d["exits"].items() if s in state.get("positions", {})]
+        p = Path(self.state_path)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps({"positions": pos, "closed": closed[-200:],
+                                 "updated": str(pd.Timestamp.today().date())}, indent=1))
+
+
 METHODS: dict[str, type[Method]] = {
     m.name: m for m in (IndexMomentum, IndexRotation, SMACrossoverMethod, PairsMethod, QualityScreen, Bottleneck,
-                        Momentum)
+                        Momentum, RSIDip)
 }
 # shorthands: `thesis` is the 50/50 structure in research/THESIS.md; `aggressive`
 # tilts to the stock screen (70/30) - more return and bigger drawdowns in the backtest
@@ -613,10 +728,19 @@ def overnight_swap() -> dict | None:
     return json.loads(OVERNIGHT_SWAP.read_text()) if OVERNIGHT_SWAP.exists() else None
 
 
+# Amendment c52ce018 (accepted 2026-10-27, research/DESK_5050.md variant C): from that evening's run the desk method is
+# the RSI dip sleeve alone (10% a dip, at most 5); quality screen and momentum are sold at the next open, and the
+# overnight sleeve buys with all the cash the dips leave (overnight.share_for).
+DESK_REARRANGE = {"date": "2026-10-27", "parts": [("rsi_dip", 1.0)], "amendment": "c52ce018"}
+
+
 def preset(name: str, today: pd.Timestamp | None = None, swap: dict | None | bool = True) -> list[tuple[str, float]]:
-    """A preset's parts as of `today` (the desk switches sleeves on DESK_SWITCH['date'], and drops SPY momentum
-    from the overnight swap's activation date). swap: True = read OVERNIGHT_SWAP; a dict = use it; None = no swap."""
+    """A preset's parts as of `today` (the desk switches sleeves on DESK_SWITCH['date'], drops SPY momentum from the
+    overnight swap's activation date, and becomes the RSI dip sleeve from DESK_REARRANGE['date']).
+    swap: True = read OVERNIGHT_SWAP; a dict = use it; None = no swap."""
     today = (today or pd.Timestamp.today()).normalize()
+    if name == "desk" and today >= pd.Timestamp(DESK_REARRANGE["date"]):
+        return list(DESK_REARRANGE["parts"])
     parts = list(DESK_SWITCH["before"]) if name == "desk" and today < pd.Timestamp(DESK_SWITCH["date"]) \
         else list(PRESETS[name])
     sw = overnight_swap() if swap is True else swap

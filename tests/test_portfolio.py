@@ -344,7 +344,15 @@ def test_desk_preset_switches_to_momentum_on_the_bottleneck_repick_date():
     assert before == [("quality_screen", 0.5), ("bottleneck", 0.2), ("index_momentum", 0.3)]
     assert after == [("quality_screen", 0.5), ("momentum", 0.2), ("index_momentum", 0.3)]
     names = [p.name for p, _ in build(["desk"]).parts]
-    assert names[0] == "quality_screen" and names[1] in ("bottleneck", "momentum")
+    assert names == ["rsi_dip"]                            # since amendment c52ce018 (2026-10-27)
+
+
+def test_desk_rearranged_to_rsi_dips_on_its_date():
+    from ai_desk.portfolio.methods import DESK_REARRANGE, preset
+    day = pd.Timestamp(DESK_REARRANGE["date"])
+    assert preset("desk", day - pd.Timedelta(days=1), swap={"from": "2026-10-21"}) == \
+        [("quality_screen", 0.5), ("momentum", 0.2)]
+    assert preset("desk", day) == [("rsi_dip", 1.0)]
 
 
 def test_bottleneck_exit_uses_the_scans_moving_average(tmp_path):
