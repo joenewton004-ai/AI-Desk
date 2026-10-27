@@ -218,6 +218,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   9:05am scheduled `overnight open-sell --execute` sends them as market-on-open (Alpaca rejects opg 9:28am-7pm); unfilled
   shares (`unsold_opg`) go out with the next evening's orders. `overnight review` prints the comparison (`opg_ab`) and
   the rule fixed in advance: after 10 trading days adopt market-on-open if >= 0.10 points cheaper and >= 95% filled.
+  `overnight review` also prints the official-price line (`overnight.official_line`): each night bought at the official
+  close and sold at the next official open - what live auction orders would get, before fees - next to the paper fills.
   Its fills are also trade-journal lines (sleeve overnight_drift): the buys from `confirm_book`, the next-open sale as
   its own line sharing the desk's netted order id (`record_orders(overnight_book=...)`); lots match a sleeve's own
   buys first, so the desk's P&L stays separate.

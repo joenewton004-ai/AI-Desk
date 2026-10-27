@@ -605,6 +605,53 @@ def buy(execute: bool = False, now: datetime | None = None, broker=None, regime_
     return out
 
 
+def official_line(fills: list[dict]) -> dict:
+    """Pure: each night's result at the paper fills vs at the official prices - bought at the official close, sold
+    at the next official open: what live auction orders (market-on-close / market-on-open) would have got, before
+    fees. A buy pairs with the stock's first sale on a later day; shares = the smaller of the two quantities."""
+    def groups(side: str) -> dict[tuple[str, str], dict]:
+        out: dict[tuple[str, str], dict] = {}
+        for f in fills:
+            if f.get("side") != side or not f.get("fill") or not f.get("official") or not f.get("filled_qty"):
+                continue
+            g = out.setdefault((f["fill_date"], f["symbol"]), {"qty": 0.0, "paid": 0.0, "official": f["official"]})
+            g["qty"] += float(f["filled_qty"])
+            g["paid"] += float(f["filled_qty"]) * float(f["fill"])
+        return out
+
+    buys, sells = groups("buy"), groups("sell")
+    sell_days: dict[str, list[str]] = {}
+    for d, sym in sorted(sells):
+        sell_days.setdefault(sym, []).append(d)
+    nights: dict[str, dict] = {}
+    for (d, sym), b in sorted(buys.items()):
+        later = [x for x in sell_days.get(sym, []) if x > d]
+        if not later:
+            continue                                      # not sold yet (tonight's book)
+        sl = sells[(later[0], sym)]
+        q = min(b["qty"], sl["qty"])
+        buy_px, sell_px = b["paid"] / b["qty"], sl["paid"] / sl["qty"]
+        n = nights.setdefault(d, {"night": d, "stocks": 0, "invested": 0.0, "paper": 0.0, "official": 0.0})
+        n["stocks"] += 1
+        n["invested"] += q * buy_px
+        n["paper"] += q * (sell_px - buy_px)
+        n["official"] += q * (sl["official"] - b["official"])
+    rows = []
+    for d in sorted(nights):
+        n = nights[d]
+        inv = n["invested"] or float("nan")
+        rows.append({**{k: round(v, 2) if isinstance(v, float) else v for k, v in n.items()},
+                     "paper_pct": round(n["paper"] / inv, 5), "official_pct": round(n["official"] / inv, 5)})
+    tot = {"nights": len(rows), "paper": round(sum(r["paper"] for r in rows), 2),
+           "official": round(sum(r["official"] for r in rows), 2),
+           "paper_pct_night": round(float(np.mean([r["paper_pct"] for r in rows])), 5) if rows else None,
+           "official_pct_night": round(float(np.mean([r["official_pct"] for r in rows])), 5) if rows else None}
+    tot["difference"] = round(tot["official"] - tot["paper"], 2)
+    return {"totals": tot, "nights": rows,
+            "note": "official = bought at the official close, sold at the next official open (the auction prices live "
+                    "market-on-close/open orders get), before commissions and fees; paper = Alpaca paper's simulated fills"}
+
+
 def review(write: bool = True, broker=None) -> dict:
     """Buy fills vs the official close that day; sale fills vs the official open the next trading day."""
     from ai_desk.broker.alpaca import AlpacaPaper
@@ -640,6 +687,7 @@ def review(write: bool = True, broker=None) -> dict:
                "avg_cost_buys": float(np.mean(side("buy"))), "avg_cost_sells": float(np.mean(side("sell"))),
                "break_even": 0.00045,
                "ab_test": opg_ab(fills),
+               "official_line": official_line(fills),
                "note": "paper fills are simulated: this checks the mechanics, not real auction costs. Sales are netted "
                        "with desk trades in the same stock, so their fill price is the whole order's"}
     out = {"summary": summary, "fills": fills}

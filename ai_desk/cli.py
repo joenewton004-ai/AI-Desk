@@ -586,6 +586,15 @@ def _overnight(a) -> None:
             print(f"Market-on-open test since {ab['since']}: market-on-open {pct(ab['opg_cost'])} over {ab['opg_sales']} "
                   f"sales ({ab['opg_fill_rate']:.0%} of shares filled) vs market orders {pct(ab['market_cost'])} over "
                   f"{ab['market_sales']}. Rule: {ab['rule']}.")
+        ol = (s.get("official_line") or {}).get("totals") or {}
+        if ol.get("nights"):
+            print(f"At official prices (bought at the official close, sold at the next official open - what live auction "
+                  f"orders would get, before fees): ${ol['official']:+,.0f} over {ol['nights']} nights "
+                  f"({pct(ol['official_pct_night'])} a night) vs ${ol['paper']:+,.0f} at the paper fills "
+                  f"({pct(ol['paper_pct_night'])} a night): the paper fills cost ${ol['difference']:,.0f} more.")
+            for n in s["official_line"]["nights"]:
+                print(f"  {n['night']}: {n['stocks']} stocks, ${n['invested']:,.0f} - official ${n['official']:+,.0f} "
+                      f"({pct(n['official_pct'])}), paper ${n['paper']:+,.0f} ({pct(n['paper_pct'])})")
         print(f"Note: {s['note']}. Saved journal/overnight/review.json")
 
 
