@@ -310,6 +310,20 @@ RESEARCH_METHODS = {
                    "advertising of his results.",
         "docs": ["research/CAMERON.md", "research/output/cameron.md"],
     },
+    "candle_rsi": {
+        "description": "Daily candle patterns (hammer, bullish engulfing, reversal close) mixed with an SMA trend filter "
+                       "(200-day, 50>200) and RSI (RSI(2)<10, RSI(14)<30), exit above the 5-day SMA or after 5 days: 72 "
+                       "rules picked on a development period, judged on a holdout and a second market (6 equity ETFs "
+                       "1993-2026; point-in-time top-100 stocks 2014-2026, survivors-only prices).",
+        "parameters": {"bars": "daily", "entry": "next open", "exit": "open after close > SMA5 (max 10 days) / 5 days",
+                       "costs": "0.02% ETFs, 0.05% stocks each way"},
+        "status": "tested: candles add no edge (not in the live mix); one RSI-only lead for a desk test",
+        "summary": "No candle rule passed the pre-registered holdout tests; a candle never reliably beat the same rule "
+                   "without it. Lead (not pre-registered): top-100 stocks above SMA200 with RSI(14)<30, sell above SMA5: "
+                   "+1.0%/trade 2014-19, +1.2% 2020-26 (t ~5 each), RSI 25/30/35 and 4x costs all positive, 11 of 13 "
+                   "years; ~40 trades a year, 6% invested; survivors-only.",
+        "docs": ["research/CANDLE_RSI.md", "research/output/candle_rsi.md"],
+    },
     "candle_patterns": {
         "description": "Day-trading candle patterns on 5-minute candles from 10 years of Alpaca minute bars (SPY, then "
                        "NVDA): engulfing, hammer/shooting star (plain, VWAP reversal, VWAP trend; 30-minute or stop/2R "

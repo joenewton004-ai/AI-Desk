@@ -299,6 +299,77 @@ def main() -> None:
                 cells.append(f"{s['net']:+.3%} ({s['n']:,})" if s["n"] else "-")
             emit(f"| {m} | {NAMES[T]} | {NAMES[R]} | {NAMES[E]} | " + " | ".join(cells) + " |")
 
+    # follow-up, NOT pre-registered (added after seeing that the RSI rules held up without a candle): the RSI-only
+    # rules as strategies, both periods, with the market's own return for context
+    emit("\n## Follow-up (not pre-registered): RSI dip-buying WITHOUT a candle, as a strategy\n")
+    emit("Stocks: up to 10 positions, 10% each, T-bills on the rest; ETFs: each fund alone, averaged. Sharpe above "
+         "T-bills; benchmark = equal-weight top 100 (stocks) / buy and hold (ETFs). Survivors-only stock prices.\n")
+    emit("| market | rule | period | trades | net/trade | t | time invested | strategy Sharpe | benchmark Sharpe | "
+         "correlation with benchmark |")
+    emit("|---|---|---|---|---|---|---|---|---|---|")
+    follow = [("T0", "R2", "C0", "E2"), ("T0", "R2", "C0", "E1"), ("T0", "R1", "C0", "E2"), ("T1", "R1", "C0", "E1"),
+              ("T1", "R2", "C0", "E1")]
+    for m, (fr, mem) in markets.items():
+        for rule in follow:
+            for pname, per in zip(("development", "holdout"), PERIODS[m]):
+                r, h, rows = run_rule(fr, feats[m], rule, COST[m], per, mem)
+                st = stats(r, h)
+                if not st["n"]:
+                    continue
+                if m == "etf":
+                    curves, benches = [], []
+                    for sym, d in fr.items():
+                        curves.append(strategy_curve({sym: d}, [x for x in rows if x[0] == sym], per, rf, COST[m]))
+                        benches.append((d["open"].shift(-1) / d["open"] - 1).loc[per[0]:per[1]].dropna())
+                    sh = np.nanmean([sharpe(c, rf) for c in curves])
+                    bench = np.nanmean([sharpe(b, rf) for b in benches])
+                    rr, bb = pd.concat(curves, axis=1).mean(axis=1), pd.concat(benches, axis=1).mean(axis=1)
+                    inv = np.mean([len(set(itertools.chain.from_iterable(
+                        pd.bdate_range(e, x - pd.Timedelta(days=1)) for sy2, e, x in rows if sy2 == sym)))
+                        / max(1, len(fr[sym].loc[per[0]:per[1]])) for sym in fr])
+                else:
+                    rr = strategy_curve(fr, rows, per, rf, COST[m], slots=10)
+                    sh = sharpe(rr, rf)
+                    ew = pd.DataFrame({sy: d["open"].shift(-1) / d["open"] - 1 for sy, d in fr.items()})
+                    bb = ew.where(mem.reindex(ew.index).fillna(False)).loc[per[0]:per[1]].mean(axis=1).dropna()
+                    bench = sharpe(bb, rf)
+                    held_days = pd.Series(0, index=rr.index)
+                    for sy2, e, x in rows:
+                        held_days.loc[e:x - pd.Timedelta(days=1)] += 1
+                    inv = (held_days.clip(upper=10) / 10).mean()
+                corr = rr.corr(bb.reindex(rr.index))
+                emit(f"| {m} | {label(rule)} | {pname} | {st['n']:,} | {st['net']:+.3%} | {st['t']:.1f} | {inv:.0%} | "
+                     f"{sh:.2f} | {bench:.2f} | {corr:.2f} |")
+
+    # robustness of the one lead (stocks above SMA200, RSI(14) < 30, exit above SMA5): nearby thresholds, costs, years
+    emit("\n## Robustness of the lead: stocks above their 200-day SMA with RSI(14) below X, sell above the 5-day SMA\n")
+    fr, mem = markets["stock"]
+    whole = (PERIODS["stock"][0][0], PERIODS["stock"][1][1])
+    emit("| RSI(14) below | cost each way | trades | net/trade | t | development | holdout | positive years |")
+    emit("|---|---|---|---|---|---|---|---|")
+    keep = {}
+    for x in (25, 30, 35):
+        fx = {sy: f.assign(RX=rsi(fr[sy]["close"], 14) < x) for sy, f in feats["stock"].items()}
+        for cost in (0.0005, 0.001, 0.002):
+            r, h, rows = run_rule(fr, fx, ("T1", "RX", "C0", "E1"), cost, whole, mem)
+            st = stats(r, h)
+            when = pd.to_datetime([e for _, e, _ in rows])
+            dev = r[when <= pd.Timestamp(PERIODS["stock"][0][1])]
+            hold = r[when > pd.Timestamp(PERIODS["stock"][0][1])]
+            yrs = pd.Series(r, index=when).groupby(when.year).mean()
+            emit(f"| {x} | {cost:.2%} | {st['n']:,} | {st['net']:+.3%} | {st['t']:.1f} | {dev.mean():+.3%} | "
+                 f"{hold.mean():+.3%} | {(yrs > 0).sum()} of {len(yrs)} |")
+            if x == 30 and cost == 0.0005:
+                keep = {"yrs": yrs, "rows": rows, "r": r}
+    if keep:
+        emit("\nRSI(14) < 30, 0.05% costs, by year: " + ", ".join(f"{y} {v:+.2%}" for y, v in keep["yrs"].items())
+             + ". Trades by stock (top 5): " + ", ".join(f"{k} {v}" for k, v in
+                                                       pd.Series([s for s, _, _ in keep["rows"]]).value_counts()
+                                                       .head(5).items()) + ".")
+        r = pd.Series(keep["r"]).sort_values()
+        emit(f"Share of the total from the best 5% of trades: {r.tail(max(1, len(r) // 20)).sum() / r.sum():.0%}; "
+             f"worst trade {r.min():+.1%}, best {r.max():+.1%}.")
+
     OUT.mkdir(exist_ok=True)
     (OUT / "candle_rsi.md").write_text("\n".join(lines) + "\n")
     print(f"\nwrote {OUT / 'candle_rsi.md'}")

@@ -69,6 +69,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   intraday momentum): `python research/candles.py` -> `research/CANDLES.md`. No edge; NVDA's ORB (t 3.2) fails on QQQ + the
   10 largest companies of 2016 (hindsight). Research-only. Minute bars: `python research/alpaca_bars.py SYM ...` (Alpaca SIP
   feed via the network secret for data.alpaca.markets; cached in data/backtest/alpaca_1m_<SYM>.pkl, from 2016).
+- Daily candles + SMA trend + RSI (72 pre-registered rules, development/holdout, ETFs and point-in-time top-100 stocks):
+  `python research/candle_rsi.py` -> `research/CANDLE_RSI.md`. Candles add nothing. Lead (not live, needs an amendment
+  and a desk test): top-100 stocks above SMA200 with RSI(14)<30, sell above SMA5 (+1.0-1.2%/trade both periods,
+  robust to 25/35 and 4x costs; survivors-only - say so).
 - Mark Minervini's SEPA (Trend Template + RS, point-in-time EPS/sales growth from SEC, base breakout, 7.5% stop to
   break-even, 50-day exit, market filter): `python research/minervini.py` -> `research/MINERVINI.md` (growth cached in
   data/backtest/minervini_fund.pkl). No edge vs the equal-weight universe; research-only. Survivors-only: say so.
