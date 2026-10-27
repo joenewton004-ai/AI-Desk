@@ -43,8 +43,9 @@ import ict  # noqa: E402
 CACHE = ROOT / "data" / "backtest"
 OUT = Path(__file__).resolve().parent / "output"
 COST_PTS = {"NQ=F": 0.75, "ES=F": 0.60}
-TICK = {"NQ=F": 0.25, "ES=F": 0.25}
-DOLLARS_PER_PT = {"NQ=F": 20, "ES=F": 50}
+TICK = {"NQ=F": 0.25, "ES=F": 0.25, "QQQ": 0.01, "SPY": 0.01}
+DOLLARS_PER_PT = {"NQ=F": 20, "ES=F": 50, "QQQ": 1, "SPY": 1}
+ETF_COST = 0.0001          # ETF stand-ins (research/tjr_long.py): 0.01% of the price each way
 
 
 # --- pure pieces (unit-tested) --------------------------------------------------------
@@ -52,7 +53,7 @@ DOLLARS_PER_PT = {"NQ=F": 20, "ES=F": 50}
 def levels(bars: pd.DataFrame, day: pd.Timestamp) -> dict[str, float]:
     """The liquidity levels for `day`'s New York session, from bars BEFORE 9:30am that day only."""
     d = pd.Timestamp(day).normalize()
-    prev = bars.loc[:d - pd.Timedelta(minutes=1)]
+    prev = bars.loc[d - pd.Timedelta(days=7):d - pd.Timedelta(minutes=1)]     # the prior session is within a week
     rth = prev.between_time("09:30", "15:59")
     out = {}
     if len(rth):
@@ -163,10 +164,11 @@ def run(bars: pd.DataFrame, sym: str, interval: str, mode="bos", target="2R", us
         tr = ict.run_trade(O, H, L, C, k, side, entry, stop, tgt, limit=False)
         if tr is None:
             continue
-        cost_r = COST_PTS[sym] / risk
+        cost_pts = COST_PTS[sym] if sym in COST_PTS else 2 * ETF_COST * entry
+        cost_r = cost_pts / risk
         trades.append({**tr, "date": d.date(), "sym": sym, "risk_pts": risk, "R_net": tr["R"] - cost_r,
-                       "pts_net": tr["R"] * risk - COST_PTS[sym], "level": s["level"],
-                       "usd_net": (tr["R"] * risk - COST_PTS[sym]) * DOLLARS_PER_PT[sym]})
+                       "pts_net": tr["R"] * risk - cost_pts, "level": s["level"],
+                       "usd_net": (tr["R"] * risk - cost_pts) * DOLLARS_PER_PT[sym]})
     return pd.DataFrame(trades)
 
 
