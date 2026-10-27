@@ -156,6 +156,14 @@ def overnight_nights(review: dict) -> list[dict]:
     return rows
 
 
+def nvda_orb_rows() -> list[dict]:
+    """The NVIDIA opening-range shadow log (no orders), newest first."""
+    from ai_desk import nvda_orb
+    keys = ("date", "source", "status", "gap_up", "range_high", "range_low", "entry_time", "entry", "exit_time", "exit", "exit_why",
+            "net", "R")
+    return [{k: r.get(k) for k in keys} for r in sorted(nvda_orb.rows(), key=lambda r: r["date"], reverse=True)]
+
+
 def tables() -> dict[str, list[dict]]:
     reg = register.register()
     plan = tradebook._read_plan()
@@ -339,7 +347,8 @@ def tables() -> dict[str, list[dict]]:
             "holdings": holdings, "sleeve_guide": register.sleeve_guide(),
             "watch_summary": watch_summary, "watchlist": watch_rows, "watch_check": watch_check, "watch_daily": watch_daily, "score_headline": headline,
             "pnl_days": pnl_days(tradebook._read("snapshots.jsonl"), trade_rows),
-            "overnight_nights": overnight_nights(_read_json("overnight/review.json")), "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
+            "overnight_nights": overnight_nights(_read_json("overnight/review.json")),
+            "nvda_orb": nvda_orb_rows(), "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
             "sleeve_perf": sc.get("sleeves", []), "fills": sc.get("fills", []), "exits": sc.get("exits", [])}
 
 
