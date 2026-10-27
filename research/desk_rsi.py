@@ -187,6 +187,14 @@ def main() -> None:
         emit(f"| {names[k]} | {'' if k == 'current' else f'{c:.2%}'} | {s['CAGR']:.1%} | {s['volatility']:.1%} | "
              f"{s['Sharpe']:.3f} | {s['max drawdown']:.1%} | {a['Sharpe']:.3f} | {b['Sharpe']:.3f} | {wbar:.1%} | "
              f"{(1 + ovl).prod() ** (12 / len(ovl)) - 1:+.2%} |")
+    # the fixed sleeves hold ~9% of the desk in T-bills: the same mixes with plain cash and no trades separate the
+    # cash effect from the RSI trades
+    for name, wts in (("(S1 without trades: 45/18/27 + 10% T-bills)", (0.45, 0.18, 0.27)),
+                      ("(S2 without trades: 40/20/30 + 10% T-bills)", (0.40, 0.20, 0.30))):
+        d = wts[0] * q + wts[1] * mo + to_m(wts[2] * on_r + 0.10 * rf_d.reindex(days).fillna(0))
+        st, a, b = ms.mstats(d, rfm), ms.mstats(d.loc[:"2019"], rfm), ms.mstats(d.loc["2020":], rfm)
+        emit(f"| {name} | | {st['CAGR']:.1%} | {st['volatility']:.1%} | {st['Sharpe']:.3f} | {st['max drawdown']:.1%} | "
+             f"{a['Sharpe']:.3f} | {b['Sharpe']:.3f} | | |")
     spy = prices["adj"]["SPY"].loc[:MONTH_END].pct_change().reindex(idx)
     emit(ms.fmt_row("SPY (for reference)", ms.mstats(spy, rfm)).replace("| SPY (for reference) |", "| SPY | |"))
 

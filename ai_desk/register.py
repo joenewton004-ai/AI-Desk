@@ -321,8 +321,10 @@ RESEARCH_METHODS = {
         "summary": "No candle rule passed the pre-registered holdout tests; a candle never reliably beat the same rule "
                    "without it. Lead (not pre-registered): top-100 stocks above SMA200 with RSI(14)<30, sell above SMA5: "
                    "+1.0%/trade 2014-19, +1.2% 2020-26 (t ~5 each), RSI 25/30/35 and 4x costs all positive, 11 of 13 "
-                   "years; ~40 trades a year, 6% invested; survivors-only.",
-        "docs": ["research/CANDLE_RSI.md", "research/output/candle_rsi.md"],
+                   "years; ~40 trades a year, 6% invested; survivors-only. In the desk (amendment 661549dd): +0.035 Sharpe, "
+                   "+0.9%/yr at 0.05% costs; at 0.20% no better in 2020-26 - fails its pre-set rule.",
+        "docs": ["research/CANDLE_RSI.md", "research/output/candle_rsi.md", "research/DESK_RSI.md",
+                 "research/output/desk_rsi.md"],
     },
     "candle_patterns": {
         "description": "Day-trading candle patterns on 5-minute candles from 10 years of Alpaca minute bars (SPY, then "

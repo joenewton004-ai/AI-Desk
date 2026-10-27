@@ -72,7 +72,9 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Daily candles + SMA trend + RSI (72 pre-registered rules, development/holdout, ETFs and point-in-time top-100 stocks):
   `python research/candle_rsi.py` -> `research/CANDLE_RSI.md`. Candles add nothing. Lead (not live, needs an amendment
   and a desk test): top-100 stocks above SMA200 with RSI(14)<30, sell above SMA5 (+1.0-1.2%/trade both periods,
-  robust to 25/35 and 4x costs; survivors-only - say so).
+  robust to 25/35 and 4x costs; survivors-only - say so). Inside the desk (amendment 661549dd, testing):
+  `python research/desk_rsi.py` -> `research/DESK_RSI.md`: +0.035 Sharpe at 0.05% costs, fails its pre-set rule at 0.20%
+  (2020-26 Sharpe 1.266 vs 1.268); recommended reject until the market-on-open test shows real open-fill costs.
 - Mark Minervini's SEPA (Trend Template + RS, point-in-time EPS/sales growth from SEC, base breakout, 7.5% stop to
   break-even, 50-day exit, market filter): `python research/minervini.py` -> `research/MINERVINI.md` (growth cached in
   data/backtest/minervini_fund.pkl). No edge vs the equal-weight universe; research-only. Survivors-only: say so.
