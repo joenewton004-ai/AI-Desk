@@ -305,6 +305,19 @@ RESEARCH_METHODS = {
                    "advertising of his results.",
         "docs": ["research/CAMERON.md", "research/output/cameron.md"],
     },
+    "candle_patterns": {
+        "description": "Day-trading candle patterns on 5-minute candles from 10 years of Alpaca minute bars (SPY, then "
+                       "NVDA): engulfing, hammer/shooting star (plain, VWAP reversal, VWAP trend; 30-minute or stop/2R "
+                       "exits), inside-bar breakouts, opening-range breakouts (15/30 min), Gao et al. intraday momentum; "
+                       "against a same-time random-day placebo. ORB re-checked on QQQ + the 10 largest companies of 2016.",
+        "parameters": {"bars": "5-minute, 9:30-16:00", "entry": "next candle's open / stop order at the level",
+                       "costs": "0.01% (SPY), 0.02% each way", "period": "2016-01-04 to 2026-10-26"},
+        "status": "tested: no edge (not in the live mix)",
+        "summary": "SPY: all 32 versions lose after costs; gross within +/-0.01% of the placebo. NVDA ORB long +0.15% a "
+                   "trade (t 3.2, both halves) - but on QQQ + the 10 largest companies of 2016 it's -0.002% (5 of 11 "
+                   "positive): a hindsight effect of picking the stock that rose 100x.",
+        "docs": ["research/CANDLES.md", "research/output/candles.md"],
+    },
     "green_line": {
         "description": "The 'big green line' (@pb_ema on Instagram, attributed there to Charlie Munger): hold the S&P 500 "
                        "while it closes above a moving average, T-bills below it. Tested at the usual lengths (50/100/"
