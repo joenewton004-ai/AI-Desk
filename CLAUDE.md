@@ -59,6 +59,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   -> `research/VWAP_EMA.md` (cached 5m/1m/1h bars). No edge; research-only.
 - Leveraged S&P fund (2x/3x, simulated + checked vs real SSO/UPRO) on SPY signals with strict risk rules:
   `python research/leveraged.py` -> `research/LEVERAGED.md`. Risk control works, no Sharpe edge; research-only.
+- The 'big green line' (@pb_ema on Instagram: S&P 500 above a moving average, cash below; 50-250 day EMA, 200-day SMA,
+  10-month SMA): `python research/green_line.py` -> `research/GREEN_LINE.md`. Halves the worst drop, 1-3%/yr less return,
+  same Sharpe on SPY with dividends (the price-only index flatters it). Research-only.
 - Mark Minervini's SEPA (Trend Template + RS, point-in-time EPS/sales growth from SEC, base breakout, 7.5% stop to
   break-even, 50-day exit, market filter): `python research/minervini.py` -> `research/MINERVINI.md` (growth cached in
   data/backtest/minervini_fund.pkl). No edge vs the equal-weight universe; research-only. Survivors-only: say so.
@@ -143,7 +146,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   Commit journal/ and data/portfolio/ (the pick locks) after each trading session - containers
   are temporary, and a lost lock would re-pick early.
 - Dashboard: https://claude.ai/artifact/PFSUn2FY2CarKh4Cxuni4y (Dashboard type). Refresh it with
-  `journal export` (writes journal/dashboard/*.json), then upload each file as an asset and update
+  `journal export` (writes journal/dashboard/*.json; pnl_days = the Overview's P&L calendar, daily closes vs
+  `dashboard.START_EQUITY` for the first day), then upload each file as an asset and update
   the matching dataset's url/updated. Never point a dataset at an empty table (the dashboard counts it as a
   failed source): journal/dashboard/_manifest.json lists tables with rows; create a dataset when one first has rows. Amendments and notes sent as dashboard comments go into the
   journal with `journal propose` / `journal note` - comments are the user's words, not orders.

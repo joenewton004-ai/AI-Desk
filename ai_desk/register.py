@@ -305,6 +305,19 @@ RESEARCH_METHODS = {
                    "advertising of his results.",
         "docs": ["research/CAMERON.md", "research/output/cameron.md"],
     },
+    "green_line": {
+        "description": "The 'big green line' (@pb_ema on Instagram, attributed there to Charlie Munger): hold the S&P 500 "
+                       "while it closes above a moving average, T-bills below it. Tested at the usual lengths (50/100/"
+                       "200/250-day EMA, 200-day SMA, 10-month SMA at month-ends, 200-day EMA with a 2% band) on SPY "
+                       "(1994-) and the S&P 500 index (1970-, no dividends).",
+        "parameters": {"line": "50-250 day EMA / 200-day SMA / 10-month SMA", "fills": "next open",
+                       "costs": "0.05% per switch", "cash": "T-bills"},
+        "status": "tested: risk control, no return edge (not in the live mix)",
+        "summary": "SPY 1994-2026: buy and hold 10.8%/yr, Sharpe 0.51, worst -55%; 200-day SMA 8.6%, 0.53, -25%; "
+                   "10-month SMA 9.6%, 0.59, -24% (better before 2010, worse after); 50-day EMA 7.4%, 0.48. Halves the "
+                   "worst drop for 1-3%/yr less return; the desk already uses SPY's 200-day as an overnight check.",
+        "docs": ["research/GREEN_LINE.md", "research/output/green_line.md"],
+    },
     "leveraged_spy": {
         "description": "A 2x/3x S&P 500 fund (SSO/UPRO, simulated back to 1994 and checked against the real funds) "
                        "traded on SPY's signals with strict risk rules: SPY above its 200-day average, leverage capped "
