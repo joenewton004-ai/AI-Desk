@@ -1,7 +1,7 @@
 [
  {
-  "exported_utc": "2026-10-27T10:04:42+00:00",
-  "equity": 97656.38,
+  "exported_utc": "2026-10-27T13:45:36+00:00",
+  "equity": 97572.74,
   "signal_date": "2026-10-26",
   "plan_status": "submitted",
   "plan_method": "50% quality_screen(top=25, rebalance=False, max_age_days=10, screen_glob=output/screen_*.csv, lock_path=data/portfolio/quality_screen.json, rebalance_months=3) + 20% momentum(top=20, rebalance=False, max_age_days=3, screen_glob=output/momentum_*.csv, lock_path=data/portfolio/momentum.json, rebalance_days=28, exit_ma=100, replaces_lock=data/portfolio/bottleneck.json)",
@@ -9,18 +9,18 @@
   "buy_usd": 0,
   "sell_usd": 29246.76,
   "trades_logged": 202,
-  "trades_filled": 181,
+  "trades_filled": 202,
   "notes": 4,
   "open_amendments": 4,
-  "unrealized_pnl": -1078.1,
-  "realized_pnl": -1263.74,
+  "unrealized_pnl": -1198.64,
+  "realized_pnl": -1255.11,
   "plan_utc": "2026-10-26T20:41:16+00:00",
-  "review_utc": "2026-10-26T17:34:49+00:00",
-  "prices_utc": "2026-10-26T20:21:20+00:00",
-  "prices_kind": "close",
-  "live_equity": 97633.82,
-  "cash": 2225.85,
-  "day_pl": 332.78,
-  "open_pl": -839.56
+  "review_utc": "2026-10-27T13:45:01+00:00",
+  "prices_utc": "2026-10-27T13:45:36+00:00",
+  "prices_kind": "intraday",
+  "live_equity": 97600.95,
+  "cash": 31479.27,
+  "day_pl": -31.12,
+  "open_pl": -736.17
  }
 ]
