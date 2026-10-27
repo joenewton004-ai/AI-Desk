@@ -84,9 +84,10 @@ def overlay_daily(w: pd.DataFrame, oo: pd.DataFrame, cost: float) -> pd.Series:
 
 # --- the sleeves ----------------------------------------------------------------------
 
-def overnight_live() -> tuple[pd.Series, pd.Series]:
+def overnight_live() -> tuple[pd.Series, pd.Series, pd.Series]:
     """The overnight sleeve as it runs live (research/overnight_v2.py 'as live' + checks): daily, dated by the
-    morning each night ends; T-bills on cash nights. Also the daily T-bill rate."""
+    morning each night ends; T-bills on cash nights (costs 0.02% each way). Also the daily T-bill rate and which
+    nights were invested."""
     d = swing.fetch_daily([])
     o, c, v = (d[k].astype(float).loc[:ov.END] for k in ("open", "close", "volume"))
     snaps = {}
@@ -104,17 +105,13 @@ def overnight_live() -> tuple[pd.Series, pd.Series]:
     idx = base.index
     pday = day.shift(1).where(h).mean(axis=1).reindex(idx)
     flag = spy_flag.reindex(idx).fillna(False) | opc.bad_day(pday, 0.10)
-    return orr.switch(base, rf.reindex(idx).fillna(0), flag), rf
+    invested = h.any(axis=1).reindex(idx).fillna(False) & ~flag
+    return orr.switch(base, rf.reindex(idx).fillna(0), flag), rf, invested
 
 
-def main() -> None:
-    warnings.filterwarnings("ignore", category=RuntimeWarning)
-    lines: list[str] = []
-
-    def emit(t=""):
-        print(t, flush=True)
-        lines.append(t)
-
+def load() -> dict:
+    """Every sleeve the desk tests need: quality and momentum (monthly), overnight as live (daily), the RSI dip
+    trades with their signal-day RSI, open-to-open returns, and the monthly calendar 2014-06 to MONTH_END."""
     print("quality and momentum...", flush=True)
     px, snaps = weekly.load()
     f = weekly.build(px, snaps)
@@ -132,7 +129,7 @@ def main() -> None:
     rf_m = (load_cash_rate(str(ROOT / "market_data" / "SPY.csv")).resample("ME").last() / 12).shift(1)
 
     print("overnight (as live)...", flush=True)
-    on_r, rf_d = overnight_live()
+    on_r, rf_d, invested = overnight_live()
 
     print("RSI dip trades...", flush=True)
     frames, member = cr.stock_data()
@@ -143,7 +140,6 @@ def main() -> None:
         r14 = rsi(frames[s]["close"], 14)
         prev = r14.index[r14.index < e]
         rsi_at[(s, e)] = float(r14.loc[prev[-1]]) if len(prev) else 0.0
-    days = on_r.index
     oo = pd.DataFrame({s: d["open"].shift(-1) / d["open"] - 1 for s, d in frames.items()})
 
     idx = screen.index.intersection(mom.index)
@@ -151,6 +147,23 @@ def main() -> None:
     rfm = rf_m.reindex(idx).fillna(0)
     q, mo = screen.reindex(idx), mom.reindex(idx)
     to_m = lambda daily: ((1 + daily).resample("ME").prod() - 1).reindex(idx)  # noqa: E731
+
+    return {"q": q, "mo": mo, "on_r": on_r, "rf_d": rf_d, "invested": invested, "trades": trades, "rsi_at": rsi_at,
+            "oo": oo, "idx": idx, "rfm": rfm, "prices": prices, "to_m": to_m}
+
+
+def main() -> None:
+    warnings.filterwarnings("ignore", category=RuntimeWarning)
+    lines: list[str] = []
+
+    def emit(t=""):
+        print(t, flush=True)
+        lines.append(t)
+
+    L = load()
+    q, mo, on_r, rf_d, trades, rsi_at, oo, idx, rfm, prices = (L[k] for k in (
+        "q", "mo", "on_r", "rf_d", "trades", "rsi_at", "oo", "idx", "rfm", "prices"))
+    days, to_m = on_r.index, L["to_m"]
 
     def desk(kind: str, cost: float) -> tuple[pd.Series, pd.Series, float]:
         """Monthly desk return, the overlay's own monthly contribution, and its average weight."""

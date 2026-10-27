@@ -75,6 +75,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   robust to 25/35 and 4x costs; survivors-only - say so). Inside the desk (amendment 661549dd, testing):
   `python research/desk_rsi.py` -> `research/DESK_RSI.md`: +0.035 Sharpe at 0.05% costs, fails its pre-set rule at 0.20%
   (2020-26 Sharpe 1.266 vs 1.268); recommended reject until the market-on-open test shows real open-fill costs.
+  What-if 50% overnight + 50% dips (`python research/desk_5050.py` -> `research/DESK_5050.md`): Sharpe 1.80 at 0.02%
+  overnight costs but 1.10 at 0.05% - mostly half overnight, half cash; not proposed.
 - Mark Minervini's SEPA (Trend Template + RS, point-in-time EPS/sales growth from SEC, base breakout, 7.5% stop to
   break-even, 50-day exit, market filter): `python research/minervini.py` -> `research/MINERVINI.md` (growth cached in
   data/backtest/minervini_fund.pkl). No edge vs the equal-weight universe; research-only. Survivors-only: say so.
