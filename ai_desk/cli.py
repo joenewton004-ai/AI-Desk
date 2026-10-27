@@ -399,6 +399,13 @@ def cmd_portfolio(a) -> None:
                 print(rsidip_scan())
             except Exception as e:  # noqa: BLE001 - without a scan the sleeve holds and buys nothing new
                 print(f"rsi_dip: scan failed ({e}); the sleeve will hold its positions and buy nothing tonight")
+        try:                      # NVIDIA opening-range buy: shadow only - record what it would have done today
+            from ai_desk import nvda_orb
+            r = nvda_orb.record()
+            print(f"nvda_orb (shadow, no orders): {r.get('status') if r else 'no finished trading day'}"
+                  + (f", net {r['net']:+.2%} ({r['exit_why']})" if r and r.get("status") == "traded" else ""))
+        except Exception as e:  # noqa: BLE001 - the shadow must never block the trading run
+            print(f"nvda_orb (shadow): not recorded ({e})")
         from ai_desk import overnight
         try:                      # tomorrow's overnight re-pick ranks on today's close: rank now, not at 3:55pm
             r = overnight.prepare_repick()
@@ -517,6 +524,20 @@ def rsidip_scan() -> str:
 
 def cmd_rsidip(a) -> None:
     print(rsidip_scan())
+
+
+def cmd_orb(a) -> None:
+    from ai_desk import nvda_orb
+    if a.action == "record":
+        r = nvda_orb.record(a.date)
+        print(f"NVDA opening-range shadow: {r}" if r else "NVDA opening-range shadow: no finished trading day to record")
+    elif a.action == "backfill":
+        print(f"NVDA opening-range shadow: backfilled {nvda_orb.backfill(a.days)} days")
+    s = nvda_orb.summary()
+    pct = lambda x: "n/a" if x is None else f"{x:+.3%}"  # noqa: E731
+    win = "n/a" if s["win_rate"] is None else f"{s['win_rate']:.0%}"
+    print(f"Shadow so far: {s['trades']} trades in {s['days']} days, average {pct(s['avg_net'])} after costs, win rate "
+          f"{win} (backtest {s['backtest_avg_net']:+.2%}, {s['backtest_win_rate']:.0%}). No orders are sent.")
 
 
 def cmd_overnight(a) -> None:
@@ -828,6 +849,12 @@ def build_parser() -> argparse.ArgumentParser:
     rd = sub.add_parser("rsidip", help="RSI dip sleeve: rate the top 100 on the latest close (amendment c52ce018)")
     rd.add_argument("action", choices=["scan"])
     rd.set_defaults(func=cmd_rsidip)
+
+    ob = sub.add_parser("orb", help="NVIDIA opening-range buy, SHADOW only (records, never trades)")
+    ob.add_argument("action", choices=["record", "backfill", "status"])
+    ob.add_argument("--date", default=None)
+    ob.add_argument("--days", type=int, default=60)
+    ob.set_defaults(func=cmd_orb)
 
     on = sub.add_parser("overnight", help="overnight sleeve (30% of the desk): buy at the close, sold at the next open")
     on.add_argument("action", choices=["scan", "status", "buy", "review", "activate", "regime", "open-sell"])

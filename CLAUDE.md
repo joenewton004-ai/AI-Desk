@@ -61,6 +61,10 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Overnight turnover (`python research/overnight_turnover.py` -> `research/OVERNIGHT_TURNOVER.md`): fewer stocks doesn't
   cut costs; keeping repeat picks through the day trades 83% less and survives 0.10% costs (Sharpe 0.55 vs -0.55) but
   nearly doubles volatility; the live version wins below ~0.04-0.05% each way. Decide on real costs; not live.
+- NVIDIA opening-range buy, SHADOW ONLY (owner asked to incorporate it 2026-10-27; shadow chosen by default - no orders,
+  no amendment): `ai_desk/nvda_orb.py`, `python -m ai_desk orb record|backfill|status`; `portfolio prepare` records each
+  day to journal/nvda_orb.jsonl (commit it); dashboard table `nvda_orb` (Scorecard tab). Backfill of 59 days: -0.18% a
+  trade vs the backtest's +0.15%. Trading it would need an amendment and a decision on its size.
 - RSI dips on wider universes (`python research/dip_universe.py` -> `research/DIP_UNIVERSE.md`): top 100/250/500/750 all
   work per dip (+1.12% -> +0.61%), but wider universes lower the desk's return and Sharpe (27.7%/1.67 -> 20.9%/1.32)
   and deepen its worst drop; keep the top 100.
