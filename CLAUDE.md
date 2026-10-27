@@ -29,10 +29,13 @@ changes plainly and be honest about whether a strategy has a real edge.
   breakout swing trading (`python research/swing.py` -> `research/SWING.md`; daily OHLCV cached in
   data/backtest/daily_ohlcv.pkl). Both research-only in `register.RESEARCH_METHODS`. Survivors-only: say so.
 - ICT day trading (Silver Bullet on 5-min, Judas swing on 1h; with/without a quality-score side filter):
-  `python research/ict.py` -> `research/ICT.md`. No edge; research-only. Yahoo keeps only 60 days of 5-min bars
+  `python research/ict.py` -> `research/ICT.md`. No edge; research-only. Re-run on 2016-2026 Alpaca 5-min bars for the
+  point-in-time top 100 (`python research/ict_long.py`, after `python research/alpaca_bars.py --5min --workers=6 <names>`;
+  ~2 hours of downloads): still no edge, both halves. Yahoo keeps only 60 days of 5-min bars
   (cached in data/backtest/intraday_*.pkl); years of minute bars now come from research/alpaca_bars.py.
 - TJR's model (NQ/ES futures, New York-open liquidity sweep + break of structure / inverse FVG): `python research/tjr.py`
   -> `research/TJR.md` (bars cached in data/backtest/futures_intraday.pkl: 5m ~60 days, 1h 2 years). No edge; research-only.
+  Re-run on QQQ/SPY 5-min bars incl. pre-market, 2016-2026 (`python research/tjr_long.py`): no edge.
 - George Soros (desk research + cross-asset trend on 9 ETFs): `python research/soros.py` -> `research/SOROS.md`.
   Long-only trend: Sharpe 0.79, worst -9% vs SPY 0.67/-51% - risk control, not return. Research-only.
 - Ross Cameron gap-and-go (large caps only - no small-cap history): `python research/cameron.py` -> `research/CAMERON.md`.
