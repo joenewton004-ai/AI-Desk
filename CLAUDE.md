@@ -61,6 +61,8 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Overnight turnover (`python research/overnight_turnover.py` -> `research/OVERNIGHT_TURNOVER.md`): fewer stocks doesn't
   cut costs; keeping repeat picks through the day trades 83% less and survives 0.10% costs (Sharpe 0.55 vs -0.55) but
   nearly doubles volatility; the live version wins below ~0.04-0.05% each way. Decide on real costs; not live.
+- Overnight sleeve with leverage (what-if, `python research/overnight_leverage.py` -> `research/OVERNIGHT_LEVERAGE.md`):
+  2x = 49.9%/yr, worst -29% at 0.02% costs; 19.5%, -42% at 0.05%. Scales risk, not Sharpe; not proposed.
 - EMA9/VWAP crossover and Trend+Momentum+Confirmation (EMA20/50, VWAP, volume, breakout): `python research/vwap_ema.py`
   -> `research/VWAP_EMA.md` (cached 5m/1m/1h bars). No edge; research-only.
 - Leveraged S&P fund (2x/3x, simulated + checked vs real SSO/UPRO) on SPY signals with strict risk rules:
