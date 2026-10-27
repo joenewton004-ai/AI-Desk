@@ -109,6 +109,20 @@ SLEEVE_TEXT = {
         "metrics": "Worst drop vs SPY buy and hold. Backtest 1994-2026: 10.6%/yr vs 10.8%, worst drop -34% vs -55%.",
         "watch": "It should lag in strong bull markets and justify itself in a long bear market. Judge it on the worst drop, not return.",
     },
+    "rsi_dip": {
+        "label": "RSI dips",
+        "plain": "Buys one of the 100 largest US companies after a short, sharp fall inside an uptrend: price above its "
+                 "200-day average with RSI(14) below 30. Each dip is 10% of the desk, bought at the next open and sold "
+                 "at the open after it closes back above its 5-day average (at most 10 trading days); at most 5 at "
+                 "once. About 40 dips a year - most of the time it holds nothing. Amendment c52ce018 (accepted "
+                 "2026-10-27) replaced the quality screen and momentum sleeves with it.",
+        "screen": "Top 100 US companies by market value; close above the 200-day average and RSI(14) below 30; lowest "
+                  "RSI first.",
+        "metrics": "Return per dip after costs. Backtest 2014-2026 (survivors-only): +1.0% a dip in 2014-19 and +1.2% in "
+                   "2020-26, 11 of 13 years positive; the desk with it and the overnight sleeve: 28.1%/yr, Sharpe 1.78 "
+                   "at 0.02% overnight costs, 15.2%/yr and 0.99 at 0.05%.",
+        "watch": "Average return per dip after real fills at the open; how often 5 slots are full; dips that keep falling.",
+    },
     "overnight_drift": {
         "label": "Overnight",
         "plain": "Holds the 20 large US stocks with the highest return over the past 12 months, re-ranked every day "
@@ -131,11 +145,16 @@ def desk_allocation(today=None) -> dict[str, float]:
     import pandas as pd
 
     from ai_desk.portfolio.methods import overnight_swap
+    from ai_desk import overnight
+    from ai_desk.portfolio.methods import DESK_REARRANGE
     sw = overnight_swap()
     live = dict(preset(LIVE_PRESET, today))
     today = (pd.Timestamp(today) if today else pd.Timestamp.today()).normalize()
+    if today >= pd.Timestamp(DESK_REARRANGE["date"]):
+        # amendment c52ce018: dips take 10% each (at most 5, ~5% on average); overnight buys with the rest
+        return {"overnight_drift": 0.95, "rsi_dip": 0.05}
     if sw and today >= pd.Timestamp(sw["from"]):
-        return live | {"overnight_drift": float(sw.get("share", 0.3))}
+        return live | {"overnight_drift": float(sw.get("share", overnight.SHARE))}
     return live
 
 
@@ -154,7 +173,8 @@ def sleeve_guide() -> list[dict]:
         facts = {"quality_screen": lambda: f"top {p['top']}, re-pick every {p['rebalance_months']} months",
                  "bottleneck": lambda: f"top {p['top']}, re-pick every {p['rebalance_days']} days, exit below the 100-day average",
                  "momentum": lambda: f"top {p['top']}, re-pick every {p['rebalance_days']} days, exit below the {p['exit_ma']}-day average",
-                 "index_momentum": lambda: f"{p['symbol']}, {p['lookback']}-day momentum, checked monthly"}[name]()
+                 "index_momentum": lambda: f"{p['symbol']}, {p['lookback']}-day momentum, checked monthly",
+                 "rsi_dip": lambda: f"{p['slot']:.0%} a dip, at most {p['max_positions']}; about 5% on average"}[name]()
         if name == "bottleneck":
             t = {**t, "plain": f"Being replaced by plain momentum at its {DESK_SWITCH['date']} re-pick (amendment "
                                "00e1f2b8, accepted 2026-10-20). " + t["plain"]}

@@ -96,9 +96,9 @@ def test_auction_orders_need_whole_shares():
 
 def test_desk_swap_drops_spy_momentum_from_the_activation_date_without_rescaling():
     from ai_desk.portfolio import methods as m
-    sw = {"from": "2026-11-10", "share": 0.3}
-    before = dict(m.preset("desk", pd.Timestamp("2026-11-09"), swap=sw))
-    after = dict(m.preset("desk", pd.Timestamp("2026-11-10"), swap=sw))
+    sw = {"from": "2026-10-23", "share": 0.3}            # both dates before the desk was rearranged (c52ce018)
+    before = dict(m.preset("desk", pd.Timestamp("2026-10-22"), swap=sw))
+    after = dict(m.preset("desk", pd.Timestamp("2026-10-23"), swap=sw))
     assert "index_momentum" in before and after == {"quality_screen": 0.5, "momentum": 0.2}
 
 

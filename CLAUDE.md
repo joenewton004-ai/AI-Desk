@@ -216,6 +216,19 @@ changes plainly and be honest about whether a strategy has a real edge.
   Its fills are also trade-journal lines (sleeve overnight_drift): the buys from `confirm_book`, the next-open sale as
   its own line sharing the desk's netted order id (`record_orders(overnight_book=...)`); lots match a sleeve's own
   buys first, so the desk's P&L stays separate.
+- DESK REARRANGED (amendment c52ce018, accepted by the owner 2026-10-27 against Claude's advice to wait for the
+  market-on-open test; research/DESK_5050.md variant C): from the 2026-10-27 evening run `preset("desk")` =
+  `rsi_dip` alone (`methods.DESK_REARRANGE`); the quality screen and momentum holdings are sold at the 2026-10-28 open
+  (their locks stay as history; `RSIDip.exit_reason` says why). RSI dips (`ai_desk/rsi_dip.py`,
+  `python -m ai_desk rsidip scan`, run by `portfolio prepare`): top 100 US companies by market value, close above the
+  200-day average and RSI(14) < 30 -> buy at the next open, 10% of equity each, at most 5, lowest RSI first; sold at
+  the open after a close above the 5-day average or after 10 trading days; held positions aren't resized. State in
+  data/portfolio/rsi_dip.json, written only when orders are sent (commit it with the other locks). It needs a scan
+  from the same close as the run; otherwise it holds and buys nothing. The overnight sleeve buys with ALL the cash
+  the dips leave, less the 1% buffer (`overnight.share_for`: 30% until 2026-10-27, 100% from the 2026-10-28 buy) -
+  ~95% of the desk on an average night, so its real fill costs decide the desk's result (break-even ~0.045%/trade).
+  `register.desk_allocation()` shows overnight 95% / dips 5% (averages). The scorecard has no benchmark row for
+  rsi_dip (adding one is a "criteria" amendment).
 - Methodology changes go through register.py amendments: proposed -> testing
   (backtest it) -> accepted/rejected by the user. Never change live method
   parameters without an accepted amendment.
