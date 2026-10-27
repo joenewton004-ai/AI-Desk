@@ -152,5 +152,27 @@
   "status": "testing",
   "evidence": "Owner: 'Propose the market-on-open change and test it' (2026-10-26). Live A/B test from the 2026-10-27 evening run (first market-on-open sales 2026-10-28, 9:05am run); judged after 10 trading days by the rule above.",
   "decided": ""
+ },
+ {
+  "id": "661549dd",
+  "date": "2026-10-27",
+  "method": "desk",
+  "proposal": "Add an RSI dip-buying overlay: when one of the 100 largest US companies (point-in-time) closes above its 200-day average with RSI(14) below 30, buy it at the next open and sell at the open after it first closes above its 5-day average (at most 10 days). Each position is 3% of the desk, at most 5 at once (15%), funded from the overnight sleeve's 30% while open (the overnight buys shrink by that much); the rest of the desk is unchanged. Sensitivity: a fixed 10% sleeve (5 slots of 2%) taken pro-rata from all sleeves, or from the quality screen.",
+  "rationale": "research/CANDLE_RSI.md: candles added nothing, but this RSI rule made +1.0% a trade in 2014-19 and +1.2% in 2020-26 (t ~5 each; RSI 25/30/35 and 4x costs all positive; 11 of 13 years) with ~0.4 correlation to the market; survivors-only prices, and found after looking (not pre-registered). It is invested ~6% of the time, so it needs shared money rather than a fixed slice. Decision rule fixed before the desk test: recommend accepting only if the desk's Sharpe is higher in BOTH 2014-19 and 2020-26, the worst drop is no more than 1 point deeper, and the desk still beats the current one with the overlay at 0.20% costs each way; otherwise reject.",
+  "author": "you",
+  "status": "testing",
+  "evidence": "Owner: 'Propose the amendment and test it inside the desk' (2026-10-27). Desk backtest: research/desk_rsi.py -> research/DESK_RSI.md.",
+  "decided": ""
+ },
+ {
+  "id": "c52ce018",
+  "date": "2026-10-27",
+  "method": "desk",
+  "proposal": "Rearrange the desk (research/DESK_5050.md, variant C): sell the quality screen (50%) and momentum (20%) sleeves, and run two sleeves in the same Alpaca paper account. (1) RSI dips: when one of the 100 largest US companies closes above its 200-day average with RSI(14) below 30, buy it at the next open as 10% of the desk; sell at the open after it first closes above its 5-day average, or after 10 trading days; at most 5 at once, same-day signals lowest RSI first. (2) Overnight: the existing sleeve and its rules, but it buys with all the cash the dips aren't using (less the 1% buffer) instead of 30% of equity - about 95% of the desk on an average night. Switch: the 2026-10-27 evening run sells quality and momentum at the 2026-10-28 open; the overnight sleeve's bigger buys start at the 2026-10-28 3:55pm window.",
+  "rationale": "Backtest 2014-06 to 2026-09 (survivors-only prices): 28.1%/yr, Sharpe 1.78, worst drop -10.9% vs the current desk's 21.5%, 1.24, -21.0% - with the overnight sleeve at 0.02% costs each way. At 0.05% overnight costs: 15.2%/yr, Sharpe 0.99, worst -15.0% (0.22 in 2014-19). The result rests on the overnight sleeve's real trading costs, which aren't known yet: live paper sales at the open have filled 0.45-0.68% below the official open, and the market-on-open test (amendment e43f2959) is measuring it. Recommended against by Claude before the cost test reports; the owner chose to go live on paper now.",
+  "author": "you",
+  "status": "accepted",
+  "evidence": "Owner, 2026-10-27, asked how to proceed with variant C (options: wait for the market-on-open test, go live now, or phase in): 'Go live on paper now'. Supersedes the 10%-overlay version (amendment 661549dd).",
+  "decided": "2026-10-27"
  }
 ]

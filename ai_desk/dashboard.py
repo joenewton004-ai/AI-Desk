@@ -140,6 +140,22 @@ def pnl_days(snaps: list[dict], trade_rows: list[dict], start: float = START_EQU
     return rows
 
 
+def overnight_nights(review: dict) -> list[dict]:
+    """Pure: the overnight sleeve's nights at the official auction prices vs the paper fills (from `overnight review`),
+    newest first, with a total row."""
+    line = (review.get("summary") or {}).get("official_line") or {}
+    rows = [{"night": n["night"], "stocks": n["stocks"], "invested": n["invested"], "official": n["official"],
+             "official_pct": n["official_pct"], "paper": n["paper"], "paper_pct": n["paper_pct"],
+             "fill_cost": round(n["official"] - n["paper"], 2)} for n in reversed(line.get("nights", []))]
+    if rows:
+        t = line["totals"]
+        inv = sum(r["invested"] for r in rows)
+        rows.append({"night": "total", "stocks": None, "invested": round(inv, 2), "official": t["official"],
+                     "official_pct": round(t["official"] / inv, 5) if inv else None, "paper": t["paper"],
+                     "paper_pct": round(t["paper"] / inv, 5) if inv else None, "fill_cost": t["difference"]})
+    return rows
+
+
 def tables() -> dict[str, list[dict]]:
     reg = register.register()
     plan = tradebook._read_plan()
@@ -322,7 +338,8 @@ def tables() -> dict[str, list[dict]]:
             "closed": closed, "methods": methods, "amendments": amendments, "notes": note_rows,
             "holdings": holdings, "sleeve_guide": register.sleeve_guide(),
             "watch_summary": watch_summary, "watchlist": watch_rows, "watch_check": watch_check, "watch_daily": watch_daily, "score_headline": headline,
-            "pnl_days": pnl_days(tradebook._read("snapshots.jsonl"), trade_rows), "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
+            "pnl_days": pnl_days(tradebook._read("snapshots.jsonl"), trade_rows),
+            "overnight_nights": overnight_nights(_read_json("overnight/review.json")), "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
             "sleeve_perf": sc.get("sleeves", []), "fills": sc.get("fills", []), "exits": sc.get("exits", [])}
 
 

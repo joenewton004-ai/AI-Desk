@@ -1,6 +1,6 @@
 [
  {
-  "exported_utc": "2026-10-27T14:13:46+00:00",
+  "exported_utc": "2026-10-27T15:22:09+00:00",
   "equity": 97572.74,
   "signal_date": "2026-10-26",
   "plan_status": "submitted",
@@ -11,7 +11,7 @@
   "trades_logged": 202,
   "trades_filled": 202,
   "notes": 4,
-  "open_amendments": 4,
+  "open_amendments": 5,
   "unrealized_pnl": -1198.64,
   "realized_pnl": -1255.11,
   "plan_utc": "2026-10-26T20:41:16+00:00",

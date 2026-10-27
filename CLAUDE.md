@@ -220,6 +220,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   the rule fixed in advance: after 10 trading days adopt market-on-open if >= 0.10 points cheaper and >= 95% filled.
   `overnight review` also prints the official-price line (`overnight.official_line`): each night bought at the official
   close and sold at the next official open - what live auction orders would get, before fees - next to the paper fills.
+  On the dashboard (Scorecard tab) as the `overnight_nights` table (`dashboard.overnight_nights`, from
+  journal/overnight/review.json); refreshed by the evening scorecard upload.
   Its fills are also trade-journal lines (sleeve overnight_drift): the buys from `confirm_book`, the next-open sale as
   its own line sharing the desk's netted order id (`record_orders(overnight_book=...)`); lots match a sleeve's own
   buys first, so the desk's P&L stays separate.
