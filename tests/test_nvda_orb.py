@@ -25,3 +25,9 @@ def test_no_breakout_and_summary():
     s = nvda_orb.summary([{"status": "traded", "net": 0.01}, {"status": "traded", "net": -0.005},
                           {"status": "no breakout"}])
     assert s["trades"] == 2 and s["days"] == 3 and s["win_rate"] == 0.5 and abs(s["avg_net"] - 0.0025) < 1e-12
+
+
+def test_summary_gap_up_only():
+    rows = [{"status": "traded", "net": 0.01, "gap_up": True}, {"status": "traded", "net": -0.02, "gap_up": False}]
+    assert nvda_orb.summary(rows, gap_up_only=True)["trades"] == 1
+    assert nvda_orb.summary(rows)["trades"] == 2

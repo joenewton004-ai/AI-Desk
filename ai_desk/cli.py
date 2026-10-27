@@ -538,6 +538,9 @@ def cmd_orb(a) -> None:
     win = "n/a" if s["win_rate"] is None else f"{s['win_rate']:.0%}"
     print(f"Shadow so far: {s['trades']} trades in {s['days']} days, average {pct(s['avg_net'])} after costs, win rate "
           f"{win} (backtest {s['backtest_avg_net']:+.2%}, {s['backtest_win_rate']:.0%}). No orders are sent.")
+    g = nvda_orb.summary(gap_up_only=True)
+    print(f"Gap-up days only: {g['trades']} trades, average {pct(g['avg_net'])} (backtest "
+          f"{nvda_orb.BACKTEST_GAP_UP:+.2%}).")
 
 
 def cmd_overnight(a) -> None:

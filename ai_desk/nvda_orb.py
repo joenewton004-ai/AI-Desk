@@ -29,6 +29,7 @@ RANGE_MINUTES = 15
 LAST_BAR = 15 * 60 + 55
 COST = 0.0002                       # each way, as in the research
 BACKTEST = {"net_per_trade": 0.00151, "win_rate": 0.49, "trades_per_year": 123}
+BACKTEST_GAP_UP = 0.00155          # research/ORB_VARIANTS.md (long-only first break, 2016-2026)
 LOG = Path("journal/nvda_orb.jsonl")
 
 
@@ -80,6 +81,18 @@ def fetch_day(day: str) -> pd.DataFrame:
     return df[(t >= 9 * 60 + 30) & (t < 16 * 60)][["open", "high", "low", "close", "volume"]].astype(float)
 
 
+def previous_close(day: str) -> float | None:
+    """NVDA's official close on the trading day before `day` (Alpaca daily bars)."""
+    from ai_desk.broker.alpaca import AlpacaPaper
+    start = (pd.Timestamp(day) - pd.Timedelta(days=10)).date().isoformat()
+    r = AlpacaPaper().session.get(f"https://data.alpaca.markets/v2/stocks/{SYMBOL}/bars",
+                                  params={"timeframe": "1Day", "start": f"{start}T00:00:00Z", "end": f"{day}T00:00:00Z",
+                                          "adjustment": "split", "feed": "sip", "limit": 20}, timeout=30)
+    r.raise_for_status()
+    bars = [b for b in (r.json().get("bars") or []) if b["t"][:10] < day]
+    return float(bars[-1]["c"]) if bars else None
+
+
 def rows() -> list[dict]:
     if not LOG.exists():
         return []
@@ -100,8 +113,10 @@ def record(day: str | None = None, source: str = "live") -> dict | None:
     bars = fetch_day(day)
     if bars.empty or (bars.index.hour * 60 + bars.index.minute).max() < LAST_BAR:
         return None                                  # market closed, or the day isn't over yet
+    prev = previous_close(day)
+    first_open = float(bars["open"].iloc[0])
     row = {"date": day, "source": source, "recorded_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-           **evaluate(bars)}
+           "prev_close": prev, "gap_up": bool(prev is not None and first_open > prev), **evaluate(bars)}
     _save(list(have.values()) + [row])
     return row
 
@@ -115,9 +130,11 @@ def backfill(days: int = 60) -> int:
     return n
 
 
-def summary(all_rows: list[dict] | None = None) -> dict:
-    """Pure: trades, win rate and average net per trade so far, next to the backtest."""
-    rs = [r for r in (all_rows if all_rows is not None else rows()) if r.get("status") == "traded"]
+def summary(all_rows: list[dict] | None = None, gap_up_only: bool = False) -> dict:
+    """Pure: trades, win rate and average net per trade so far, next to the backtest. gap_up_only: the tweak from
+    research/ORB_VARIANTS.md - only days NVDA opened above the previous close."""
+    rs = [r for r in (all_rows if all_rows is not None else rows()) if r.get("status") == "traded"
+          and (r.get("gap_up") or not gap_up_only)]
     net = np.array([r["net"] for r in rs], dtype=float)
     days = len(all_rows if all_rows is not None else rows())
     return {"days": days, "trades": len(rs), "win_rate": float((net > 0).mean()) if len(rs) else None,

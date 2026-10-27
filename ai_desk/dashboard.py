@@ -159,7 +159,7 @@ def overnight_nights(review: dict) -> list[dict]:
 def nvda_orb_rows() -> list[dict]:
     """The NVIDIA opening-range shadow log (no orders), newest first."""
     from ai_desk import nvda_orb
-    keys = ("date", "source", "status", "range_high", "range_low", "entry_time", "entry", "exit_time", "exit", "exit_why",
+    keys = ("date", "source", "status", "gap_up", "range_high", "range_low", "entry_time", "entry", "exit_time", "exit", "exit_why",
             "net", "R")
     return [{k: r.get(k) for k in keys} for r in sorted(nvda_orb.rows(), key=lambda r: r["date"], reverse=True)]
 
