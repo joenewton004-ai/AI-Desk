@@ -113,6 +113,38 @@ def main() -> None:
     emit(f"\nMonthly correlation with SPY: current desk {cur.corr(spy):.2f}, A {a.corr(spy):.2f}, C {c.corr(spy):.2f}; "
          f"A's dips vs its overnight half {keep[('A', 0.0002, 0.0005)]['dips'].corr(to_m(on_r)):.2f}.")
 
+    # owner's follow-up: the whole desk in dip-buying (no overnight sleeve). The dips are rare, so the slot size and
+    # the RSI threshold decide how much money works; RSI < 35 was in the robustness table of research/CANDLE_RSI.md
+    emit("\n## The whole desk in RSI dips (no overnight sleeve)\n")
+    emit("Idle money earns T-bills. RSI(14) < 35 takes ~4x as many dips (+0.60% each vs +1.12% at < 30).\n")
+    emit("| version | dip costs | return/yr | volatility | Sharpe | worst drop | 2014-19 | 2020-26 | money in dips (avg) | "
+         "dips taken |")
+    emit("|---|---|---|---|---|---|---|---|---|---|")
+    import candle_rsi as cr
+    from ai_desk.indicators import rsi as _rsi
+    frames, member = cr.stock_data()
+    feats = {sy: cr.features(d) for sy, d in frames.items()}
+    for x in (30, 35):
+        fx = {sy: f.assign(RX=_rsi(frames[sy]["close"], 14) < x) for sy, f in feats.items()}
+        _, _, tr = cr.run_rule(frames, fx, ("T1", "RX", "C0", "E1"), 0.0, dr.PERIOD, member)
+        ra = {}
+        for sy, e, _x in tr:
+            r14 = _rsi(frames[sy]["close"], 14)
+            prev = r14.index[r14.index < e]
+            ra[(sy, e)] = float(r14.loc[prev[-1]]) if len(prev) else 0.0
+        for slot, mx in ((0.20, 5), (0.10, 10), (0.05, 20)):
+            w = dr.book(tr, ra, days, slot, mx)
+            held = w.sum(axis=1)
+            taken = int(dr.entry_mask(w).to_numpy().sum())
+            for dc in (0.0005, 0.002):
+                d = to_m(dr.overlay_daily(w, oo, dc) + (1.0 - held) * rfd)
+                st, a_, b_ = ms.mstats(d, rfm), ms.mstats(d.loc[:"2019"], rfm), ms.mstats(d.loc["2020":], rfm)
+                emit(f"| RSI < {x}, {mx} slots of {slot:.0%} | {dc:.2%} | {st['CAGR']:.1%} | {st['volatility']:.1%} | "
+                     f"{st['Sharpe']:.2f} | {st['max drawdown']:.1%} | {a_['Sharpe']:.2f} | {b_['Sharpe']:.2f} | "
+                     f"{held.mean():.0%} | {taken:,} |")
+    st = ms.mstats(rfm.reindex(idx).fillna(0), rfm)
+    emit(f"| (T-bills only) | | {st['CAGR']:.1%} | | | | | | 0% | |")
+
     OUT.mkdir(exist_ok=True)
     (OUT / "desk_5050.md").write_text("\n".join(lines) + "\n")
     print(f"\nwrote {OUT / 'desk_5050.md'}")
