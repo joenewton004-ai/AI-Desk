@@ -336,3 +336,15 @@ def test_overnight_shares_count_as_held_until_the_next_open(tmp_path, monkeypatc
     ov.BOOK.write_text(json.dumps({"date": "2026-10-21", "holdings": {"BE": 1.0}, "sell_sent": True}))
     assert ov.held_overnight(datetime(2026, 10, 22, 8, 0, tzinfo=timezone.utc)) == {"BE": 1.0}   # 4am New York
     assert ov.held_overnight(datetime(2026, 10, 22, 14, 0, tzinfo=timezone.utc)) == {}          # 10am: sold
+
+
+def test_pnl_days_calendar():
+    from ai_desk.dashboard import pnl_days
+    snaps = [{"date": "2026-10-21", "equity": 101_000.0}, {"date": "2026-10-20", "equity": 100_500.0}]
+    trades = [{"date": "2026-10-21", "filled": True}, {"date": "2026-10-21", "filled": False},
+              {"date": "2026-10-20", "filled": True}]
+    rows = pnl_days(snaps, trades, start=100_000.0)
+    assert [r["date"] for r in rows] == ["2026-10-20", "2026-10-21"]          # sorted by date
+    assert rows[0]["pnl"] == 500.0 and rows[1]["pnl"] == 500.0                 # first day against the start
+    assert rows[1]["trades"] == 1 and rows[0]["month"] == "2026-10"            # only filled orders count
+    assert pnl_days([], trades) == []

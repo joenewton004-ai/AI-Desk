@@ -119,6 +119,27 @@ def _shortlist(rows: list[dict], summary: list[dict], deep: int = 3, failed: int
     return out
 
 
+START_EQUITY = 100_000.0     # the Alpaca paper account's balance before the first trades (plan of 2026-10-19)
+
+
+def pnl_days(snaps: list[dict], trade_rows: list[dict], start: float = START_EQUITY) -> list[dict]:
+    """Pure: one row per trading day for the P&L calendar - the closing balance, the change since the previous
+    close (the first day against `start`), and how many orders filled that day. Closes only: an intraday
+    refresh never lands here."""
+    filled: dict[str, int] = {}
+    for t in trade_rows:
+        if t.get("filled"):
+            filled[t["date"]] = filled.get(t["date"], 0) + 1
+    rows, prev = [], start
+    for r in sorted(snaps, key=lambda r: r["date"]):
+        eq = float(r["equity"])
+        rows.append({"date": r["date"], "month": r["date"][:7], "balance": round(eq, 2),
+                     "pnl": round(eq - prev, 2), "pct": round(eq / prev - 1, 5) if prev else None,
+                     "trades": filled.get(r["date"], 0)})
+        prev = eq
+    return rows
+
+
 def tables() -> dict[str, list[dict]]:
     reg = register.register()
     plan = tradebook._read_plan()
@@ -300,7 +321,8 @@ def tables() -> dict[str, list[dict]]:
     return {"summary": summary, "sleeves": sleeves, "positions": positions, "trades": trade_rows,
             "closed": closed, "methods": methods, "amendments": amendments, "notes": note_rows,
             "holdings": holdings, "sleeve_guide": register.sleeve_guide(),
-            "watch_summary": watch_summary, "watchlist": watch_rows, "watch_check": watch_check, "watch_daily": watch_daily, "score_headline": headline, "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
+            "watch_summary": watch_summary, "watchlist": watch_rows, "watch_check": watch_check, "watch_daily": watch_daily, "score_headline": headline,
+            "pnl_days": pnl_days(tradebook._read("snapshots.jsonl"), trade_rows), "scorecard": sc.get("scorecard", []), "curve": sc.get("curve", []),
             "sleeve_perf": sc.get("sleeves", []), "fills": sc.get("fills", []), "exits": sc.get("exits", [])}
 
 
