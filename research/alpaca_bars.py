@@ -1,99 +1,93 @@
-"""Years of intraday bars from Alpaca's market-data API, cached for the intraday research.
+"""Download minute bars from Alpaca's market-data API (data.alpaca.markets) and cache them.
 
-    python research/alpaca_bars.py check           (is data.alpaca.markets reachable with keys?)
-    python research/alpaca_bars.py 5Min 2016-01-01 (and 1Min 2024-10-01, ...)
+    python research/alpaca_bars.py SPY NVDA
 
-Writes data/backtest/alpaca_<timeframe>.pkl in the same layout as the Yahoo caches
-(dict of open/high/low/close/volume DataFrames, New York time, regular hours only), so
-research/vwap_ema.py, ict.py and orb.py can read it. Feed: "sip" (all US exchanges; free plans
-allow history older than 15 minutes), falling back to "iex" (one exchange - its volume is a
-small slice of the total, which matters for VWAP and volume rules: say so if it's used).
-Keys: APCA_API_KEY_ID / APCA_API_SECRET_KEY from the environment, or added on the way out by the
-environment's network secret. Paper keys work for market data. Prices are split-adjusted
-("adjustment=split") so a split can't fake a gap; dividends aren't (intraday studies don't need it).
+Alpaca's free plan serves the consolidated (SIP) feed - every US exchange - from 2016, except the latest 15 minutes.
+The keys come from the environment's network secret, as for the paper broker; nothing here can place orders.
+Bars are split-adjusted, in New York time, regular session only (9:30-15:59 bar starts). Cached per symbol in
+data/backtest/alpaca_1m_<SYMBOL>.pkl and topped up when END moves.
 """
 
 from __future__ import annotations
 
-import os
-import pickle
 import sys
 import time
 from pathlib import Path
 
 import pandas as pd
-import requests
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from ai_desk.broker.alpaca import load_dotenv  # noqa: E402
+from ai_desk.broker.alpaca import AlpacaPaper  # noqa: E402
 
 CACHE = ROOT / "data" / "backtest"
-URL = "https://data.alpaca.markets/v2/stocks/bars"
+DATA_URL = "https://data.alpaca.markets/v2/stocks/{sym}/bars"
+START, END = "2016-01-01", "2026-10-26"            # END = the last full trading day when this was run
 
 
-def session() -> requests.Session:
-    load_dotenv()
-    s = requests.Session()
-    k, sec = os.environ.get("APCA_API_KEY_ID"), os.environ.get("APCA_API_SECRET_KEY")
-    if k and sec:
-        s.headers.update({"APCA-API-KEY-ID": k, "APCA-API-SECRET-KEY": sec})
-    return s
+def regular_session(df: pd.DataFrame) -> pd.DataFrame:
+    """Pure: keep the bars that start 9:30-15:59 New York time."""
+    t = df.index.hour * 60 + df.index.minute
+    return df[(t >= 9 * 60 + 30) & (t < 16 * 60)]
 
 
-def check(feed: str = "sip") -> tuple[int, str]:
-    r = session().get(URL, params={"symbols": "SPY", "timeframe": "1Day", "start": "2020-01-02", "end": "2020-01-10",
-                                   "feed": feed}, timeout=20)
-    return r.status_code, r.text[:200]
+def _get(session, url: str, params: dict, tries: int = 6) -> dict:
+    for k in range(tries):
+        r = session.get(url, params=params, timeout=60)
+        if r.status_code == 429 or r.status_code >= 500:
+            time.sleep(2 ** k)
+            continue
+        r.raise_for_status()
+        return r.json()
+    r.raise_for_status()
+    return {}
 
 
-def fetch(symbols: list[str], timeframe: str, start: str, end: str, feed: str = "sip") -> dict[str, pd.DataFrame]:
-    path = CACHE / f"alpaca_{timeframe}.pkl"
-    if path.exists():
-        return pickle.loads(path.read_bytes())
-    s = session()
-    rows = []
-    for i in range(0, len(symbols), 20):
-        chunk = symbols[i:i + 20]
-        token = None
-        while True:
-            params = {"symbols": ",".join(chunk), "timeframe": timeframe, "start": start, "end": end, "feed": feed,
-                      "adjustment": "split", "limit": 10000}
-            if token:
-                params["page_token"] = token
-            for attempt in range(6):
-                r = s.get(URL, params=params, timeout=60)
-                if r.status_code == 429:                 # 200 requests a minute on the free plan
-                    time.sleep(5 * 2 ** attempt)
-                    continue
-                break
-            r.raise_for_status()
-            j = r.json()
-            for sym, bars in (j.get("bars") or {}).items():
-                rows += [(sym, b["t"], b["o"], b["h"], b["l"], b["c"], b["v"]) for b in bars]
-            token = j.get("next_page_token")
-            if not token:
-                break
-        print(f"  {timeframe}: {min(i + 20, len(symbols))}/{len(symbols)} symbols, {len(rows):,} bars", flush=True)
-    df = pd.DataFrame(rows, columns=["symbol", "t", "open", "high", "low", "close", "volume"])
-    df["t"] = pd.to_datetime(df["t"], utc=True).dt.tz_convert("America/New_York").dt.tz_localize(None)
-    mins = df["t"].dt.hour * 60 + df["t"].dt.minute
-    df = df[(mins >= 570) & (mins < 960)]                      # regular hours, 9:30-16:00
-    out = {k: df.pivot_table(index="t", columns="symbol", values=k, aggfunc="last").astype("float32")
-           for k in ("open", "high", "low", "close", "volume")}
-    path.write_bytes(pickle.dumps(out))
-    return out
+def download(sym: str, start: str, end: str, session=None) -> pd.DataFrame:
+    """Every 1-minute bar from `start` to the end of `end` (UTC paging), regular session only."""
+    session = session or AlpacaPaper().session
+    params = {"timeframe": "1Min", "start": f"{start}T00:00:00Z", "end": f"{end}T23:59:59Z", "limit": 10000,
+              "adjustment": "split", "feed": "sip", "sort": "asc"}
+    rows: list[dict] = []
+    while True:
+        j = _get(session, DATA_URL.format(sym=sym), params)
+        rows += j.get("bars") or []
+        tok = j.get("next_page_token")
+        if not tok:
+            break
+        params["page_token"] = tok
+    if not rows:
+        return pd.DataFrame(columns=["open", "high", "low", "close", "volume", "trades", "vwap"])
+    df = pd.DataFrame(rows).rename(columns={"o": "open", "h": "high", "l": "low", "c": "close", "v": "volume",
+                                            "n": "trades", "vw": "vwap"})
+    df.index = pd.to_datetime(df.pop("t"), utc=True).dt.tz_convert("America/New_York").dt.tz_localize(None)
+    return regular_session(df.astype(float))
+
+
+def minute_bars(sym: str, start: str = START, end: str = END) -> pd.DataFrame:
+    """Cached minute bars; downloads a year at a time and only what's missing."""
+    path = CACHE / f"alpaca_1m_{sym}.pkl"
+    have = pd.read_pickle(path) if path.exists() else None
+    if have is not None and len(have) and have.index[0] <= pd.Timestamp(start) + pd.Timedelta(days=7) \
+            and have.index[-1].normalize() >= pd.Timestamp(end):
+        return have.loc[start:f"{end} 23:59"]
+    s = (have.index[-1].normalize() + pd.Timedelta(days=1)) if have is not None and len(have) else pd.Timestamp(start)
+    parts = [have] if have is not None and len(have) else []
+    while s <= pd.Timestamp(end):
+        e = min(pd.Timestamp(year=s.year, month=12, day=31), pd.Timestamp(end))
+        part = download(sym, s.date().isoformat(), e.date().isoformat())
+        print(f"{sym} {s.date()}..{e.date()}: {len(part):,} bars", flush=True)
+        parts.append(part)
+        s = e + pd.Timedelta(days=1)
+    df = pd.concat(parts)
+    df = df[~df.index.duplicated(keep="last")].sort_index()
+    CACHE.mkdir(parents=True, exist_ok=True)
+    df.to_pickle(path)
+    return df.loc[start:f"{end} 23:59"]
 
 
 if __name__ == "__main__":
-    if sys.argv[1:2] == ["check"]:
-        for feed in ("sip", "iex"):
-            print(feed, *check(feed))
-    else:
-        tf, start = sys.argv[1], sys.argv[2]
-        end = sys.argv[3] if len(sys.argv) > 3 else "2026-10-21"
-        five = pickle.loads((CACHE / "intraday_5m.pkl").read_bytes())
-        hour = pickle.loads((CACHE / "intraday_1h.pkl").read_bytes())
-        syms = sorted(set(five["close"].columns) | set(hour["close"].columns))
-        fetch(syms, tf, start, end)
+    for s in sys.argv[1:] or ["SPY", "NVDA"]:
+        d = minute_bars(s)
+        print(f"{s}: {len(d):,} bars, {d.index[0]} to {d.index[-1]}, {d.index.normalize().nunique():,} days")
