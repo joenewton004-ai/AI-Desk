@@ -68,8 +68,11 @@ def fetch_day(day: str) -> pd.DataFrame:
     """NVDA 5-minute bars for one day from Alpaca's market data (SIP), regular session, New York time."""
     from ai_desk.broker.alpaca import AlpacaPaper
     s = AlpacaPaper().session
+    # the free SIP feed refuses requests reaching into the last 15 minutes (403), so stop the window 16 minutes ago
+    end = min(pd.Timestamp(f"{day}T23:59:59Z"), pd.Timestamp.now(tz="UTC") - pd.Timedelta(minutes=16))
     r = s.get(f"https://data.alpaca.markets/v2/stocks/{SYMBOL}/bars",
-              params={"timeframe": "5Min", "start": f"{day}T00:00:00Z", "end": f"{day}T23:59:59Z", "limit": 10000,
+              params={"timeframe": "5Min", "start": f"{day}T00:00:00Z", "end": end.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                      "limit": 10000,
                       "adjustment": "split", "feed": "sip"}, timeout=30)
     r.raise_for_status()
     rows = r.json().get("bars") or []
