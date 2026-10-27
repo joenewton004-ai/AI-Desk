@@ -129,7 +129,8 @@ def etf_data() -> dict[str, pd.DataFrame]:
     return {s: load_csv(ROOT / "market_data" / f"{s}.csv") for s in ETFS}
 
 
-def stock_data():
+def stock_data(top: int = 100):
+    """Daily bars and point-in-time membership of the `top` largest US companies (SEC snapshots, 45-day filing lag)."""
     import ict
     snaps = ict.snapshots()
     daily = pickle.loads((CACHE / "daily_ohlcv.pkl").read_bytes())
@@ -139,7 +140,7 @@ def stock_data():
     for a, k in enumerate(keys):
         start = k + pd.Timedelta(days=45)
         end = keys[a + 1] + pd.Timedelta(days=45) if a + 1 < len(keys) else idx[-1] + pd.Timedelta(days=1)
-        names = [s for s in snaps[k]["market_cap"].nlargest(100).index if s in member.columns]
+        names = [s for s in snaps[k]["market_cap"].nlargest(top).index if s in member.columns]
         member.loc[(idx >= start) & (idx < end), names] = True
     syms = member.columns[member.any()]
     frames = {s: pd.DataFrame({k: daily[k][s] for k in ("open", "high", "low", "close")}).astype(float).dropna()

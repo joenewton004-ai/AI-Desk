@@ -61,6 +61,9 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Overnight turnover (`python research/overnight_turnover.py` -> `research/OVERNIGHT_TURNOVER.md`): fewer stocks doesn't
   cut costs; keeping repeat picks through the day trades 83% less and survives 0.10% costs (Sharpe 0.55 vs -0.55) but
   nearly doubles volatility; the live version wins below ~0.04-0.05% each way. Decide on real costs; not live.
+- RSI dips on wider universes (`python research/dip_universe.py` -> `research/DIP_UNIVERSE.md`): top 100/250/500/750 all
+  work per dip (+1.12% -> +0.61%), but wider universes lower the desk's return and Sharpe (27.7%/1.67 -> 20.9%/1.32)
+  and deepen its worst drop; keep the top 100.
 - Safer overnight picks (`python research/overnight_safety.py` -> `research/OVERNIGHT_SAFETY.md`; earnings releases from SEC
   8-K item 2.02 acceptance times, cached in data/backtest/earnings_8k.pkl): skipping earnings nights, volatile stocks,
   crowded industries or adding names all cost more than they save; the worst nights are market-wide gaps. Drawdowns
