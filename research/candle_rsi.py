@@ -149,6 +149,12 @@ def stock_data():
 
 # --- running the grid -----------------------------------------------------------------
 
+def tkey(s: dict) -> float:
+    """Sort key: a rule's t-stat, or -99 when it has no trades or no spread."""
+    t = s.get("t") if s.get("n") else None
+    return t if t is not None and t == t else -99.0
+
+
 def run_rule(frames, feats, rule, cost, period, member=None):
     """All trades of one rule in one period: net returns, days held, and (symbol, entry, exit) dates."""
     T, R, C, E = rule
@@ -156,7 +162,7 @@ def run_rule(frames, feats, rule, cost, period, member=None):
     a, b = pd.Timestamp(period[0]), pd.Timestamp(period[1])
     for s, d in frames.items():
         f = feats[s]
-        sig = (f[T] & f[R] & f[C]).to_numpy(bool)
+        sig = (f[T] & f[R] & f[C]).to_numpy(bool).copy()
         inside = (d.index >= a) & (d.index <= b)
         if member is not None:
             inside &= member[s].reindex(d.index, fill_value=False).to_numpy(bool)
@@ -230,11 +236,11 @@ def main() -> None:
             res.append((rule, stats(r, h)))
         dev_tables[m] = res
         cands = [x for x in res if x[0][2] != "C0" and x[1]["n"] >= 100]
-        picked[m] = [x[0] for x in sorted(cands, key=lambda x: -(x[1]["t"] if x[1]["t"] == x[1]["t"] else -9))[:3]]
+        picked[m] = [x[0] for x in sorted(cands, key=lambda x: -tkey(x[1]))[:3]]
         emit(f"## {m.upper()}S - development period {dev[0]} to {dev[1]}: all 72 rules\n")
         emit("| trend | RSI | candle | exit | trades | net/trade | win | t | days held |")
         emit("|---|---|---|---|---|---|---|---|---|")
-        for rule, s in sorted(res, key=lambda x: -(x[1].get("t") if x[1].get("t") == x[1].get("t") else -99)):
+        for rule, s in sorted(res, key=lambda x: -tkey(x[1])):
             if not s["n"]:
                 emit(f"| {NAMES[rule[0]]} | {NAMES[rule[1]]} | {NAMES[rule[2]]} | {NAMES[rule[3]]} | 0 | | | | |")
                 continue
