@@ -348,3 +348,17 @@ def test_pnl_days_calendar():
     assert rows[0]["pnl"] == 500.0 and rows[1]["pnl"] == 500.0                 # first day against the start
     assert rows[1]["trades"] == 1 and rows[0]["month"] == "2026-10"            # only filled orders count
     assert pnl_days([], trades) == []
+
+
+def test_overnight_nights_table_newest_first_with_total():
+    from ai_desk.dashboard import overnight_nights
+    review = {"summary": {"official_line": {
+        "nights": [{"night": "2026-10-21", "stocks": 2, "invested": 1000.0, "official": 10.0, "official_pct": 0.01,
+                    "paper": 4.0, "paper_pct": 0.004},
+                   {"night": "2026-10-22", "stocks": 3, "invested": 3000.0, "official": -6.0, "official_pct": -0.002,
+                    "paper": -12.0, "paper_pct": -0.004}],
+        "totals": {"official": 4.0, "paper": -8.0, "difference": 12.0}}}}
+    rows = overnight_nights(review)
+    assert [r["night"] for r in rows] == ["2026-10-22", "2026-10-21", "total"]
+    assert rows[0]["fill_cost"] == 6.0 and rows[-1]["invested"] == 4000.0 and rows[-1]["official_pct"] == 0.001
+    assert overnight_nights({}) == []

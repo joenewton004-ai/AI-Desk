@@ -58,6 +58,15 @@ changes plainly and be honest about whether a strategy has a real edge.
   Follow-up `research/overnight_picks_check.py`: the picks' own fall since the open beats tech-vs-defensive (1.31 with
   the SPY rule) - live from 2026-10-23 (amendments 7a8b29ec + 9b951502). Per-stock skipping instead of the group rule
   (`research/overnight_perstock.py`): worse alone (1.43 vs 1.54); group + skip picks down 3%+ 1.64 (inside noise). Not live.
+- Overnight turnover (`python research/overnight_turnover.py` -> `research/OVERNIGHT_TURNOVER.md`): fewer stocks doesn't
+  cut costs; keeping repeat picks through the day trades 83% less and survives 0.10% costs (Sharpe 0.55 vs -0.55) but
+  nearly doubles volatility; the live version wins below ~0.04-0.05% each way. Decide on real costs; not live.
+- Safer overnight picks (`python research/overnight_safety.py` -> `research/OVERNIGHT_SAFETY.md`; earnings releases from SEC
+  8-K item 2.02 acceptance times, cached in data/backtest/earnings_8k.pkl): skipping earnings nights, volatile stocks,
+  crowded industries or adding names all cost more than they save; the worst nights are market-wide gaps. Drawdowns
+  are controlled by the overnight share and the cash checks, not stock choice. Not live.
+- Overnight sleeve with leverage (what-if, `python research/overnight_leverage.py` -> `research/OVERNIGHT_LEVERAGE.md`):
+  2x = 49.9%/yr, worst -29% at 0.02% costs; 19.5%, -42% at 0.05%. Scales risk, not Sharpe; not proposed.
 - EMA9/VWAP crossover and Trend+Momentum+Confirmation (EMA20/50, VWAP, volume, breakout): `python research/vwap_ema.py`
   -> `research/VWAP_EMA.md` (cached 5m/1m/1h bars). No edge; research-only.
 - Leveraged S&P fund (2x/3x, simulated + checked vs real SSO/UPRO) on SPY signals with strict risk rules:
@@ -220,6 +229,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   the rule fixed in advance: after 10 trading days adopt market-on-open if >= 0.10 points cheaper and >= 95% filled.
   `overnight review` also prints the official-price line (`overnight.official_line`): each night bought at the official
   close and sold at the next official open - what live auction orders would get, before fees - next to the paper fills.
+  On the dashboard (Scorecard tab) as the `overnight_nights` table (`dashboard.overnight_nights`, from
+  journal/overnight/review.json); refreshed by the evening scorecard upload.
   Its fills are also trade-journal lines (sleeve overnight_drift): the buys from `confirm_book`, the next-open sale as
   its own line sharing the desk's netted order id (`record_orders(overnight_book=...)`); lots match a sleeve's own
   buys first, so the desk's P&L stays separate.

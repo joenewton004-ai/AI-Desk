@@ -1,32 +1,22 @@
 [
  {
-  "sleeve": "quality_screen",
-  "label": "Quality screen",
-  "allocation": 0.5,
-  "line": "Quality screen - 50% - top 25, re-pick every 3 months; US companies above $10B; must pass: average ROIC 12%+, no year of negative ROIC, revenue up in 60%+ of years, positive free cash flow. Ranked by score: quality 35%, growth 25%, value 20%, financial strength 10%, momentum 10%.",
-  "plain": "Owns the 25 highest-scoring large, profitable, growing US companies, equal weight, and refreshes the list every quarter. Buy and hold between refreshes; no stop-loss (none was backtested).",
-  "screen": "US companies above $10B; must pass: average ROIC 12%+, no year of negative ROIC, revenue up in 60%+ of years, positive free cash flow. Ranked by score: quality 35%, growth 25%, value 20%, financial strength 10%, momentum 10%.",
-  "metrics": "Return vs the equal-weight S&P 500 (RSP) first, then SPY. Backtest: 17.9%/yr, Sharpe 0.89 vs same-universe 11.4%.",
-  "watch": "Each quarter's 25 picks vs RSP; whether the average pick is still cheap enough (forward P/E, FCF yield)."
- },
- {
-  "sleeve": "momentum",
-  "label": "Momentum",
-  "allocation": 0.2,
-  "line": "Momentum - 20% - top 20, re-pick every 28 days, exit below the 100-day average; US companies above $10B, trading above their 200-day average, ranked by their 6-month price gain (skipping the latest week). Top 20, equal weight.",
-  "plain": "Holds the 20 large US companies whose shares rose most over the last 6 months, equal weight, refreshed every 4 weeks. Any holding that closes below its 100-day average is sold and stays out until the next refresh.",
-  "screen": "US companies above $10B, trading above their 200-day average, ranked by their 6-month price gain (skipping the latest week). Top 20, equal weight.",
-  "metrics": "Return vs SPY after costs. Backtest 2014-2026: 19.8%/yr, Sharpe 0.76, worst drop -30%; replaced the bottleneck flow rotation (17.8%, 0.63, -45%).",
-  "watch": "Does it keep beating SPY after costs? How often does the 100-day exit fire, and do exited stocks keep falling?"
- },
- {
   "sleeve": "overnight_drift",
   "label": "Overnight",
-  "allocation": 0.3,
-  "line": "Overnight - 30% - Top 20 by 12-month return (adjusted closes); price over $10, $20M a day traded; equal weight; re-ranked every evening on that day's close, bought the next afternoon.",
+  "allocation": 0.95,
+  "line": "Overnight - 95% - Top 20 by 12-month return (adjusted closes); price over $10, $20M a day traded; equal weight; re-ranked every evening on that day's close, bought the next afternoon.",
   "plain": "Holds the 20 large US stocks with the highest return over the past 12 months, re-ranked every day (amendment 82c84226; until 2026-10-23: the highest average overnight return, monthly) - bought in the last minutes before the close (3:55-3:59pm New York), sold at the next open by the evening run, every trading day. Replaced SPY momentum (amendment 330e76e0, accepted 2026-10-21). Sits in cash on nights when SPY is below its 200-day average or its picks have fallen 2.0% or more since the open (amendments 7a8b29ec, 9b951502).",
   "screen": "Top 20 by 12-month return (adjusted closes); price over $10, $20M a day traded; equal weight; re-ranked every evening on that day's close, bought the next afternoon.",
   "metrics": "Fill cost vs the official close/open (break-even about 0.045% per trade; the desk-level case needs about 0.02%). Backtest 2014-2026 at 0.02%: 16.7%/yr, Sharpe 0.81, worst drop -28%.",
   "watch": "Costs first: `overnight review`. No crash switch - it stays invested in falling markets (March 2020: -20%)."
+ },
+ {
+  "sleeve": "rsi_dip",
+  "label": "RSI dips",
+  "allocation": 0.05,
+  "line": "RSI dips - 5% - 10% a dip, at most 5; about 5% on average; Top 100 US companies by market value; close above the 200-day average and RSI(14) below 30; lowest RSI first.",
+  "plain": "Buys one of the 100 largest US companies after a short, sharp fall inside an uptrend: price above its 200-day average with RSI(14) below 30. Each dip is 10% of the desk, bought at the next open and sold at the open after it closes back above its 5-day average (at most 10 trading days); at most 5 at once. About 40 dips a year - most of the time it holds nothing. Amendment c52ce018 (accepted 2026-10-27) replaced the quality screen and momentum sleeves with it.",
+  "screen": "Top 100 US companies by market value; close above the 200-day average and RSI(14) below 30; lowest RSI first.",
+  "metrics": "Return per dip after costs. Backtest 2014-2026 (survivors-only): +1.0% a dip in 2014-19 and +1.2% in 2020-26, 11 of 13 years positive; the desk with it and the overnight sleeve: 28.1%/yr, Sharpe 1.78 at 0.02% overnight costs, 15.2%/yr and 0.99 at 0.05%.",
+  "watch": "Average return per dip after real fills at the open; how often 5 slots are full; dips that keep falling."
  }
 ]
