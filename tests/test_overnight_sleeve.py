@@ -207,3 +207,19 @@ def test_opg_ab_compares_like_with_like():
     ab = ov.opg_ab(fills)
     assert abs(ab["opg_cost"] - 0.001) < 1e-12 and abs(ab["market_cost"] - 0.005) < 1e-12
     assert ab["market_sales"] == 1 and abs(ab["opg_fill_rate"] - 0.75) < 1e-12
+
+
+def test_official_line_pairs_each_buy_with_its_next_sale():
+    from ai_desk.overnight import official_line
+    fills = [
+        {"side": "buy", "symbol": "AA", "fill_date": "2026-10-21", "fill": 100.2, "filled_qty": 10, "official": 100.0},
+        {"side": "sell", "symbol": "AA", "fill_date": "2026-10-22", "fill": 100.5, "filled_qty": 10, "official": 101.0},
+        {"side": "buy", "symbol": "BB", "fill_date": "2026-10-21", "fill": 50.0, "filled_qty": 4, "official": 50.0},
+        {"side": "sell", "symbol": "BB", "fill_date": "2026-10-22", "fill": None, "filled_qty": 0, "official": 49.0},
+        {"side": "buy", "symbol": "AA", "fill_date": "2026-10-22", "fill": 101.0, "filled_qty": 5, "official": 101.0},
+    ]
+    r = official_line(fills)
+    assert r["totals"]["nights"] == 1 and r["nights"][0]["stocks"] == 1      # BB unsold (no fill); AA 10-22 still held
+    n = r["nights"][0]
+    assert n["paper"] == round(10 * (100.5 - 100.2), 2) and n["official"] == 10.0
+    assert r["totals"]["difference"] == round(10.0 - 3.0, 2)

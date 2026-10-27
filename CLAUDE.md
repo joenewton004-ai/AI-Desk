@@ -88,6 +88,11 @@ changes plainly and be honest about whether a strategy has a real edge.
   `research/LOOKBACKS.md`. Short windows don't work; the live 12-month (overnight) and 6-month (momentum) windows are at
   or near the best. Leads within noise: daily re-pick / plain 12-month return for overnight - tested as live in
   `research/overnight_v2.py` (Sharpe 1.54 vs 1.31 with the checks, t 1.1) and live from 2026-10-23 (amendment 82c84226).
+- Trading platforms (desk research, `research/PLATFORMS.md`): Alpaca paper fills sells at the bid / buys at the ask
+  with no price improvement and doesn't mimic auction (OPG/CLS) orders well, so the overnight sleeve's paper costs
+  at the open are likely overstated; live auction orders fill at the official open/close. IBKR paper has no auction
+  orders; IBKR live fees (~0.01-0.02% each way at our order size) eat much of the overnight edge. Live money is the
+  owner's decision only.
 - Limit orders vs market: `python research/limit_orders.py` -> `research/LIMIT_ORDERS.md`. Default stays
   market orders; `portfolio run --limit-cap 0.02` sends capped limits (free on average, avoids big gaps).
 - Screen backtest (point-in-time SEC data): `python research/screen_backtest.py`; strategy
@@ -213,6 +218,8 @@ changes plainly and be honest about whether a strategy has a real edge.
   9:05am scheduled `overnight open-sell --execute` sends them as market-on-open (Alpaca rejects opg 9:28am-7pm); unfilled
   shares (`unsold_opg`) go out with the next evening's orders. `overnight review` prints the comparison (`opg_ab`) and
   the rule fixed in advance: after 10 trading days adopt market-on-open if >= 0.10 points cheaper and >= 95% filled.
+  `overnight review` also prints the official-price line (`overnight.official_line`): each night bought at the official
+  close and sold at the next official open - what live auction orders would get, before fees - next to the paper fills.
   Its fills are also trade-journal lines (sleeve overnight_drift): the buys from `confirm_book`, the next-open sale as
   its own line sharing the desk's netted order id (`record_orders(overnight_book=...)`); lots match a sleeve's own
   buys first, so the desk's P&L stays separate.
