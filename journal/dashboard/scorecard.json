@@ -2,16 +2,16 @@
  {
   "tier": "1 process",
   "metric": "Slippage vs the open (bps, $-weighted)",
-  "value": -19.48606686503297,
+  "value": 6.135172182411682,
   "format": "bps",
   "target": "\u2264 10",
   "status": "ok",
-  "note": "160 fills; the backtest assumes 3bps"
+  "note": "201 fills; the backtest assumes 3bps"
  },
  {
   "tier": "1 process",
   "metric": "Fill vs signal close (bps)",
-  "value": 97.31812500000001,
+  "value": 76.98805970149253,
   "format": "bps",
   "target": "info only",
   "status": "info",
@@ -38,7 +38,7 @@
  {
   "tier": "2 behaviour",
   "metric": "Drawdown from peak (now)",
-  "value": -0.024563006238536134,
+  "value": -0.025665487655954666,
   "format": "pct",
   "target": "above -15%",
   "status": "ok",
@@ -50,7 +50,7 @@
   "value": 1.0,
   "format": "bool",
   "target": "yes",
-  "status": "too early",
+  "status": "ok",
   "note": "if no: find out why before changing anything"
  },
  {
@@ -65,11 +65,11 @@
  {
   "tier": "2 behaviour",
   "metric": "quality_screen vs RSP",
-  "value": -0.02902,
+  "value": -0.02882,
   "format": "pct",
   "target": "above -10% over 12m",
   "status": "too early",
-  "note": "since launch over 4 days"
+  "note": "since launch over 5 days"
  },
  {
   "tier": "2 behaviour",
@@ -83,11 +83,11 @@
  {
   "tier": "2 behaviour",
   "metric": "momentum vs SPY",
-  "value": -0.00363,
+  "value": -0.00569,
   "format": "pct",
   "target": "above -10% over 12m",
   "status": "too early",
-  "note": "since launch over 3 days"
+  "note": "since launch over 4 days"
  },
  {
   "tier": "2 behaviour",
@@ -110,16 +110,16 @@
  {
   "tier": "3 edge",
   "metric": "Sharpe (above T-bills)",
-  "value": -9.093396043441038,
+  "value": -8.64880029384838,
   "format": "num",
   "target": "\u2265 SPY's",
   "status": "too early",
-  "note": "SPY -2.36; 90% range for the desk -94.1 to 75.9"
+  "note": "SPY 0.05; 90% range for the desk -81.0 to 63.7"
  },
  {
   "tier": "3 edge",
   "metric": "Return vs SPY since launch",
-  "value": -0.01774144729302307,
+  "value": -0.02442451280854807,
   "format": "pct",
   "target": "\u2265 0",
   "status": "too early",
@@ -137,7 +137,7 @@
  {
   "tier": "3 edge",
   "metric": "Upside capture",
-  "value": null,
+  "value": 0.21682998932022252,
   "format": "pct",
   "target": "\u2265 80%",
   "status": "too early",
@@ -146,7 +146,7 @@
  {
   "tier": "3 edge",
   "metric": "Downside capture",
-  "value": null,
+  "value": 1.6198309158807018,
   "format": "pct",
   "target": "\u2264 70%",
   "status": "too early",
