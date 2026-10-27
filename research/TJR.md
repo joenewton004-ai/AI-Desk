@@ -73,11 +73,46 @@ Each part above as a fixed rule, on NQ and ES futures:
 - **Discretion is invisible to a test.** That includes which sweep counts, whether the structure shift looked
   "clean", and skipping days with news. That judgement may well be his skill, but rules can't test it.
 - **The data is thin.** 49 days of 5-minute bars is about 76 trades; even a real +0.2R edge would struggle to show up.
-  The 2-year version uses hourly bars, which his method doesn't. Longer 1-5 minute history would need Alpaca market data
-  (data.alpaca.markets is blocked here) or a paid source.
+  The 2-year version uses hourly bars, which his method doesn't. **Since re-run on ten years (below).**
 - **Yahoo's NQ=F/ES=F are continuous front-month series**, so there are small jumps at contract rolls.
+
+## Re-run on ten years of 5-minute bars (October 2026)
+
+Code: `research/tjr_long.py`. Tables: [`output/tjr_long.md`](output/tjr_long.md).
+
+Alpaca's market data, now reachable, has no futures. It does have 5-minute bars for QQQ and SPY from January 2016 to
+October 2026, including pre-market (from 4am) and after-hours (to 8pm). QQQ tracks the Nasdaq-100, as NQ does, and SPY
+tracks the S&P 500, as ES does.
+
+The rules are the same as the first test, except:
+- **Liquidity levels:** the previous session's high and low, and the overnight high and low (after-hours plus
+  pre-market). US stocks don't trade in the Asia or London sessions, so those levels are dropped.
+- **Costs:** 0.01% of the price each way.
+
+| Rules | Trades | Win rate | Avg R after costs | t | Avg R before costs | 2016-20 | 2021-26 |
+|---|---|---|---|---|---|---|---|
+| Break of structure, 2R | 3,401 | 37% | −0.088 | −3.9 | +0.007 | −0.092 | −0.085 |
+| Break of structure, 3R | 3,401 | 32% | −0.110 | −4.3 | −0.015 | −0.115 | −0.105 |
+| Break of structure, opposite liquidity | 3,401 | 35% | −0.116 | −4.5 | −0.021 | −0.126 | −0.107 |
+| Break of structure, 2R, 1-hour bias | 1,282 | 38% | −0.085 | −2.4 | +0.005 | −0.126 | −0.044 |
+| Inverse FVG, 2R | 2,245 | 38% | −0.062 | −2.2 | +0.040 | −0.006 | −0.112 |
+| Inverse FVG, 2R, 1-hour bias | 862 | 38% | −0.075 | −1.7 | +0.021 | −0.067 | −0.083 |
+| *Random direction, same times (20 runs)* | | | *−0.087 (−0.117 to −0.034)* | | | | |
+
+- **With 45× more trades the answer is clearer: no edge.** Before costs, every version is within a few hundredths
+  of an R of zero. The main rule (+0.007R before costs) loses exactly as much as random-direction trades at the same
+  times.
+- **Costs decide the result.** The stops are tight, about 0.34% of the price, so 0.01% each way costs about 0.1R a
+  trade. On futures it would be cheaper, roughly 0.02-0.04R, but zero minus a smaller cost is still below zero.
+- **Only 3 of 11 years were positive** (2020, 2024 and 2025, each a few hundredths of an R), and no level swept
+  holds up. The best of the eight level-and-instrument cells (SPY prior-day high, +0.10R over 401 trades) is the kind
+  of result that turns up by chance among that many.
+- **What this can't capture:**
+  - QQQ/SPY aren't NQ/ES. The futures trade overnight, so the Asia and London levels he uses exist only there.
+  - His discretion.
 
 ## Verdict
 
-**No edge in TJR's model as fixed rules**, consistent with the ICT test. It's recorded in the register as research-only
+**No edge in TJR's model as fixed rules**, now on ten years of data as well as the original 49 days, and consistent
+with the ICT test. It's recorded in the register as research-only
 (`tjr_model`). It doesn't fit the desk either: the desk trades stocks once a day on Alpaca paper, not futures intraday.

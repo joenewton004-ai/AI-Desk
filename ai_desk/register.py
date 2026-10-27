@@ -201,8 +201,11 @@ RESEARCH_METHODS = {
         "status": "tested, no edge (not in the live mix)",
         "summary": "Silver Bullet (60 days, 2,974 trades): +0.01R before costs, -0.06% per trade after (t -3.5). Judas swing "
                    "(3 years, 21,483 trades): -0.01R, -0.07% after costs (t -10), negative in all 13 quarters. Same as a "
-                   "coin-flip direction. Financial bias, long only, reaches break-even at best; trend filter worse.",
-        "docs": ["research/ICT.md", "research/output/ict.md"],
+                   "coin-flip direction. Financial bias, long only, reaches break-even at best; trend filter worse. "
+                   "Re-run on 2016-2026 Alpaca 5-minute bars (222 of 224 top-100 names): Silver Bullet 129,658 trades, "
+                   "+0.02R before costs, -0.051% after (t -21), negative every year; Judas swing 80,366 trades, -0.00R, "
+                   "-0.053% after; both halves.",
+        "docs": ["research/ICT.md", "research/output/ict.md", "research/output/ict_long.md"],
     },
     "lynch_rules": {
         "description": "Peter Lynch's checkable rules (One Up on Wall Street, 1989): PEG under 1 (P/E / earnings growth %), "
@@ -280,8 +283,10 @@ RESEARCH_METHODS = {
         "status": "tested: no edge (not in the live mix)",
         "summary": "5-minute bars, 49 days, 76 trades: -0.18R to +0.05R a trade after costs (t -1.0 to 0.3), inside the "
                    "random-direction range (-0.26R to +0.12R). Hourly bars, 2024-2026, 264 trades: -0.06R (t -1.3). Same "
-                   "result as the ICT test. His rules aren't published; discretion can't be tested.",
-        "docs": ["research/TJR.md", "research/output/tjr.md"],
+                   "result as the ICT test. His rules aren't published; discretion can't be tested. Re-run on QQQ/SPY "
+                   "5-minute bars 2016-2026 (stand-ins for NQ/ES; no Asia/London levels): 3,401 trades, +0.007R before "
+                   "costs, -0.088R after (t -3.9) = random direction (-0.087R); both halves.",
+        "docs": ["research/TJR.md", "research/output/tjr.md", "research/output/tjr_long.md"],
     },
     "soros_macro_trend": {
         "description": "The rule-based core of George Soros-style global macro: follow each market's trend across asset "
@@ -304,6 +309,19 @@ RESEARCH_METHODS = {
                    "-0.44% (144 trades). Only with hindsight (5x full-day volume) +1.5%. FTC settlement 2022 ($3m) over "
                    "advertising of his results.",
         "docs": ["research/CAMERON.md", "research/output/cameron.md"],
+    },
+    "candle_patterns": {
+        "description": "Day-trading candle patterns on 5-minute candles from 10 years of Alpaca minute bars (SPY, then "
+                       "NVDA): engulfing, hammer/shooting star (plain, VWAP reversal, VWAP trend; 30-minute or stop/2R "
+                       "exits), inside-bar breakouts, opening-range breakouts (15/30 min), Gao et al. intraday momentum; "
+                       "against a same-time random-day placebo. ORB re-checked on QQQ + the 10 largest companies of 2016.",
+        "parameters": {"bars": "5-minute, 9:30-16:00", "entry": "next candle's open / stop order at the level",
+                       "costs": "0.01% (SPY), 0.02% each way", "period": "2016-01-04 to 2026-10-26"},
+        "status": "tested: no edge (not in the live mix)",
+        "summary": "SPY: all 32 versions lose after costs; gross within +/-0.01% of the placebo. NVDA ORB long +0.15% a "
+                   "trade (t 3.2, both halves) - but on QQQ + the 10 largest companies of 2016 it's -0.002% (5 of 11 "
+                   "positive): a hindsight effect of picking the stock that rose 100x.",
+        "docs": ["research/CANDLES.md", "research/output/candles.md"],
     },
     "green_line": {
         "description": "The 'big green line' (@pb_ema on Instagram, attributed there to Charlie Munger): hold the S&P 500 "

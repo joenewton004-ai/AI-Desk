@@ -29,10 +29,13 @@ changes plainly and be honest about whether a strategy has a real edge.
   breakout swing trading (`python research/swing.py` -> `research/SWING.md`; daily OHLCV cached in
   data/backtest/daily_ohlcv.pkl). Both research-only in `register.RESEARCH_METHODS`. Survivors-only: say so.
 - ICT day trading (Silver Bullet on 5-min, Judas swing on 1h; with/without a quality-score side filter):
-  `python research/ict.py` -> `research/ICT.md`. No edge; research-only. Yahoo keeps only 60 days of 5-min bars
-  (cached in data/backtest/intraday_*.pkl); data.alpaca.markets is blocked by the network policy here.
+  `python research/ict.py` -> `research/ICT.md`. No edge; research-only. Re-run on 2016-2026 Alpaca 5-min bars for the
+  point-in-time top 100 (`python research/ict_long.py`, after `python research/alpaca_bars.py --5min --workers=6 <names>`;
+  ~2 hours of downloads): still no edge, both halves. Yahoo keeps only 60 days of 5-min bars
+  (cached in data/backtest/intraday_*.pkl); years of minute bars now come from research/alpaca_bars.py.
 - TJR's model (NQ/ES futures, New York-open liquidity sweep + break of structure / inverse FVG): `python research/tjr.py`
   -> `research/TJR.md` (bars cached in data/backtest/futures_intraday.pkl: 5m ~60 days, 1h 2 years). No edge; research-only.
+  Re-run on QQQ/SPY 5-min bars incl. pre-market, 2016-2026 (`python research/tjr_long.py`): no edge.
 - George Soros (desk research + cross-asset trend on 9 ETFs): `python research/soros.py` -> `research/SOROS.md`.
   Long-only trend: Sharpe 0.79, worst -9% vs SPY 0.67/-51% - risk control, not return. Research-only.
 - Ross Cameron gap-and-go (large caps only - no small-cap history): `python research/cameron.py` -> `research/CAMERON.md`.
@@ -62,6 +65,10 @@ changes plainly and be honest about whether a strategy has a real edge.
 - The 'big green line' (@pb_ema on Instagram: S&P 500 above a moving average, cash below; 50-250 day EMA, 200-day SMA,
   10-month SMA): `python research/green_line.py` -> `research/GREEN_LINE.md`. Halves the worst drop, 1-3%/yr less return,
   same Sharpe on SPY with dividends (the price-only index flatters it). Research-only.
+- Candle patterns on 10 years of Alpaca minute bars (SPY, NVDA; engulfing, hammer/star, inside bar, opening-range breakout,
+  intraday momentum): `python research/candles.py` -> `research/CANDLES.md`. No edge; NVDA's ORB (t 3.2) fails on QQQ + the
+  10 largest companies of 2016 (hindsight). Research-only. Minute bars: `python research/alpaca_bars.py SYM ...` (Alpaca SIP
+  feed via the network secret for data.alpaca.markets; cached in data/backtest/alpaca_1m_<SYM>.pkl, from 2016).
 - Mark Minervini's SEPA (Trend Template + RS, point-in-time EPS/sales growth from SEC, base breakout, 7.5% stop to
   break-even, 50-day exit, market filter): `python research/minervini.py` -> `research/MINERVINI.md` (growth cached in
   data/backtest/minervini_fund.pkl). No edge vs the equal-weight universe; research-only. Survivors-only: say so.

@@ -75,7 +75,7 @@ R is the trade's result as a multiple of the amount risked, so 0R means breaking
 
 ## Verdict
 
-**No edge, with or without financials.** Not added to the desk; recorded as research-only
+**No edge, with or without financials**, on 60 days and now on ten years (below). Not added to the desk; recorded as research-only
 (`ict_daytrading`).
 
 The parts that do hold up are already in the desk, on slower timeframes:
@@ -84,11 +84,42 @@ The parts that do hold up are already in the desk, on slower timeframes:
 
 Both work over months, where costs are small next to the move.
 
-**To test the Silver Bullet properly**, we need years of 5-minute data. Alpaca's free market data
-has minute bars back to 2016, but its server (`data.alpaca.markets`) is blocked by this
-environment's network settings. Adding that host under Allowed domains in the environment's
-network access settings (see code.claude.com/docs/en/cloud-environments#network-access) would let
-us re-run Model 1 on 5+ years.
+## Re-run on ten years of 5-minute bars (October 2026)
+
+Code: `research/ict_long.py`. Tables: [`output/ict_long.md`](output/ict_long.md).
+
+Alpaca's market data is now reachable. The re-run keeps the same rules, universe rule, biases, costs and portfolio.
+What changed:
+- **Period:** January 2016 to October 2026, instead of 60 days (Silver Bullet) and 3 years (Judas swing).
+- **Data:** Alpaca's consolidated 5-minute bars, split-adjusted. The Judas swing's hourly candles are built from them
+  as 9:30, 10:30 and so on.
+- **Coverage:** 222 of the 224 companies that were in the top 100 at some point. The two missing are OTC listings,
+  and coverage is 100% of member-days.
+
+| | Trades | Avg R before costs | After costs (0.03% each way) | t | 2016-20 | 2021-26 | Portfolio Sharpe |
+|---|---|---|---|---|---|---|---|
+| Silver Bullet, pure | 129,658 | +0.02 | −0.051% | −21.4 | −0.051% | −0.051% | −2.02 |
+| Silver Bullet + financials, long only | 22,355 | +0.04 | −0.035% | −5.7 | | | −1.37 |
+| *Silver Bullet, coin-flip direction* | 129,658 | −0.00 | −0.061% | | | | |
+| Judas swing, pure | 80,366 | −0.00 | −0.053% | −15.8 | −0.059% | −0.049% | −2.70 |
+| Judas swing + financial and trend bias | 11,904 | +0.00 | −0.052% | −5.6 | | | −1.52 |
+| *Judas swing, coin-flip direction* | 80,366 | −0.00 | −0.062% | | | | |
+
+- **The first test's answer holds, and is now beyond doubt.**
+  - Both models lose after costs in every year from 2016 to 2026.
+  - The Silver Bullet lost in 42 of 44 quarters, and the Judas swing in 39 of 44.
+- **The Silver Bullet's direction call is worth about 0.01% a trade.**
+  - It wins 39% of the time with 2R targets, against a coin flip's −0.061%, so +0.02R before costs.
+  - With 130,000 trades that small number is real, but it's a sixth of the cost of a round trip, even at a tight
+    0.03% each way.
+- **The Judas swing's direction call is worth nothing:** −0.00R, the same as a coin flip.
+- **The financial and trend biases don't rescue either model.**
+  - Long-only Silver Bullet in high-quality companies is the least bad version (+0.04R before costs, −0.035% after).
+  - Every version is negative in both halves.
+- **What this can't capture:**
+  - A trader's discretion: which gap "looks right", and skipping news days.
+  - Futures and forex, where ICT is mostly taught.
+  - Small caps. The TJR re-run on QQQ/SPY (`research/TJR.md`) found the same thing: nothing before costs.
 
 ## Sources (accessed 2026-10-21; community descriptions, not ICT's own course material)
 
