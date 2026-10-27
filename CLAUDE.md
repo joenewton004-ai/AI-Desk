@@ -67,6 +67,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   trade vs the backtest's +0.15%. Trading it would need an amendment and a decision on its size. Tweaks tested
   (`python research/orb_variants.py` -> `research/ORB_VARIANTS.md`, must beat the base on NVDA AND 11 other stocks in
   both halves): only "gap-up days" passes (+0.155% NVDA, others still ~0); shadowed as the row's `gap_up` flag.
+- Jakeschincariol/day-trader-skill ("Trader skill v2", MIT, reviewed 2026-10-27): its daily scan setups tested on the
+  top 100 (`python research/daily_setups.py` -> `research/DAILY_SETUPS.md`): no edge as day trades; only "oversold"
+  leans positive over 5 days (+0.17%, t 1.0) - the live dip rule is the stronger version. Congress PTRs (its
+  trader-pelosi source) need disclosures-clerk.house.gov, blocked by the network policy here.
 - RSI dips on wider universes (`python research/dip_universe.py` -> `research/DIP_UNIVERSE.md`): top 100/250/500/750 all
   work per dip (+1.12% -> +0.61%), but wider universes lower the desk's return and Sharpe (27.7%/1.67 -> 20.9%/1.32)
   and deepen its worst drop; keep the top 100.
