@@ -45,17 +45,38 @@ EARNINGS = CACHE / "earnings_8k.pkl"
 
 # --- earnings releases from SEC filing lists ---------------------------------------------
 
-def _releases(cik: int) -> list[tuple[int, str]]:
+def _get(url: str, tries: int = 4):
+    """edgar._get with retries on dropped connections (the SEC resets some under load)."""
+    import time
+
     from ai_desk.fundamentals import edgar
+    for k in range(tries):
+        try:
+            return edgar._get(url)
+        except Exception:  # noqa: BLE001 - connection reset / timeout: wait and retry
+            if k == tries - 1:
+                raise
+            time.sleep(2 ** (k + 1))
+
+
+def _releases(cik: int) -> list[tuple[int, str]] | None:
+    """None if the company's filing list couldn't be read (not cached, so a re-run tries again)."""
+    try:
+        return _releases_raw(cik)
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _releases_raw(cik: int) -> list[tuple[int, str]]:
     base = "https://data.sec.gov/submissions/"
-    r = edgar._get(f"{base}CIK{cik:010d}.json")
+    r = _get(f"{base}CIK{cik:010d}.json")
     if r.status_code != 200:
         return []
     j = r.json()
     blocks = [j["filings"]["recent"]]
     for f in j["filings"].get("files", []):
         if f.get("filingTo", "") >= "2013-06-01":
-            rr = edgar._get(base + f["name"])
+            rr = _get(base + f["name"])
             if rr.status_code == 200:
                 blocks.append(rr.json())
     out = []
@@ -70,15 +91,20 @@ def earnings_releases(ciks: list[int]) -> pd.DataFrame:
     """Every 8-K item 2.02 acceptance time (New York) per CIK; cached."""
     have = pd.read_pickle(EARNINGS) if EARNINGS.exists() else pd.DataFrame(columns=["cik", "accepted"])
     todo = sorted(set(ciks) - set(have["cik"].astype(int)) - set(have.attrs.get("empty", [])))
-    if todo:
+    for i in range(0, len(todo), 100):                    # save every 100 companies
+        chunk = todo[i:i + 100]
         with ThreadPoolExecutor(4) as pool:
-            rows = [x for part in pool.map(_releases, todo) for x in part]
+            parts = dict(zip(chunk, pool.map(_releases, chunk)))
+        rows = [x for part in parts.values() if part for x in part]
         new = pd.DataFrame(rows, columns=["cik", "accepted"])
         new["accepted"] = pd.to_datetime(new["accepted"], utc=True).dt.tz_convert("America/New_York").dt.tz_localize(None)
-        empty = sorted(set(todo) - set(new["cik"]))
-        have = pd.concat([have, new], ignore_index=True)
-        have.attrs["empty"] = sorted(set(have.attrs.get("empty", [])) | set(empty))
+        empty = sorted(c for c, part in parts.items() if part == [])
+        attrs = dict(have.attrs)
+        have = pd.concat([have, new], ignore_index=True) if len(have) else new
+        have.attrs = {"empty": sorted(set(attrs.get("empty", [])) | set(empty))}
         have.to_pickle(EARNINGS)
+        print(f"  {min(i + 100, len(todo))}/{len(todo)} companies; failed {sum(p is None for p in parts.values())}",
+              flush=True)
     return have
 
 
