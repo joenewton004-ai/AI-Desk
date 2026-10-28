@@ -2,10 +2,10 @@
  {
   "sleeve": "quality_screen",
   "benchmark": "RSP",
-  "days": 4,
-  "return": -0.02239,
-  "benchmark_return": 0.00662,
-  "excess": -0.02902
+  "days": 5,
+  "return": -0.02113,
+  "benchmark_return": 0.00769,
+  "excess": -0.02882
  },
  {
   "sleeve": "bottleneck",
@@ -18,10 +18,10 @@
  {
   "sleeve": "momentum",
   "benchmark": "SPY",
-  "days": 3,
-  "return": -0.01362,
-  "benchmark_return": -0.00999,
-  "excess": -0.00363
+  "days": 4,
+  "return": -0.01013,
+  "benchmark_return": -0.00444,
+  "excess": -0.00569
  },
  {
   "sleeve": "index_momentum",

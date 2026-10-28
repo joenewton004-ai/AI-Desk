@@ -406,6 +406,13 @@ def cmd_portfolio(a) -> None:
                   + (f", net {r['net']:+.2%} ({r['exit_why']})" if r and r.get("status") == "traded" else ""))
         except Exception as e:  # noqa: BLE001 - the shadow must never block the trading run
             print(f"nvda_orb (shadow): not recorded ({e})")
+        try:                      # the trader-skill desk: a separate $5,000 ledger, replayed on today's bars, no orders
+            from ai_desk import skill_desk
+            r = skill_desk.record()
+            print(f"skill_desk (separate ledger, no orders): " + (f"{r['trades']} trades, P&L ${r['pnl']:+.2f}, "
+                  f"equity ${r['equity']:,.2f}" if r else "no finished trading day"))
+        except Exception as e:  # noqa: BLE001 - the ledger must never block the trading run
+            print(f"skill_desk: not recorded ({e})")
         from ai_desk import overnight
         try:                      # tomorrow's overnight re-pick ranks on today's close: rank now, not at 3:55pm
             r = overnight.prepare_repick()
@@ -541,6 +548,22 @@ def cmd_orb(a) -> None:
     g = nvda_orb.summary(gap_up_only=True)
     print(f"Gap-up days only: {g['trades']} trades, average {pct(g['avg_net'])} (backtest "
           f"{nvda_orb.BACKTEST_GAP_UP:+.2%}).")
+
+
+def cmd_skilldesk(a) -> None:
+    from ai_desk import skill_desk as sd
+    if a.action == "record":
+        r = sd.record(a.date)
+        print(f"Trader-skill desk: {r}" if r else "Trader-skill desk: no finished trading day to record")
+        for t in sd.trades():
+            if r and t["date"] == r["date"]:
+                print(f"  {t['symbol']:6} {t['shares']:>4} sh  in {t['entry_time']} {t['entry']:.2f}  out "
+                      f"{t['exit_time']} {t['exit']:.2f} ({t['exit_why']})  ${t['pnl']:+.2f}")
+    s = sd.summary()
+    win = "n/a" if s["win_rate"] is None else f"{s['win_rate']:.0%}"
+    print(f"Ledger since {sd.START_DAY}: {s['days']} days, {s['trades']} trades, win rate {win}, equity "
+          f"${s['equity']:,.2f} ({s['return']:+.2%} on $5,000). No orders are sent. Backtest 2016-2026: "
+          f"-9.7%/yr at 0.02% costs (research/SKILL_DESK.md).")
 
 
 def cmd_overnight(a) -> None:
@@ -858,6 +881,11 @@ def build_parser() -> argparse.ArgumentParser:
     ob.add_argument("--date", default=None)
     ob.add_argument("--days", type=int, default=60)
     ob.set_defaults(func=cmd_orb)
+
+    sk = sub.add_parser("skilldesk", help="day-trader-skill's rules on a separate $5,000 ledger (never trades)")
+    sk.add_argument("action", choices=["record", "status"])
+    sk.add_argument("--date", default=None)
+    sk.set_defaults(func=cmd_skilldesk)
 
     on = sub.add_parser("overnight", help="overnight sleeve (30% of the desk): buy at the close, sold at the next open")
     on.add_argument("action", choices=["scan", "status", "buy", "review", "activate", "regime", "open-sell"])

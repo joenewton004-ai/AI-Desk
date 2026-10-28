@@ -10,10 +10,10 @@ Insider SALES are mostly diversification and taxes, so they carry little signal.
 
 CONGRESS (STOCK Act disclosures). Weaker evidence: members can report up to
 45 days after trading, and studies since 2012 mostly find no outperformance.
-There is no reachable free source from this environment, so trades are read
-from data/congress/trades.csv if present, with columns:
-    date, ticker, politician, chamber, type (purchase | sale), amount_low, amount_high
-Any provider can be converted to that file (see research/BOTTLENECK.md).
+Trades are read from data/congress/trades.csv if present, with columns:
+    date, ticker, politician, chamber, type (purchase | sale), amount_low, amount_high [, filed]
+`python research/house_ptr.py` builds it from the House Clerk's reports (House only, electronic filings;
+research/CONGRESS.md tests it). Any other provider can be converted to that file.
 """
 
 from __future__ import annotations
@@ -69,20 +69,23 @@ def congress_trades(path: Path | None = None) -> pd.DataFrame | None:
     p = Path(path or CONGRESS_FILE)
     if not p.exists():
         return None
-    df = pd.read_csv(p, parse_dates=["date"])
+    df = pd.read_csv(p, parse_dates=["date"], low_memory=False)
+    if "filed" in df:
+        df["filed"] = pd.to_datetime(df["filed"])
     df["ticker"] = df["ticker"].str.upper().str.strip()
     df["type"] = df["type"].str.lower().str.strip()
     return df
 
 
 def congress_signals(trades: pd.DataFrame | None, symbol: str, asof=None, days: int = 90) -> dict:
-    """Distinct members of Congress buying minus selling over the last `days`
-    (by trade date - disclosures can arrive weeks later)."""
+    """Distinct members of Congress buying minus selling over the last `days`, by the day each report was FILED
+    when the file has it (research/house_ptr.py writes `filed`) - a trade isn't public until then, up to 45 days
+    after the trade date; files without it fall back to the trade date."""
     if trades is None:
         return {"congress_net_buyers": np.nan}
     asof = pd.Timestamp(asof or pd.Timestamp.today())
-    t = trades[(trades["ticker"] == symbol) & (trades["date"] >= asof - pd.Timedelta(days=days))
-               & (trades["date"] <= asof)]
+    when = trades["filed"] if "filed" in trades else trades["date"]
+    t = trades[(trades["ticker"] == symbol) & (when >= asof - pd.Timedelta(days=days)) & (when <= asof)]
     buyers = t.loc[t["type"].str.startswith("purchase"), "politician"].nunique()
     sellers = t.loc[t["type"].str.startswith("sale"), "politician"].nunique()
     return {"congress_net_buyers": buyers - sellers}
