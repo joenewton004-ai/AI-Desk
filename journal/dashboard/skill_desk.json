@@ -1,1 +1,47 @@
-[]
+[
+ {
+  "date": "2026-10-28",
+  "symbol": "V",
+  "signal_time": "09:50",
+  "shares": 9,
+  "entry": 403.7,
+  "stop": 398.47,
+  "target": 413.89,
+  "exit_time": "15:55",
+  "exit": 401.67,
+  "exit_why": "flat_by",
+  "pnl": -19.72,
+  "R": -0.395,
+  "equity_after_day": 4978.93
+ },
+ {
+  "date": "2026-10-28",
+  "symbol": "TMO",
+  "signal_time": "09:50",
+  "shares": 1,
+  "entry": 705.06,
+  "stop": 697.3051,
+  "target": 720.5098,
+  "exit_time": "15:55",
+  "exit": 705.37,
+  "exit_why": "flat_by",
+  "pnl": 0.03,
+  "R": 0.04,
+  "equity_after_day": 4978.93
+ },
+ {
+  "date": "2026-10-28",
+  "symbol": "MRK",
+  "signal_time": "09:50",
+  "shares": 1,
+  "entry": 141.815,
+  "stop": 140.4905,
+  "target": 144.464,
+  "exit_time": "12:15",
+  "exit": 140.4905,
+  "exit_why": "stop",
+  "pnl": -1.38,
+  "R": -1.0,
+  "equity_after_day": 4978.93
+ }
+]

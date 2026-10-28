@@ -207,3 +207,21 @@
 {"utc": "2026-10-28T19:55:09+00:00", "date": "2026-10-28", "kind": "buy_mkt", "symbol": "MPC", "qty": 10, "side": "buy", "ref_price": 440.80999755859375, "notional": 4408.0999755859375, "order_id": "20890f09-531d-4f85-bcda-2b218b9f4222"}
 {"utc": "2026-10-28T19:55:09+00:00", "date": "2026-10-28", "kind": "buy_mkt", "symbol": "TER", "qty": 14, "side": "buy", "ref_price": 312.2049865722656, "notional": 4370.869812011719, "order_id": "397f6472-6007-484f-ab4e-4968c954954a"}
 {"utc": "2026-10-28T19:55:09+00:00", "date": "2026-10-28", "kind": "buy_mkt", "symbol": "AMD", "qty": 7, "side": "buy", "ref_price": 577.280029296875, "notional": 4040.960205078125, "order_id": "7189992c-937e-460d-9d3e-ff7c93da5475"}
+{"utc": "2026-10-28T20:41:49+00:00", "kind": "sell_opg_resolved", "order_id": "232d2d8d-da55-4a48-b602-c9d186e69fdd", "symbol": "TSEM", "status": "expired", "unsold": 9.0}
+{"utc": "2026-10-28T20:41:49+00:00", "kind": "sell_opg_resolved", "order_id": "17e39c2e-42bf-43e1-9060-4ecb5d6340ee", "symbol": "AMD", "status": "expired", "unsold": 2.0}
+{"utc": "2026-10-28T20:41:50+00:00", "kind": "sell_opg_resolved", "order_id": "93d5dede-1ea7-46a5-b546-814bb5021412", "symbol": "DELL", "status": "expired", "unsold": 3.0}
+{"utc": "2026-10-28T20:41:50+00:00", "kind": "sell_opg_resolved", "order_id": "39982d92-e418-4570-b78b-c67b83209966", "symbol": "MU", "status": "expired", "unsold": 1.0}
+{"utc": "2026-10-28T20:41:50+00:00", "kind": "sell_opg_resolved", "order_id": "5e588a71-f64c-4a80-9d40-7504fa4cf902", "symbol": "SNDK", "status": "expired", "unsold": 1.0}
+{"utc": "2026-10-28T20:41:50+00:00", "kind": "sell_opg_resolved", "order_id": "97a26fdc-ecfb-4e6e-b106-0cbef4590b26", "symbol": "MRVL", "status": "expired", "unsold": 6.0}
+{"utc": "2026-10-28T20:41:50+00:00", "kind": "sell_opg_resolved", "order_id": "597be45d-bf87-49f3-badf-a6ea6a5a6512", "symbol": "VLO", "status": "expired", "unsold": 4.0}
+{"utc": "2026-10-28T20:41:50+00:00", "kind": "sell_opg_resolved", "order_id": "6b372b65-554b-4341-9688-db6f88f9968b", "symbol": "STX", "status": "expired", "unsold": 2.0}
+{"utc": "2026-10-28T20:41:50+00:00", "kind": "sell_opg_resolved", "order_id": "f30fd059-1f0b-4833-980c-aaa43c7e2ce0", "symbol": "MPC", "status": "expired", "unsold": 3.0}
+{"utc": "2026-10-28T20:41:52+00:00", "date": "2026-10-28", "kind": "sell_open", "symbol": "MRNA", "qty": 20.0, "side": "sell", "order_id": "6650da31-bf6a-474a-89c4-1e685b999b58", "note": "netted into the desk's order for this stock"}
+{"utc": "2026-10-28T20:41:52+00:00", "date": "2026-10-28", "kind": "sell_open", "symbol": "SNDK", "qty": 4.0, "side": "sell", "order_id": "7edc6754-1167-4bbc-a851-c6ad29008f16", "note": "netted into the desk's order for this stock"}
+{"utc": "2026-10-28T20:41:52+00:00", "date": "2026-10-28", "kind": "sell_open", "symbol": "MU", "qty": 5.0, "side": "sell", "order_id": "853bfdc0-77f7-4a59-8b68-620b7481e30e", "note": "netted into the desk's order for this stock"}
+{"utc": "2026-10-28T20:41:52+00:00", "date": "2026-10-28", "kind": "sell_open", "symbol": "STX", "qty": 8.0, "side": "sell", "order_id": "12755d2a-a383-4eb5-9392-d29be915155d", "note": "netted into the desk's order for this stock"}
+{"utc": "2026-10-28T20:41:52+00:00", "date": "2026-10-28", "kind": "sell_open", "symbol": "ILMN", "qty": 15.0, "side": "sell", "order_id": "81d0a968-570a-4737-927e-55adbd24ec7f", "note": "netted into the desk's order for this stock"}
+{"utc": "2026-10-28T20:41:52+00:00", "date": "2026-10-28", "kind": "sell_open", "symbol": "HPE", "qty": 74.0, "side": "sell", "order_id": "a4a1e359-42b5-4763-965b-5717101a54f2", "note": "netted into the desk's order for this stock"}
+{"utc": "2026-10-28T20:41:52+00:00", "date": "2026-10-28", "kind": "sell_open", "symbol": "OKTA", "qty": 19.0, "side": "sell", "order_id": "1552bf99-fce4-4038-8a4f-37eb43042893", "note": "netted into the desk's order for this stock"}
+{"utc": "2026-10-28T20:41:52+00:00", "date": "2026-10-28", "kind": "sell_open", "symbol": "GH", "qty": 24.0, "side": "sell", "order_id": "d1ca726b-916a-4db1-b32c-d7f53b305f3e", "note": "netted into the desk's order for this stock"}
+{"utc": "2026-10-28T20:41:52+00:00", "date": "2026-10-28", "kind": "sell_open", "symbol": "VLO", "qty": 15.0, "side": "sell", "order_id": "3a9f80a7-f38c-4227-be26-8a9fc296f535", "note": "netted into the desk's order for this stock"}
