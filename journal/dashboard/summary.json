@@ -1,6 +1,6 @@
 [
  {
-  "exported_utc": "2026-10-28T14:02:14+00:00",
+  "exported_utc": "2026-10-28T14:27:31+00:00",
   "equity": 97790.92,
   "signal_date": "2026-10-27",
   "plan_status": "submitted",
@@ -16,11 +16,11 @@
   "realized_pnl": -2293.0,
   "plan_utc": "2026-10-27T20:49:04+00:00",
   "review_utc": "2026-10-28T14:01:33+00:00",
-  "prices_utc": "2026-10-28T14:02:14+00:00",
+  "prices_utc": "2026-10-28T14:27:31+00:00",
   "prices_kind": "intraday",
-  "live_equity": 97791.24,
+  "live_equity": 97784.46,
   "cash": 85498.64,
-  "day_pl": 76.66,
-  "open_pl": 87.56
+  "day_pl": 69.53,
+  "open_pl": 80.44
  }
 ]
