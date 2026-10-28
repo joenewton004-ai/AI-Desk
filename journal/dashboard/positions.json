@@ -30,8 +30,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.0284,
-  "day": 0.02768
+  "return": -0.00172,
+  "day": 0.02274
  },
  {
   "symbol": "ANET",
@@ -149,8 +149,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.01178,
-  "day": -0.01153
+  "return": -0.01823,
+  "day": -0.0308
  },
  {
   "symbol": "DINO",
@@ -268,8 +268,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00411,
+  "day": -0.00411
  },
  {
   "symbol": "GOOGL",
@@ -302,8 +302,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.01116,
+  "day": -0.01116
  },
  {
   "symbol": "HUM",
@@ -336,8 +336,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00069,
+  "day": -0.00069
  },
  {
   "symbol": "INCY",
@@ -370,8 +370,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00922,
+  "day": -0.00922
  },
  {
   "symbol": "KLAC",
@@ -404,8 +404,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.0093,
+  "day": -0.0093
  },
  {
   "symbol": "LLY",
@@ -506,8 +506,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.01513,
-  "day": 0.01264
+  "return": 0.00222,
+  "day": 0.01099
  },
  {
   "symbol": "MRNA",
@@ -523,8 +523,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00243,
+  "day": -0.00243
  },
  {
   "symbol": "MRVL",
@@ -540,8 +540,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.0326,
-  "day": 0.03124
+  "return": -0.00068,
+  "day": 0.02082
  },
  {
   "symbol": "MSCI",
@@ -574,8 +574,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.05599,
-  "day": 0.05497
+  "return": -0.00397,
+  "day": 0.04225
  },
  {
   "symbol": "NTAP",
@@ -642,8 +642,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.04064,
+  "day": -0.04064
  },
  {
   "symbol": "OSCR",
@@ -761,8 +761,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00095,
+  "day": -0.00095
  },
  {
   "symbol": "SNDK",
@@ -778,8 +778,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.07218,
-  "day": 0.06983
+  "return": 0.00764,
+  "day": 0.06143
  },
  {
   "symbol": "SNOW",
@@ -812,8 +812,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.02807,
-  "day": 0.02955
+  "return": 0.00086,
+  "day": 0.03167
  },
  {
   "symbol": "TEAM",
@@ -846,8 +846,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.02417,
-  "day": 0.02406
+  "return": -0.03812,
+  "day": -0.02158
  },
  {
   "symbol": "TWLO",
@@ -863,8 +863,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.0034,
+  "day": 0.0034
  },
  {
   "symbol": "UTHR",
@@ -914,8 +914,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00538,
-  "day": 0.0032
+  "return": 0.00011,
+  "day": 0.00294
  },
  {
   "symbol": "WDC",
@@ -931,8 +931,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.01294,
+  "day": -0.01294
  },
  {
   "symbol": "WES",
