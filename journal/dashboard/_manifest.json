@@ -24,5 +24,7 @@
   "watch_summary",
   "watchlist"
  ],
- "empty": []
+ "empty": [
+  "skill_desk"
+ ]
 }

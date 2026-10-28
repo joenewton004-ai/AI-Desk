@@ -252,6 +252,30 @@
   "notes": ""
  },
  {
+  "method": "skill_desk_orb",
+  "live": false,
+  "allocation": 0.0,
+  "status": "separate ledger from 2026-10-28 (owner's choice; no orders, not part of the desk)",
+  "description": "Jakeschincariol/day-trader-skill's opening-range day trade, automatic: 15-minute range, buy the next open after a 5-minute close above it, stop at the range middle, target 2R, flat by 15:55; $50 max loss a trade, $4,000 an order, 3 trades a day, -$150 daily limit, $5,000 account.",
+  "evidence": "2016-2026: -9.7%/yr at 0.02% costs (Sharpe -0.59), -26.8% at 0.05%; +0.03R a trade before costs. 1R target: -12.8%. Every breakout: -0.037% a trade, t -13, both halves.",
+  "parameters": "universe=top 100 US companies; fills=next 5-minute open; costs=0.02% each way; account=separate $5,000 ledger, no orders",
+  "docs": "research/SKILL_DESK.md, research/output/skill_desk.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
+  "method": "congress_copy",
+  "live": false,
+  "allocation": 0.0,
+  "status": "tested: no edge (not in the live mix)",
+  "description": "Copy members of Congress's disclosed stock purchases (STOCK Act PTRs, House Clerk, electronic filings 2014-2026): buy at the first open after the report was FILED, hold 20/60/120 days. Variants: $15k+/$50k+, clusters of 2+ members, fresh reports, own account, Nancy Pelosi, sales.",
+  "evidence": "Copy book (every purchase, 60 days) 13.9%/yr, Sharpe 0.71 vs SPY 13.7%, 0.75; no rule beyond t 1 ($50k+ +2.2% per 60 days, t 0.8; Pelosi +0.2%, 41 trades). Even from the trade date purchases trail. House only, paper scans skipped, survivors-only prices.",
+  "parameters": "entry=next open after the filing date; holds=20/60/120 trading days; costs=0.05% each way; benchmarks=equal-weight cache universe, SPY",
+  "docs": "research/CONGRESS.md, research/output/congress.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
   "method": "green_line",
   "live": false,
   "allocation": 0.0,
