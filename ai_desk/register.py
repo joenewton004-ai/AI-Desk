@@ -359,6 +359,17 @@ RESEARCH_METHODS = {
                    "positive): a hindsight effect of picking the stock that rose 100x.",
         "docs": ["research/CANDLES.md", "research/output/candles.md"],
     },
+    "skill_desk_orb": {
+        "description": "Jakeschincariol/day-trader-skill's opening-range day trade, automatic: 15-minute range, buy the "
+                       "next open after a 5-minute close above it, stop at the range middle, target 2R, flat by 15:55; "
+                       "$50 max loss a trade, $4,000 an order, 3 trades a day, -$150 daily limit, $5,000 account.",
+        "parameters": {"universe": "top 100 US companies", "fills": "next 5-minute open", "costs": "0.02% each way",
+                       "account": "separate $5,000 ledger, no orders"},
+        "status": "separate ledger from 2026-10-28 (owner's choice; no orders, not part of the desk)",
+        "summary": "2016-2026: -9.7%/yr at 0.02% costs (Sharpe -0.59), -26.8% at 0.05%; +0.03R a trade before costs. "
+                   "1R target: -12.8%. Every breakout: -0.037% a trade, t -13, both halves.",
+        "docs": ["research/SKILL_DESK.md", "research/output/skill_desk.md"],
+    },
     "congress_copy": {
         "description": "Copy members of Congress's disclosed stock purchases (STOCK Act PTRs, House Clerk, electronic "
                        "filings 2014-2026): buy at the first open after the report was FILED, hold 20/60/120 days. "
