@@ -58,6 +58,7 @@
   "STX": 2.0,
   "MPC": 3.0
  },
- "opg_sent": false,
- "opg_day": "2026-10-27"
+ "opg_sent": true,
+ "opg_day": "2026-10-27",
+ "opg_utc": "2026-10-28T13:10:20+00:00"
 }
