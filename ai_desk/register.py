@@ -359,6 +359,18 @@ RESEARCH_METHODS = {
                    "positive): a hindsight effect of picking the stock that rose 100x.",
         "docs": ["research/CANDLES.md", "research/output/candles.md"],
     },
+    "congress_copy": {
+        "description": "Copy members of Congress's disclosed stock purchases (STOCK Act PTRs, House Clerk, electronic "
+                       "filings 2014-2026): buy at the first open after the report was FILED, hold 20/60/120 days. "
+                       "Variants: $15k+/$50k+, clusters of 2+ members, fresh reports, own account, Nancy Pelosi, sales.",
+        "parameters": {"entry": "next open after the filing date", "holds": "20/60/120 trading days",
+                       "costs": "0.05% each way", "benchmarks": "equal-weight cache universe, SPY"},
+        "status": "tested: no edge (not in the live mix)",
+        "summary": "Copy book (every purchase, 60 days) 13.9%/yr, Sharpe 0.71 vs SPY 13.7%, 0.75; no rule beyond t 1 "
+                   "($50k+ +2.2% per 60 days, t 0.8; Pelosi +0.2%, 41 trades). Even from the trade date purchases "
+                   "trail. House only, paper scans skipped, survivors-only prices.",
+        "docs": ["research/CONGRESS.md", "research/output/congress.md"],
+    },
     "green_line": {
         "description": "The 'big green line' (@pb_ema on Instagram, attributed there to Charlie Munger): hold the S&P 500 "
                        "while it closes above a moving average, T-bills below it. Tested at the usual lengths (50/100/"

@@ -184,6 +184,20 @@ def main() -> None:
             emit(f"| {name} | {h}d | {s['n']:,} | {s['x']:+.2%} | {s['t']:.1f} | {s['win']:.0%} | {s['a']:+.2%} | "
                  f"{s['b']:+.2%} |")
 
+    spy = pd.read_csv(ROOT / "market_data" / "SPY.csv", index_col=0, parse_dates=True)["open"].reindex(opens.index)
+    so = spy.to_numpy(float)
+    emit("\nThe same events against SPY instead (the cache's universe is today's big companies, so it is flattered "
+         "by hindsight; SPY isn't):\n")
+    for name in ("all", "50k+", "cluster", "pelosi"):
+        sc = scored[name].dropna(subset=["entry"])
+        e = opens.index.get_indexer(sc["entry"])
+        parts = []
+        for h in HOLDS:
+            ok = e + h < len(so)
+            x = sc[f"r{h}"].to_numpy()[ok] - (so[e[ok] + h] / so[e[ok]] - 1)
+            parts.append(f"{h}d {np.nanmean(x):+.2%}")
+        emit(f"- {name}: " + ", ".join(parts))
+
     emit("\nRobustness: 'all' bought one day later (2nd open after the report):\n")
     sc2 = score(buys, opens, base, lag=2)
     for h in HOLDS:
@@ -198,7 +212,8 @@ def main() -> None:
     first = book.first_valid_index()
     for label, a, b in (("2014-2026", first, opens.index[-2]), ("2014-19", first, SPLIT), ("2020-26", SPLIT,
                                                                                             opens.index[-2])):
-        for nm, r in (("copy Congress", book), ("equal-weight universe", univ)):
+        spy_r = spy.shift(-1) / spy - 1
+        for nm, r in (("copy Congress", book), ("equal-weight universe", univ), ("SPY", spy_r)):
             rr = r.loc[a:b]
             rr = rr.fillna(rf.reindex(rr.index))
             p = perf(rr, rf)

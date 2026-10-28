@@ -29,4 +29,4 @@ skill v2", MIT; code read 2026-10-27, last commit 2026-10-20). Code: `research/d
   confirmation days add nothing.
 
 **Verdict: nothing to adopt.** The pack is a well-made manual workflow, but its setups carry no edge on large stocks.
-The Congress-purchase test needs `disclosures-clerk.house.gov`, which this environment's network settings block.
+The Congress-purchase test ran on 2026-10-28 once `disclosures-clerk.house.gov` was allowed: no edge in copying (research/CONGRESS.md).

@@ -69,8 +69,12 @@ changes plainly and be honest about whether a strategy has a real edge.
   both halves): only "gap-up days" passes (+0.155% NVDA, others still ~0); shadowed as the row's `gap_up` flag.
 - Jakeschincariol/day-trader-skill ("Trader skill v2", MIT, reviewed 2026-10-27): its daily scan setups tested on the
   top 100 (`python research/daily_setups.py` -> `research/DAILY_SETUPS.md`): no edge as day trades; only "oversold"
-  leans positive over 5 days (+0.17%, t 1.0) - the live dip rule is the stronger version. Congress PTRs (its
-  trader-pelosi source) need disclosures-clerk.house.gov, blocked by the network policy here.
+  leans positive over 5 days (+0.17%, t 1.0) - the live dip rule is the stronger version.
+- Copying Congress (House PTRs from disclosures-clerk.house.gov, allowed 2026-10-28; Senate not reachable):
+  `python research/house_ptr.py` (texts cached in data/congress/ptr_text/, ~35 min first run; writes
+  data/congress/trades.csv with `filed`) then `python research/congress.py` -> `research/CONGRESS.md`. Bought at the open
+  after the FILING date: copy book 13.9%/yr vs SPY 13.7%, no rule beyond t 1 (incl. $50k+, clusters, Pelosi); paper
+  scans skipped, survivors-only. Research-only (`congress_copy`).
 - RSI dips on wider universes (`python research/dip_universe.py` -> `research/DIP_UNIVERSE.md`): top 100/250/500/750 all
   work per dip (+1.12% -> +0.61%), but wider universes lower the desk's return and Sharpe (27.7%/1.67 -> 20.9%/1.32)
   and deepen its worst drop; keep the top 100.
@@ -172,7 +176,7 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Theme maps (`bottleneck/themes.py`) are dated, human-curated inputs - keep
   `as_of` current and never present theme results as hindsight-free.
 - Insider signal = open-market purchases only (Yahoo's "purchases" include
-  grants). Congress data only from data/congress/trades.csv; say when absent.
+  grants). Congress data only from data/congress/trades.csv; say when absent. Count trades by `filed`, never the trade date.
 - The bottleneck sleeve re-picks every 2 weeks and exits below its 100-day average
   (the scan's --ma, stored with the picks);
   an exited stock stays out until the next re-pick (recorded in its lock).
