@@ -30,8 +30,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.01233,
-  "day": 0.01163
+  "return": 0.0284,
+  "day": 0.02768
  },
  {
   "symbol": "ANET",
@@ -149,8 +149,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.01757,
-  "day": -0.01732
+  "return": -0.01178,
+  "day": -0.01153
  },
  {
   "symbol": "DINO",
@@ -506,8 +506,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.01021,
-  "day": 0.00773
+  "return": 0.01513,
+  "day": 0.01264
  },
  {
   "symbol": "MRNA",
@@ -540,8 +540,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.02445,
-  "day": 0.0231
+  "return": 0.0326,
+  "day": 0.03124
  },
  {
   "symbol": "MSCI",
@@ -574,8 +574,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.04764,
-  "day": 0.04662
+  "return": 0.05599,
+  "day": 0.05497
  },
  {
   "symbol": "NTAP",
@@ -778,8 +778,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.05853,
-  "day": 0.05621
+  "return": 0.07218,
+  "day": 0.06983
  },
  {
   "symbol": "SNOW",
@@ -812,8 +812,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.0174,
-  "day": 0.01886
+  "return": 0.02807,
+  "day": 0.02955
  },
  {
   "symbol": "TEAM",
@@ -846,8 +846,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00936,
-  "day": 0.00926
+  "return": 0.02417,
+  "day": 0.02406
  },
  {
   "symbol": "TWLO",
@@ -914,8 +914,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00259,
-  "day": 0.00041
+  "return": 0.00538,
+  "day": 0.0032
  },
  {
   "symbol": "WDC",
