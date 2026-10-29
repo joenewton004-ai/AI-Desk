@@ -359,6 +359,17 @@ RESEARCH_METHODS = {
                    "positive): a hindsight effect of picking the stock that rose 100x.",
         "docs": ["research/CANDLES.md", "research/output/candles.md"],
     },
+    "spy_short": {
+        "description": "Shorting SPY: short-side swing rules (RSI(2) > 90, 10-day highs, three up days, tweezer top; "
+                       "with/without the 200-day filter), long-above/short-below the 200-day, and an SPY hedge on the "
+                       "overnight sleeve. Borrow 0.5%/yr, dividends paid, 0.01% costs each way.",
+        "parameters": {"hold": "up to 5 days", "hedge": "beta from 2014-2019, applied 2020-2026"},
+        "status": "tested: no edge (not in the live mix)",
+        "summary": "No short rule passes (best: short RSI(2)>90 below the 200-day, +0.42%, t 1.8, 2.6/yr). Short below "
+                   "the 200-day: 4.2%/yr, Sharpe 0.18, worst -47% vs cash 8.9%/0.55/-24%. Hedging the overnight sleeve "
+                   "(beta 1.21) cuts its Sharpe 1.54 -> 0.66: its return is mostly the market's overnight premium.",
+        "docs": ["research/SPY_SHORT.md", "research/output/spy_short.md"],
+    },
     "own_edge": {
         "description": "Our own search: ~35 indicators (returns 1d-12m, RSI, moving averages, volatility, volume, range, "
                        "52-week levels, gaps, overnight/intraday, market state, calendar) on the top 500 stocks and 25 "

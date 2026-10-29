@@ -100,6 +100,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   (needs scikit-learn + lightgbm). No new edge: singles collapse out of sample; everything points back to "a pullback in
   a long-term winner" (the live dip rule); the model's +0.41%/wk is a third market exposure (alpha t 1.7, walk-forward
   t 1.5). Survivors-only. Research-only (`own_edge`).
+- Shorting SPY (short swing rules, long/short around the 200-day, SPY hedge on the overnight sleeve):
+  `python research/spy_short.py` -> `research/SPY_SHORT.md`. No short rule passes; short below the 200-day is far worse
+  than cash; the overnight sleeve's beta to SPY's night is 1.21 and hedging it cuts Sharpe 1.54 -> 0.66 (its return is
+  mostly the market's overnight premium). Research-only (`spy_short`).
 - RSI dips on wider universes (`python research/dip_universe.py` -> `research/DIP_UNIVERSE.md`): top 100/250/500/750 all
   work per dip (+1.12% -> +0.61%), but wider universes lower the desk's return and Sharpe (27.7%/1.67 -> 20.9%/1.32)
   and deepen its worst drop; keep the top 100.
