@@ -359,6 +359,18 @@ RESEARCH_METHODS = {
                    "positive): a hindsight effect of picking the stock that rose 100x.",
         "docs": ["research/CANDLES.md", "research/output/candles.md"],
     },
+    "aschenbrenner_13f": {
+        "description": "Leopold Aschenbrenner's Situational Awareness LP from its 7 SEC 13F filings (Q4 2024 - Q2 2026): "
+                       "the method in numbers (themes, options, net exposure, turnover) and copying each filing from "
+                       "the day after it became public.",
+        "parameters": {"versions": "stocks / stocks+calls / full book (puts short) / equal weight",
+                       "costs": "0.10% each way", "benchmarks": "SPY, QQQ, SMH"},
+        "status": "tested: no edge beyond semiconductor exposure (not in the live mix)",
+        "summary": "Concentrated AI build-out bet rotating power -> chips -> data centres -> memory; up to 46% calls; net "
+                   "-62% via puts at 2026-03. Copy +91-159% (Feb 2025 - Oct 2026) vs SMH +128% (Sharpe 1.33 vs "
+                   "0.87-1.15, worst -49% vs -33%); ~1.5x SMH, alpha t -0.4 to 0.1.",
+        "docs": ["research/ASCHENBRENNER.md", "research/output/aschenbrenner.md"],
+    },
     "short_edge": {
         "description": "Our own edge with shorting: own_edge.py's search turned to what lags (top-500 stocks, 25 ETFs, "
                        "~35 indicators, 5-day horizon), then long/short books: model top 20 / bottom 20, pullback long vs "

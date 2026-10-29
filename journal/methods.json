@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-29T15:54:10+00:00",
+ "generated_utc": "2026-10-29T18:35:44+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "overnight_drift": 0.95,
@@ -636,6 +636,24 @@
    "docs": [
     "research/CANDLES.md",
     "research/output/candles.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "aschenbrenner_13f",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Leopold Aschenbrenner's Situational Awareness LP from its 7 SEC 13F filings (Q4 2024 - Q2 2026): the method in numbers (themes, options, net exposure, turnover) and copying each filing from the day after it became public.",
+   "parameters": {
+    "versions": "stocks / stocks+calls / full book (puts short) / equal weight",
+    "costs": "0.10% each way",
+    "benchmarks": "SPY, QQQ, SMH"
+   },
+   "status": "tested: no edge beyond semiconductor exposure (not in the live mix)",
+   "evidence_summary": "Concentrated AI build-out bet rotating power -> chips -> data centres -> memory; up to 46% calls; net -62% via puts at 2026-03. Copy +91-159% (Feb 2025 - Oct 2026) vs SMH +128% (Sharpe 1.33 vs 0.87-1.15, worst -49% vs -33%); ~1.5x SMH, alpha t -0.4 to 0.1.",
+   "docs": [
+    "research/ASCHENBRENNER.md",
+    "research/output/aschenbrenner.md"
    ],
    "amendments": []
   },

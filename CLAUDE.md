@@ -108,6 +108,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   `python research/short_edge.py` -> `research/SHORT_EDGE.md`. No edge: the search's best shorts fade to ~0; model L/S
   Sharpe 0.59 vs long-only 0.75, still beta 0.3-0.5, alpha t 1.1; ETF L/S worst -70%. The desk stays long only.
   Survivors-only data understates shorts. Research-only (`short_edge`).
+- Leopold Aschenbrenner / Situational Awareness LP (CIK 2045724) from its 13F filings (www.sec.gov allowed 2026-10-29; info
+  tables cached in data/sec/13f/): `python research/aschenbrenner.py` -> `research/ASCHENBRENNER.md`. Copying from the
+  filing date +91-159% Feb 2025 - Oct 2026 but SMH +128% with a better Sharpe; the copy is ~1.5x SMH, no alpha. 13F shows
+  only quarter-end US longs/options. Research-only (`aschenbrenner_13f`).
 - RSI dips on wider universes (`python research/dip_universe.py` -> `research/DIP_UNIVERSE.md`): top 100/250/500/750 all
   work per dip (+1.12% -> +0.61%), but wider universes lower the desk's return and Sharpe (27.7%/1.67 -> 20.9%/1.32)
   and deepen its worst drop; keep the top 100.
@@ -184,7 +188,7 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Research notes (`research/notes/<date>/`): numbers come from
   `research/build_notes.py` (DATA blocks), never typed by hand. Prose must
   cite dated sources and say what to verify. Notes are research, not advice.
-- EDGAR: only data.sec.gov is reachable here. Ticker->CIK must be verified
+- EDGAR: data.sec.gov and (since 2026-10-29) www.sec.gov are reachable here. Ticker->CIK must be verified
   via data.sec.gov/submissions. Never put the user's email in SEC_USER_AGENT
   without asking - it comes from .env.
 - The 10-year check's thresholds live in `filters.LONG_RUN_RULES`. They were
