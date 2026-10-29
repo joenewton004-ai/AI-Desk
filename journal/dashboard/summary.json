@@ -1,7 +1,7 @@
 [
  {
-  "exported_utc": "2026-10-29T19:09:13+00:00",
-  "equity": 94775.52,
+  "exported_utc": "2026-10-29T20:22:35+00:00",
+  "equity": 91779.28,
   "signal_date": "2026-10-28",
   "plan_status": "submitted",
   "plan_method": "100% rsi_dip(slot=0.1, max_positions=5, max_age_days=3, state_path=data/portfolio/rsi_dip.json, retired_locks=data/portfolio/quality_screen.json,data/portfolio/momentum.json)",
@@ -12,17 +12,17 @@
   "trades_filled": 304,
   "notes": 4,
   "open_amendments": 4,
-  "unrealized_pnl": -2260.92,
+  "unrealized_pnl": -3836.51,
   "realized_pnl": -2957.82,
   "plan_utc": "2026-10-28T20:41:52+00:00",
-  "review_utc": "2026-10-29T19:09:13+00:00",
-  "prices_utc": "2026-10-29T19:09:12+00:00",
-  "prices_kind": "intraday",
-  "live_equity": 94775.52,
-  "cash": 43627.44,
-  "day_pl": -2456.58,
-  "open_pl": -2260.92,
-  "open_pl_gap": 0.0,
-  "open_pl_ok": true
+  "review_utc": "2026-10-29T20:22:35+00:00",
+  "prices_utc": "2026-10-29T20:21:47+00:00",
+  "prices_kind": "close",
+  "live_equity": 91779.28,
+  "cash": 964.85,
+  "day_pl": -6182.93,
+  "open_pl": -5258.75,
+  "open_pl_gap": 1422.24,
+  "open_pl_ok": false
  }
 ]

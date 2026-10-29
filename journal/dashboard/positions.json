@@ -13,8 +13,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.02198,
-  "day": -0.02951
+  "return": -0.04681,
+  "day": -0.05833
  },
  {
   "symbol": "DELL",
@@ -30,8 +30,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.04587,
-  "day": -0.0425
+  "return": -0.07221,
+  "day": -0.07843
  },
  {
   "symbol": "GH",
@@ -47,8 +47,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00151,
+  "day": -0.00151
  },
  {
   "symbol": "HPE",
@@ -64,8 +64,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.03683,
+  "day": -0.03683
  },
  {
   "symbol": "ILMN",
@@ -81,8 +81,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.10259,
+  "day": -0.10259
  },
  {
   "symbol": "INTC",
@@ -98,8 +98,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.04376,
-  "day": -0.04527
+  "return": -0.18407,
+  "day": -0.19512
  },
  {
   "symbol": "LITE",
@@ -115,8 +115,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.01295,
-  "day": 0.00669
+  "return": -0.00978,
+  "day": -0.01198
  },
  {
   "symbol": "MPC",
@@ -132,8 +132,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.03739,
-  "day": -0.03952
+  "return": -0.00893,
+  "day": -0.01654
  },
  {
   "symbol": "MRNA",
@@ -149,8 +149,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00943,
+  "day": -0.00943
  },
  {
   "symbol": "MRVL",
@@ -166,8 +166,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.13307,
-  "day": -0.14286
+  "return": -0.1116,
+  "day": -0.15359
  },
  {
   "symbol": "MU",
@@ -183,8 +183,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.01825,
+  "day": -0.01825
  },
  {
   "symbol": "OKTA",
@@ -200,8 +200,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.01567,
+  "day": -0.01567
  },
  {
   "symbol": "RVMD",
@@ -217,8 +217,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.00413,
-  "day": -0.00318
+  "return": 0.00379,
+  "day": 0.00821
  },
  {
   "symbol": "SNDK",
@@ -234,8 +234,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.00631,
+  "day": 0.00631
  },
  {
   "symbol": "STX",
@@ -251,8 +251,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00768,
+  "day": -0.00768
  },
  {
   "symbol": "TER",
@@ -268,8 +268,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.06397,
-  "day": -0.0658
+  "return": -0.07143,
+  "day": -0.07323
  },
  {
   "symbol": "TSEM",
@@ -285,8 +285,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.03893,
-  "day": -0.04483
+  "return": -0.04224,
+  "day": -0.05467
  },
  {
   "symbol": "TWLO",
@@ -302,8 +302,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.05038,
-  "day": -0.05367
+  "return": -0.155,
+  "day": -0.17032
  },
  {
   "symbol": "VLO",
@@ -319,8 +319,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.00148,
+  "day": 0.00148
  },
  {
   "symbol": "WDC",
@@ -336,7 +336,7 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.00701,
-  "day": -0.00952
+  "return": -0.0129,
+  "day": -0.01588
  }
 ]
