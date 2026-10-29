@@ -252,6 +252,66 @@
   "notes": ""
  },
  {
+  "method": "short_edge",
+  "live": false,
+  "allocation": 0.0,
+  "status": "tested: no edge (not in the live mix)",
+  "description": "Our own edge with shorting: own_edge.py's search turned to what lags (top-500 stocks, 25 ETFs, ~35 indicators, 5-day horizon), then long/short books: model top 20 / bottom 20, pullback long vs the best short, walk-forward, ETF top 3 / bottom 3.",
+  "evidence": "The search's best shorts fade to ~0 in the holdout; model L/S 17.7%/yr, Sharpe 0.59 (long-only 0.75), beta 0.46, alpha t 1.1; walk-forward t 1.4; ETF L/S Sharpe 0.27, worst -70%. Survivors-only data understates the short side.",
+  "parameters": "costs=0.05% each way per leg (ETFs 0.02%); borrow=0.5%/yr (stress 2%)",
+  "docs": "research/SHORT_EDGE.md, research/output/short_edge.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
+  "method": "spy_short",
+  "live": false,
+  "allocation": 0.0,
+  "status": "tested: no edge (not in the live mix)",
+  "description": "Shorting SPY: short-side swing rules (RSI(2) > 90, 10-day highs, three up days, tweezer top; with/without the 200-day filter), long-above/short-below the 200-day, and an SPY hedge on the overnight sleeve. Borrow 0.5%/yr, dividends paid, 0.01% costs each way.",
+  "evidence": "No short rule passes (best: short RSI(2)>90 below the 200-day, +0.42%, t 1.8, 2.6/yr). Short below the 200-day: 4.2%/yr, Sharpe 0.18, worst -47% vs cash 8.9%/0.55/-24%. Hedging the overnight sleeve (beta 1.21) cuts its Sharpe 1.54 -> 0.66: its return is mostly the market's overnight premium.",
+  "parameters": "hold=up to 5 days; hedge=beta from 2014-2019, applied 2020-2026",
+  "docs": "research/SPY_SHORT.md, research/output/spy_short.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
+  "method": "own_edge",
+  "live": false,
+  "allocation": 0.0,
+  "status": "tested: no new edge (not in the live mix)",
+  "description": "Our own search: ~35 indicators (returns 1d-12m, RSI, moving averages, volatility, volume, range, 52-week levels, gaps, overnight/intraday, market state, calendar) on the top 500 stocks and 25 ETFs, 5-day horizon; singles, pairs and a LightGBM model searched on development years, then one holdout test.",
+  "evidence": "Best singles all collapse in the holdout; ETFs nothing. Stocks: 'pullback in a long-term winner' pairs +0.12-0.18%/wk (t 1.0-1.6); the model +0.41%/wk (t 2.4) but a third is extra market exposure (alpha +0.26%, t 1.7) and walk-forward t 1.5. Survivors-only.",
+  "parameters": "search=stocks 2014-19, ETFs 1999-2012; holdout=stocks 2020-26, ETFs 2013-26; costs=0.05% stocks / 0.02% ETFs each way",
+  "docs": "research/OWN_EDGE.md, research/output/own_edge.md, research/output/own_edge_checks.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
+  "method": "candles_daily_spy",
+  "live": false,
+  "allocation": 0.0,
+  "status": "tested: no edge (not in the live mix)",
+  "description": "23 textbook daily candlestick patterns on SPY 1993-2026 (10 bullish after a down week, 10 bearish after an up week, doji/inside/outside day), measured 1 and 5 days from the next open vs SPY's normal drift, cross-checked on QQQ/IWM/DIA.",
+  "evidence": "1 of 40 passes (~2 by chance): tweezer top, SPY -0.32% over 5 days (t -2.7), also QQQ/IWM, not DIA; small and bearish (the desk is long only). Hammers, engulfing, stars, dojis: nothing or flips.",
+  "parameters": "horizons=1 and 5 trading days; context=5-day trend; costs=0.01% each way",
+  "docs": "research/CANDLES_DAILY_SPY.md, research/output/candles_daily_spy.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
+  "method": "swing_etf",
+  "live": false,
+  "allocation": 0.0,
+  "status": "tested: an edge on index ETFs (RSI(2) dip, 10-day low), not in the live mix",
+  "description": "Swing trades up to a week on SPY/QQQ/IWM/DIA and GLD/SLV/USO/UNG daily bars (SPY from 1993): RSI(2)/RSI(14) dips, three down days, IBS, 10-day low, 20-day breakout, weekly reversal/momentum, turn of the month, gap down; next-open fills, long only, judged against holding the ETF.",
+  "evidence": "SPY RSI(2)<10 above the 200-day: 73% wins, +0.51% a trade, +0.36% vs holding (t 3.4), but +0.56% -> +0.18% from 1993-2009 to 2010-26 (faded since publication); strategy 6.6%/yr, Sharpe 0.69, worst -11%, in the market 10%. Commodity ETFs: nothing.",
+  "parameters": "hold=up to 5 trading days; costs=0.01-0.05% each way; trend=200-day average",
+  "docs": "research/SWING_ETF.md, research/output/swing_etf.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
   "method": "intraday_etf",
   "live": false,
   "allocation": 0.0,
