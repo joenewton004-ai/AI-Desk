@@ -175,10 +175,22 @@ def nvda_orb_rows() -> list[dict]:
     return [{k: r.get(k) for k in keys} for r in sorted(nvda_orb.rows(), key=lambda r: r["date"], reverse=True)]
 
 
+def remark(review_old: dict, last: dict, review_fn=None) -> dict:
+    """The journal's open and closed trades rebuilt from the trade log and priced at `last` - the same snapshot the
+    holdings use, counting fills up to that snapshot's time - so Open P&L matches the account (journal/review.json is only rebuilt by `journal review`,
+    in the morning, before the afternoon's overnight buys). A stock without a fresh price keeps its last known one."""
+    review_fn = review_fn or tradebook.review
+    prices = {o["symbol"]: o.get("price") for o in review_old.get("open", []) if o.get("price") == o.get("price")}
+    prices.update({sym: h["price"] for sym, h in (last.get("holdings") or {}).items() if h.get("price")})
+    return review_fn(prices, equity=last.get("equity") or review_old.get("equity"), write=False, asof=last.get("utc"))
+
+
 def tables() -> dict[str, list[dict]]:
     reg = register.register()
     plan = tradebook._read_plan()
-    review = _read_json("review.json")
+    from ai_desk import scorecard
+    last, price_kind = scorecard.latest_prices_row()      # intraday prices if a live snapshot is newer than the close
+    review = remark(_read_json("review.json"), last)
     trades, notes, amends = tradebook.trades(), tradebook.notes(), register.amendments()
 
     def notes_for(*targets):
@@ -279,8 +291,6 @@ def tables() -> dict[str, list[dict]]:
                   "kind": n["kind"], "text": n["text"]} for n in notes]
 
     # fact sheets: the latest snapshot of each Alpaca position, plus its sleeve and P/E at decision time
-    from ai_desk import scorecard
-    last, price_kind = scorecard.latest_prices_row()      # intraday prices if a live snapshot is newer than the close
     pe = {}
     for r in plan.get("rows", []):
         for sl, x in (r.get("rationale") or {}).items():
