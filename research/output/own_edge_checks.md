@@ -65,3 +65,10 @@ Walk-forward 2020-2026: +0.32% a week (t 1.5), after 0.05% costs +0.21%.
 - picks 40%+ below their 52-week high: 1,424 (22% of picks), average excess +0.36%
 - the other picks: 4,910, average excess +0.38%
 - share of the model's total excess from the deep fallers: 22%
+
+## 8. Extra market exposure (beta)
+
+- The picks' excess rises +0.53 for every 1.00 the universe moves in a week (they swing ~1.53x the average stock).
+- Part of the +0.40% a week that is just that: +0.14% (the universe averaged +0.27% a week in 2020-2026).
+- What's left (alpha): +0.26% a week, t 1.7, before costs.
+- Up weeks: picks +1.18% vs the universe; down weeks -0.63%.
