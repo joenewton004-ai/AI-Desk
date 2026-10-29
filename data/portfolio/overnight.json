@@ -1,6 +1,6 @@
 {
- "picked_on": "2026-10-27",
- "ref_date": "2026-10-26",
+ "picked_on": "2026-10-28",
+ "ref_date": "2026-10-27",
  "picks": [
   "MRNA",
   "SNDK",
@@ -8,161 +8,161 @@
   "MU",
   "RVMD",
   "DELL",
-  "STX",
   "WDC",
   "MRVL",
+  "STX",
   "ILMN",
   "HPE",
-  "VLO",
-  "GH",
   "OKTA",
-  "MPC",
   "TSEM",
-  "TWLO",
+  "GH",
   "INTC",
-  "DINO",
+  "VLO",
+  "TWLO",
+  "MPC",
+  "TER",
   "AMD"
  ],
  "rows": [
   {
    "symbol": "MRNA",
    "name": "Moderna, Inc.",
-   "score": 6.5752383277529765,
-   "ret_12m": 6.5752383277529765,
-   "close": 198.85000610351562
+   "score": 6.777487023217226,
+   "ret_12m": 6.777487023217226,
+   "close": 207.97000122070312
   },
   {
    "symbol": "SNDK",
    "name": "Sandisk Corporation",
-   "score": 6.5161923562830815,
-   "ret_12m": 6.5161923562830815,
-   "close": 1255.5799560546875
+   "score": 6.00923904249953,
+   "ret_12m": 6.00923904249953,
+   "close": 1304.8399658203125
   },
   {
    "symbol": "LITE",
    "name": "Lumentum Holdings Inc.",
-   "score": 3.8551927334477005,
-   "ret_12m": 3.8551927334477005,
-   "close": 818.0999755859375
+   "score": 3.830897813346632,
+   "ret_12m": 3.830897813346632,
+   "close": 866.1799926757812
   },
   {
    "symbol": "MU",
    "name": "Micron Technology, Inc.",
-   "score": 3.3767906448161478,
-   "ret_12m": 3.3767906448161478,
-   "close": 903.7000122070312
+   "score": 3.245341610791291,
+   "ret_12m": 3.245341610791291,
+   "close": 928.760009765625
   },
   {
    "symbol": "RVMD",
    "name": "Revolution Medicines, Inc.",
-   "score": 2.441242489189966,
-   "ret_12m": 2.441242489189966,
-   "close": 183.89999389648438
+   "score": 2.418135146574912,
+   "ret_12m": 2.418135146574912,
+   "close": 186.22000122070312
   },
   {
    "symbol": "DELL",
    "name": "Dell Technologies Inc.",
-   "score": 2.060465448300974,
-   "ret_12m": 2.060465448300974,
-   "close": 467.0899963378906
-  },
-  {
-   "symbol": "STX",
-   "name": "Seagate Technology Holdings plc",
-   "score": 1.8620964585792055,
-   "ret_12m": 1.8620964585792055,
-   "close": 644.2100219726562
+   "score": 2.1975118923342802,
+   "ret_12m": 2.1975118923342802,
+   "close": 501.9599914550781
   },
   {
    "symbol": "WDC",
    "name": "Western Digital Corporation",
-   "score": 1.8380082865146936,
-   "ret_12m": 1.8380082865146936,
-   "close": 356.1300048828125
+   "score": 1.9482391190061477,
+   "ret_12m": 1.9482391190061477,
+   "close": 380.8800048828125
   },
   {
    "symbol": "MRVL",
    "name": "Marvell Technology, Inc.",
-   "score": 1.829216127762852,
-   "ret_12m": 1.829216127762852,
-   "close": 233.77999877929688
+   "score": 1.9000446290569588,
+   "ret_12m": 1.9000446290569588,
+   "close": 243.57000732421875
+  },
+  {
+   "symbol": "STX",
+   "name": "Seagate Technology Holdings plc",
+   "score": 1.8694111645688474,
+   "ret_12m": 1.8694111645688474,
+   "close": 667.8499755859375
   },
   {
    "symbol": "ILMN",
    "name": "Illumina, Inc.",
-   "score": 1.7112134163782655,
-   "ret_12m": 1.7112134163782655,
-   "close": 271.0400085449219
+   "score": 1.7916292030449292,
+   "ret_12m": 1.7916292030449292,
+   "close": 279.4700012207031
   },
   {
    "symbol": "HPE",
    "name": "Hewlett Packard Enterprise Company",
-   "score": 1.5777849675530686,
-   "ret_12m": 1.5777849675530686,
-   "close": 58.720001220703125
-  },
-  {
-   "symbol": "VLO",
-   "name": "Valero Energy Corporation",
-   "score": 1.5172308551079552,
-   "ret_12m": 1.5172308551079552,
-   "close": 426.760009765625
-  },
-  {
-   "symbol": "GH",
-   "name": "Guardant Health, Inc.",
-   "score": 1.498197603632978,
-   "ret_12m": 1.498197603632978,
-   "close": 173.25
+   "score": 1.635619457308827,
+   "ret_12m": 1.635619457308827,
+   "close": 60.84000015258789
   },
   {
    "symbol": "OKTA",
    "name": "Okta, Inc.",
-   "score": 1.4845848325746442,
-   "ret_12m": 1.4845848325746442,
-   "close": 220.00999450683594
-  },
-  {
-   "symbol": "MPC",
-   "name": "Marathon Petroleum Corporation",
-   "score": 1.441830440395926,
-   "ret_12m": 1.441830440395926,
-   "close": 470.6400146484375
+   "score": 1.5381161793958724,
+   "ret_12m": 1.5381161793958724,
+   "close": 226.07000732421875
   },
   {
    "symbol": "TSEM",
    "name": "Tower Semiconductor Ltd.",
-   "score": 1.3855598461495382,
-   "ret_12m": 1.3855598461495382,
-   "close": 178.75
+   "score": 1.4954468814584159,
+   "ret_12m": 1.4954468814584159,
+   "close": 189.0800018310547
   },
   {
-   "symbol": "TWLO",
-   "name": "Twilio Inc.",
-   "score": 1.3790831494542766,
-   "ret_12m": 1.3790831494542766,
-   "close": 263.6499938964844
+   "symbol": "GH",
+   "name": "Guardant Health, Inc.",
+   "score": 1.467913981882964,
+   "ret_12m": 1.467913981882964,
+   "close": 178.05999755859375
   },
   {
    "symbol": "INTC",
    "name": "Intel Corporation",
-   "score": 1.3708071693516666,
-   "ret_12m": 1.3708071693516666,
-   "close": 90.47000122070312
+   "score": 1.448798350392511,
+   "ret_12m": 1.448798350392511,
+   "close": 93.73999786376953
   },
   {
-   "symbol": "DINO",
-   "name": "HF Sinclair Corporation",
-   "score": 1.3579890810219197,
-   "ret_12m": 1.3579890810219197,
-   "close": 125.25
+   "symbol": "VLO",
+   "name": "Valero Energy Corporation",
+   "score": 1.3124952856813343,
+   "ret_12m": 1.3124952856813343,
+   "close": 387.3399963378906
+  },
+  {
+   "symbol": "TWLO",
+   "name": "Twilio Inc.",
+   "score": 1.261549423240535,
+   "ret_12m": 1.261549423240535,
+   "close": 254.55999755859375
+  },
+  {
+   "symbol": "MPC",
+   "name": "Marathon Petroleum Corporation",
+   "score": 1.259006115568439,
+   "ret_12m": 1.259006115568439,
+   "close": 435.9800109863281
+  },
+  {
+   "symbol": "TER",
+   "name": "Teradyne, Inc.",
+   "score": 1.2477610542219169,
+   "ret_12m": 1.2477610542219169,
+   "close": 323.67999267578125
   },
   {
    "symbol": "AMD",
    "name": "Advanced Micro Devices, Inc.",
-   "score": 1.2608622361699982,
-   "ret_12m": 1.2608622361699982,
-   "close": 531.280029296875
+   "score": 1.21516690582681,
+   "ret_12m": 1.21516690582681,
+   "close": 560.260009765625
   }
  ],
  "n": 20,

@@ -201,7 +201,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   `journal export` (writes journal/dashboard/*.json; pnl_days = the Overview's P&L calendar, daily closes vs
   `dashboard.START_EQUITY` for the first day), then upload each file as an asset and update
   the matching dataset's url/updated. Never point a dataset at an empty table (the dashboard counts it as a
-  failed source): journal/dashboard/_manifest.json lists tables with rows; create a dataset when one first has rows. Amendments and notes sent as dashboard comments go into the
+  failed source): journal/dashboard/_manifest.json lists tables with rows; the export rebuilds the journal's lots at
+  the holdings' price snapshot (`dashboard.remark`, fills up to that time) and checks Open P&L against Alpaca's
+  (`open_pl_check`, warning on the Open P&L card beyond $5 = a fill missing or doubled - investigate, don't hide it); create a dataset when one first has rows. Amendments and notes sent as dashboard comments go into the
   journal with `journal propose` / `journal note` - comments are the user's words, not orders.
 - Intraday prices (approved by the user 2026-10-21): `python -m ai_desk journal live` saves current Alpaca positions and
   prices to journal/live.json (never snapshots.jsonl - the scorecard uses closes only) and re-exports; the dashboard

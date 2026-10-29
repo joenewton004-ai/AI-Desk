@@ -233,10 +233,17 @@ def add_note(target: str, text: str, author: str = "you", kind: str = "note") ->
 
 # --- review ---------------------------------------------------------------------
 
-def lots(rows: list[dict] | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
+def _utc(t: str) -> pd.Timestamp:
+    ts = pd.Timestamp(t)
+    return ts.tz_localize("UTC") if ts.tzinfo is None else ts.tz_convert("UTC")
+
+
+def lots(rows: list[dict] | None = None, asof: str | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Match sells to earlier buys of the same symbol (first in, first out).
-    Returns (open lots, closed lots). Only filled quantities count."""
+    Returns (open lots, closed lots). Only filled quantities count; with `asof` (a UTC time), only fills up to then."""
     rows = [r for r in (rows or trades()) if r.get("fill_price") and r.get("filled_qty")]
+    if asof:
+        rows = [r for r in rows if _utc(r.get("filled_utc") or r["created_utc"]) <= _utc(asof)]
     open_lots: dict[str, list[dict]] = {}
     closed = []
     for r in sorted(rows, key=lambda x: x.get("filled_utc") or x["created_utc"]):
@@ -283,9 +290,10 @@ def handed_over(sleeve: str, symbol: str) -> str:
     return to if symbol in picks else sleeve
 
 
-def review(prices: dict[str, float], equity: float | None = None, write: bool = True) -> dict:
-    """Open positions marked to `prices`, closed trades, and P&L by sleeve."""
-    op, cl = lots()
+def review(prices: dict[str, float], equity: float | None = None, write: bool = True, asof: str | None = None) -> dict:
+    """Open positions marked to `prices`, closed trades, and P&L by sleeve (with `asof`: fills up to that time only,
+    so the lots match a price snapshot taken then)."""
+    op, cl = lots(asof=asof)
     if len(op):
         now = [handed_over(s, y) for s, y in zip(op["sleeve"], op["symbol"])]
         op["handed_over_from"] = [s if n != s else None for s, n in zip(op["sleeve"], now)]

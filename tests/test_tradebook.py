@@ -362,3 +362,37 @@ def test_overnight_nights_table_newest_first_with_total():
     assert [r["night"] for r in rows] == ["2026-10-22", "2026-10-21", "total"]
     assert rows[0]["fill_cost"] == 6.0 and rows[-1]["invested"] == 4000.0 and rows[-1]["official_pct"] == 0.001
     assert overnight_nights({}) == []
+
+
+def test_open_pnl_is_priced_at_the_export_snapshot_not_the_morning_review():
+    from ai_desk import dashboard
+    seen = {}
+
+    def fake_review(prices, equity=None, write=True, asof=None):
+        seen.update(prices=prices, equity=equity, write=write, asof=asof)
+        return {"open": [], "by_sleeve": {}}
+
+    morning = {"equity": 97790.0, "open": [{"symbol": "AMD", "price": 560.0}, {"symbol": "OLD", "price": 10.0}]}
+    last = {"equity": 97009.0, "utc": "2026-10-28T20:21:20+00:00", "holdings": {"AMD": {"price": 573.0}, "DELL": {"price": 486.5}}}
+    dashboard.remark(morning, last, review_fn=fake_review)
+    assert seen["prices"] == {"AMD": 573.0, "OLD": 10.0, "DELL": 486.5}     # the snapshot wins; OLD keeps its last price
+    assert seen["equity"] == 97009.0 and seen["write"] is False and seen["asof"] == "2026-10-28T20:21:20+00:00"
+
+
+def test_lots_as_of_a_time_ignore_later_fills():
+    rows = [{"id": "b", "symbol": "X", "side": "buy", "sleeve": "s", "fill_price": 10.0, "filled_qty": 5,
+             "filled_utc": "2026-10-28T19:56:00+00:00", "created_utc": "2026-10-28T19:55:00+00:00"},
+            {"id": "s", "symbol": "X", "side": "sell", "sleeve": "s", "fill_price": 11.0, "filled_qty": 5,
+             "filled_utc": "2026-10-29T13:30:05+00:00", "created_utc": "2026-10-28T20:40:00+00:00"}]
+    op, cl = tradebook.lots(rows, asof="2026-10-28T20:21:20+00:00")
+    assert len(op) == 1 and len(cl) == 0                  # the next morning's sale isn't in a 4:21pm snapshot
+    op, cl = tradebook.lots(rows)
+    assert len(op) == 0 and len(cl) == 1
+
+
+def test_open_pl_check_flags_a_gap_beyond_five_dollars():
+    from ai_desk import dashboard
+    assert dashboard.open_pl_check(-694.88, -694.88) == {"open_pl_gap": 0.0, "open_pl_ok": True}
+    assert dashboard.open_pl_check(-690.0, -694.88)["open_pl_ok"] is True
+    assert dashboard.open_pl_check(86.78, -694.88) == {"open_pl_gap": 781.66, "open_pl_ok": False}
+    assert dashboard.open_pl_check(None, -1.0)["open_pl_ok"] is None
