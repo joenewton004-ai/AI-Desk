@@ -239,7 +239,8 @@ def run(method, limits: Limits | None = None, execute: bool = False, source: str
     today_ny = pd.Timestamp.now(tz="America/New_York").date().isoformat()
     if getattr(method, "name", "") == "blend" and overnight.swap_active():
         book = overnight.confirm_book(broker, today_ny) if execute or overnight.BOOK.exists() else {}
-        if execute and overnight.OPG_TEST:              # this morning's market-on-open leftovers go out tonight
+        if execute:                                     # market-on-open shares the auction didn't sell go out tonight
+                                                        # (kept after the test ended, so none are stranded)
             for s, q in overnight.unsold_opg(broker).items():
                 book[s] = book.get(s, 0.0) + q
         missing = [s for s in book if s not in closes.columns]

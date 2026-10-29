@@ -306,8 +306,13 @@ def mark_sold(book: dict[str, float], order_ids: dict[str, str], today: str) -> 
 # sleeve (chosen by a fixed coin-flip on symbol + date) are left out of the evening run's orders and sold instead with
 # market-on-open orders (Alpaca: only accepted before 9:28am or after 7pm New York), sent by `overnight open-sell` at
 # ~9:05am. Any share the opening auction doesn't fill is sold by the next evening run's orders.
+# ENDED 2026-10-29 (amendment e43f2959 rejected by the owner): Alpaca paper let all 20 market-on-open sales expire
+# unfilled (2026-10-28 and 10-29), so the test could never reach a verdict, and the unfilled half was held through the
+# day. From the 2026-10-29 evening run every overnight share is sold at the open inside the desk's market orders again;
+# real auction prices stay tracked by `official_line`. Shares a market-on-open order left unsold are still swept into
+# the evening orders (executor), so nothing is stranded.
 
-OPG_TEST = True
+OPG_TEST = False
 
 
 def opg_group(book: dict[str, float], positions: dict[str, float], desk_targets: pd.Series, day: str) -> set[str]:
@@ -332,7 +337,10 @@ def queue_opg(shares: dict[str, float], today: str) -> None:
 
 
 def open_sell(execute: bool = False, now: datetime | None = None, broker=None) -> dict:
-    """~9:05am New York: send the market-on-open sales queued by last evening's run."""
+    """~9:05am New York: send the market-on-open sales queued by last evening's run (only while OPG_TEST is on)."""
+    if not OPG_TEST:
+        return {"sent": 0, "blocked": "the market-on-open test ended on 2026-10-29 (amendment e43f2959 rejected): "
+                                      "overnight shares are sold at the open with the desk's market orders", "orders": []}
     from ai_desk import tradebook
     from ai_desk.broker.alpaca import AlpacaPaper
     now = now or datetime.now(timezone.utc)

@@ -178,6 +178,7 @@ def test_opg_group_takes_half_of_the_overnight_only_holdings():
 
 def test_market_on_open_sales_flow(tmp_path, monkeypatch):
     monkeypatch.setattr(ov, "BOOK", tmp_path / "book.json")
+    monkeypatch.setattr(ov, "OPG_TEST", True)                         # the flow as it ran during the test
     ov.BOOK.write_text('{"date": "2026-10-26", "holdings": {"A": 3.0, "B": 2.0}, "costs": {"A": 10.0}, "sell_sent": true}')
     ov.queue_opg({"A": 3.0}, "2026-10-26")
     sent = []
@@ -196,6 +197,20 @@ def test_market_on_open_sales_flow(tmp_path, monkeypatch):
     assert ov.open_sell(execute=True, now=datetime(2026, 10, 27, 13, 6, tzinfo=timezone.utc), broker=B())["sent"] == 0
     assert ov.unsold_opg(B()) == {"A": 2.0}                           # the auction sold 1 of 3: 2 go out tonight
     assert ov.unsold_opg(B()) == {}                                   # counted once
+
+
+def test_market_on_open_test_is_off_after_amendment_e43f2959_was_rejected(tmp_path, monkeypatch):
+    assert ov.OPG_TEST is False
+    monkeypatch.setattr(ov, "BOOK", tmp_path / "book.json")
+    ov.BOOK.write_text('{"date": "2026-10-29", "holdings": {"A": 3.0}, "opg_pending": {"A": 3.0}}')
+    sent = []
+
+    class B:
+        def submit_market_order(self, *a, **k):
+            sent.append(a)
+            return {"id": "x"}
+    out = ov.open_sell(execute=True, now=datetime(2026, 10, 30, 13, 5, tzinfo=timezone.utc), broker=B())
+    assert out["sent"] == 0 and "ended" in out["blocked"] and not sent
 
 
 def test_opg_ab_compares_like_with_like():

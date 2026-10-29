@@ -250,7 +250,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   7a8b29ec) or tonight's 20 picks are down 2.0%+ since today's open (`PICKS_DAY_CUTOFF`, amendment 9b951502, accepted
   2026-10-23; replaced 7a8b29ec's tech-vs-defensive test - `research/overnight_picks_check.py`). Checked at the buy,
   after the picks are set. A failed check buys as usual and says so. Never switch to defensive stocks instead.
-  Market-on-open A/B TEST (amendment e43f2959, testing from 2026-10-27; `overnight.OPG_TEST`): each evening run leaves a
+  Market-on-open A/B TEST - ENDED 2026-10-29 (amendment e43f2959 rejected by the owner: Alpaca paper let all 20
+  market-on-open sales expire unfilled; `overnight.OPG_TEST = False`, `open-sell` is a no-op, the 9:05am scheduled task
+  is paused; unfilled opg shares are still swept into the evening orders). As it ran: each evening run left a
   fixed coin-flip half of the overnight-ONLY holdings (`opg_group`) out of its orders and queues them in the book; the
   9:05am scheduled `overnight open-sell --execute` sends them as market-on-open (Alpaca rejects opg 9:28am-7pm); unfilled
   shares (`unsold_opg`) go out with the next evening's orders. `overnight review` prints the comparison (`opg_ab`) and

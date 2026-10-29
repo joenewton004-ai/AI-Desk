@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-29T14:03:35+00:00",
+ "generated_utc": "2026-10-29T14:27:54+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "overnight_drift": 0.95,
@@ -494,9 +494,9 @@
      "proposal": "Sell the overnight shares with market-on-open orders (the opening auction, which fills at the official open) instead of ordinary market orders at the open. Tested first as a live A/B test on paper: each evening, a fixed coin-flip half of the overnight-only holdings is left out of the evening run's orders and sold by a 9:05am market-on-open run; unfilled shares go out with the next evening's orders.",
      "rationale": "Live paper fills 2026-10-22 to 10-26: the overnight sales filled 0.45-0.68% below the official open each morning (49 sales), buys about 0.00% - about ten times the research's break-even of ~0.045% per trade, and roughly half of the sleeve's -$954 so far. Paper fills are simulated, so this tests the mechanics. Decision rule fixed in advance: after 10 trading days, adopt market-on-open for all overnight-only sales if its average cost vs the official open is at least 0.10 points lower than market orders' and at least 95% of its shares filled; otherwise keep market orders.",
      "author": "you",
-     "status": "testing",
-     "evidence": "Owner: 'Propose the market-on-open change and test it' (2026-10-26). Live A/B test from the 2026-10-27 evening run (first market-on-open sales 2026-10-28, 9:05am run); judged after 10 trading days by the rule above.",
-     "decided_utc": null
+     "status": "rejected",
+     "evidence": "Rejected by the owner 2026-10-29: Alpaca paper does not fill market-on-open orders - all 20 sales (9 on 2026-10-28, 11 on 2026-10-29) expired unfilled, so the test could not reach its pre-set verdict (needs >= 95% filled) and the unfilled half was held through the day. From the 2026-10-29 evening run all overnight shares sell at the open with the desk's market orders; leftovers are still swept. Real auction prices stay tracked by the official-price line (6 nights: official -$527 vs paper -$1,384).",
+     "decided_utc": "2026-10-29T14:27:54+00:00"
     }
    ]
   },
