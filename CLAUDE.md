@@ -84,6 +84,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   it); dashboard table `skill_desk`. Rules copied from its code (15-min ORB, next-open fill, mid stop, 2R, flat 15:55,
   $50 risk, $4,000 cap, 3 trades/day, -$150/day). Backtest `python research/skill_desk.py` -> `research/SKILL_DESK.md`:
   -9.7%/yr at 0.02% costs (+0.03R before costs). The ledger only moves forward; trading it needs an amendment.
+- Day trading SPY family / commodity ETFs (SPY QQQ IWM DIA GLD SLV USO UNG, Alpaca minute bars 2016-2026; published
+  intraday momentum, gap fade, first-hour fade, VWAP snap-back, ORB, open->close): `python research/intraday_etf.py` ->
+  `research/INTRADAY_ETF.md`. 18 of 18 fail; everything is within +-0.05% a trade before costs; fades win 60-68% and
+  lose. Research-only (`intraday_etf`).
 - RSI dips on wider universes (`python research/dip_universe.py` -> `research/DIP_UNIVERSE.md`): top 100/250/500/750 all
   work per dip (+1.12% -> +0.61%), but wider universes lower the desk's return and Sharpe (27.7%/1.67 -> 20.9%/1.32)
   and deepen its worst drop; keep the top 100.

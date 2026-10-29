@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-29T14:27:54+00:00",
+ "generated_utc": "2026-10-29T14:33:38+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "overnight_drift": 0.95,
@@ -636,6 +636,24 @@
    "docs": [
     "research/CANDLES.md",
     "research/output/candles.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "intraday_etf",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Day-trading rules on SPY/QQQ/IWM/DIA and GLD/SLV/USO/UNG minute bars 2016-2026: intraday momentum (Gao et al. 2018; Baltussen et al. 2021), gap fade, first-hour fade, VWAP snap-back, opening-range breakout (long, long+short), open-to-close long/short.",
+   "parameters": {
+    "costs": "0.01-0.05% each way by ETF",
+    "fills": "minute close",
+    "pass": "lead ETF t>=2 in both halves + rest of the family positive in both"
+   },
+   "status": "tested: no edge (not in the live mix)",
+   "evidence_summary": "18 of 18 fail. Before costs every rule averages within +-0.05% a trade; fades win 60-68% of the time and still lose; nearest miss: long ORB on index ETFs, +0.01-0.03% after costs, t 0.9-1.6.",
+   "docs": [
+    "research/INTRADAY_ETF.md",
+    "research/output/intraday_etf.md"
    ],
    "amendments": []
   },

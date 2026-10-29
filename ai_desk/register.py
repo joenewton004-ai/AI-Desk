@@ -359,6 +359,17 @@ RESEARCH_METHODS = {
                    "positive): a hindsight effect of picking the stock that rose 100x.",
         "docs": ["research/CANDLES.md", "research/output/candles.md"],
     },
+    "intraday_etf": {
+        "description": "Day-trading rules on SPY/QQQ/IWM/DIA and GLD/SLV/USO/UNG minute bars 2016-2026: intraday "
+                       "momentum (Gao et al. 2018; Baltussen et al. 2021), gap fade, first-hour fade, VWAP snap-back, "
+                       "opening-range breakout (long, long+short), open-to-close long/short.",
+        "parameters": {"costs": "0.01-0.05% each way by ETF", "fills": "minute close", "pass": "lead ETF t>=2 in both "
+                       "halves + rest of the family positive in both"},
+        "status": "tested: no edge (not in the live mix)",
+        "summary": "18 of 18 fail. Before costs every rule averages within +-0.05% a trade; fades win 60-68% of the time "
+                   "and still lose; nearest miss: long ORB on index ETFs, +0.01-0.03% after costs, t 0.9-1.6.",
+        "docs": ["research/INTRADAY_ETF.md", "research/output/intraday_etf.md"],
+    },
     "skill_desk_orb": {
         "description": "Jakeschincariol/day-trader-skill's opening-range day trade, automatic: 15-minute range, buy the "
                        "next open after a 5-minute close above it, stop at the range middle, target 2R, flat by 15:55; "
