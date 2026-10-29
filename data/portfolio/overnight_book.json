@@ -60,6 +60,7 @@
   "MPC": 13.0,
   "TER": 14.0
  },
- "opg_sent": false,
- "opg_day": "2026-10-28"
+ "opg_sent": true,
+ "opg_day": "2026-10-28",
+ "opg_utc": "2026-10-29T13:23:20+00:00"
 }
