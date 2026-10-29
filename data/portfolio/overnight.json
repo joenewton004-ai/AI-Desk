@@ -1,168 +1,168 @@
 {
- "picked_on": "2026-10-28",
- "ref_date": "2026-10-27",
+ "picked_on": "2026-10-29",
+ "ref_date": "2026-10-28",
  "picks": [
   "MRNA",
   "SNDK",
   "LITE",
   "MU",
   "RVMD",
-  "DELL",
   "WDC",
-  "MRVL",
+  "DELL",
   "STX",
   "ILMN",
+  "MRVL",
+  "GH",
   "HPE",
   "OKTA",
   "TSEM",
-  "GH",
   "INTC",
-  "VLO",
-  "TWLO",
   "MPC",
-  "TER",
-  "AMD"
+  "VLO",
+  "APA",
+  "AMD",
+  "TWLO"
  ],
  "rows": [
   {
    "symbol": "MRNA",
    "name": "Moderna, Inc.",
-   "score": 6.777487023217226,
-   "ret_12m": 6.777487023217226,
-   "close": 207.97000122070312
+   "score": 7.033195593094568,
+   "ret_12m": 7.033195593094568,
+   "close": 214.1649932861328
   },
   {
    "symbol": "SNDK",
    "name": "Sandisk Corporation",
-   "score": 6.00923904249953,
-   "ret_12m": 6.00923904249953,
-   "close": 1304.8399658203125
+   "score": 6.959487652606258,
+   "ret_12m": 6.959487652606258,
+   "close": 1404.77001953125
   },
   {
    "symbol": "LITE",
    "name": "Lumentum Holdings Inc.",
-   "score": 3.830897813346632,
-   "ret_12m": 3.830897813346632,
-   "close": 866.1799926757812
+   "score": 3.7159442611718863,
+   "ret_12m": 3.7159442611718863,
+   "close": 913.9500122070312
   },
   {
    "symbol": "MU",
    "name": "Micron Technology, Inc.",
-   "score": 3.245341610791291,
-   "ret_12m": 3.245341610791291,
-   "close": 928.760009765625
+   "score": 3.472270131196944,
+   "ret_12m": 3.472270131196944,
+   "close": 983.22998046875
   },
   {
    "symbol": "RVMD",
    "name": "Revolution Medicines, Inc.",
-   "score": 2.418135146574912,
-   "ret_12m": 2.418135146574912,
-   "close": 186.22000122070312
-  },
-  {
-   "symbol": "DELL",
-   "name": "Dell Technologies Inc.",
-   "score": 2.1975118923342802,
-   "ret_12m": 2.1975118923342802,
-   "close": 501.9599914550781
+   "score": 2.254354125855799,
+   "ret_12m": 2.254354125855799,
+   "close": 188.72000122070312
   },
   {
    "symbol": "WDC",
    "name": "Western Digital Corporation",
-   "score": 1.9482391190061477,
-   "ret_12m": 1.9482391190061477,
-   "close": 380.8800048828125
+   "score": 2.135388111927778,
+   "ret_12m": 2.135388111927778,
+   "close": 396.4200134277344
   },
   {
-   "symbol": "MRVL",
-   "name": "Marvell Technology, Inc.",
-   "score": 1.9000446290569588,
-   "ret_12m": 1.9000446290569588,
-   "close": 243.57000732421875
+   "symbol": "DELL",
+   "name": "Dell Technologies Inc.",
+   "score": 2.0766206462106376,
+   "ret_12m": 2.0766206462106376,
+   "close": 493.7900085449219
   },
   {
    "symbol": "STX",
    "name": "Seagate Technology Holdings plc",
-   "score": 1.8694111645688474,
-   "ret_12m": 1.8694111645688474,
-   "close": 667.8499755859375
+   "score": 2.0482982515696264,
+   "ret_12m": 2.0482982515696264,
+   "close": 697.969970703125
   },
   {
    "symbol": "ILMN",
    "name": "Illumina, Inc.",
-   "score": 1.7916292030449292,
-   "ret_12m": 1.7916292030449292,
-   "close": 279.4700012207031
+   "score": 1.877827732298341,
+   "ret_12m": 1.877827732298341,
+   "close": 288.7900085449219
   },
   {
-   "symbol": "HPE",
-   "name": "Hewlett Packard Enterprise Company",
-   "score": 1.635619457308827,
-   "ret_12m": 1.635619457308827,
-   "close": 60.84000015258789
-  },
-  {
-   "symbol": "OKTA",
-   "name": "Okta, Inc.",
-   "score": 1.5381161793958724,
-   "ret_12m": 1.5381161793958724,
-   "close": 226.07000732421875
-  },
-  {
-   "symbol": "TSEM",
-   "name": "Tower Semiconductor Ltd.",
-   "score": 1.4954468814584159,
-   "ret_12m": 1.4954468814584159,
-   "close": 189.0800018310547
+   "symbol": "MRVL",
+   "name": "Marvell Technology, Inc.",
+   "score": 1.841555044386876,
+   "ret_12m": 1.841555044386876,
+   "close": 251.64999389648438
   },
   {
    "symbol": "GH",
    "name": "Guardant Health, Inc.",
-   "score": 1.467913981882964,
-   "ret_12m": 1.467913981882964,
-   "close": 178.05999755859375
+   "score": 1.577134795628599,
+   "ret_12m": 1.577134795628599,
+   "close": 182.58999633789062
+  },
+  {
+   "symbol": "HPE",
+   "name": "Hewlett Packard Enterprise Company",
+   "score": 1.5400272181084018,
+   "ret_12m": 1.5400272181084018,
+   "close": 60.33000183105469
+  },
+  {
+   "symbol": "OKTA",
+   "name": "Okta, Inc.",
+   "score": 1.473725123626957,
+   "ret_12m": 1.473725123626957,
+   "close": 222.66000366210938
+  },
+  {
+   "symbol": "TSEM",
+   "name": "Tower Semiconductor Ltd.",
+   "score": 1.4496203072463412,
+   "ret_12m": 1.4496203072463412,
+   "close": 193.52000427246094
   },
   {
    "symbol": "INTC",
    "name": "Intel Corporation",
-   "score": 1.448798350392511,
-   "ret_12m": 1.448798350392511,
-   "close": 93.73999786376953
-  },
-  {
-   "symbol": "VLO",
-   "name": "Valero Energy Corporation",
-   "score": 1.3124952856813343,
-   "ret_12m": 1.3124952856813343,
-   "close": 387.3399963378906
-  },
-  {
-   "symbol": "TWLO",
-   "name": "Twilio Inc.",
-   "score": 1.261549423240535,
-   "ret_12m": 1.261549423240535,
-   "close": 254.55999755859375
+   "score": 1.4160343087342286,
+   "ret_12m": 1.4160343087342286,
+   "close": 95.52999877929688
   },
   {
    "symbol": "MPC",
    "name": "Marathon Petroleum Corporation",
-   "score": 1.259006115568439,
-   "ret_12m": 1.259006115568439,
-   "close": 435.9800109863281
+   "score": 1.2837084805370162,
+   "ret_12m": 1.2837084805370162,
+   "close": 440.7699890136719
   },
   {
-   "symbol": "TER",
-   "name": "Teradyne, Inc.",
-   "score": 1.2477610542219169,
-   "ret_12m": 1.2477610542219169,
-   "close": 323.67999267578125
+   "symbol": "VLO",
+   "name": "Valero Energy Corporation",
+   "score": 1.2754032921520144,
+   "ret_12m": 1.2754032921520144,
+   "close": 388.4800109863281
+  },
+  {
+   "symbol": "APA",
+   "name": "APA Corporation",
+   "score": 1.2524324531514464,
+   "ret_12m": 1.2524324531514464,
+   "close": 51.11000061035156
   },
   {
    "symbol": "AMD",
    "name": "Advanced Micro Devices, Inc.",
-   "score": 1.21516690582681,
-   "ret_12m": 1.21516690582681,
-   "close": 560.260009765625
+   "score": 1.2275964590820374,
+   "ret_12m": 1.2275964590820374,
+   "close": 578.4400024414062
+  },
+  {
+   "symbol": "TWLO",
+   "name": "Twilio Inc.",
+   "score": 1.2165255394136634,
+   "ret_12m": 1.2165255394136634,
+   "close": 253.77000427246094
   }
  ],
  "n": 20,
