@@ -175,6 +175,18 @@ def nvda_orb_rows() -> list[dict]:
     return [{k: r.get(k) for k in keys} for r in sorted(nvda_orb.rows(), key=lambda r: r["date"], reverse=True)]
 
 
+OPEN_PL_TOLERANCE = 5.0          # dollars: rounding and fractional-share pennies stay under this
+
+
+def open_pl_check(journal: float | None, alpaca: float | None, tolerance: float = OPEN_PL_TOLERANCE) -> dict:
+    """Pure: the journal's Open P&L (its own lots) against Alpaca's (average cost) at the same prices. They match when
+    the journal has every fill; a gap beyond `tolerance` means a fill is missing or recorded twice."""
+    if journal is None or alpaca is None:
+        return {"open_pl_gap": None, "open_pl_ok": None}
+    gap = round(journal - alpaca, 2)
+    return {"open_pl_gap": gap, "open_pl_ok": abs(gap) <= tolerance}
+
+
 def remark(review_old: dict, last: dict, review_fn=None) -> dict:
     """The journal's open and closed trades rebuilt from the trade log and priced at `last` - the same snapshot the
     holdings use, counting fills up to that snapshot's time - so Open P&L matches the account (journal/review.json is only rebuilt by `journal review`,
@@ -349,6 +361,7 @@ def tables() -> dict[str, list[dict]]:
                        "live_equity": last.get("equity"), "cash": last.get("cash"),
                        "day_pl": round(sum((h.get("day_pl") or 0.0) for h in (last.get("holdings") or {}).values()), 2),
                        "open_pl": round(sum((h.get("unrealized_pl") or 0.0) for h in (last.get("holdings") or {}).values()), 2)})
+    summary[0].update(open_pl_check(summary[0]["unrealized_pnl"], summary[0]["open_pl"]))
 
     sc = _read_json("scorecard.json")
     d = sc.get("desk", {})

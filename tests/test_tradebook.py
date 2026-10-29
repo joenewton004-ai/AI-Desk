@@ -388,3 +388,11 @@ def test_lots_as_of_a_time_ignore_later_fills():
     assert len(op) == 1 and len(cl) == 0                  # the next morning's sale isn't in a 4:21pm snapshot
     op, cl = tradebook.lots(rows)
     assert len(op) == 0 and len(cl) == 1
+
+
+def test_open_pl_check_flags_a_gap_beyond_five_dollars():
+    from ai_desk import dashboard
+    assert dashboard.open_pl_check(-694.88, -694.88) == {"open_pl_gap": 0.0, "open_pl_ok": True}
+    assert dashboard.open_pl_check(-690.0, -694.88)["open_pl_ok"] is True
+    assert dashboard.open_pl_check(86.78, -694.88) == {"open_pl_gap": 781.66, "open_pl_ok": False}
+    assert dashboard.open_pl_check(None, -1.0)["open_pl_ok"] is None
