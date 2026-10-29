@@ -92,6 +92,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   `research/SWING_ETF.md`. Index ETFs: buying short dips above the 200-day works - SPY RSI(2)<10: 73% wins, +0.51% a
   trade, +0.36% vs holding (t 3.4), faded to +0.18% since 2010; 10-day low similar. RSI(14) passes on too few trades
   (16 in 30 years). Commodity ETFs: nothing. Not live (needs a desk test + amendment; cash is used by overnight).
+- Daily candlestick patterns on SPY 1993-2026 (23 textbook patterns, 1 and 5 days, vs drift; QQQ/IWM/DIA check):
+  `python research/candles_daily_spy.py` -> `research/CANDLES_DAILY_SPY.md`. 1 of 40 passes (tweezer top, -0.32%/5 days,
+  t -2.7; luck delivers ~2). Research-only (`candles_daily_spy`).
 - RSI dips on wider universes (`python research/dip_universe.py` -> `research/DIP_UNIVERSE.md`): top 100/250/500/750 all
   work per dip (+1.12% -> +0.61%), but wider universes lower the desk's return and Sharpe (27.7%/1.67 -> 20.9%/1.32)
   and deepen its worst drop; keep the top 100.

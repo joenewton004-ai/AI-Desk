@@ -359,6 +359,16 @@ RESEARCH_METHODS = {
                    "positive): a hindsight effect of picking the stock that rose 100x.",
         "docs": ["research/CANDLES.md", "research/output/candles.md"],
     },
+    "candles_daily_spy": {
+        "description": "23 textbook daily candlestick patterns on SPY 1993-2026 (10 bullish after a down week, 10 bearish "
+                       "after an up week, doji/inside/outside day), measured 1 and 5 days from the next open vs SPY's "
+                       "normal drift, cross-checked on QQQ/IWM/DIA.",
+        "parameters": {"horizons": "1 and 5 trading days", "context": "5-day trend", "costs": "0.01% each way"},
+        "status": "tested: no edge (not in the live mix)",
+        "summary": "1 of 40 passes (~2 by chance): tweezer top, SPY -0.32% over 5 days (t -2.7), also QQQ/IWM, not DIA; "
+                   "small and bearish (the desk is long only). Hammers, engulfing, stars, dojis: nothing or flips.",
+        "docs": ["research/CANDLES_DAILY_SPY.md", "research/output/candles_daily_spy.md"],
+    },
     "swing_etf": {
         "description": "Swing trades up to a week on SPY/QQQ/IWM/DIA and GLD/SLV/USO/UNG daily bars (SPY from 1993): "
                        "RSI(2)/RSI(14) dips, three down days, IBS, 10-day low, 20-day breakout, weekly reversal/momentum, "

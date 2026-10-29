@@ -43,3 +43,14 @@ def test_trades_enter_after_the_signal_and_exit_within_a_week():
         assert t["entry"].iloc[0] > first                 # bought at the next open
         assert (t["days"] <= se.HOLD).all() and (t["exit"] > t["entry"]).all()
     assert checked >= 2
+
+
+def test_candle_patterns_use_only_that_day_and_earlier():
+    import candles_daily_spy as cd
+    d = bars(500, seed=3)
+    a = cd.patterns(d)
+    later = d.copy()
+    later.iloc[401:] *= 0.7
+    b = cd.patterns(later)
+    assert (a.iloc[:401] == b.iloc[:401]).all().all()
+    assert set(cd.BULL + cd.BEAR + cd.NEUTRAL) == set(a.columns)
