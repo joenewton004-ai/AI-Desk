@@ -2,7 +2,7 @@
  {
   "symbol": "AMD",
   "name": "Advanced Micro Devices, Inc.",
-  "sleeve": "momentum",
+  "sleeve": "momentum + overnight_drift",
   "shares": 13.0,
   "price": 544.7,
   "avg_cost": 571.450769,
@@ -17,13 +17,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 578.0214
+  "overnight_shares": 4.0,
+  "overnight_cost": 565.7425
  },
  {
   "symbol": "APA",
   "name": "APA Corporation",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 46.0,
   "price": 51.51,
   "avg_cost": 51.49,
@@ -38,13 +38,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": null
+  "overnight_shares": 46.0,
+  "overnight_cost": 51.49
  },
  {
   "symbol": "DELL",
   "name": "Dell Technologies Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 15.0,
   "price": 455.06,
   "avg_cost": 490.478667,
@@ -59,13 +59,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 493.0788
+  "overnight_shares": 4.0,
+  "overnight_cost": 476.5725
  },
  {
   "symbol": "GH",
   "name": "Guardant Health, Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 12.0,
   "price": 185.31,
   "avg_cost": 185.59,
@@ -80,13 +80,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 182.48
+  "overnight_shares": 12.0,
+  "overnight_cost": 185.59
  },
  {
   "symbol": "HPE",
   "name": "Hewlett Packard Enterprise Company",
-  "sleeve": "momentum",
+  "sleeve": "momentum + overnight_drift",
   "shares": 40.0,
   "price": 56.75,
   "avg_cost": 58.92,
@@ -101,13 +101,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 60.2727
+  "overnight_shares": 40.0,
+  "overnight_cost": 58.92
  },
  {
   "symbol": "ILMN",
   "name": "Illumina, Inc.",
-  "sleeve": "momentum",
+  "sleeve": "momentum + overnight_drift",
   "shares": 8.0,
   "price": 260.1,
   "avg_cost": 289.835,
@@ -122,13 +122,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 289.2
+  "overnight_shares": 8.0,
+  "overnight_cost": 289.835
  },
  {
   "symbol": "INTC",
   "name": "Intel Corporation",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 71.0,
   "price": 76.89,
   "avg_cost": 94.235775,
@@ -143,13 +143,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 95.3791
+  "overnight_shares": 25.0,
+  "overnight_cost": 92.132
  },
  {
   "symbol": "LITE",
   "name": "Lumentum Holdings Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 6.0,
   "price": 903.0,
   "avg_cost": 911.916667,
@@ -164,13 +164,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 908.3
+  "overnight_shares": 2.0,
+  "overnight_cost": 919.15
  },
  {
   "symbol": "MPC",
   "name": "Marathon Petroleum Corporation",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 18.0,
   "price": 433.48,
   "avg_cost": 437.385,
@@ -185,13 +185,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 441.26
+  "overnight_shares": 5.0,
+  "overnight_cost": 431.12
  },
  {
   "symbol": "MRNA",
   "name": "Moderna, Inc.",
-  "sleeve": "momentum",
+  "sleeve": "momentum + overnight_drift",
   "shares": 10.0,
   "price": 220.55,
   "avg_cost": 222.65,
@@ -206,13 +206,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 213.88
+  "overnight_shares": 10.0,
+  "overnight_cost": 222.65
  },
  {
   "symbol": "MRVL",
   "name": "Marvell Technology, Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 33.0,
   "price": 213.0,
   "avg_cost": 239.757273,
@@ -227,13 +227,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 250.77
+  "overnight_shares": 10.0,
+  "overnight_cost": 218.94
  },
  {
   "symbol": "MU",
   "name": "Micron Technology, Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 2.0,
   "price": 917.84,
   "avg_cost": 934.9,
@@ -248,13 +248,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 982.86
+  "overnight_shares": 2.0,
+  "overnight_cost": 934.9
  },
  {
   "symbol": "OKTA",
   "name": "Okta, Inc.",
-  "sleeve": "momentum",
+  "sleeve": "momentum + overnight_drift",
   "shares": 10.0,
   "price": 218.0,
   "avg_cost": 221.47,
@@ -269,13 +269,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 222.96
+  "overnight_shares": 10.0,
+  "overnight_cost": 221.47
  },
  {
   "symbol": "RVMD",
   "name": "Revolution Medicines, Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 35.0,
   "price": 190.27,
   "avg_cost": 189.551428,
@@ -290,13 +290,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 188.9
+  "overnight_shares": 12.0,
+  "overnight_cost": 190.8
  },
  {
   "symbol": "SNDK",
   "name": "Sandisk Corporation",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 1.0,
   "price": 1340.0,
   "avg_cost": 1331.6,
@@ -311,13 +311,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 1398.67
+  "overnight_shares": 1.0,
+  "overnight_cost": 1331.6
  },
  {
   "symbol": "STX",
   "name": "Seagate Technology Holdings plc",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 3.0,
   "price": 693.0,
   "avg_cost": 698.36,
@@ -332,8 +332,8 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 694.945
+  "overnight_shares": 3.0,
+  "overnight_cost": 698.36
  },
  {
   "symbol": "TER",
@@ -354,12 +354,12 @@
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
   "overnight_shares": null,
-  "overnight_cost": 312.63
+  "overnight_cost": null
  },
  {
   "symbol": "TSEM",
   "name": "Tower Semiconductor Ltd.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 43.0,
   "price": 182.94,
   "avg_cost": 191.008604,
@@ -374,13 +374,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 193.67
+  "overnight_shares": 12.0,
+  "overnight_cost": 187.5908
  },
  {
   "symbol": "TWLO",
   "name": "Twilio Inc.",
-  "sleeve": "momentum",
+  "sleeve": "momentum + overnight_drift",
   "shares": 26.0,
   "price": 210.5469,
   "avg_cost": 249.169231,
@@ -395,13 +395,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 252.8906
+  "overnight_shares": 9.0,
+  "overnight_cost": 242.14
  },
  {
   "symbol": "VLO",
   "name": "Valero Energy Corporation",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 6.0,
   "price": 384.57,
   "avg_cost": 384.0,
@@ -416,13 +416,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 389.14
+  "overnight_shares": 6.0,
+  "overnight_cost": 384.0
  },
  {
   "symbol": "WDC",
   "name": "Western Digital Corporation",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 16.0,
   "price": 390.1261,
   "avg_cost": 395.225,
@@ -437,7 +437,7 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-10-29T20:21:47+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 395.4182
+  "overnight_shares": 5.0,
+  "overnight_cost": 394.8
  }
 ]
