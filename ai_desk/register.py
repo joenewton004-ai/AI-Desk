@@ -359,6 +359,17 @@ RESEARCH_METHODS = {
                    "positive): a hindsight effect of picking the stock that rose 100x.",
         "docs": ["research/CANDLES.md", "research/output/candles.md"],
     },
+    "swing_etf": {
+        "description": "Swing trades up to a week on SPY/QQQ/IWM/DIA and GLD/SLV/USO/UNG daily bars (SPY from 1993): "
+                       "RSI(2)/RSI(14) dips, three down days, IBS, 10-day low, 20-day breakout, weekly reversal/momentum, "
+                       "turn of the month, gap down; next-open fills, long only, judged against holding the ETF.",
+        "parameters": {"hold": "up to 5 trading days", "costs": "0.01-0.05% each way", "trend": "200-day average"},
+        "status": "tested: an edge on index ETFs (RSI(2) dip, 10-day low), not in the live mix",
+        "summary": "SPY RSI(2)<10 above the 200-day: 73% wins, +0.51% a trade, +0.36% vs holding (t 3.4), but +0.56% -> "
+                   "+0.18% from 1993-2009 to 2010-26 (faded since publication); strategy 6.6%/yr, Sharpe 0.69, worst "
+                   "-11%, in the market 10%. Commodity ETFs: nothing.",
+        "docs": ["research/SWING_ETF.md", "research/output/swing_etf.md"],
+    },
     "intraday_etf": {
         "description": "Day-trading rules on SPY/QQQ/IWM/DIA and GLD/SLV/USO/UNG minute bars 2016-2026: intraday "
                        "momentum (Gao et al. 2018; Baltussen et al. 2021), gap fade, first-hour fade, VWAP snap-back, "

@@ -88,6 +88,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   intraday momentum, gap fade, first-hour fade, VWAP snap-back, ORB, open->close): `python research/intraday_etf.py` ->
   `research/INTRADAY_ETF.md`. 18 of 18 fail; everything is within +-0.05% a trade before costs; fades win 60-68% and
   lose. Research-only (`intraday_etf`).
+- Swing trades up to a week on the same ETFs (daily bars, SPY from 1993): `python research/swing_etf.py` ->
+  `research/SWING_ETF.md`. Index ETFs: buying short dips above the 200-day works - SPY RSI(2)<10: 73% wins, +0.51% a
+  trade, +0.36% vs holding (t 3.4), faded to +0.18% since 2010; 10-day low similar. RSI(14) passes on too few trades
+  (16 in 30 years). Commodity ETFs: nothing. Not live (needs a desk test + amendment; cash is used by overnight).
 - RSI dips on wider universes (`python research/dip_universe.py` -> `research/DIP_UNIVERSE.md`): top 100/250/500/750 all
   work per dip (+1.12% -> +0.61%), but wider universes lower the desk's return and Sharpe (27.7%/1.67 -> 20.9%/1.32)
   and deepen its worst drop; keep the top 100.
