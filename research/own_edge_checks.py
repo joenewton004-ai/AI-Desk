@@ -7,6 +7,8 @@ Diagnostics only - nothing here re-selects the model, so the holdout stays a hol
   2 what it buys (indicator ranks)    5 walk-forward: retrained each January on every earlier year, predicting that year
   3 when it earns (SPY vs 200-day)    6 costs 0.05% / 0.10% / 0.20% each way
   7 how much comes from stocks 40%+ below their 52-week high - where survivors-only prices flatter most
+  8 extra market exposure: the picks' excess regressed on the universe's own 5-day return (high-volatility picks
+    beat the average in rising weeks just by moving more)
 Writes research/output/own_edge_checks.md.
 """
 
@@ -152,6 +154,20 @@ def main() -> None:
          f"excess {a.mean():+.2%}")
     emit(f"- the other picks: {len(b):,}, average excess {b.mean():+.2%}")
     emit(f"- share of the model's total excess from the deep fallers: {a.sum() / (a.sum() + b.sum()):.0%}")
+
+    emit("\n## 8. Extra market exposure (beta)\n")
+    tgt = oe.target(fr)
+    uni = tgt.where(member).mean(axis=1).reindex(wk.index)
+    x = pd.DataFrame({"ex": wk["excess"], "mkt": uni}).dropna()
+    slope, alpha = np.polyfit(x["mkt"], x["ex"], 1)
+    res = x["ex"] - (slope * x["mkt"] + alpha)
+    emit(f"- The picks' excess rises {slope:+.2f} for every 1.00 the universe moves in a week (they swing "
+         f"~{1 + slope:.2f}x the average stock).")
+    emit(f"- Part of the +{x['ex'].mean():.2%} a week that is just that: {slope * x['mkt'].mean():+.2%} "
+         f"(the universe averaged {x['mkt'].mean():+.2%} a week in 2020-2026).")
+    emit(f"- What's left (alpha): {alpha:+.2%} a week, t {alpha / (res.std() / np.sqrt(len(x))):.1f}, before costs.")
+    emit(f"- Up weeks: picks {x.loc[x['mkt'] > 0, 'ex'].mean():+.2%} vs the universe; down weeks "
+         f"{x.loc[x['mkt'] <= 0, 'ex'].mean():+.2%}.")
 
     OUT.mkdir(exist_ok=True)
     (OUT / "own_edge_checks.md").write_text("\n".join(lines) + "\n")

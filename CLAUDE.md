@@ -95,6 +95,11 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Daily candlestick patterns on SPY 1993-2026 (23 textbook patterns, 1 and 5 days, vs drift; QQQ/IWM/DIA check):
   `python research/candles_daily_spy.py` -> `research/CANDLES_DAILY_SPY.md`. 1 of 40 passes (tweezer top, -0.32%/5 days,
   t -2.7; luck delivers ~2). Research-only (`candles_daily_spy`).
+- Our own edge search (~35 indicators, top-500 stocks + 25 ETFs, 5-day horizon; singles/pairs/LightGBM on development
+  years, one holdout): `python research/own_edge.py` + `python research/own_edge_checks.py` -> `research/OWN_EDGE.md`
+  (needs scikit-learn + lightgbm). No new edge: singles collapse out of sample; everything points back to "a pullback in
+  a long-term winner" (the live dip rule); the model's +0.41%/wk is a third market exposure (alpha t 1.7, walk-forward
+  t 1.5). Survivors-only. Research-only (`own_edge`).
 - RSI dips on wider universes (`python research/dip_universe.py` -> `research/DIP_UNIVERSE.md`): top 100/250/500/750 all
   work per dip (+1.12% -> +0.61%), but wider universes lower the desk's return and Sharpe (27.7%/1.67 -> 20.9%/1.32)
   and deepen its worst drop; keep the top 100.

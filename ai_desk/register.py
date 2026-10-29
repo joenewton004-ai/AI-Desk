@@ -359,6 +359,19 @@ RESEARCH_METHODS = {
                    "positive): a hindsight effect of picking the stock that rose 100x.",
         "docs": ["research/CANDLES.md", "research/output/candles.md"],
     },
+    "own_edge": {
+        "description": "Our own search: ~35 indicators (returns 1d-12m, RSI, moving averages, volatility, volume, range, "
+                       "52-week levels, gaps, overnight/intraday, market state, calendar) on the top 500 stocks and 25 "
+                       "ETFs, 5-day horizon; singles, pairs and a LightGBM model searched on development years, then one "
+                       "holdout test.",
+        "parameters": {"search": "stocks 2014-19, ETFs 1999-2012", "holdout": "stocks 2020-26, ETFs 2013-26",
+                       "costs": "0.05% stocks / 0.02% ETFs each way"},
+        "status": "tested: no new edge (not in the live mix)",
+        "summary": "Best singles all collapse in the holdout; ETFs nothing. Stocks: 'pullback in a long-term winner' pairs "
+                   "+0.12-0.18%/wk (t 1.0-1.6); the model +0.41%/wk (t 2.4) but a third is extra market exposure (alpha "
+                   "+0.26%, t 1.7) and walk-forward t 1.5. Survivors-only.",
+        "docs": ["research/OWN_EDGE.md", "research/output/own_edge.md", "research/output/own_edge_checks.md"],
+    },
     "candles_daily_spy": {
         "description": "23 textbook daily candlestick patterns on SPY 1993-2026 (10 bullish after a down week, 10 bearish "
                        "after an up week, doji/inside/outside day), measured 1 and 5 days from the next open vs SPY's "
