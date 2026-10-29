@@ -359,6 +359,17 @@ RESEARCH_METHODS = {
                    "positive): a hindsight effect of picking the stock that rose 100x.",
         "docs": ["research/CANDLES.md", "research/output/candles.md"],
     },
+    "short_edge": {
+        "description": "Our own edge with shorting: own_edge.py's search turned to what lags (top-500 stocks, 25 ETFs, "
+                       "~35 indicators, 5-day horizon), then long/short books: model top 20 / bottom 20, pullback long vs "
+                       "the best short, walk-forward, ETF top 3 / bottom 3.",
+        "parameters": {"costs": "0.05% each way per leg (ETFs 0.02%)", "borrow": "0.5%/yr (stress 2%)"},
+        "status": "tested: no edge (not in the live mix)",
+        "summary": "The search's best shorts fade to ~0 in the holdout; model L/S 17.7%/yr, Sharpe 0.59 (long-only 0.75), "
+                   "beta 0.46, alpha t 1.1; walk-forward t 1.4; ETF L/S Sharpe 0.27, worst -70%. Survivors-only data "
+                   "understates the short side.",
+        "docs": ["research/SHORT_EDGE.md", "research/output/short_edge.md"],
+    },
     "spy_short": {
         "description": "Shorting SPY: short-side swing rules (RSI(2) > 90, 10-day highs, three up days, tweezer top; "
                        "with/without the 200-day filter), long-above/short-below the 200-day, and an SPY hedge on the "

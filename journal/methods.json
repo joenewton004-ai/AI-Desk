@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-29T15:42:30+00:00",
+ "generated_utc": "2026-10-29T15:54:10+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "overnight_drift": 0.95,
@@ -636,6 +636,23 @@
    "docs": [
     "research/CANDLES.md",
     "research/output/candles.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "short_edge",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Our own edge with shorting: own_edge.py's search turned to what lags (top-500 stocks, 25 ETFs, ~35 indicators, 5-day horizon), then long/short books: model top 20 / bottom 20, pullback long vs the best short, walk-forward, ETF top 3 / bottom 3.",
+   "parameters": {
+    "costs": "0.05% each way per leg (ETFs 0.02%)",
+    "borrow": "0.5%/yr (stress 2%)"
+   },
+   "status": "tested: no edge (not in the live mix)",
+   "evidence_summary": "The search's best shorts fade to ~0 in the holdout; model L/S 17.7%/yr, Sharpe 0.59 (long-only 0.75), beta 0.46, alpha t 1.1; walk-forward t 1.4; ETF L/S Sharpe 0.27, worst -70%. Survivors-only data understates the short side.",
+   "docs": [
+    "research/SHORT_EDGE.md",
+    "research/output/short_edge.md"
    ],
    "amendments": []
   },
