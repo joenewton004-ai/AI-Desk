@@ -1,23 +1,23 @@
 {
- "asof_utc": "2026-10-29T20:22:35+00:00",
+ "asof_utc": "2026-10-30T20:21:21+00:00",
  "summary": [
   {
    "cohort": "bottleneck:2026-10-20",
    "sleeve": "bottleneck",
    "locked_on": "2026-10-20",
    "ref_date": "2026-10-19",
-   "asof": "2026-10-29",
-   "days": 8,
+   "asof": "2026-10-30",
+   "days": 9,
    "picks": 8,
    "watching": 26,
-   "picks_avg": 0.02601375,
-   "near_miss_avg": 0.01659230769230769,
+   "picks_avg": 0.028992499999999997,
+   "near_miss_avg": 0.00543923076923077,
    "failed_gate_avg": null,
-   "watch_avg": 0.01659230769230769,
-   "spy": 0.0037574430594407016,
-   "watch_beating_picks": 12,
-   "best_symbol": "FRO",
-   "best_return": 0.11494,
+   "watch_avg": 0.00543923076923077,
+   "spy": -0.019335152517819698,
+   "watch_beating_picks": 10,
+   "best_symbol": "LNG",
+   "best_return": 0.15255,
    "measure": "close",
    "current": false
   },
@@ -26,18 +26,18 @@
    "sleeve": "momentum",
    "locked_on": "2026-10-21",
    "ref_date": "2026-10-20",
-   "asof": "2026-10-29",
-   "days": 7,
+   "asof": "2026-10-30",
+   "days": 8,
    "picks": 20,
    "watching": 759,
-   "picks_avg": -0.003035999999999997,
-   "near_miss_avg": 0.01687498442367601,
-   "failed_gate_avg": 0.01580319634703196,
-   "watch_avg": 0.016256482213438735,
-   "spy": 0.00040309155908491157,
-   "watch_beating_picks": 497,
+   "picks_avg": -0.06686050000000002,
+   "near_miss_avg": 0.014607819314641743,
+   "failed_gate_avg": -0.005480730593607306,
+   "watch_avg": 0.003015217391304347,
+   "spy": -0.02261233330013257,
+   "watch_beating_picks": 641,
    "best_symbol": "GMAB",
-   "best_return": 0.44587,
+   "best_return": 0.46046,
    "measure": "close",
    "current": false
   },
@@ -46,18 +46,18 @@
    "sleeve": "overnight_drift",
    "locked_on": "2026-10-21",
    "ref_date": "2026-10-20",
-   "asof": "2026-10-29",
-   "days": 7,
+   "asof": "2026-10-30",
+   "days": 8,
    "picks": 20,
    "watching": 40,
-   "picks_avg": 0.0033644999999999994,
-   "near_miss_avg": 0.0014644999999999994,
+   "picks_avg": -0.07032350000000001,
+   "near_miss_avg": -0.040351250000000005,
    "failed_gate_avg": null,
-   "watch_avg": 0.0014644999999999994,
-   "spy": -0.007978940761900755,
-   "watch_beating_picks": 20,
-   "best_symbol": "PWR",
-   "best_return": 0.08509,
+   "watch_avg": -0.040351250000000005,
+   "spy": -0.01826841360690623,
+   "watch_beating_picks": 28,
+   "best_symbol": "LLY",
+   "best_return": 0.06397,
    "measure": "overnight",
    "current": true
   },
@@ -66,18 +66,18 @@
    "sleeve": "quality_screen",
    "locked_on": "2026-10-20",
    "ref_date": "2026-10-19",
-   "asof": "2026-10-29",
-   "days": 8,
+   "asof": "2026-10-30",
+   "days": 9,
    "picks": 25,
    "watching": 111,
-   "picks_avg": -0.014513199999999999,
-   "near_miss_avg": 0.017124864864864867,
+   "picks_avg": -0.026395599999999998,
+   "near_miss_avg": 0.009225495495495497,
    "failed_gate_avg": null,
-   "watch_avg": 0.017124864864864867,
-   "spy": 0.0037574430594407016,
+   "watch_avg": 0.009225495495495497,
+   "spy": -0.019335152517819698,
    "watch_beating_picks": 83,
    "best_symbol": "ALLE",
-   "best_return": 0.20342,
+   "best_return": 0.19963,
    "measure": "close",
    "current": false
   }
@@ -95,8 +95,8 @@
    "overnight_yr": 3.75086,
    "close": 822.51001,
    "passes": true,
-   "return": 0.10311,
-   "vs_picks": 0.09975
+   "return": 0.03323,
+   "vs_picks": 0.10355
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -110,8 +110,8 @@
    "overnight_yr": 3.60014,
    "close": 222.64999,
    "passes": true,
-   "return": -0.00977,
-   "vs_picks": -0.01313
+   "return": -0.09363,
+   "vs_picks": -0.02331
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -125,8 +125,8 @@
    "overnight_yr": 3.07929,
    "close": 497.10999,
    "passes": true,
-   "return": -0.00756,
-   "vs_picks": -0.01092
+   "return": -0.08499,
+   "vs_picks": -0.01467
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -140,8 +140,8 @@
    "overnight_yr": 2.48106,
    "close": 1365.38,
    "passes": true,
-   "return": 0.04304,
-   "vs_picks": 0.03968
+   "return": -0.04711,
+   "vs_picks": 0.02321
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -155,8 +155,8 @@
    "overnight_yr": 2.46569,
    "close": 896.07001,
    "passes": true,
-   "return": 0.05266,
-   "vs_picks": 0.0493
+   "return": -0.00398,
+   "vs_picks": 0.06634
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -170,8 +170,8 @@
    "overnight_yr": 2.39925,
    "close": 240.42,
    "passes": true,
-   "return": -0.11083,
-   "vs_picks": -0.11419
+   "return": -0.162,
+   "vs_picks": -0.09168
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -185,8 +185,8 @@
    "overnight_yr": 2.12415,
    "close": 183.78,
    "passes": true,
-   "return": -0.04959,
-   "vs_picks": -0.05295
+   "return": -0.13403,
+   "vs_picks": -0.06371
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -200,8 +200,8 @@
    "overnight_yr": 1.81416,
    "close": 171.45,
    "passes": true,
-   "return": -0.04044,
-   "vs_picks": -0.0438
+   "return": -0.12379,
+   "vs_picks": -0.05347
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -215,8 +215,8 @@
    "overnight_yr": 1.55588,
    "close": 171.50999,
    "passes": true,
-   "return": -0.02454,
-   "vs_picks": -0.0279
+   "return": -0.09762,
+   "vs_picks": -0.0273
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -230,8 +230,8 @@
    "overnight_yr": 1.49273,
    "close": 263.45001,
    "passes": true,
-   "return": -0.05432,
-   "vs_picks": -0.05768
+   "return": -0.10985,
+   "vs_picks": -0.03953
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -245,8 +245,8 @@
    "overnight_yr": 1.39454,
    "close": 744.33002,
    "passes": true,
-   "return": -0.00675,
-   "vs_picks": -0.01011
+   "return": -0.0529,
+   "vs_picks": 0.01742
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -260,8 +260,8 @@
    "overnight_yr": 1.33657,
    "close": 675.13,
    "passes": true,
-   "return": -0.04075,
-   "vs_picks": -0.04411
+   "return": -0.1085,
+   "vs_picks": -0.03818
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -275,8 +275,8 @@
    "overnight_yr": 1.33312,
    "close": 231.8,
    "passes": true,
-   "return": 0.05697,
-   "vs_picks": 0.05361
+   "return": -0.03248,
+   "vs_picks": 0.03784
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -290,8 +290,8 @@
    "overnight_yr": 1.29165,
    "close": 91.69,
    "passes": true,
-   "return": -0.0117,
-   "vs_picks": -0.01506
+   "return": -0.26617,
+   "vs_picks": -0.19585
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -305,8 +305,8 @@
    "overnight_yr": 1.18306,
    "close": 157.95,
    "passes": true,
-   "return": 0.09948,
-   "vs_picks": 0.09612
+   "return": 0.05914,
+   "vs_picks": 0.12946
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -320,8 +320,8 @@
    "overnight_yr": 1.16702,
    "close": 336.59,
    "passes": true,
-   "return": -0.0951,
-   "vs_picks": -0.09846
+   "return": -0.15369,
+   "vs_picks": -0.08337
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -335,8 +335,8 @@
    "overnight_yr": 1.08806,
    "close": 118.37,
    "passes": true,
-   "return": 0.02302,
-   "vs_picks": 0.01966
+   "return": -0.02702,
+   "vs_picks": 0.0433
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -350,8 +350,8 @@
    "overnight_yr": 1.06889,
    "close": 203.56,
    "passes": true,
-   "return": 0.17978,
-   "vs_picks": 0.17642
+   "return": 0.10926,
+   "vs_picks": 0.17958
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -365,8 +365,8 @@
    "overnight_yr": 1.05892,
    "close": 139.78,
    "passes": true,
-   "return": 0.06124,
-   "vs_picks": 0.05788
+   "return": 0.02084,
+   "vs_picks": 0.09116
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -380,8 +380,8 @@
    "overnight_yr": 1.04096,
    "close": 183.07001,
    "passes": true,
-   "return": -0.10066,
-   "vs_picks": -0.10402
+   "return": -0.13118,
+   "vs_picks": -0.06086
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -395,8 +395,8 @@
    "overnight_yr": 0.96617,
    "close": 334.16,
    "passes": true,
-   "return": 0.01187,
-   "vs_picks": 0.00851
+   "return": -0.03203,
+   "vs_picks": 0.03829
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -410,8 +410,8 @@
    "overnight_yr": 0.92592,
    "close": 404.98001,
    "passes": true,
-   "return": -0.02562,
-   "vs_picks": -0.02898
+   "return": -0.07986,
+   "vs_picks": -0.00954
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -425,8 +425,8 @@
    "overnight_yr": 0.92124,
    "close": 221.06,
    "passes": true,
-   "return": -0.03165,
-   "vs_picks": -0.03501
+   "return": -0.12466,
+   "vs_picks": -0.05434
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -440,8 +440,8 @@
    "overnight_yr": 0.92107,
    "close": 890.33002,
    "passes": true,
-   "return": -0.00823,
-   "vs_picks": -0.01159
+   "return": -0.05051,
+   "vs_picks": 0.01981
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -455,8 +455,8 @@
    "overnight_yr": 0.90386,
    "close": 596.0,
    "passes": true,
-   "return": 0.08509,
-   "vs_picks": 0.08173
+   "return": 0.03867,
+   "vs_picks": 0.10899
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -470,8 +470,8 @@
    "overnight_yr": 0.88293,
    "close": 132.25999,
    "passes": true,
-   "return": -0.01201,
-   "vs_picks": -0.01537
+   "return": -0.06854,
+   "vs_picks": 0.00178
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -485,8 +485,8 @@
    "overnight_yr": 0.8743,
    "close": 1397.08997,
    "passes": true,
-   "return": -0.0105,
-   "vs_picks": -0.01386
+   "return": -0.07646,
+   "vs_picks": -0.00614
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -500,8 +500,8 @@
    "overnight_yr": 0.86934,
    "close": 364.32001,
    "passes": true,
-   "return": -0.00719,
-   "vs_picks": -0.01055
+   "return": -0.07943,
+   "vs_picks": -0.00911
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -515,8 +515,8 @@
    "overnight_yr": 0.86667,
    "close": 181.19,
    "passes": true,
-   "return": 0.01878,
-   "vs_picks": 0.01542
+   "return": -0.04012,
+   "vs_picks": 0.0302
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -530,8 +530,8 @@
    "overnight_yr": 0.86217,
    "close": 107.41,
    "passes": true,
-   "return": -0.01609,
-   "vs_picks": -0.01945
+   "return": -0.07923,
+   "vs_picks": -0.00891
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -545,8 +545,8 @@
    "overnight_yr": 0.84616,
    "close": 79.32,
    "passes": true,
-   "return": 0.07433,
-   "vs_picks": 0.07097
+   "return": 0.03284,
+   "vs_picks": 0.10316
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -560,8 +560,8 @@
    "overnight_yr": 0.84457,
    "close": 142.89999,
    "passes": true,
-   "return": 0.04994,
-   "vs_picks": 0.04658
+   "return": 0.00098,
+   "vs_picks": 0.0713
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -575,8 +575,8 @@
    "overnight_yr": 0.81412,
    "close": 162.59,
    "passes": true,
-   "return": 0.01262,
-   "vs_picks": 0.00926
+   "return": -0.00284,
+   "vs_picks": 0.06748
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -590,8 +590,8 @@
    "overnight_yr": 0.79683,
    "close": 461.56,
    "passes": true,
-   "return": 0.0487,
-   "vs_picks": 0.04534
+   "return": -0.07587,
+   "vs_picks": -0.00555
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -605,8 +605,8 @@
    "overnight_yr": 0.79314,
    "close": 150.32001,
    "passes": true,
-   "return": 0.00552,
-   "vs_picks": 0.00216
+   "return": -0.02301,
+   "vs_picks": 0.04731
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -620,8 +620,8 @@
    "overnight_yr": 0.79083,
    "close": 86.39,
    "passes": true,
-   "return": 0.03081,
-   "vs_picks": 0.02745
+   "return": -0.00075,
+   "vs_picks": 0.06957
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -635,8 +635,8 @@
    "overnight_yr": 0.75892,
    "close": 262.92999,
    "passes": true,
-   "return": 0.00789,
-   "vs_picks": 0.00453
+   "return": -0.06929,
+   "vs_picks": 0.00103
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -650,8 +650,8 @@
    "overnight_yr": 0.75426,
    "close": 40.16,
    "passes": true,
-   "return": -0.04164,
-   "vs_picks": -0.045
+   "return": -0.0785,
+   "vs_picks": -0.00818
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -665,8 +665,8 @@
    "overnight_yr": 0.75266,
    "close": 56.09,
    "passes": true,
-   "return": 0.02055,
-   "vs_picks": 0.01719
+   "return": -0.04308,
+   "vs_picks": 0.02724
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -680,8 +680,8 @@
    "overnight_yr": 0.73521,
    "close": 193.34,
    "passes": true,
-   "return": 0.01186,
-   "vs_picks": 0.0085
+   "return": 0.02794,
+   "vs_picks": 0.09826
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -695,8 +695,8 @@
    "overnight_yr": 0.72948,
    "close": 63.18,
    "passes": true,
-   "return": -0.03829,
-   "vs_picks": -0.04165
+   "return": -0.07098,
+   "vs_picks": -0.00066
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -710,8 +710,8 @@
    "overnight_yr": 0.72272,
    "close": 47.01,
    "passes": true,
-   "return": -0.0078,
-   "vs_picks": -0.01116
+   "return": -0.0685,
+   "vs_picks": 0.00182
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -725,8 +725,8 @@
    "overnight_yr": 0.7023,
    "close": 87.49,
    "passes": true,
-   "return": 0.07645,
-   "vs_picks": 0.07309
+   "return": 0.01932,
+   "vs_picks": 0.08964
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -740,8 +740,8 @@
    "overnight_yr": 0.69636,
    "close": 725.23999,
    "passes": true,
-   "return": -0.0835,
-   "vs_picks": -0.08686
+   "return": -0.11191,
+   "vs_picks": -0.04159
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -755,8 +755,8 @@
    "overnight_yr": 0.69592,
    "close": 75.85,
    "passes": true,
-   "return": -0.01716,
-   "vs_picks": -0.02052
+   "return": -0.04933,
+   "vs_picks": 0.02099
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -770,8 +770,8 @@
    "overnight_yr": 0.69578,
    "close": 372.53,
    "passes": true,
-   "return": -0.12192,
-   "vs_picks": -0.12528
+   "return": -0.14955,
+   "vs_picks": -0.07923
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -785,8 +785,8 @@
    "overnight_yr": 0.68673,
    "close": 216.47,
    "passes": true,
-   "return": 0.01795,
-   "vs_picks": 0.01459
+   "return": -0.00482,
+   "vs_picks": 0.0655
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -800,8 +800,8 @@
    "overnight_yr": 0.68574,
    "close": 349.42999,
    "passes": true,
-   "return": 0.00885,
-   "vs_picks": 0.00549
+   "return": -0.02273,
+   "vs_picks": 0.04759
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -815,8 +815,8 @@
    "overnight_yr": 0.68302,
    "close": 45.78,
    "passes": true,
-   "return": -0.00169,
-   "vs_picks": -0.00505
+   "return": -0.04972,
+   "vs_picks": 0.0206
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -830,8 +830,8 @@
    "overnight_yr": 0.67346,
    "close": 384.07999,
    "passes": true,
-   "return": 0.01412,
-   "vs_picks": 0.01076
+   "return": -0.00704,
+   "vs_picks": 0.06328
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -845,8 +845,8 @@
    "overnight_yr": 0.65319,
    "close": 534.73999,
    "passes": true,
-   "return": -0.00728,
-   "vs_picks": -0.01064
+   "return": -0.10836,
+   "vs_picks": -0.03804
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -860,8 +860,8 @@
    "overnight_yr": 0.64536,
    "close": 334.37,
    "passes": true,
-   "return": 0.00402,
-   "vs_picks": 0.00066
+   "return": -0.03757,
+   "vs_picks": 0.03275
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -875,8 +875,8 @@
    "overnight_yr": 0.6298,
    "close": 341.95001,
    "passes": true,
-   "return": 0.00704,
-   "vs_picks": 0.00368
+   "return": -0.06053,
+   "vs_picks": 0.00979
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -890,8 +890,8 @@
    "overnight_yr": 0.62401,
    "close": 1283.66003,
    "passes": true,
-   "return": 0.02292,
-   "vs_picks": 0.01956
+   "return": 0.06397,
+   "vs_picks": 0.13429
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -905,8 +905,8 @@
    "overnight_yr": 0.62355,
    "close": 944.60999,
    "passes": true,
-   "return": 0.00125,
-   "vs_picks": -0.00211
+   "return": -0.00731,
+   "vs_picks": 0.06301
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -920,8 +920,8 @@
    "overnight_yr": 0.62291,
    "close": 211.63,
    "passes": true,
-   "return": -0.0092,
-   "vs_picks": -0.01256
+   "return": -0.03071,
+   "vs_picks": 0.03961
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -935,8 +935,8 @@
    "overnight_yr": 0.6032,
    "close": 30.31,
    "passes": true,
-   "return": -0.01589,
-   "vs_picks": -0.01925
+   "return": -0.00714,
+   "vs_picks": 0.06318
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -950,8 +950,8 @@
    "overnight_yr": 0.602,
    "close": 75.62,
    "passes": true,
-   "return": -0.03914,
-   "vs_picks": -0.0425
+   "return": -0.07189,
+   "vs_picks": -0.00157
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -965,8 +965,8 @@
    "overnight_yr": 0.59626,
    "close": 1248.73999,
    "passes": true,
-   "return": -0.02562,
-   "vs_picks": -0.02898
+   "return": -0.04579,
+   "vs_picks": 0.02453
   },
   {
    "cohort": "overnight_drift:2026-10-21",
@@ -980,28 +980,28 @@
    "overnight_yr": 0.5551,
    "close": 258.84,
    "passes": true,
-   "return": 0.04844,
-   "vs_picks": 0.04508
+   "return": 0.03029,
+   "vs_picks": 0.10061
   }
  ],
  "checks": [
   {
    "cohort": "overnight_drift:2026-10-21",
    "sleeve": "overnight_drift",
-   "asof": "2026-10-29",
-   "days": 7,
+   "asof": "2026-10-30",
+   "days": 8,
    "horizon": 21,
-   "picks_avg": 0.0033644999999999994,
-   "near_miss_avg": 0.0014644999999999994,
-   "gap": 0.0019,
-   "chance": 0.436,
+   "picks_avg": -0.07032350000000001,
+   "near_miss_avg": -0.040351250000000005,
+   "gap": -0.02997,
+   "chance": 0.95,
    "factors": {
-    "score": -0.007
+    "score": -0.275
    },
    "sectors": [],
    "verdict": "too early",
-   "reason": "day 7 of 21: judge this cohort at its re-pick. A random group of the same size did at least as well as the picks 44% of the time, so today's gap is ordinary noise",
-   "explanation": "picks ahead of near misses by 0.19%; score most linked to returns so far: score (rank corr -0.01)",
+   "reason": "day 8 of 21: an unusually large gap for now (95% of random groups did as well as the picks), but early gaps often reverse - judge at the re-pick",
+   "explanation": "picks behind near misses by 3.00%; score most linked to returns so far: score (rank corr -0.28)",
    "baseline": "ranks 21-60 not measured; in research/OVERNIGHT.md the strongest tenth beat the weakest by 7.3 bp a night in 82% of 150 months (t = 6.4)"
   }
  ]
