@@ -119,6 +119,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   8-K item 2.02 acceptance times, cached in data/backtest/earnings_8k.pkl): skipping earnings nights, volatile stocks,
   crowded industries or adding names all cost more than they save; the worst nights are market-wide gaps. Drawdowns
   are controlled by the overnight share and the cash checks, not stock choice. Not live.
+  Re-test after the 2026-10-30 loss (`python research/overnight_safety2.py` -> `research/OVERNIGHT_SAFETY2.md`; prices to
+  the 10-30 open in data/backtest/daily_ohlcv_ext.pkl, releases refreshed): E swap/E cash/S4/S3/S2/hardware cap all
+  soften that night but cost 2-7 pts/yr and Sharpe in both halves - none passes; a 60% overnight share keeps Sharpe 1.49
+  and cuts the worst drop -15% -> -9% (an amendment if wanted).
 - Overnight sleeve with leverage (what-if, `python research/overnight_leverage.py` -> `research/OVERNIGHT_LEVERAGE.md`):
   2x = 49.9%/yr, worst -29% at 0.02% costs; 19.5%, -42% at 0.05%. Scales risk, not Sharpe; not proposed.
 - EMA9/VWAP crossover and Trend+Momentum+Confirmation (EMA20/50, VWAP, volume, breakout): `python research/vwap_ema.py`
