@@ -3,12 +3,12 @@
   "sleeve": "overnight_drift",
   "allocation": 0.95,
   "planned_weight": 0.0,
-  "open_positions": 36,
-  "invested": 96072.47,
-  "unrealized_pnl": -5258.75,
-  "realized_pnl": -1587.76,
-  "closed_trades": 93,
-  "win_rate": 0.441
+  "open_positions": 0,
+  "invested": 0.0,
+  "unrealized_pnl": 0.0,
+  "realized_pnl": -11397.6,
+  "closed_trades": 129,
+  "win_rate": 0.357
  },
  {
   "sleeve": "rsi_dip",
