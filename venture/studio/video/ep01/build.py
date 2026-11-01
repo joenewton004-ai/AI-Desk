@@ -980,11 +980,13 @@ def encode_piece(args):
     png, out, n, zoom, off, tot, W, H = args
     if zoom:
         z = f"1+{ZOOM}*({off}+on)/{max(tot - 1, 1)}"
-        vf = (f"zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s={W}x{H}:fps={FPS},format=yuv420p")
+        # 1.5x source keeps the push-in smooth (sub-pixel steps) while staying fast enough to build
+        vf = (f"scale={W * 3 // 2}:{H * 3 // 2}:flags=lanczos,"
+              f"zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s={W}x{H}:fps={FPS},format=yuv420p")
     else:
         vf = f'scale={W}:{H}:flags=lanczos,format=yuv420p'
     cmd = ['ffmpeg', '-y', '-v', 'error', '-loop', '1', '-framerate', str(FPS), '-i', png, '-vf', vf,
-           '-frames:v', str(n), '-r', str(FPS), '-c:v', 'libx264', '-preset', 'medium', '-crf', '20',
+           '-frames:v', str(n), '-r', str(FPS), '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-threads', '2',
            '-pix_fmt', 'yuv420p', '-video_track_timescale', '15360', out]
     subprocess.run(cmd, check=True)
     return out
@@ -1065,7 +1067,7 @@ def notes(timelines):
                 continue  # collapse animation frames
             shown.append((t, sid))
         for t, sid in shown:
-            para = next(x for x in P if x['start'] - 1e-6 <= t < x['end'])
+            para = [x for x in P if x['start'] <= t + 1e-6][-1]
             exact = abs(t - para['start']) < 1e-6
             label = sid
             if 'count' in sid:

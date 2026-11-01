@@ -26,8 +26,8 @@ Timing: each paragraph slot = its mp3 duration + the probed gap (`_gap.mp3` = 0.
 | 2:43.69 | L11_check4 | 11 | ~ mid-paragraph |
 | 2:51.00 | L11_check5 | 11 | ~ mid-paragraph |
 | 3:05.55 | L12_twist | 12 | start |
-| 3:21.93 | L13_second | 12 | ~ mid-paragraph |
-| 3:35.01 | L14_big | 13 | ~ mid-paragraph |
+| 3:21.93 | L13_second | 13 | start |
+| 3:35.01 | L14_big | 14 | start |
 | 3:43.06 | L15_R | 15 | start |
 | 3:59.15 | L15_Rnote | 15 | ~ mid-paragraph |
 | 4:08.24 | L16_after_sb | 16 | start |
@@ -36,13 +36,13 @@ Timing: each paragraph slot = its mp3 duration + the probed gap (`_gap.mp3` = 0.
 | 4:43.64 | L19_judas | 18 | start |
 | 4:54.51 | L20_after_all | 18 | ~ mid-paragraph |
 | 4:58.69 | L21_grid_js | 18 | ~ mid-paragraph |
-| 5:02.65 | L22_portfolio | 18 | ~ mid-paragraph |
+| 5:02.65 | L22_portfolio | 19 | start |
 | 5:14.88 | L23_ladder_long | 20 | start |
 | 5:37.16 | L24_ladder_trend | 21 | start |
 | 5:44.42 | L25_why | 22 | start |
-| 5:46.72 | L26_costs | 22 | ~ mid-paragraph |
-| 6:01.74 | L27_efficient | 23 | ~ mid-paragraph |
-| 6:14.91 | L28_perfect | 24 | ~ mid-paragraph |
+| 5:46.72 | L26_costs | 23 | start |
+| 6:01.74 | L27_efficient | 24 | start |
+| 6:14.91 | L28_perfect | 25 | start |
 | 6:17.95 | L29_messy | 25 | ~ mid-paragraph |
 | 6:31.68 | L30_limits0 | 26 | start |
 | 6:35.18 | L30_limits1 | 27 | start |
@@ -52,7 +52,7 @@ Timing: each paragraph slot = its mp3 duration + the probed gap (`_gap.mp3` = 0.
 | 7:08.49 | L32_takeaway | 29 | start |
 | 7:27.58 | L33_months | 30 | start |
 | 7:38.03 | L34_comments | 31 | start |
-| 7:52.74 | L35_end | 31 | ~ mid-paragraph |
+| 7:52.74 | L35_end | 32 | start |
 
 ## short1.mp4 (0:36.62, 36.62 s)
 
