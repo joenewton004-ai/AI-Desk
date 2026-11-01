@@ -109,7 +109,7 @@ const STATE = {
     ["2026-11-01","Market","VAT on listing fee",-0.03]
   ],
   agents: [
-    {who:"Video editor", module:"studio", task:"Episode 1 draft video, 3 Shorts and thumbnail: done", busy:false},
+    {who:"Video editor", module:"studio", task:"Rebuilding episode 1 without the slow zoom", busy:true},
     {who:"Scout", module:"scout", task:"Next weekly idea report: Sundays 18:43", busy:false},
     {who:"Research", module:"market", task:"Etsy market research: done", busy:false},
     {who:"Builder", module:"market", task:"Products 1 and 2: built and live", busy:false},
@@ -127,7 +127,7 @@ const STATE = {
     studio:{name:"Studio", kicker:"YouTube · Backtest Bench", status:"busy",
       text:"Honest backtests of famous trading strategies. Narrated with an AI clone of the owner's own voice (ElevenLabs v4).",
       stats:[["Videos live","0"],["Ep. 1 audio","8:02"],["Shorts","3 voiced"]],
-      lists:[["Episode 1",[["Script","done"],["Narration","done"],["Draft video","done, owner reviewing"],["Upload","next"],["Logo & banner","done"]]]]},
+      lists:[["Episode 1",[["Script","done"],["Narration","done"],["Draft video","done, owner reviewing"],["Upload","next"],["Logo & banner","done"]]],["Tasks",[["Link YouTube via API (read-only stats)","to do: owner"],["Remove slow zoom from videos","rebuilding"]]]]},
     gallery:{name:"Gallery", kicker:"Pinterest", status:"live",
       text:"Free traffic to the shop while Etsy Ads are locked. Post the next batch 1-2 pins a day.",
       stats:[["Pins live","8"],["Boards","3"],["Next batch","next week"]], lists:[]},
