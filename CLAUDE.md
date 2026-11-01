@@ -278,3 +278,10 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Methodology changes go through register.py amendments: proposed -> testing
   (backtest it) -> accepted/rejected by the user. Never change live method
   parameters without an accepted amendment.
+
+## Venture Station (venture/)
+- Joint AI business with the owner: plan in venture/PLAN.md, money in venture/ledger.csv, dashboard
+  https://claude.ai/artifact/PMz35C74KMLMkRHNB9gU5F. Etsy shop BoxByBoxSheets (venture/market/LISTINGS.md),
+  YouTube Backtest Bench (venture/studio/).
+- Etsy titles/tags: follow venture/market/LISTING_RULES.md (max 3 ALL-CAPS words in a title, 140 chars, 13 tags
+  of 20 chars) and run `python venture/market/check_listing.py "<title>" [tags]` before giving one to the owner.

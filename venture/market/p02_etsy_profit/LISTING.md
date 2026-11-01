@@ -1,7 +1,7 @@
 # Etsy listing - product #2
 
-## Title (123 characters)
-UK Etsy Seller Profit Tracker 2026/27 | Etsy Fee Calculator UK | Statement CSV Import | VAT on Fees | Excel & Google Sheets
+## Title (120 characters)
+UK Etsy Seller Profit Tracker 2026/27 | Etsy Fee Calculator | Statement CSV Import | VAT on Fees | Excel & Google Sheets
 
 ## Tags (13, each 20 characters or fewer)
 1. etsy profit tracker

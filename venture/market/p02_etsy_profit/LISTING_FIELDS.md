@@ -16,7 +16,7 @@ and note it under "As actually listed".
 ## Listing details
 | Field | Value |
 |---|---|
-| Title | `UK Etsy Seller Profit Tracker 2026/27 \| Etsy Fee Calculator UK \| Statement CSV Import \| VAT on Fees \| Excel & Google Sheets` (123 chars) |
+| Title | `UK Etsy Seller Profit Tracker 2026/27 \| Etsy Fee Calculator UK \| Statement CSV Import \| VAT on Fees \| Excel & Google Sheets` (120 chars) |
 | Who made it? | I did |
 | What is it? | A finished product |
 | When was it made? | 2020-2026 |
