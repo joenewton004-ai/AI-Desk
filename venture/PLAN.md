@@ -64,5 +64,8 @@ Claude + crew:
   API projects can only upload private videos). Full analytics (watch time, retention) would need OAuth - later.
 - [ ] Etsy Ads test - switch on ~16 Nov (reminder scheduled).
 - [x] Upload episode 1 - done 2026-11-01: https://www.youtube.com/watch?v=Cs3rKIFWGa4
-- [ ] Shorts 1-3, one every 2 days (~3, 5, 7 Nov), each linked to episode 1.
+- [ ] Episode 1 Shorts, ONE A DAY (owner 2026-11-01), new style with the "Up" avatar, each linked to episode 1:
+  Mon 2 Nov S1 coin flip · Tue 3 S2 42 of 44 quarters · Wed 4 S3 why setups look perfect · Thu 5 S4 Judas swing ·
+  Fri 6 S5 can it be rescued? · Sat 7 S6 why costs win.
+- [ ] Episode 2 (long) goes out Sunday 8 Nov - topic to confirm (lineup #2: the "green line" rule).
 - [ ] Day-2 and day-7 Analytics screenshots for episode 1 (~3 and 8 Nov).

@@ -1,6 +1,6 @@
 # Episode 1 - YouTube upload checklist
 
-**Uploaded 2026-11-01: https://www.youtube.com/watch?v=Cs3rKIFWGa4** (Shorts: one every 2 days from here)
+**Uploaded 2026-11-01: https://www.youtube.com/watch?v=Cs3rKIFWGa4** (Shorts: ONE A DAY, Mon 2 - Sat 7 Nov, new avatar versions in video/ep01_shorts_v2/; titles below + Shorts 4-6)
 
 Files: venture/studio/video/ep01/ - long.mp4, short1-3.mp4, thumbnail.png (rebuild with build.py if missing).
 Do the channel set-up once, then the long video, then one Short every 2 days.
@@ -56,7 +56,7 @@ Educational research, not financial advice. I'm not a financial adviser; past re
 ```
 (Chapter times are from the finished video's slide timings, not the script's estimates.)
 
-## 2. Shorts - one every 2 days after the long video is public
+## 2. Shorts - one a day, Mon 2 to Sat 7 Nov
 For each: upload from the phone or Studio, Audience "not made for kids", then **Related video -> the long video** (this
 puts a link to it under the Short). Add `#Shorts` at the end of the description.
 
@@ -65,6 +65,9 @@ puts a link to it under the Short). Add `#Shorts` at the end of the description.
 | short1.mp4 | `ICT's Silver Bullet vs a coin flip (129,658 trades)` | `10 years, the 100 biggest US stocks, costs included. Full test on the channel. Narrated with an AI clone of my own voice. Educational, not financial advice. #Shorts #ICT #daytrading` |
 | short2.mp4 | `42 losing quarters out of 44` | `ICT's Silver Bullet, after costs, every quarter 2016-2026. Full test on the channel. Narrated with an AI clone of my own voice. Educational, not financial advice. #Shorts #ICT #backtest` |
 | short3.mp4 | `Why ICT setups look perfect on social media` | `Charts picked after the fact vs 129,658 trades taken by the rules. Full test on the channel. Narrated with an AI clone of my own voice. Educational, not financial advice. #Shorts #ICT #trading` |
+| short4.mp4 | `ICT's Judas swing: 80,366 trades tested` | `Before costs it made exactly what a coin flip makes. After costs: 39 losing quarters out of 44. Full test on the channel. Narrated with an AI clone of my own voice. Educational, not financial advice. #Shorts #ICT #judasswing` |
+| short5.mp4 | `Can ICT's Silver Bullet be rescued?` | `A trend filter made it worse. The best version still lost 0.035% a trade after costs. Full test on the channel. Narrated with an AI clone of my own voice. Educational, not financial advice. #Shorts #ICT #backtest` |
+| short6.mp4 | `Why costs beat day traders` | `Big stocks move 0.5-1% a day; a round trip costs 0.06%; ICT's edge was 0.01%. Full test on the channel. Narrated with an AI clone of my own voice. Educational, not financial advice. #Shorts #daytrading #ICT` |
 
 ## 3. Don'ts (FCA finfluencer rules + YouTube)
 - No broker, prop-firm or trading-app links or codes. No "buy X" or "use this strategy".
