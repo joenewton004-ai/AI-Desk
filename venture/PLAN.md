@@ -45,3 +45,13 @@ Claude + crew:
 - Rule set in advance: after 14 days, fewer than 300 ad views OR no sales -> stop, and don't retry until the shop has
   reviews. If 1+ sale and cost per sale is below the profit on that sale (~£9.98 / £7.38 / ~£15) -> continue at £1/day.
 - Ledger: ad spend appears on the Etsy statement as Marketing rows; add it from the statement.
+
+### Voice: AI clone of the owner's own voice (owner's decision 2026-11-01)
+- The owner has a stutter that makes reading full scripts hard, so narration uses an ElevenLabs clone of HIS OWN voice
+  (never anyone else's). Research: venture/studio/VOICE_RESEARCH.md - own-voice clones are exempt from YouTube's AI label.
+- Month 1: ElevenLabs Starter (~£4.50 + VAT, ~30k credits = episode 1 + Shorts with retakes), instant clone from
+  1-3 minutes of clean audio. Upgrade to Creator (~£16.40 + VAT) only once the channel publishes weekly.
+- Paid from the £500 start-up budget (not a running cost like Claude Pro). Ledger it from the receipt.
+- Every video description says: "Narrated with an AI clone of my own voice."
+- Kill rule from the research: drop it on any YouTube warning about inauthentic content / AI personas, or 3+ comments a
+  month calling the voice robotic.
