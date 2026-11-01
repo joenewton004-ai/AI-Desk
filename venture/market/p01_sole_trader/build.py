@@ -629,7 +629,7 @@ te = wb.create_sheet("Tax Estimate")
 title(te, "Tax estimate 2026/27 (England, Wales and Northern Ireland)",
       "An estimate of the year's Income Tax and Class 4 NI on this business only. Not tax or accounting advice - "
       "check GOV.UK or an accountant.", "D")
-widths(te, {"A": 3, "B": 52, "C": 18, "D": 70})
+widths(te, {"A": 3, "B": 52, "C": 40, "D": 70})
 yr_inc = (f"SUMIFS({I_D},{I_A},\">=\"&{S_START},{I_A},\"<=\"&{S_END},{I_E},\"{{cat}}\")")
 yr_miles = f"SUMIFS({M_E},{M_A},\">=\"&{S_START},{M_A},\"<=\"&{S_END})"
 T = {}  # label -> row
@@ -804,6 +804,12 @@ for w, colr in zip(wb.worksheets, [DARK, "7F7F7F", MID, MID, MID, "C55A11", "C55
     w.sheet_properties.tabColor = colr
 for w in wb.worksheets:
     w.sheet_view.zoomScale = 100
+    w.page_setup.orientation = "landscape"
+    w.page_setup.paperSize = w.PAPERSIZE_A4
+    w.sheet_properties.pageSetUpPr.fitToPage = True
+    w.page_setup.fitToWidth = 1
+    w.page_setup.fitToHeight = 0
+    w.print_title_rows = "4:4" if w.title in ("Income", "Expenses", "Mileage") else None
 wb.active = 0
 wb.properties.title = "UK Sole Trader Bookkeeping & Self Assessment Tracker 2026/27"
 wb.properties.creator = "Venture Station"

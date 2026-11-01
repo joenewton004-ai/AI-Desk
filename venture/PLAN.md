@@ -28,7 +28,7 @@ Proposed (not started): Gallery (Instagram carousels, reuses Studio), Press Room
 
 ## Week 1 (2026-11-02 to 2026-11-08)
 Owner:
-1. ~~Business bank account~~ (done 2026-11-01). Open a business Google account, an Etsy shop (name TBD with Claude; Offsite Ads OFF) and a YouTube channel.
+1. ~~Business bank account~~ (done 2026-11-01). Open a business Google account, an Etsy shop **BoxByBoxSheets** (Offsite Ads OFF) and a YouTube channel **Backtest Bench** (names chosen 2026-11-01; separate brands on purpose).
 2. Record a 30-second voice test (phone is fine) so we can judge the sound.
 Claude + crew:
 1. Etsy market research -> `venture/research/ETSY_MARKET.md` (pick first 3 products).
