@@ -39,6 +39,8 @@ Claude + crew:
 ## Tests
 ### Etsy Ads test (approved by the owner 2026-11-01)
 - £1/day for 14 days on all 3 listings = £14 max, from the start-up budget. Start date = the day the owner switches it on.
+- BLOCKED until about 2026-11-16: Etsy makes new shops wait 15 days before using Etsy Ads (owner screenshot 2026-11-01).
+  Reminder scheduled for 16 Nov.
 - Measure from the Etsy Ads dashboard: views, clicks, orders, spend; plus favourites from Stats.
 - Rule set in advance: after 14 days, fewer than 300 ad views OR no sales -> stop, and don't retry until the shop has
   reviews. If 1+ sale and cost per sale is below the profit on that sale (~£9.98 / £7.38 / ~£15) -> continue at £1/day.
