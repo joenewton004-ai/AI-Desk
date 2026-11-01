@@ -45,3 +45,10 @@ Owner checks (none of the Etsy pages or GOV.UK could be opened from this session
 - [ ] Clear the examples as Start Here says and type one month of your own; note anything clunky.
 - [ ] Look at the 5 images in images/ - real renders with the sample figures.
 - [ ] Set the price (suggested £8.99) and the bundle price with product #1.
+
+## Real statement check - 2026-11-01
+- [x] Owner's real Etsy statement (Nov 2026, 5 rows) pasted via test_real_csv.py: headers match exactly (incl. "Tax Details"),
+      dates "01 November, 2026", "£"/"-£" amounts and "--" blanks all parse; VAT, Fee (listing, set-up fee) and Payment rows
+      sort correctly; total charges £16.98 = the statement. Owner checked Google Sheets.
+- [ ] Sale, Refund, Deposit and transaction/processing-fee rows not seen yet - re-run test_real_csv.py on the first
+      statement with a sale.
