@@ -8,8 +8,8 @@ import json, os, subprocess, sys, urllib.request
 
 API = 'https://api.elevenlabs.io/v1'
 KEY = os.environ.get('ELEVENLABS_API_KEY', 'proxy-injected')
-MODEL = 'eleven_multilingual_v2'
-SETTINGS = {'stability': 0.5, 'similarity_boost': 0.85, 'style': 0.0, 'use_speaker_boost': True}
+MODEL = 'eleven_v4'   # matches the ElevenLabs site (owner's comparison 2026-11-01); v2 sounded tinny
+SETTINGS = {'stability': 0.5, 'similarity_boost': 0.75, 'style': 0.0, 'speed': 1.0, 'use_speaker_boost': True}  # the voice's saved settings
 
 def call(path, body=None):
     req = urllib.request.Request(API + path, data=json.dumps(body).encode() if body else None,
@@ -46,10 +46,10 @@ def main():
                 gap = f'{ep}/audio/_gap.mp3'
                 if not os.path.exists(gap):
                     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'lavfi', '-i', 'anullsrc=r=44100:cl=mono',
-                                    '-t', '0.45', '-q:a', '2', gap], check=True)
+                                    '-t', '0.45', '-c:a', 'libmp3lame', '-b:a', '128k', gap], check=True)
                 open(lst, 'w').write(''.join(f"file '{os.path.abspath(x)}'\nfile '{os.path.abspath(gap)}'\n" for x in have))
                 subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', lst,
-                                '-c:a', 'libmp3lame', '-q:a', '2', f'{ep}/{part}.mp3'], check=True)
+                                '-c', 'copy', f'{ep}/{part}.mp3'], check=True)   # no re-encode
                 print('joined', f'{ep}/{part}.mp3')
 
 if __name__ == '__main__':
