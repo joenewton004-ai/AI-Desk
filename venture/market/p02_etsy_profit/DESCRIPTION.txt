@@ -1,0 +1,39 @@
+See what you really keep from every Etsy sale - after every UK fee, VAT on fees and your own costs.
+
+Built for UK Etsy sellers for the 2026/27 tax year (6 April 2026 to 5 April 2027). Works in Microsoft Excel and Google
+Sheets.
+
+What's included
+- Price calculator: type a price, postage and your costs and see each Etsy fee (6.5% transaction, 4% + 20p payment
+  processing, the 0.48% regulatory operating fee, the listing renewal, Offsite Ads), VAT on fees, your net profit,
+  margin and break-even price
+- One switch for VAT: "I give Etsy a VAT number - Yes / No"
+- Etsy statement import: paste your monthly statement CSV and every row is sorted into sales, refunds and each fee
+  type. Columns are found by their header name, and the sorting rules are editable
+- Monthly profit and loss in tax months (6th to 5th), including your own costs (stock, packaging, postage, software)
+- HMRC checks: a counter for the digital platform reporting limits (30 sales or about £1,700 in a calendar year) and
+  the £1,000 trading allowance
+- Monthly totals laid out in the categories of our UK Sole Trader Tracker 2026/27, ready to copy across
+- Every fee rate on a Settings tab with its source and the date it was checked - change it if Etsy changes its fees
+- Made-up example rows so you can see how it works, cleared in seconds
+
+What it doesn't do (please read)
+- It doesn't connect to Etsy - you download your monthly statement and paste it in.
+- Payment accounts in pounds only. Currency conversion fees aren't worked out.
+- It doesn't do VAT returns or work out Income Tax.
+- Etsy's statement layout can change. If a row isn't recognised, the sheet marks it "Not sorted - check" and you can
+  add a rule.
+
+How delivery works
+This is a digital download - nothing is posted. After payment, Etsy gives you the .xlsx file to download (from your
+Purchases page or the email Etsy sends). Open it in Excel, or upload it to Google Drive and choose "Open with
+Google Sheets".
+
+Honest notes
+- Designed by me; AI tools assisted with parts of the formulas and documentation. The calculations are tested
+  against hand-worked examples.
+- Not tax or accounting advice. This is a record-keeping and pricing tool. Check GOV.UK, Etsy or an accountant -
+  you remain responsible for your own tax return.
+- Fees checked on 1 November 2026. Etsy changes its fees from time to time - check its fee page.
+
+Questions? Message me before buying - happy to help.
