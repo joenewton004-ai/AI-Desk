@@ -247,6 +247,36 @@ Our test can't measure a trader's discretion. It can measure the setups. Full vi
 
 ---
 
+### Short 4 - "The Judas swing" (~35s)
+
+ICT's other famous setup is the Judas swing. The first hour fakes out past yesterday's high or low, then closes back inside, and you trade against the fake-out.
+
+We tested it on ten years of data. 80,366 trades.
+
+Before costs: zero. Exactly what a coin flip makes. After costs, it lost money in 39 of 44 quarters.
+
+Fixed rules, not a trader's judgement. Full test on the channel. Educational, not financial advice.
+
+### Short 5 - "Can it be rescued?" (~35s)
+
+We tried to rescue ICT's Silver Bullet. First, a trend filter - ICT's higher-timeframe bias.
+
+It made things worse: minus 0.058% a trade after costs, against minus 0.051% without it.
+
+Then we only went long in high-quality companies, judged by their financials. That was the best version we found.
+
+And it still lost 0.035% a trade after costs. Least bad isn't good. Educational, not financial advice.
+
+### Short 6 - "Why costs win" (~30s)
+
+Why is day trading the biggest stocks so hard? Costs.
+
+A typical intraday move is half a percent to one percent. Even at a cheap 0.03% each way, a round trip costs 0.06%.
+
+ICT's direction call was worth about 0.01% a trade. A sixth of the cost.
+
+When you're fighting over hundredths of a percent, costs win. Full test on the channel. Educational, not financial advice.
+
 ## YOUTUBE METADATA
 
 **Title:** I Tested ICT's Silver Bullet on 129,658 Trades (10 Years of Data)

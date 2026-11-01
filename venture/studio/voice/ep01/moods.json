@@ -1,0 +1,9 @@
+{
+ "_how": "One entry per narration paragraph (same order as narration.json). A string = one mood for the whole paragraph. A list = one mood per sentence, switched at the estimated sentence start (by character position). Moods: neutral, shocked, sceptical, pleased, thinking.",
+ "short1": ["neutral", "thinking", "sceptical", "neutral"],
+ "short2": ["neutral", ["shocked", "pleased", "sceptical", "thinking", "shocked", "thinking", "neutral", "neutral"]],
+ "short3": ["pleased", ["shocked", "thinking", "sceptical", "sceptical", "thinking", "neutral", "neutral", "neutral"]],
+ "short4": [["neutral", "thinking"], ["neutral", "shocked"], ["sceptical", "sceptical", "shocked"], ["thinking", "neutral", "neutral"]],
+ "short5": [["pleased", "thinking"], "sceptical", ["thinking", "pleased"], ["shocked", "sceptical", "neutral"]],
+ "short6": [["thinking", "sceptical"], ["neutral", "thinking"], ["shocked", "sceptical"], ["sceptical", "neutral", "neutral"]]
+}
