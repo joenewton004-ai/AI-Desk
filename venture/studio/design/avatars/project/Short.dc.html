@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Short mock-up</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#ff8a3d}a:hover{color:#ffb07a}
+</style>
+</helmet>
+<div style="width: 1320px; height: 900px; box-sizing: border-box; padding: 48px 64px; background: #11161f; color: #f3f1ec; font-family: Lato, Carlito, 'DejaVu Sans', sans-serif; display: flex; flex-direction: column; gap: 28px">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <div style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #9fb0c6">Short 1 · three moments</div>
+      <h1 style="margin: 0; font-size: 34px; font-weight: 900">The host reacts as the line changes</h1>
+    </div>
+    <p style="margin: 0; max-width: 460px; font-size: 15px; line-height: 1.5; color: #c6d0dd">Chart or number on top, the spoken line as a big caption, the host at the bottom. Each script line carries a mood tag, e.g. [shocked], and the build swaps the still.</p>
+  </div>
+  <div style="display: flex; gap: 48px; justify-content: center">
+    <sc-for list="{{frames}}" as="fr" hint-placeholder-count="3">
+      <div style="display: flex; flex-direction: column; gap: 10px; align-items: center">
+        <div style="width: 360px; height: 640px; border-radius: 28px; background: #1b2330; border: 2px solid #2e3a4d; overflow: hidden; display: flex; flex-direction: column; box-sizing: border-box; padding: 28px 22px 0">
+          <div style="background: #222c3b; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 10px; min-height: 170px; box-sizing: border-box">
+            <div style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #ff8a3d">{{fr.cardKicker}}</div>
+            <sc-if value="{{fr.showBig}}" hint-placeholder-val="{{ false }}">
+              <div style="font-size: 64px; font-weight: 900; color: #ff8a3d; line-height: 1">{{fr.big}}</div>
+              <div style="font-size: 15px; color: #c6d0dd">{{fr.bigSub}}</div>
+            </sc-if>
+            <sc-if value="{{fr.showGrid}}" hint-placeholder-val="{{ false }}">
+              <div style="display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 4px">
+                <sc-for list="{{quarters}}" as="q" hint-placeholder-count="44">
+                  <div style="aspect-ratio: 1; border-radius: 3px; background: {{q.color}}"></div>
+                </sc-for>
+              </div>
+              <div style="font-size: 13px; color: #9fb0c6">Each square = one quarter, 2016–2026, after costs</div>
+            </sc-if>
+            <sc-if value="{{fr.showFacts}}" hint-placeholder-val="{{ true }}">
+              <div style="font-size: 20px; font-weight: 700; line-height: 1.35">10 years of 5-minute bars</div>
+              <div style="font-size: 20px; font-weight: 700; line-height: 1.35">The 100 biggest US stocks</div>
+              <div style="font-size: 20px; font-weight: 700; line-height: 1.35; color: #8fb3d9">Costs included</div>
+            </sc-if>
+          </div>
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 10px 6px">
+            <div style="font-size: 30px; font-weight: 900; line-height: 1.2; text-align: center">{{fr.caption}}</div>
+          </div>
+          <div style="display: flex; align-items: flex-end; gap: 10px; height: 190px">
+            <svg viewBox="0 0 200 200" width="190" height="190" role="img" aria-label="{{fr.mood}}">
+              <path d="M40 200 Q40 150 100 148 Q160 150 160 200 Z" fill="#8fb3d9"></path>
+              <path d="M84 148 L100 172 L116 148 Z" fill="#f3f1ec"></path>
+              <circle cx="100" cy="92" r="52" fill="#f2c9a5"></circle>
+              <path d="M48 86 Q50 34 100 36 Q150 34 152 86 Q140 58 100 58 Q62 58 48 86 Z" fill="#4a3426"></path>
+              <path d="M44 84 Q44 30 100 30 Q156 30 156 84" fill="none" stroke="#2b3444" stroke-width="8"></path>
+              <rect x="36" y="78" width="16" height="30" rx="6" fill="#ff8a3d"></rect>
+              <rect x="148" y="78" width="16" height="30" rx="6" fill="#ff8a3d"></rect>
+              <path d="{{fr.brow}}" stroke="#4a3426" stroke-width="6" stroke-linecap="round" fill="none"></path>
+              <ellipse cx="80" cy="90" rx="6" ry="{{fr.eye}}" fill="#1b2330"></ellipse>
+              <ellipse cx="120" cy="90" rx="6" ry="{{fr.eye}}" fill="#1b2330"></ellipse>
+              <path d="{{fr.mouth}}" stroke="#7a3b2e" stroke-width="5" stroke-linecap="round" fill="{{fr.mouthFill}}"></path>
+            </svg>
+            <div style="margin-bottom: 26px; font-size: 11px; color: #9fb0c6; line-height: 1.4">Educational,<br>not financial advice</div>
+          </div>
+        </div>
+        <div style="font-size: 14px; color: #9fb0c6"><b style="color: #ff8a3d">[{{fr.mood}}]</b> {{fr.at}}</div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1320,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const green = new Set([27, 36]);
+    const quarters = Array.from({ length: 44 }, (_, i) => ({ color: green.has(i) ? '#6cc58c' : '#e5675c' }));
+    return {
+      quarters,
+      frames: [
+        { mood: 'neutral', at: '0:00 – 0:06', cardKicker: 'ICT Silver Bullet', showFacts: true, showBig: false, showGrid: false,
+          caption: 'We tested ICT’s Silver Bullet by the rules.',
+          brow: 'M66 72 L90 70 M110 70 L134 72', eye: 6, mouth: 'M84 118 Q100 126 116 118', mouthFill: 'none' },
+        { mood: 'shocked', at: '0:06 – 0:14', cardKicker: 'Trades taken', showFacts: false, showBig: true, showGrid: false,
+          big: '129,658', bigSub: 'every setup in ten years',
+          caption: 'A hundred and twenty-nine thousand trades.',
+          brow: 'M66 62 L90 56 M110 56 L134 62', eye: 9, mouth: 'M90 122 a10 12 0 1 0 20 0 a10 12 0 1 0 -20 0', mouthFill: '#7a3b2e' },
+        { mood: 'sceptical', at: '0:14 – 0:24', cardKicker: 'After costs', showFacts: false, showBig: false, showGrid: true,
+          caption: 'It lost money in 42 of 44 quarters.',
+          brow: 'M66 74 L90 72 M110 62 L134 68', eye: 4, mouth: 'M86 124 L114 118', mouthFill: 'none' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

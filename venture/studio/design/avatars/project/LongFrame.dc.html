@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Long-video frame</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#ff8a3d}a:hover{color:#ffb07a}
+</style>
+</helmet>
+<div style="width: 960px; height: 540px; box-sizing: border-box; padding: 40px 48px; background: #1b2330; color: #f3f1ec; font-family: Lato, Carlito, 'DejaVu Sans', sans-serif; display: flex; flex-direction: column; gap: 18px; position: relative">
+  <div style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #ff8a3d">After costs (0.03% each way)</div>
+  <h1 style="margin: 0; font-size: 34px; font-weight: 900">Per trade: both lose money</h1>
+  <div style="display: flex; gap: 48px; align-items: flex-start; padding-top: 24px">
+    <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; width: 150px">
+      <div style="width: 110px; height: {{sbH}}px; background: #e5675c; border-radius: 0 0 6px 6px"></div>
+      <div style="font-size: 22px; font-weight: 900; color: #e5675c">−0.051%</div>
+      <div style="font-size: 15px; color: #c6d0dd">Silver Bullet</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; width: 150px">
+      <div style="width: 110px; height: {{coinH}}px; background: #b5544b; border-radius: 0 0 6px 6px"></div>
+      <div style="font-size: 22px; font-weight: 900; color: #e5675c">−0.061%</div>
+      <div style="font-size: 15px; color: #c6d0dd">Coin-flip direction</div>
+    </div>
+  </div>
+  <div style="position: absolute; left: 48px; bottom: 22px; font-size: 12px; color: #9fb0c6">Source: Backtest Bench research, Alpaca 5-min bars 2016–2026</div>
+  <div style="position: absolute; right: 36px; bottom: 0; display: flex; align-items: flex-end; gap: 12px">
+    <div style="margin-bottom: 120px; background: #f3f1ec; color: #1b2330; font-size: 15px; font-weight: 700; padding: 10px 14px; border-radius: 12px; max-width: 200px; line-height: 1.35">ICT beat the coin by a hundredth of a percent.</div>
+    <svg viewBox="0 0 200 200" width="230" height="230" role="img" aria-label="Host, sceptical">
+      <path d="M40 200 Q40 150 100 148 Q160 150 160 200 Z" fill="#8fb3d9"></path>
+      <path d="M84 148 L100 172 L116 148 Z" fill="#f3f1ec"></path>
+      <circle cx="100" cy="92" r="52" fill="#f2c9a5"></circle>
+      <path d="M48 86 Q50 34 100 36 Q150 34 152 86 Q140 58 100 58 Q62 58 48 86 Z" fill="#4a3426"></path>
+      <path d="M44 84 Q44 30 100 30 Q156 30 156 84" fill="none" stroke="#2b3444" stroke-width="8"></path>
+      <rect x="36" y="78" width="16" height="30" rx="6" fill="#ff8a3d"></rect>
+      <rect x="148" y="78" width="16" height="30" rx="6" fill="#ff8a3d"></rect>
+      <path d="M66 74 L90 72 M110 62 L134 68" stroke="#4a3426" stroke-width="6" stroke-linecap="round" fill="none"></path>
+      <ellipse cx="80" cy="90" rx="6" ry="4" fill="#1b2330"></ellipse>
+      <ellipse cx="120" cy="90" rx="6" ry="4" fill="#1b2330"></ellipse>
+      <path d="M86 124 L114 118" stroke="#7a3b2e" stroke-width="5" stroke-linecap="round" fill="none"></path>
+    </svg>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":960,"height":540}}'>
+class Component extends DCLogic {
+  renderVals() {
+    // bar heights to scale: 0.061% = 220px
+    return { sbH: Math.round(220 * 0.051 / 0.061), coinH: 220 };
+  }
+}
+</script>
+</body>
+</html>
