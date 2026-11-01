@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Simple mascots</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#ff8a3d}a:hover{color:#ffb07a}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1420px; box-sizing: border-box; padding: 48px 64px; background: #1b2330; color: #f3f1ec; font-family: Lato, Carlito, 'DejaVu Sans', sans-serif; display: flex; flex-direction: column; gap: 20px">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 15px; letter-spacing: 0.14em; text-transform: uppercase; color: #9fb0c6">Backtest Bench · simple mascots</div>
+      <h1 style="margin: 0; font-size: 44px; font-weight: 900">One shape, two eyes, one mouth</h1>
+    </div>
+    <p style="margin: 0; max-width: 540px; font-size: 17px; line-height: 1.5; color: #c6d0dd">No arms, no props. Each is one or two flat shapes from a chart, so it reads instantly at phone size and every expression is just the face changing.</p>
+  </div>
+
+  <sc-for list="{{mascots}}" as="m" hint-placeholder-count="6">
+    <div style="display: flex; gap: 24px; align-items: center; background: #222c3b; border-radius: 16px; padding: 12px 22px">
+      <div style="width: 260px; flex: none; display: flex; flex-direction: column; gap: 6px">
+        <div style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #ff8a3d">{{m.tag}}</div>
+        <div style="font-size: 25px; font-weight: 900">{{m.name}}</div>
+        <div style="font-size: 14px; line-height: 1.45; color: #c6d0dd">{{m.pitch}}</div>
+      </div>
+      <div style="flex: 1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px">
+        <sc-for list="{{faces}}" as="f" hint-placeholder-count="5">
+          <div style="display: flex; flex-direction: column; gap: 4px; align-items: center">
+            <div style="width: 150px; height: 150px; background: #1b2330; border-radius: 12px; display: flex; align-items: center; justify-content: center">
+              <svg viewBox="0 0 200 200" width="140" height="140" role="img" aria-label="{{m.name}}, {{f.label}}">
+                <sc-if value="{{m.isBlock}}" hint-placeholder-val="{{ true }}">
+                  <rect x="40" y="40" width="120" height="120" rx="30" fill="#ff8a3d"></rect>
+                </sc-if>
+                <sc-if value="{{m.isTick}}" hint-placeholder-val="{{ false }}">
+                  <line x1="100" y1="12" x2="100" y2="188" stroke="#ff8a3d" stroke-width="10" stroke-linecap="round"></line>
+                  <rect x="62" y="44" width="76" height="112" rx="16" fill="#ff8a3d"></rect>
+                </sc-if>
+                <sc-if value="{{m.isDot}}" hint-placeholder-val="{{ false }}">
+                  <circle cx="100" cy="100" r="68" fill="#8fb3d9"></circle>
+                </sc-if>
+                <sc-if value="{{m.isBar}}" hint-placeholder-val="{{ false }}">
+                  <rect x="60" y="20" width="80" height="170" rx="16" fill="#8fb3d9"></rect>
+                </sc-if>
+                <sc-if value="{{m.isArrow}}" hint-placeholder-val="{{ false }}">
+                  <path d="M100 26 L172 150 Q176 166 160 166 L40 166 Q24 166 28 150 Z" fill="#6cc58c"></path>
+                </sc-if>
+                <sc-if value="{{m.isPill}}" hint-placeholder-val="{{ false }}">
+                  <rect x="30" y="58" width="140" height="84" rx="42" fill="#f3f1ec"></rect>
+                  <rect x="30" y="58" width="70" height="84" rx="42" fill="#ff8a3d"></rect>
+                  <rect x="70" y="58" width="30" height="84" fill="#ff8a3d"></rect>
+                </sc-if>
+                <g transform="{{m.face}}">
+                  <sc-if value="{{f.brows}}" hint-placeholder-val="{{ false }}">
+                    <path d="{{f.brow}}" stroke="#1b2330" stroke-width="7" stroke-linecap="round" fill="none"></path>
+                  </sc-if>
+                  <ellipse cx="80" cy="90" rx="8" ry="{{f.eye}}" fill="#1b2330"></ellipse>
+                  <ellipse cx="120" cy="90" rx="8" ry="{{f.eye}}" fill="#1b2330"></ellipse>
+                  <path d="{{f.mouth}}" stroke="#1b2330" stroke-width="6" stroke-linecap="round" fill="{{f.fill}}"></path>
+                </g>
+              </svg>
+            </div>
+            <div style="font-size: 14px; font-weight: 700">{{f.label}}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1420}}'>
+class Component extends DCLogic {
+  renderVals() {
+    // simpler faces: brows only where they carry the mood
+    const faces = [
+      { label: 'Neutral', brows: false, brow: '', eye: 8, mouth: 'M88 118 L112 118', fill: 'none' },
+      { label: 'Shocked', brows: true, brow: 'M70 62 L90 58 M110 58 L130 62', eye: 11, mouth: 'M92 122 a8 10 0 1 0 16 0 a8 10 0 1 0 -16 0', fill: '#1b2330' },
+      { label: 'Sceptical', brows: true, brow: 'M70 74 L90 74 M110 64 L130 70', eye: 5, mouth: 'M88 122 L112 117', fill: 'none' },
+      { label: 'Pleased', brows: false, brow: '', eye: 3, mouth: 'M84 114 Q100 132 116 114', fill: 'none' },
+      { label: 'Thinking', brows: false, brow: '', eye: 8, mouth: 'M92 120 Q102 116 110 120', fill: 'none' }
+    ];
+    const base = { isBlock: false, isTick: false, isDot: false, isBar: false, isArrow: false, isPill: false, face: '' };
+    return {
+      faces,
+      mascots: [
+        { ...base, isBlock: true, tag: 'S1', name: 'Block', face: 'translate(0 4)',
+          pitch: 'Just the candle body: a rounded orange square. The simplest form of Candle.' },
+        { ...base, isTick: true, tag: 'S2', name: 'Stick', face: 'translate(0 2)',
+          pitch: 'Candle body plus the wick line through it. Instantly a chart candle, still dead simple.' },
+        { ...base, isDot: true, tag: 'S3', name: 'Dot', face: 'translate(0 6)',
+          pitch: 'A single data point. Round and friendly, in the channel’s soft blue.' },
+        { ...base, isBar: true, tag: 'S4', name: 'Bar', face: 'translate(0 -10)',
+          pitch: 'One bar from a bar chart. Tall, calm and matches every chart in the videos.' },
+        { ...base, isArrow: true, tag: 'S5', name: 'Up', face: 'translate(0 28)',
+          pitch: 'A green triangle: the "up" everyone hopes for. Funny when it looks sceptical.' },
+        { ...base, isPill: true, tag: 'S6', name: 'Toggle', face: 'translate(0 8)',
+          pitch: 'Half orange, half cream, like a switch or a coin’s two sides: heads or tails.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
