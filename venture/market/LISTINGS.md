@@ -7,3 +7,6 @@
 | BBS-B01-2627 | Bundle: P01 + P02 | £17.99 | Ready to list | [b01_bundle/LISTING_FIELDS.md](b01_bundle/LISTING_FIELDS.md) |
 
 SKU pattern: BBS-<P product / B bundle><nn>-<tax year>. Brand assets: brand/. Etsy statements: statements/.
+
+Thumbnails: every listing's photo #1 is a plain brand card from brand/thumbs/ (`node brand/thumbs/shoot.js` re-renders
+them from thumbs.html). Content is centred so Etsy's square crops keep it. New products get a card in the same style.

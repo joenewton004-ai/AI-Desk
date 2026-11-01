@@ -10,7 +10,7 @@ and note it under "As actually listed".
 ## Photos and video
 | Field | Value |
 |---|---|
-| Photos (in this order; #1 = thumbnail) | `images/01_price_calculator.png`, `02_statement_import.png`, `03_monthly_pl.png`, `04_hmrc_checks.png`, `05_tabs.png` |
+| Photos (in this order; #1 = thumbnail) | `../brand/thumbs/p02_thumb.png` (thumbnail), then `images/01_price_calculator.png`, `02_statement_import.png`, `03_monthly_pl.png`, `04_hmrc_checks.png`, `05_tabs.png` |
 | Video | none yet (later: 10-15 s screen recording of the price calculator) |
 
 ## Listing details

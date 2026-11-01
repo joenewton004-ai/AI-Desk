@@ -8,7 +8,7 @@ Values as recommended to the owner on 2026-11-01. Copy-paste text: `LISTING.md` 
 ## Photos and video
 | Field | Value |
 |---|---|
-| Photos (in order) | `images/01_tax_estimate.png`, `02_expenses.png`, `03_quarterly.png`, `04_box_map.png`, `05_tabs.png` |
+| Photos (in order) | `../brand/thumbs/p01_thumb.png` (thumbnail), then `images/01_tax_estimate.png`, `02_expenses.png`, `03_quarterly.png`, `04_box_map.png`, `05_tabs.png` |
 | Video | none yet |
 
 ## Listing details

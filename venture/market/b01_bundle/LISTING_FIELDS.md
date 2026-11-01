@@ -6,7 +6,7 @@ Title and tags passed `check_listing.py` (1 all-caps word, 124 chars). Descripti
 ## Photos and video
 | Field | Value |
 |---|---|
-| Photos (in order; #1 = thumbnail) | `images/01_bundle_hero.png`, `02_how_they_connect.png`, `03_statement_to_pl.png`, `04_tax_side.png`, `05_whats_included.png` |
+| Photos (in order; #1 = thumbnail) | `../brand/thumbs/b01_thumb.png` (thumbnail), then `images/01_bundle_hero.png`, `02_how_they_connect.png`, `03_statement_to_pl.png`, `04_tax_side.png`, `05_whats_included.png` |
 | Video | none yet |
 
 ## Listing details
