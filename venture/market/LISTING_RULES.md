@@ -4,6 +4,7 @@
 |---|---|---|
 | Title: at most **140 characters** | Etsy form | 2026-11-01 |
 | Title: at most **3 words in ALL CAPS** (e.g. UK, VAT, CSV, MTD, HMRC each count) | Etsy error: "Your title can't have more than 3 words in all caps." | 2026-11-01 |
+| Title: each of the characters **% & :** at most **once** (write "and" instead of a second &) | Etsy error: "Your title can't contain the characters %, &, or : more than once." | 2026-11-01 |
 | Tags: 13 tags, each at most **20 characters** | Etsy form | 2026-11-01 |
 
 Check a title before giving it to the owner: `python venture/market/check_listing.py "<title>"`.

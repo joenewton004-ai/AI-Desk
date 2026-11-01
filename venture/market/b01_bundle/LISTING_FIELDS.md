@@ -1,7 +1,7 @@
 # Bundle B01 - Etsy listing fields (go-live sheet)
 
 UK Sole Trader + Etsy Seller Bundle 2026/27 (product 1 + product 2) · shop BoxByBoxSheets · status: **ready to list**
-Title and tags passed `check_listing.py` (1 all-caps word, 124 chars). Description to paste: `DESCRIPTION.txt`.
+Title and tags passed `check_listing.py` (1 all-caps word, 1 &, 126 chars). Description to paste: `DESCRIPTION.txt`.
 
 ## Photos and video
 | Field | Value |
@@ -12,7 +12,7 @@ Title and tags passed `check_listing.py` (1 all-caps word, 124 chars). Descripti
 ## Listing details
 | Field | Value |
 |---|---|
-| Title | `UK Sole Trader + Etsy Seller Bundle 2026/27 \| Tax Tracker & Etsy Profit Calculator \| Self Assessment \| Excel & Google Sheets` (124 chars) |
+| Title | `UK Sole Trader + Etsy Seller Bundle 2026/27 \| Tax Tracker and Etsy Profit Calculator \| Self Assessment \| Excel & Google Sheets` (126 chars) |
 | Who made it? | I did |
 | What is it? | A finished product |
 | When was it made? | 2020-2026 |
