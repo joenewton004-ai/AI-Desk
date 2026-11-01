@@ -6,7 +6,9 @@ Owner checks (Claude re-checks once GOV.UK is reachable from a session):
       was 45p. HIGHEST RISK - do not list until confirmed.
 - [x] (verified 2026-11-01) Class 2 small profits threshold £7,105 and voluntary £3.65/week for 2026/27.
 - [x] (verified 2026-11-01) Personal allowance £12,570, bands £37,700 / £125,140, Class 4 6% to £50,270 then 2%.
-- [ ] MTD thresholds/deadlines: glance at the GOV.UK MTD guide (not fetched).
+- [x] MTD update periods and deadlines: owner checked GOV.UK 2026-11-01 (screenshot) - standard periods are year-to-date
+      (6 Apr-5 Jul/5 Oct/5 Jan/5 Apr), due 7 Aug/7 Nov/7 Feb/7 May; calendar periods allowed with the same deadlines.
+      Matches the Quarterly tab. Income thresholds (£50k/£30k/£20k) not on that screenshot.
 - [ ] SA103S/SA103F box numbers (2025/26 forms; 2026/27 forms not out until ~April 2027 - the sheet says so).
 - [ ] Open the .xlsx in desktop Excel AND import into Google Sheets: dropdowns, amber example rows, protection.
 - [ ] Enter one made-up month of income/expenses; note anything clunky.
