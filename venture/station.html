@@ -1,172 +1,275 @@
 <title>Venture Station</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap">
 <style>
-/* Layout: a station seen from outside. A truss with solar wings across the top, a central node (Command),
-   and modules docked to it, one per business function. Proposed modules dock with dashed hatches. */
+/* Layout: a top-down view of the station fills the screen and IS the menu. Click a module to open its panel.
+   Agent pods travel along the truss to whichever module they're working in; the ticker names who is busy. */
 :root{
-  --void:#070b14; --hull:#121a2b; --hull2:#18233a; --panel:#1f6f8b; --panel-hi:#3fb6d6;
-  --fg:#e7edf7; --muted:#8d9bb4; --line:#2a3754; --amber:#f2b440; --go:#4fd18b; --stop:#ff6b6b;
-  --display:"Chakra Petch", "Segoe UI", system-ui, sans-serif;
-  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --space:#000; --hull:#c9ced6; --hull-dark:#8e96a3; --hull-edge:#5d6672; --truss:#3a4252;
+  --panel:#1d3a6b; --panel-cell:#2b5aa3; --gold:#c8a24a;
+  --fg:#e9edf3; --muted:#8a94a6; --line:#2a3140; --glass:rgba(10,14,22,.88);
+  --live:#4fd18b; --busy:#ffb347; --proposed:#7aa7ff; --stop:#ff6b6b;
+  --display:"Chakra Petch","Segoe UI",system-ui,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --pixel:"Press Start 2P",ui-monospace,monospace;
   color-scheme:dark;
 }
-html,body{background:var(--void);color:var(--fg)}
-body{font-family:var(--body);font-size:15px;line-height:1.5;
-  background:radial-gradient(1200px 500px at 50% -10%, #12203d 0%, var(--void) 60%) var(--void);
-  padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px));padding-block:24px 48px}
-.wrap{max-width:1100px;margin:0 auto;display:grid;gap:28px}
-header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px}
-h1{font-family:var(--display);font-size:clamp(28px,5vw,44px);letter-spacing:.04em;margin:0;text-wrap:balance}
-.sub{color:var(--muted);margin:4px 0 0;max-width:60ch}
-.met{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right}
-.met b{color:var(--fg);font-weight:500}
-.label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+html,body{height:100%;background:var(--space);color:var(--fg)}
+body{margin:0;font-family:var(--body);overflow:hidden;
+  padding-left:max(0px, env(safe-area-inset-left,0px));padding-right:max(0px, env(safe-area-inset-right,0px))}
+#stars{position:fixed;inset:0;width:100%;height:100%}
+.app{position:relative;height:100%;display:grid;grid-template-rows:auto 1fr auto}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;
+  padding:14px max(16px, env(safe-area-inset-right,0px)) 0 max(16px, env(safe-area-inset-left,0px));pointer-events:none}
+header h1{font-family:var(--display);font-size:clamp(20px,3.2vw,30px);letter-spacing:.08em;margin:0}
+header .sub{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:2px}
+.hud{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right;display:grid;gap:2px}
+.hud b{color:var(--fg);font-weight:500;font-variant-numeric:tabular-nums}
+.stage{position:relative;min-height:0}
+svg#iss{width:100%;height:100%;display:block}
+.mod{cursor:pointer}
+.mod:focus{outline:none}
+.mod:focus-visible .shell,.mod:hover .shell{stroke:#fff;stroke-width:3}
+.label{font-family:var(--display);font-size:22px;font-weight:700;fill:#1a1f29;pointer-events:none}
+.sublabel{font-family:var(--mono);font-size:13px;fill:#3a4252;pointer-events:none}
+.proposed .shell{fill:rgba(122,167,255,.06);stroke:var(--proposed);stroke-dasharray:10 8}
+.proposed .label{fill:var(--proposed)}.proposed .sublabel{fill:#5f7fbf}
+.lamp{transition:fill .3s}
+.busy .glow{opacity:1;animation:glow 1.6s ease-in-out infinite}
+.glow{opacity:0}
+@keyframes glow{50%{opacity:.35}}
+.pod circle{filter:drop-shadow(0 0 6px var(--busy))}
+footer{padding:8px max(16px, env(safe-area-inset-right,0px)) max(10px, env(safe-area-inset-bottom,0px)) max(16px, env(safe-area-inset-left,0px));
+  display:flex;gap:10px;align-items:center;overflow:hidden;border-top:1px solid var(--line);background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
+.tick-label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--busy);flex:none}
+.ticker{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;font-size:13px;min-width:0}
+.ticker::-webkit-scrollbar{display:none}
+.chip{flex:none;display:flex;gap:8px;align-items:center;background:none;border:0;color:var(--fg);font:inherit;cursor:pointer;padding:4px 0}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--busy);box-shadow:0 0 8px var(--busy);animation:glow 1.2s infinite}
+.chip.done i{background:var(--live);box-shadow:none;animation:none}
+.chip .who{font-family:var(--mono);color:var(--busy)}.chip.done .who{color:var(--live)}
 
-/* truss + solar wings */
-.truss{position:relative;height:74px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:0}
-.wing{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;height:58px}
-.wing span{background:repeating-linear-gradient(90deg,var(--panel) 0 9px,#174f66 9px 10px),var(--panel);
-  border:1px solid var(--panel-hi);opacity:.85}
-.beam{height:10px;background:repeating-linear-gradient(45deg,#3a4866 0 6px,#26324d 6px 12px);border:1px solid #4a5a7d;width:120px}
-.ledger-strip{position:absolute;inset:auto 0 -2px 0;height:2px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
-
-/* station grid */
-.station{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;position:relative}
-.node{grid-column:2;grid-row:1 / span 2;align-self:stretch}
-.mod{position:relative;background:linear-gradient(180deg,var(--hull2),var(--hull));border:1px solid var(--line);
-  border-radius:22px;padding:16px 18px;display:grid;gap:8px;align-content:start;min-width:0}
-.mod::before{content:"";position:absolute;inset:8px 8px auto auto;width:8px;height:8px;border-radius:50%;background:var(--muted)}
-.mod.live::before{background:var(--go);box-shadow:0 0 10px var(--go)}
-.mod.proposed{border-style:dashed;background:transparent}
-.mod.proposed::before{background:var(--amber)}
-.mod h2{font-family:var(--display);font-size:20px;margin:0;letter-spacing:.03em}
-.mod p{margin:0;color:var(--muted);font-size:14px}
-.pill{justify-self:start;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
-  padding:2px 8px;border-radius:999px;border:1px solid currentColor}
-.pill.amber{color:var(--amber)} .pill.go{color:var(--go)} .pill.grey{color:var(--muted)}
-.readout{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-.readout b{color:var(--fg);font-weight:500}
-.node .mod{height:100%;border-color:var(--panel-hi);box-shadow:0 0 0 4px rgba(63,182,214,.08) inset}
-.node h2{font-size:24px}
-.crew{display:grid;gap:6px;margin-top:6px}
-.crew div{display:flex;justify-content:space-between;gap:8px;font-size:13px;border-top:1px solid var(--line);padding-top:6px}
-.crew span:last-child{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase}
-
-/* ledger */
-.ledger{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.ledger div{background:var(--hull);padding:14px 16px}
-.ledger .v{font-family:var(--display);font-size:26px;font-variant-numeric:tabular-nums}
-.v.neg{color:var(--stop)} .v.pos{color:var(--go)}
-.rule{color:var(--muted);font-size:13px;margin:8px 0 0}
-
-/* log */
-.log{border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.log ol{list-style:none;margin:0;padding:0}
-.log li{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:10px 16px;border-top:1px solid var(--line);font-size:14px}
-.log li:first-child{border-top:0}
-.log time{font-family:var(--mono);font-size:12px;color:var(--muted)}
-.foot{color:var(--muted);font-size:12px}
-
-@media (max-width:820px){
-  .station{grid-template-columns:minmax(0,1fr)}
-  .node{grid-column:auto;grid-row:auto;order:-1}
-  .ledger{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .beam{width:40px}
-  .met{text-align:left}
-}
-@media (prefers-reduced-motion:no-preference){
-  .mod.live::before{animation:blink 2.4s ease-in-out infinite}
-  @keyframes blink{50%{opacity:.35}}
-}
+/* panel */
+.panel{position:fixed;z-index:20;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--glass);border-left:1px solid var(--line);
+  backdrop-filter:blur(8px);transform:translateX(105%);transition:transform .25s ease;display:flex;flex-direction:column;
+  padding-top:env(safe-area-inset-top,0px)}
+.panel.open{transform:none}
+.panel .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:18px 20px 10px}
+.panel h2{font-family:var(--display);font-size:26px;margin:0;letter-spacing:.04em}
+.panel .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.close{background:none;border:1px solid var(--line);color:var(--fg);border-radius:8px;width:36px;height:36px;font-size:18px;cursor:pointer;flex:none}
+.close:focus-visible{outline:2px solid var(--busy)}
+.pbody{overflow-y:auto;padding:0 20px max(24px, env(safe-area-inset-bottom,0px));display:grid;gap:18px;align-content:start}
+.pbody p{margin:0;color:#c3cad6;font-size:14px;line-height:1.55}
+.pill{justify-self:start;display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid currentColor}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.stats div{background:#0c111a;padding:10px 12px}
+.stats.four{grid-template-columns:repeat(2,1fr)}
+.stats .k{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.stats .v{font-family:var(--display);font-size:22px;font-variant-numeric:tabular-nums}
+.v.neg{color:var(--stop)}.v.pos{color:var(--live)}
+h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;font-weight:500}
+ul.list{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:14px}
+ul.list li{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:6px}
+ul.list li span:last-child{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+td,th{text-align:left;padding:6px 4px;border-top:1px solid var(--line)}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.n{text-align:right}
+.banker{display:flex;gap:14px;align-items:center;background:#0c111a;border:1px solid var(--line);border-radius:10px;padding:12px}
+.speech{font-family:var(--pixel);font-size:10px;line-height:1.7;color:#ffe08a}
+.log li span:first-child{color:#c3cad6}
+@media (prefers-reduced-motion:reduce){.busy .glow,.chip i{animation:none}}
 </style>
 
-<div class="wrap">
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="app">
   <header>
-    <div>
-      <div class="label">Joint venture · mission control</div>
-      <h1>Venture Station</h1>
-      <p class="sub">Each module is one part of the business. Solid modules are being built; dashed ones are proposed. Nothing here is earning yet; numbers start at zero.</p>
-    </div>
-    <div class="met">Mission day <b>0</b><br>Status as of <b>2026-11-01</b></div>
+    <div><h1>VENTURE STATION</h1><div class="sub">Top-down view. Tap a module to open it.</div></div>
+    <div class="hud"><span>Mission day <b id="day">0</b></span><span>Revenue <b id="hudRev">£0</b> · Spent <b id="hudSpent">£0</b></span><span>Budget left <b id="hudLeft">£0</b></span></div>
   </header>
-
-  <div class="truss" aria-hidden="true">
-    <div class="wing"><span></span><span></span><span></span><span></span></div>
-    <div class="beam"></div>
-    <div class="wing"><span></span><span></span><span></span><span></span></div>
-    <div class="ledger-strip"></div>
-  </div>
-
-  <section class="station" aria-label="Station modules">
-    <div class="node">
-      <div class="mod live">
-        <div class="label">Central node</div>
-        <h2>Command</h2>
-        <p>Claude runs the crew, sets weekly targets and kills what doesn't earn. You hold the accounts, the money and the final say.</p>
-        <span class="pill go">Online</span>
-        <div class="crew">
-          <div><span>Claude (commander)</span><span>active</span></div>
-          <div><span>Research agent · Etsy market</span><span>working</span></div>
-          <div><span>Script agent · episode 1</span><span>working</span></div>
-          <div><span>Design agent</span><span>on call</span></div>
-          <div><span>Analyst agent</span><span>on call</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="mod live">
-      <div class="label">Module A · content</div>
-      <h2>Studio</h2>
-      <p>"We backtested it" videos for YouTube and Shorts, built from the desk's 40+ real strategy tests. Target: 1 video + 3 Shorts a week from week 2.</p>
-      <span class="pill go">Building · week 1</span>
-      <div class="readout"><span>Videos <b>0</b></span><span>Subs <b>0</b></span><span>Revenue <b>£0</b></span></div>
-    </div>
-
-    <div class="mod live">
-      <div class="label">Module B · shop</div>
-      <h2>Market</h2>
-      <p>Etsy digital downloads: Power Platform, Excel and Google Sheets templates. Target: 10 listings by day 21, first sale by day 45.</p>
-      <span class="pill go">Building · week 1</span>
-      <div class="readout"><span>Listings <b>0</b></span><span>Sales <b>0</b></span><span>Revenue <b>£0</b></span></div>
-    </div>
-
-    <div class="mod proposed">
-      <div class="label">Module C · audience</div>
-      <h2>Gallery</h2>
-      <p>Instagram carousels cut from Studio's research. Feeds the newsletter and the shop.</p>
-      <span class="pill amber">Proposed</span>
-      <div class="readout"><span>Posts <b>0</b></span><span>Followers <b>0</b></span></div>
-    </div>
-
-    <div class="mod proposed">
-      <div class="label">Module D · recurring</div>
-      <h2>Press Room</h2>
-      <p>Weekly newsletter of honest backtest results. Free first, paid tier once 1,000 readers sign up.</p>
-      <span class="pill amber">Proposed</span>
-      <div class="readout"><span>Readers <b>0</b></span><span>Paid <b>0</b></span></div>
-    </div>
-  </section>
-
-  <section aria-label="Ledger">
-    <div class="label" style="margin-bottom:8px">Ledger · life support</div>
-    <div class="ledger">
-      <div><div class="label">Spent</div><div class="v">£0</div></div>
-      <div><div class="label">Revenue</div><div class="v">£0</div></div>
-      <div><div class="label">Profit</div><div class="v">£0</div></div>
-      <div><div class="label">Budget left</div><div class="v pos">£500</div></div>
-    </div>
-    <p class="rule">Cap £500; anything beyond it needs the owner's approval. Kill rules on day 90 (2027-01-30): Market undocks below £100 revenue, Studio below 300 subscribers or 20k Shorts views.</p>
-  </section>
-
-  <section class="log" aria-label="Mission log">
-    <div class="label" style="padding:12px 16px 4px">Mission log</div>
-    <ol>
-      <li><time>2026-11-01</time><span>Owner set a £500 cap and approved Market and Studio. Research and script agents dispatched.</span></li>
-      <li><time>2026-11-01</time><span>Station launched. Four modules proposed. Waiting on the owner's budget and picks.</span></li>
-    </ol>
-  </section>
-
-  <p class="foot">Planning view. Market and Studio are being built; no accounts exist yet and every figure is zero until real money moves.</p>
+  <div class="stage"><svg id="iss" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Venture Station modules"></svg></div>
+  <footer><span class="tick-label">CREW ACTIVITY</span><div class="ticker" id="ticker"></div></footer>
 </div>
+<aside class="panel" id="panel" aria-hidden="true">
+  <div class="top"><div><div class="kicker" id="pKicker"></div><h2 id="pTitle"></h2></div><button class="close" id="pClose" aria-label="Close panel">✕</button></div>
+  <div class="pbody" id="pBody"></div>
+</aside>
+
+<script>
+// ---------- STATE: Claude updates this block on each republish ----------
+const STATE = {
+  start: "2026-11-01", asOf: "2026-11-01",
+  budgetCap: 500, runningCosts: [["Claude Pro", "about £18 / month"], ["ElevenLabs Starter", "about £5.40 / month (receipt to log)"]],
+  ledger: [
+    ["2026-11-01","Market","Etsy one-time shop set-up fee",-14.00],
+    ["2026-11-01","Market","VAT on shop set-up fee",-2.80],
+    ["2026-11-01","Market","Listing fee product 1",-0.15],
+    ["2026-11-01","Market","VAT on listing fee",-0.03]
+  ],
+  agents: [
+    {who:"Video editor", module:"studio", task:"Building the episode 1 draft video and Shorts", busy:true},
+    {who:"Scout", module:"scout", task:"Next weekly idea report: Sundays 18:43", busy:false},
+    {who:"Research", module:"market", task:"Etsy market research: done", busy:false},
+    {who:"Builder", module:"market", task:"Products 1 and 2: built and live", busy:false},
+    {who:"Voice", module:"studio", task:"Episode 1 narrated in the owner's cloned voice", busy:false}
+  ],
+  modules: {
+    command:{name:"Command", kicker:"Central node", status:"online",
+      text:"Claude runs the crew, sets targets and closes what doesn't earn. The owner holds the accounts, the money and the final say.",
+      stats:[["Modules live","4"],["Proposed","2"],["Kill-rule day","30 Jan"]],
+      lists:[["Rules",[["£500 start-up cap","owner approves more"],["Day-90 kill rules","Market < £100 · Studio < 300 subs"],["Weekly check-in","Etsy CSV + stats"]]]]},
+    market:{name:"Market", kicker:"Etsy · BoxByBoxSheets", status:"live",
+      text:"UK tax and bookkeeping spreadsheets. Etsy Ads unlock about 16 Nov (new-shop wait); £1/day test planned.",
+      stats:[["Listings","3"],["Sales","0"],["Revenue","£0"]],
+      lists:[["Listings",[["Sole Trader Tracker","£11.99"],["Etsy Seller Profit Tracker","£8.99"],["Bundle","£17.99"]]],["Next",[["Etsy Ads test","~16 Nov"],["Product 3 (Power BI)","on hold until sales"]]]]},
+    studio:{name:"Studio", kicker:"YouTube · Backtest Bench", status:"busy",
+      text:"Honest backtests of famous trading strategies. Narrated with an AI clone of the owner's own voice (ElevenLabs v4).",
+      stats:[["Videos live","0"],["Ep. 1 audio","8:02"],["Shorts","3 voiced"]],
+      lists:[["Episode 1",[["Script","done"],["Narration","done"],["Draft video","in progress"],["Logo & banner","done"]]]]},
+    gallery:{name:"Gallery", kicker:"Pinterest", status:"live",
+      text:"Free traffic to the shop while Etsy Ads are locked. Post the next batch 1-2 pins a day.",
+      stats:[["Pins live","8"],["Boards","3"],["Next batch","next week"]], lists:[]},
+    vault:{name:"Vault", kicker:"Bank · trades & figures", status:"live", banker:true,
+      text:"Every pound in and out of the business account, from the Etsy statements and receipts.", stats:[], lists:[]},
+    scout:{name:"Scout", kicker:"Observatory · weekly ideas", status:"live",
+      text:"Scans the web every Sunday at 18:43 for new ways to earn, platform rule changes and threats.",
+      stats:[["Reports","1"],["Ideas docked","2"]],
+      lists:[["Watch items",[["Etsy ban on AI-made guides","22 Oct"],["YouTube AI-persona rule","16 Jul"],["FCA finfluencer crackdown","Apr"]]]]},
+    workshop:{name:"Workshop", kicker:"Proposed · Fiverr", status:"proposed",
+      text:"Buyers send their trading rules and get an honest backtest report. Scout's pick (4/5). After Etsy and YouTube are running.",
+      stats:[["Orders","0"]], lists:[]},
+    archive:{name:"Archive", kicker:"Proposed · Payhip", status:"proposed",
+      text:"£5-9 'strategy autopsy' PDFs linked from each video. Starts when episode 1 is live.", stats:[["Packs","0"]], lists:[]},
+    dock:{name:"Docking port", kicker:"Next idea", status:"proposed",
+      text:"Each new idea we try docks here as a new module.", stats:[], lists:[]}
+  },
+  log: [
+    ["2026-11-01","Video editor resumed episode 1 draft after a usage-limit pause."],
+    ["2026-11-01","Narration moved to ElevenLabs v4; 'minute-by-minute' line fixed."],
+    ["2026-11-01","Channel logo and banner made."],
+    ["2026-11-01","8 Pinterest pins live."],
+    ["2026-11-01","Bundle live: 3 listings in the shop."],
+    ["2026-11-01","First costs from the Etsy statement: £16.98."],
+    ["2026-11-01","Station launched; £500 cap; Market and Studio approved."]
+  ]
+};
+// ---------- layout (viewBox 1600x900) ----------
+const LAYOUT = {
+  command:{x:670,y:395,w:260,h:110,side:0},
+  market:{x:300,y:180,w:200,h:150,side:-1}, studio:{x:700,y:150,w:200,h:180,side:-1}, gallery:{x:1100,y:180,w:200,h:150,side:-1},
+  vault:{x:300,y:570,w:200,h:150,side:1}, scout:{x:700,y:570,w:200,h:170,side:1},
+  workshop:{x:1100,y:570,w:200,h:150,side:1}, archive:{x:1370,y:570,w:170,h:130,side:1}, dock:{x:1370,y:200,w:170,h:120,side:-1}
+};
+const NS="http://www.w3.org/2000/svg";
+const el=(t,a={},p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const svg=document.getElementById('iss');
+const money=v=>(v<0?'−':'')+'£'+Math.abs(v).toFixed(2);
+
+let PORTRAIT=false;
+function up(node,x,y){if(PORTRAIT)node.setAttribute('transform',`rotate(-90 ${x} ${y})`)}
+function draw(){
+  svg.innerHTML='';
+  PORTRAIT=innerHeight>innerWidth*1.15;
+  svg.setAttribute('viewBox',PORTRAIT?'0 0 900 1600':'0 0 1600 900');
+  const defs=el('defs',{},svg);
+  const root=el('g',{transform:PORTRAIT?'translate(900,0) rotate(90)':''},svg);
+  const pat=el('pattern',{id:'cells',width:24,height:24,patternUnits:'userSpaceOnUse'},defs);
+  el('rect',{width:24,height:24,fill:'#1d3a6b'},pat); el('rect',{x:1,y:1,width:22,height:22,fill:'#2b5aa3',opacity:.55},pat);
+  // main truss
+  el('rect',{x:110,y:438,width:1380,height:24,fill:'#3a4252',rx:4},root);
+  for(let x=120;x<1480;x+=40){el('line',{x1:x,y1:438,x2:x+40,y2:462,stroke:'#566078','stroke-width':2},root);el('line',{x1:x+40,y1:438,x2:x,y2:462,stroke:'#566078','stroke-width':2},root)}
+  // solar arrays (pairs at both ends)
+  for(const cx of [150,290,1310,1450]){
+    for(const dir of [-1,1]){const y=dir<0?120:520;el('rect',{x:cx-45,y,width:90,height:260,fill:'url(#cells)',stroke:'#c8a24a','stroke-width':2},root);
+      el('rect',{x:cx-6,y:dir<0?380:462,width:12,height:58,fill:'#8e96a3'},root)}
+  }
+  // radiators
+  for(const x of [560,1000]) el('rect',{x,y:395,width:40,height:110,fill:'#e9edf3',opacity:.85,rx:3},root);
+  // connectors (drawn first so modules sit on top)
+  const C=LAYOUT.command;
+  for(const [id,L] of Object.entries(LAYOUT)){
+    const m=STATE.modules[id]; if(!m||L.side===0) continue;
+    const cx=L.x+L.w/2, onCmd=cx>C.x&&cx<C.x+C.w;
+    const y1=L.side<0?L.y+L.h:(onCmd?C.y+C.h:462), y2=L.side<0?(onCmd?C.y:438):L.y;
+    el('rect',{x:cx-16,y:Math.min(y1,y2),width:32,height:Math.abs(y2-y1),fill:m.status==='proposed'?'none':'#8e96a3',stroke:m.status==='proposed'?'#7aa7ff':'none','stroke-dasharray':'6 6'},root)}
+  // modules
+  for(const [id,L] of Object.entries(LAYOUT)){
+    const m=STATE.modules[id]; if(!m) continue;
+    const cx=L.x+L.w/2;
+    const g=el('g',{class:'mod '+(m.status==='proposed'?'proposed':'')+(isBusy(id)?' busy':''),tabindex:0,role:'button','aria-label':m.name+' module'},root);
+    el('rect',{class:'glow',x:L.x-10,y:L.y-10,width:L.w+20,height:L.h+20,rx:L.h/2>40?44:30,fill:'none',stroke:'#ffb347','stroke-width':6},g);
+    el('rect',{class:'shell',x:L.x,y:L.y,width:L.w,height:L.h,rx:Math.min(40,L.h/2.5),fill:id==='command'?'#dfe3e9':'#c9ced6',stroke:'#5d6672','stroke-width':2},g);
+    if(m.status!=='proposed') for(let i=1;i<4;i++) el('line',{x1:L.x+L.w*i/4,y1:L.y+6,x2:L.x+L.w*i/4,y2:L.y+L.h-6,stroke:'#aeb5c0','stroke-width':2},g);
+    const lampC=m.status==='proposed'?'#7aa7ff':isBusy(id)?'#ffb347':'#4fd18b';
+    el('circle',{class:'lamp',cx:L.x+L.w-18,cy:L.y+18,r:7,fill:lampC},g);
+    if(id==='vault'&&!PORTRAIT){const bg=el('g',{},g);pixelBanker(bg,L.x+L.w/2-28,L.y+L.h-70,4);up(bg,L.x+L.w/2,L.y+L.h-46)}
+    const tg=el('g',{},g); up(tg,cx,L.y+L.h/2);
+    const small=L.w<190||PORTRAIT&&L.h<160, ty=id==='vault'&&!PORTRAIT?L.y+34:L.y+L.h/2;
+    const t=el('text',{class:'label',x:cx,y:ty,'text-anchor':'middle',style:'font-size:'+(small?16:22)+'px'},tg); t.textContent=m.name.toUpperCase();
+    const s=el('text',{class:'sublabel',x:cx,y:ty+22,'text-anchor':'middle'},tg); s.textContent=m.kicker.split('·')[0].trim();
+    g.addEventListener('click',()=>openPanel(id)); g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPanel(id)}});
+  }
+  // pods for busy agents travel command -> module
+  STATE.agents.filter(a=>a.busy).forEach((a,i)=>{const L=LAYOUT[a.module];if(!L)return;
+    const c=LAYOUT.command, x1=L.x+L.w/2, y1=L.side<0?L.y+L.h:L.y, onCmd=x1>c.x&&x1<c.x+c.w;
+    const path=onCmd?`M${x1},${L.side<0?c.y:c.y+c.h} L${x1},${y1}`:`M${c.x+c.w/2},${c.y} L${c.x+c.w/2},450 L${x1},450 L${x1},${y1}`;
+    el('path',{d:path,fill:'none',stroke:'#ffb347','stroke-width':2,'stroke-dasharray':'4 8',opacity:.6},root);
+    const pod=el('g',{class:'pod'},root); el('circle',{r:9,fill:'#ffb347'},pod);
+    const lg=el('g',{},pod); up(lg,0,0); const lbl=el('text',{x:16,y:-10,'font-family':'IBM Plex Mono, monospace','font-size':18,fill:'#ffb347','paint-order':'stroke',stroke:'#000','stroke-width':4},lg); lbl.textContent=a.who;
+    if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const am=el('animateMotion',{dur:'4s',repeatCount:'indefinite',path,begin:(i*0.7)+'s'},pod)}
+    else pod.setAttribute('transform',`translate(${x1},${y1})`);
+  });
+}
+function isBusy(id){return STATE.agents.some(a=>a.busy&&a.module===id)}
+// pixel banker: a robot quartermaster with a green eyeshade and a ledger
+function pixelBanker(parent,x,y,s){
+  const P=["....GGGGGG....","...GGGGGGGG...","....SSSSSS....","...SSWSSWSS...","...SSSSSSSS...","....SS..SS....","..BBBBBBBBBB..",".BBBYYBBBBBBB.",".BBBYYBBLLLLB.",".BBBBBBBLLLLB.","..BBBBBBBBBB..","...BB....BB..."];
+  const C={G:'#3fae6a',S:'#f2d3b0',W:'#1a1f29',B:'#2d3e5c',Y:'#e8c547',L:'#f3f1ec'};
+  const g=el('g',{},parent);
+  P.forEach((row,r)=>[...row].forEach((ch,c)=>{if(C[ch])el('rect',{x:x+c*s,y:y+r*s,width:s,height:s,fill:C[ch]},g)}));
+}
+// panel
+const panel=document.getElementById('panel');
+function openPanel(id){
+  const m=STATE.modules[id];
+  document.getElementById('pKicker').textContent=m.kicker;
+  document.getElementById('pTitle').textContent=m.name;
+  const st={live:['Live','var(--live)'],online:['Online','var(--live)'],busy:['Crew working','var(--busy)'],proposed:['Proposed','var(--proposed)']}[isBusy(id)?'busy':m.status]||['',''];
+  let h=`<span class="pill" style="color:${st[1]}">${st[0]}</span><p>${m.text}</p>`;
+  if(m.banker) h+=vaultHTML();
+  if(m.stats.length) h+=`<div class="stats">${m.stats.map(([k,v])=>`<div><div class="k">${k}</div><div class="v">${v}</div></div>`).join('')}</div>`;
+  const crew=STATE.agents.filter(a=>a.module===id);
+  if(crew.length) h+=`<div><h3>Crew in this module</h3><ul class="list">${crew.map(a=>`<li><span>${a.who}: ${a.task}</span><span style="color:${a.busy?'var(--busy)':'var(--live)'}">${a.busy?'working':'done'}</span></li>`).join('')}</ul></div>`;
+  m.lists.forEach(([t,items])=>{h+=`<div><h3>${t}</h3><ul class="list">${items.map(([a,b])=>`<li><span>${a}</span><span>${b}</span></li>`).join('')}</ul></div>`});
+  if(id==='command') h+=`<div><h3>Mission log</h3><ul class="list log">${STATE.log.map(([d,t])=>`<li><span>${t}</span><span>${d.slice(5)}</span></li>`).join('')}</ul></div>`;
+  document.getElementById('pBody').innerHTML=h;
+  panel.classList.add('open'); panel.setAttribute('aria-hidden','false'); document.getElementById('pClose').focus();
+}
+function totals(){const spent=-STATE.ledger.filter(r=>r[3]<0).reduce((a,r)=>a+r[3],0), rev=STATE.ledger.filter(r=>r[3]>0).reduce((a,r)=>a+r[3],0);return{spent,rev,profit:rev-spent,left:STATE.budgetCap-spent}}
+function vaultHTML(){const t=totals();
+  return `<div class="banker"><svg viewBox="0 0 56 48" width="84" height="72" aria-hidden="true" id="bk"></svg><div class="speech">"Every penny in<br>this book."</div></div>
+  <div class="stats four"><div><div class="k">Revenue</div><div class="v">£${t.rev.toFixed(2)}</div></div><div><div class="k">Spent</div><div class="v">£${t.spent.toFixed(2)}</div></div>
+  <div><div class="k">Profit</div><div class="v ${t.profit<0?'neg':'pos'}">${money(t.profit)}</div></div><div><div class="k">Budget left</div><div class="v pos">£${t.left.toFixed(2)}</div></div></div>
+  <div><h3>Ledger</h3><table><thead><tr><th>Date</th><th>Item</th><th class="n">£</th></tr></thead><tbody>${STATE.ledger.map(r=>`<tr><td>${r[0].slice(5)}</td><td>${r[2]}</td><td class="n">${money(r[3])}</td></tr>`).join('')}</tbody></table></div>
+  <div><h3>Running costs (outside the cap)</h3><ul class="list">${STATE.runningCosts.map(([a,b])=>`<li><span>${a}</span><span>${b}</span></li>`).join('')}</ul></div>`}
+document.getElementById('pClose').onclick=()=>{panel.classList.remove('open');panel.setAttribute('aria-hidden','true')};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('pClose').click()});
+new MutationObserver(()=>{const bk=document.getElementById('bk');if(bk&&!bk.childNodes.length)pixelBanker(bk,0,0,4)}).observe(document.getElementById('pBody'),{childList:true});
+// ticker + HUD
+function hud(){const t=totals();
+  const d=Math.max(0,Math.round((new Date(STATE.asOf)-new Date(STATE.start))/864e5));
+  document.getElementById('day').textContent=d; document.getElementById('hudRev').textContent='£'+t.rev.toFixed(2);
+  document.getElementById('hudSpent').textContent='£'+t.spent.toFixed(2); document.getElementById('hudLeft').textContent='£'+t.left.toFixed(2);
+  const tk=document.getElementById('ticker');
+  tk.innerHTML=[...STATE.agents].sort((a,b)=>b.busy-a.busy).map(a=>`<button class="chip ${a.busy?'':'done'}" data-m="${a.module}"><i></i><span class="who">${a.who}</span><span>→ ${STATE.modules[a.module].name}: ${a.task}</span></button>`).join('');
+  tk.querySelectorAll('.chip').forEach(b=>b.onclick=()=>openPanel(b.dataset.m));
+}
+// stars
+function stars(){const c=document.getElementById('stars'),x=c.getContext('2d');const dpr=devicePixelRatio||1;c.width=innerWidth*dpr;c.height=innerHeight*dpr;
+  x.fillStyle='#000';x.fillRect(0,0,c.width,c.height);let s=7;const r=()=>(s=(s*16807)%2147483647)/2147483647;
+  for(let i=0;i<260;i++){x.globalAlpha=.25+r()*.75;x.fillStyle='#fff';const z=r()*1.6*dpr;x.fillRect(r()*c.width,r()*c.height,z,z)}}
+addEventListener('resize',()=>{stars();const p=innerHeight>innerWidth*1.15;if(p!==PORTRAIT)draw()});
+stars(); draw(); hud();
+</script>
