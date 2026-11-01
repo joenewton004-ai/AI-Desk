@@ -1,6 +1,6 @@
 # Etsy listing - product #1
 
-## Title (127 characters)
+## Title (126 characters)
 UK Sole Trader Bookkeeping Spreadsheet 2026/27 | Self Assessment Tax Estimate | MTD Quarterly | Excel & Google Sheets Template
 
 ## Tags (13, each 20 characters or fewer)
