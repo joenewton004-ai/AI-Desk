@@ -63,4 +63,6 @@ Claude + crew:
   the host -> Claude then pulls views/likes/comments/subscribers into the Studio module. Uploads stay manual (unreviewed
   API projects can only upload private videos). Full analytics (watch time, retention) would need OAuth - later.
 - [ ] Etsy Ads test - switch on ~16 Nov (reminder scheduled).
-- [ ] Upload episode 1 + 3 Shorts (venture/studio/UPLOAD_EP01.md).
+- [x] Upload episode 1 - done 2026-11-01: https://www.youtube.com/watch?v=Cs3rKIFWGa4
+- [ ] Shorts 1-3, one every 2 days (~3, 5, 7 Nov), each linked to episode 1.
+- [ ] Day-2 and day-7 Analytics screenshots for episode 1 (~3 and 8 Nov).

@@ -1,5 +1,7 @@
 # Episode 1 - YouTube upload checklist
 
+**Uploaded 2026-11-01: https://www.youtube.com/watch?v=Cs3rKIFWGa4** (Shorts: one every 2 days from here)
+
 Files: venture/studio/video/ep01/ - long.mp4, short1-3.mp4, thumbnail.png (rebuild with build.py if missing).
 Do the channel set-up once, then the long video, then one Short every 2 days.
 
