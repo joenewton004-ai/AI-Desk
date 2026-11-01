@@ -1,6 +1,6 @@
 # Bundle B01 - Etsy listing fields (go-live sheet)
 
-UK Sole Trader + Etsy Seller Bundle 2026/27 (product 1 + product 2) · shop BoxByBoxSheets · status: **ready to list**
+UK Sole Trader + Etsy Seller Bundle 2026/27 (product 1 + product 2) · shop BoxByBoxSheets · status: **LIVE** (2026-11-01)
 Title and tags passed `check_listing.py` (1 all-caps word, 1 &, 126 chars). Description to paste: `DESCRIPTION.txt`.
 
 ## Photos and video
@@ -47,5 +47,5 @@ Title and tags passed `check_listing.py` (1 all-caps word, 1 &, 126 chars). Desc
 | Field | Value |
 |---|---|
 | Listing number | |
-| Date live | |
+| Date live | 2026-11-01 |
 | Differences from above | |
