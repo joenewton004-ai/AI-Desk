@@ -91,7 +91,7 @@ below.
 [VISUAL: small caption - "First test (60 days of Yahoo data) came first. This is the 10-year re-run."]
 
 This is actually our second test. The first one only had 60 days of data, which is all Yahoo keeps. So when ten years
-of minute data became available, we ran it again with the same rules.
+of minute-by-minute data became available, we ran it again with the same rules.
 
 ### 4:00 - The results
 

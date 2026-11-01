@@ -23,7 +23,7 @@
 
 [long-12] We also tried a twist: mixing in company financials. Longs only in the top third of companies by a quality score built from SEC filings, shorts only in the bottom third. And a trend filter - longs above the 50-day average, shorts below.
 
-[long-13] This is actually our second test. The first one only had 60 days of data, which is all Yahoo keeps. So when ten years of minute data became available, we ran it again with the same rules.
+[long-13] This is actually our second test. The first one only had 60 days of data, which is all Yahoo keeps. So when ten years of minute-by-minute data became available, we ran it again with the same rules.
 
 [long-14] Let's start with the Silver Bullet. Over ten years it took 129,658 trades.
 
