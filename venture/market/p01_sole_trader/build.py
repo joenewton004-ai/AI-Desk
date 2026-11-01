@@ -629,7 +629,7 @@ te = wb.create_sheet("Tax Estimate")
 title(te, "Tax estimate 2026/27 (England, Wales and Northern Ireland)",
       "An estimate of the year's Income Tax and Class 4 NI on this business only. Not tax or accounting advice - "
       "check GOV.UK or an accountant.", "D")
-widths(te, {"A": 3, "B": 52, "C": 40, "D": 70})
+widths(te, {"A": 3, "B": 52, "C": 56, "D": 70})
 yr_inc = (f"SUMIFS({I_D},{I_A},\">=\"&{S_START},{I_A},\"<=\"&{S_END},{I_E},\"{{cat}}\")")
 yr_miles = f"SUMIFS({M_E},{M_A},\">=\"&{S_START},{M_A},\"<=\"&{S_END})"
 T = {}  # label -> row
@@ -748,7 +748,7 @@ title(bm, "Where each total goes on your tax return",
       "Box numbers from HMRC's latest published pages (2025/26 SA103S and SA103F). Check them on the 2026/27 form "
       "when HMRC publishes it (around April 2027).", "F")
 header(bm, 4, ["SA103S box", "SA103F box", "What it is", "Your 2026/27 figure", "How it's worked out", "Check"])
-widths(bm, {"A": 11, "B": 11, "C": 44, "D": 18, "E": 60, "F": 26})
+widths(bm, {"A": 11, "B": 11, "C": 34, "D": 18, "E": 72, "F": 46})
 bm.freeze_panes = "A5"
 TA_ON = "'Tax Estimate'!$C$13=\"Trading allowance\""
 box_rows = [
