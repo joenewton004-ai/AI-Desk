@@ -386,12 +386,12 @@ inc = data_sheet("Income", "One line per payment received. Amber rows are EXAMPL
                  INC_ROWS, "ABCDEFG", {"A": DATE, "D": GBP}, "G", "G")
 inc_ex = [
     (date(2026, 4, 14), "Harper & Co", "Logo design - deposit", 250.00, TURNOVER, "Bank transfer"),
-    (date(2026, 4, 30), "Etsy", "April shop payout", 412.60, TURNOVER, "Platform payout"),
+    (date(2026, 4, 30), "Etsy", "April Etsy sales (gross, before fees)", 412.60, TURNOVER, "Platform payout"),
     (date(2026, 5, 19), "Harper & Co", "Logo design - balance", 550.00, TURNOVER, "Bank transfer"),
     (date(2026, 6, 2), "M. Okafor", "Wedding stationery set", 380.00, TURNOVER, "Card"),
     (date(2026, 7, 11), "Market stall", "Craft fair sales", 265.50, TURNOVER, "Cash"),
     (date(2026, 8, 21), "Bright Lane Cafe", "Menu and signage design", 720.00, TURNOVER, "Bank transfer"),
-    (date(2026, 9, 30), "Etsy", "September shop payout", 598.25, TURNOVER, "Platform payout"),
+    (date(2026, 9, 30), "Etsy", "September Etsy sales (gross, before fees)", 598.25, TURNOVER, "Platform payout"),
     (date(2026, 11, 8), "Studio sublet", "Desk space rented to a friend", 150.00, OTHER_INC, "Bank transfer"),
     (date(2027, 1, 15), "T. Reid", "Business cards and flyers", 185.00, TURNOVER, "PayPal"),
     (date(2027, 3, 3), "Own savings", "Transfer from my savings (not income)", 500.00, NOT_INC, "Bank transfer"),
