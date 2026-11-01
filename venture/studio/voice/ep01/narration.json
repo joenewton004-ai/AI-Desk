@@ -1,0 +1,50 @@
+{
+ "long": [
+  "One of the most popular day-trading setups on the internet. Ten years of data. A hundred and twenty-nine thousand, six hundred and fifty-eight trades. And before costs, it did about as well as flipping a coin for direction.",
+  "If you've spent any time on trading YouTube, you've met ICT - the Inner Circle Trader, Michael Huddleston. His ideas about liquidity, stop hunts and fair value gaps are taught by thousands of creators. Today we're not arguing about personalities. We're asking one narrow question: if you write the best-known ICT setups down as fixed rules, and run them on years of real market data, with honest costs - do the setups themselves have an edge?",
+  "Quick note before we start: this is educational research. I'm not a financial adviser, and nothing here is a recommendation to buy or sell anything.",
+  "ICT is built on the idea of \"liquidity\". Obvious highs and lows - like yesterday's high - have lots of stop orders sitting just beyond them. The theory is that price runs through those stops - that's called a sweep - and then reverses sharply.",
+  "That sharp move often leaves something called a fair value gap: three candles where the third doesn't overlap the first. There's a hole in the price action. The idea is that price tends to come back into that gap - and that's where you enter.",
+  "Timing matters too. ICT setups are only taken in set windows called \"kill zones\".",
+  "Model one is the Silver Bullet. Between 10 and 11am New York time, after price sweeps the prior day's high or low, or the opening range, you look for a fair value gap. You place a limit order in the gap, your stop goes beyond the sweep, your target is twice what you're risking, and you're out by the end of the day.",
+  "Model two is the Judas swing. The first hour fakes out beyond the prior day's high or low, then closes back inside. You trade against the fake-out at 10:30, again targeting twice your risk.",
+  "One bit of jargon: traders measure results in \"R\" - the amount you risked on the trade. Plus one R means you made what you risked. Zero R means break-even.",
+  "Here's the setup, and I want to be upfront about every choice.",
+  "- The data: ten years of five-minute bars, January 2016 to October 2026, from Alpaca's consolidated feed. - The stocks: the 100 largest US companies at each point in time. Over the decade that's 224 different companies; we had bars for 222 of them. - The rules: written into the code before running, based on community descriptions of ICT - not his own course material. - Costs: 0.03% each way. That's cheap - it's what a tight spread on a big, liquid stock looks like. - And a control. We took the exact same trades - same stock, same time, same stop and target - and flipped a coin for the direction. If ICT's direction call has value, it should beat the coin.",
+  "We also tried a twist: mixing in company financials. Longs only in the top third of companies by a quality score built from SEC filings, shorts only in the bottom third. And a trend filter - longs above the 50-day average, shorts below.",
+  "This is actually our second test. The first one only had 60 days of data, which is all Yahoo keeps. So when ten years of minute data became available, we ran it again with the same rules.",
+  "Let's start with the Silver Bullet. Over ten years it took 129,658 trades.",
+  "Before costs, the average trade made plus 0.02R. Two hundredths of the amount risked. The coin-flip version made roughly zero. So there is a direction call in there - and with this many trades, that small number is real. But it's worth about 0.01% a trade. That's about a sixth of what a round trip costs, even at our cheap 0.03% each way.",
+  "After costs, the Silver Bullet lost 0.051% per trade. The coin flip lost 0.061%. So ICT beat a coin - by a hundredth of a percent - and both lost money.",
+  "Here's the part that surprised me most. We split the ten years into 44 quarters. The Silver Bullet lost money after costs in 42 of them. And it lost in every single year, 2016 to 2026 - both halves of the decade came out at exactly minus 0.051% a trade.",
+  "The Judas swing? 80,366 trades. Before costs: minus 0.00R - indistinguishable from a coin. After costs: minus 0.053% a trade. It lost in 39 of 44 quarters.",
+  "Run as a portfolio - 10% of the account per trade, up to ten trades a day - the Silver Bullet lost 11.4% a year and the Judas swing lost 16.2% a year.",
+  "The best version in both tests was going long only in high-quality companies. In the ten-year run that got the Silver Bullet to plus 0.04R before costs - and still minus 0.035% after. Better, but still a loss. And honestly, that mostly reflects strong companies drifting up in a rising market, not the setup.",
+  "The trend filter - ICT's \"higher-timeframe bias\" - made things slightly worse, not better.",
+  "Two reasons come out of this.",
+  "First, costs are a big share of every trade. A typical intraday move is half a percent to one percent. When you're fighting over hundredths of a percent, a round-trip cost of 0.06% swallows a small edge whole.",
+  "Second, these are the most efficient stocks in the world. Yesterday's high, the opening range - everyone can see those levels, including high-frequency trading firms. Obvious levels don't leave a free lunch.",
+  "And why does ICT look so convincing on social media? It's usually taught with charts chosen after the fact, and the rules are flexible enough that a winning trade can always be explained afterwards. That's not a claim about anyone's honesty - it's just how hindsight works on a chart.",
+  "To be fair, there are real limits here.",
+  "- ICT is discretionary. Someone who practises it would say a skilled trader picks which gap \"looks right\" and skips news days. A fixed-rule test can't measure that skill - it only tests whether the setups themselves have an edge. - ICT is mostly taught on futures and forex. We tested large US stocks. - And we didn't test small caps.",
+  "What I can say is that a close relative - TJR's model - got the same answer when we ran it on ten years of QQQ and SPY. That'll be its own video.",
+  "So here's where I land. As fixed rules, on ten years and over two hundred thousand trades across both models, the Silver Bullet and the Judas swing didn't show an edge. Before costs, they were close to a coin flip. After even cheap costs, they lost - steadily, almost every quarter.",
+  "The ideas that held up in our research - strong company financials, price strength - worked over months, not minutes, where costs are tiny next to the move.",
+  "If you trade ICT and you're profitable, I'd genuinely like to know what you do that a rule can't capture - put it in the comments. And if you're thinking of starting, test the rules on your own data, with costs, before you put money behind them.",
+  "Educational research, not financial advice. I'm not a financial adviser, and past results don't predict future ones. Thanks for watching."
+ ],
+ "short1": [
+  "We tested ICT's Silver Bullet on ten years of data - 129,658 trades on the 100 biggest US stocks.",
+  "Before costs, it made 0.02 of what it risked per trade. Flipping a coin for the direction made about zero.",
+  "After a cheap 0.03% cost each way, both lost money. ICT beat the coin by one hundredth of a percent a trade.",
+  "These are community rules made precise, not a trader's judgement. Full test on the channel. Educational, not financial advice."
+ ],
+ "short2": [
+  "Ten years. Forty-four quarters. Here's every quarter of ICT's Silver Bullet, after costs, on large US stocks.",
+  "Forty-two losing quarters. Two winning ones. Every single year from 2016 to 2026 was negative. The Judas swing? Thirty-nine losing quarters out of forty-four. Liquid stocks' intraday charts are close to random once you count costs. Full breakdown on the channel. Educational, not financial advice."
+ ],
+ "short3": [
+  "This is what an ICT setup looks like on social media.",
+  "This is what 129,658 of them look like when a computer takes every one by the rules. Before costs: roughly break-even, like a coin flip. After costs: a loss in 42 of 44 quarters. Charts picked after the fact always look good - that's hindsight, not a strategy. Our test can't measure a trader's discretion. It can measure the setups. Full video on the channel. Educational, not financial advice."
+ ]
+}
