@@ -1,5 +1,7 @@
 # Pinterest pins - copy to paste
 
+Status: all 8 pins LIVE 2026-11-01 (posted together).
+
 Upload each image as a pin (1000x1500). Board names in brackets. Link: the listing URL - replace <P02> and <B01>
 with the listing numbers (P01 = 4607513048). Post 1-2 pins a day rather than all at once.
 Re-render the images: `python venture/market/pinterest/make_pins.py`.
