@@ -55,3 +55,12 @@ Claude + crew:
 - Every video description says: "Narrated with an AI clone of my own voice."
 - Kill rule from the research: drop it on any YouTube warning about inauthentic content / AI personas, or 3+ comments a
   month calling the voice robotic.
+
+## Task list (open)
+- [ ] **Link YouTube via the API (read-only stats)** - owner, added 2026-11-01. Steps (see venture/studio/UPLOAD_EP01.md
+  discussion): Google Cloud project "Backtest Bench" on the business account -> enable YouTube Data API v3 -> API key
+  restricted to that API -> add as a network secret for youtube.googleapis.com (or env var YOUTUBE_API_KEY) and allow
+  the host -> Claude then pulls views/likes/comments/subscribers into the Studio module. Uploads stay manual (unreviewed
+  API projects can only upload private videos). Full analytics (watch time, retention) would need OAuth - later.
+- [ ] Etsy Ads test - switch on ~16 Nov (reminder scheduled).
+- [ ] Upload episode 1 + 3 Shorts (venture/studio/UPLOAD_EP01.md).

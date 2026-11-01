@@ -28,7 +28,7 @@ HTML_DIR = os.path.join(HERE, 'slides', 'html')
 PNG_DIR = os.path.join(HERE, 'slides', 'png')
 CLIP_DIR = os.path.join(HERE, 'build')
 FPS = 30
-ZOOM = 0.04  # push-in 1.00 -> 1.04 per scene
+ZOOM = 0.0  # push-in removed 2026-11-01 (owner: looked janky); set e.g. 0.04 to bring it back
 
 BG, TEXT, ACC, BLUE, MUTED, RED, GREEN = '#1b2330', '#f3f1ec', '#ff8a3d', '#8fb3d9', '#9fb0c6', '#e5675c', '#6cc58c'
 SRC = 'Source: Backtest Bench research, Alpaca 5-min bars 2016-2026'
@@ -978,7 +978,7 @@ def render(ids):
 
 def encode_piece(args):
     png, out, n, zoom, off, tot, W, H = args
-    if zoom:
+    if zoom and ZOOM:
         z = f"1+{ZOOM}*({off}+on)/{max(tot - 1, 1)}"
         # 1.5x source keeps the push-in smooth (sub-pixel steps) while staying fast enough to build
         vf = (f"scale={W * 3 // 2}:{H * 3 // 2}:flags=lanczos,"
