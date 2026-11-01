@@ -36,3 +36,14 @@ each link once in a normal browser and tick the figure off.** Where two GOV.UK p
 | Payments on account (31 Jan / 31 Jul, when bill > £1,000) | - | From general knowledge; the sheet only mentions they exist, it doesn't calculate them | - |
 
 Not tax or accounting advice. These sources are what the workbook was built on; rates can change.
+
+## Verified directly on GOV.UK - 2026-11-01 (Claude, via the GOV.UK content API)
+| Figure | GOV.UK says | Page |
+|---|---|---|
+| Simplified mileage, cars/vans 2026/27 | 55p first 10,000 miles, 25p after (45p before 6 Apr 2026); motorcycles 24p | https://www.gov.uk/simpler-income-tax-simplified-expenses |
+| Approved mileage rates 2026/27 | 55p / 25p (2011-2026: 45p / 25p) - the "35p" excerpt was wrong | https://www.gov.uk/government/publications/rates-and-allowances-travel-mileage-and-fuel-allowances/travel-mileage-and-fuel-rates-and-allowances (updated 2026-05-21) |
+| Personal Allowance and bands, 2026/27 | £12,570; 20% to £50,270; 40% to £125,140; 45% above; taper £1 per £2 over £100,000 | https://www.gov.uk/income-tax-rates |
+| Class 4 NI 2026/27 | 6% on £12,570-£50,270, 2% above | https://www.gov.uk/self-employed-national-insurance-rates |
+| Class 2 2026/27 | treated as paid from £7,105 profit; voluntary £3.65/week below | same page |
+| Trading allowance | first £1,000 of self-employment income | https://www.gov.uk/income-tax-rates |
+| MTD thresholds and quarterly deadlines | NOT fetched (guide split into sub-pages the API didn't return). Figures match Claude's knowledge (£50k from Apr 2026, £30k 2027, £20k 2028; updates due 7 Aug/Nov/Feb/May) - owner to glance at https://www.gov.uk/guidance/use-making-tax-digital-for-income-tax | - |
