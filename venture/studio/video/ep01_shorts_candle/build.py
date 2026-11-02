@@ -406,13 +406,12 @@ def nowrap(t):
 
 
 # Reaction timing (owner 2026-11-02): react more often, and never on the same frame as a slide change.
-HOLD_MAX = 2.6      # a pose held longer than this gets a follow-up reaction
+HOLD_MAX = 4.2      # a pose held longer than this gets ONE follow-up reaction (middle ground, owner 2026-11-02)
 REACT_LAG = 0.6     # a mood change near a slide change waits this long after the slide
 NEAR = 0.4          # "near" = within this many seconds
 # follow-up reactions, tried in order; never the pose already showing or the next tagged one
-FOLLOW = {'shocked': ['sceptical', 'thinking'], 'sceptical': ['thinking', 'neutral', 'shocked'],
-          'pleased': ['neutral', 'thinking'], 'neutral': ['thinking', 'sceptical'],
-          'thinking': ['neutral', 'sceptical']}   # 'pleased' only where the script tags it
+FOLLOW = {'shocked': ['sceptical'], 'sceptical': ['thinking'], 'pleased': ['neutral'],
+          'neutral': ['thinking'], 'thinking': ['neutral']}   # a follow-up settles the mood; 'pleased' only where tagged
 
 
 def mood_events(sents, total):
@@ -432,18 +431,19 @@ def mood_events(sents, total):
     tagged.append((total, None))
     out, used = [tagged[0]], {}
     for (t, m) in tagged[1:]:
-        while t - out[-1][0] > HOLD_MAX + 0.8:
+        n_follow = 0
+        while t - out[-1][0] > HOLD_MAX + 1.2 and n_follow < 2:   # at most two follow-ups per tagged mood
+            n_follow += 1
             tt = out[-1][0] + HOLD_MAX
             c = near_card(tt)
             if c is not None:
                 tt = c + REACT_LAG
-            if t - tt < 0.8:
-                break
             cur = out[-1][1]
             opts = [o for o in FOLLOW[cur] if o != m] or FOLLOW[cur]
             k = used.get(cur, 0) % len(opts)
             used[cur] = used.get(cur, 0) + 1
-            out.append((tt, opts[k]))
+            if t - tt >= 1.2:
+                out.append((tt, opts[k]))
         if m is not None and m != out[-1][1]:
             out.append((t, m))
     return out
