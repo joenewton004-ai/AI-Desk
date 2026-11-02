@@ -67,5 +67,7 @@ Claude + crew:
 - [ ] Episode 1 Shorts, ONE A DAY (owner 2026-11-01), new style with the "Up" avatar, each linked to episode 1:
   Mon 2 Nov S1 coin flip · Tue 3 S2 42 of 44 quarters · Wed 4 S3 why setups look perfect · Thu 5 S4 Judas swing ·
   Fri 6 S5 can it be rescued? · Sat 7 S6 why costs win.
-- [ ] Episode 2 (long) goes out Sunday 8 Nov - topic to confirm (lineup #2: the "green line" rule).
+- [ ] Episode 2 (long) goes out Sunday 8 Nov: TJR's model (teased at the end of ep. 1; owner 2026-11-02).
+- Avatar decision (owner 2026-11-02): Candle (concept B), still image per mood - no talking mouth, no bounce; arms and
+  wicks change with the mood. "Up" avatar Shorts rejected. Draft on the Avatars canvas first, then video.
 - [ ] Day-2 and day-7 Analytics screenshots for episode 1 (~3 and 8 Nov).
