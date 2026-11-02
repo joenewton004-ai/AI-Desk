@@ -2,16 +2,16 @@
  {
   "tier": "1 process",
   "metric": "Slippage vs the open (bps, $-weighted)",
-  "value": 42.27897184624731,
+  "value": 33.23493613101813,
   "format": "bps",
   "target": "\u2264 10",
   "status": "flag",
-  "note": "344 fills; the backtest assumes 3bps"
+  "note": "384 fills; the backtest assumes 3bps"
  },
  {
   "tier": "1 process",
   "metric": "Fill vs signal close (bps)",
-  "value": 95.85494186046512,
+  "value": 99.02447916666665,
   "format": "bps",
   "target": "info only",
   "status": "info",
@@ -38,7 +38,7 @@
  {
   "tier": "2 behaviour",
   "metric": "Drawdown from peak (now)",
-  "value": -0.12737601729761872,
+  "value": -0.14544931937383043,
   "format": "pct",
   "target": "above -15%",
   "status": "ok",
@@ -83,11 +83,11 @@
  {
   "tier": "2 behaviour",
   "metric": "momentum vs SPY",
-  "value": -0.09734,
+  "value": -0.15103,
   "format": "pct",
   "target": "above -10% over 12m",
   "status": "too early",
-  "note": "since launch over 7 days"
+  "note": "since launch over 8 days"
  },
  {
   "tier": "2 behaviour",
@@ -110,16 +110,16 @@
  {
   "tier": "3 edge",
   "metric": "Sharpe (above T-bills)",
-  "value": -8.743950026789884,
+  "value": -9.614737232691743,
   "format": "num",
   "target": "\u2265 SPY's",
   "status": "too early",
-  "note": "SPY -4.50; 90% range for the desk -66.6 to 49.1"
+  "note": "SPY -4.81; 90% range for the desk -69.4 to 50.2"
  },
  {
   "tier": "3 edge",
   "metric": "Return vs SPY since launch",
-  "value": -0.10286387020845755,
+  "value": -0.12169013593085609,
   "format": "pct",
   "target": "\u2265 0",
   "status": "too early",
@@ -128,11 +128,11 @@
  {
   "tier": "3 edge",
   "metric": "Worst drop vs SPY's",
-  "value": -0.09957841220246355,
+  "value": -0.11836320816556745,
   "format": "pct",
   "target": "\u2265 0 (shallower)",
   "status": "too early",
-  "note": "desk -12.7%, SPY -2.8%"
+  "note": "desk -14.5%, SPY -2.7%"
  },
  {
   "tier": "3 edge",
@@ -146,7 +146,7 @@
  {
   "tier": "3 edge",
   "metric": "Downside capture",
-  "value": 3.1895964102770358,
+  "value": 3.714299637905433,
   "format": "pct",
   "target": "\u2264 70%",
   "status": "too early",
