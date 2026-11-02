@@ -68,7 +68,7 @@ POSES = {
 }
 
 
-def avatar_svg(mood, talk_open=False, size=600):
+def avatar_svg(mood, talk_open=False, size=640):
     la, ra, wt, wb, eye, mouth, fill, brow = POSES[mood]
     s = [f'<svg viewBox="0 0 200 210" width="{size}" height="{round(size * 1.05)}">',
          f'<line x1="100" y1="{wt}" x2="100" y2="52" stroke="#ff8a3d" stroke-width="8" stroke-linecap="round"/>',
@@ -481,9 +481,9 @@ body{{background:{BG};color:{TEXT};font-family:'Lato','Carlito','DejaVu Sans',sa
 svg text{{font-family:'Lato','Carlito','DejaVu Sans',sans-serif}}
 #capbox{{position:absolute;left:60px;top:850px;width:840px;height:250px;display:flex;align-items:center;justify-content:center}}
 #cap{{font-weight:900;line-height:1.1;text-align:center;letter-spacing:-0.5px;color:{TEXT}}}
-#av{{position:absolute;left:30px;top:1032px;width:600px;height:600px}}
-#mark{{position:absolute;left:700px;top:1300px}}
-#disc{{position:absolute;left:600px;top:1440px;width:320px;text-align:center;font-size:28px;line-height:1.25;color:{MUTED}}}
+#av{{position:absolute;left:-28px;top:1224px;width:640px;height:672px}}   /* placement A, owner 2026-11-02 */
+#mark{{position:absolute;left:740px;top:1180px}}
+#disc{{position:absolute;left:640px;top:1320px;width:320px;text-align:center;font-size:28px;line-height:1.25;color:{MUTED}}}
 </style></head><body><div class="bg"></div>
 <div id="card"></div><div id="capbox"><div id="cap"></div></div><div id="av"></div>
 <div id="mark">{mark}</div><div id="disc">Educational,<br>not financial advice</div>
