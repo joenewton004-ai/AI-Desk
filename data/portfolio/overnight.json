@@ -1,168 +1,168 @@
 {
- "picked_on": "2026-10-30",
- "ref_date": "2026-10-29",
+ "picked_on": "2026-11-02",
+ "ref_date": "2026-10-30",
  "picks": [
   "MRNA",
   "SNDK",
   "LITE",
   "MU",
   "RVMD",
-  "WDC",
-  "STX",
-  "ILMN",
   "DELL",
+  "WDC",
+  "ILMN",
   "GH",
-  "OKTA",
-  "MRVL",
-  "HPE",
-  "TSEM",
+  "STX",
   "APA",
   "VLO",
-  "NTRA",
+  "OKTA",
+  "HPE",
   "MPC",
-  "INTC",
-  "AMD"
+  "DINO",
+  "MRVL",
+  "SN",
+  "PR",
+  "NTRA"
  ],
  "rows": [
   {
    "symbol": "MRNA",
    "name": "Moderna, Inc.",
-   "score": 7.787376376911947,
-   "ret_12m": 7.787376376911947,
-   "close": 222.75999450683594
+   "score": 7.976517990775847,
+   "ret_12m": 7.976517990775847,
+   "close": 221.72000122070312
   },
   {
    "symbol": "SNDK",
    "name": "Sandisk Corporation",
-   "score": 6.577337538186091,
-   "ret_12m": 6.577337538186091,
-   "close": 1330.050048828125
+   "score": 4.6316794441727005,
+   "ret_12m": 4.6316794441727005,
+   "close": 1150.8900146484375
   },
   {
    "symbol": "LITE",
    "name": "Lumentum Holdings Inc.",
-   "score": 3.634961601521402,
-   "ret_12m": 3.634961601521402,
-   "close": 919.530029296875
+   "score": 2.9233713692192596,
+   "ret_12m": 2.9233713692192596,
+   "close": 840.7000122070312
   },
   {
    "symbol": "MU",
    "name": "Micron Technology, Inc.",
-   "score": 3.2149117384416828,
-   "ret_12m": 3.2149117384416828,
-   "close": 934.27001953125
+   "score": 2.908329808585107,
+   "ret_12m": 2.908329808585107,
+   "close": 884.739990234375
   },
   {
    "symbol": "RVMD",
    "name": "Revolution Medicines, Inc.",
-   "score": 2.2709302090719103,
-   "ret_12m": 2.2709302090719103,
-   "close": 190.27000427246094
-  },
-  {
-   "symbol": "WDC",
-   "name": "Western Digital Corporation",
-   "score": 2.17121096002729,
-   "ret_12m": 2.17121096002729,
-   "close": 395.4100036621094
-  },
-  {
-   "symbol": "STX",
-   "name": "Seagate Technology Holdings plc",
-   "score": 2.159635732667809,
-   "ret_12m": 2.159635732667809,
-   "close": 700.469970703125
-  },
-  {
-   "symbol": "ILMN",
-   "name": "Illumina, Inc.",
-   "score": 1.9658485532468535,
-   "ret_12m": 1.9658485532468535,
-   "close": 290.05999755859375
+   "score": 2.297311203881497,
+   "ret_12m": 2.297311203881497,
+   "close": 191.30999755859375
   },
   {
    "symbol": "DELL",
    "name": "Dell Technologies Inc.",
-   "score": 1.9143883305598206,
-   "ret_12m": 1.9143883305598206,
-   "close": 475.510009765625
+   "score": 1.620869917803406,
+   "ret_12m": 1.620869917803406,
+   "close": 424.29998779296875
+  },
+  {
+   "symbol": "WDC",
+   "name": "Western Digital Corporation",
+   "score": 1.594376630244911,
+   "ret_12m": 1.594376630244911,
+   "close": 366.1099853515625
+  },
+  {
+   "symbol": "ILMN",
+   "name": "Illumina, Inc.",
+   "score": 1.4833211462123743,
+   "ret_12m": 1.4833211462123743,
+   "close": 235.99000549316406
   },
   {
    "symbol": "GH",
    "name": "Guardant Health, Inc.",
-   "score": 1.6632652009486852,
-   "ret_12m": 1.6632652009486852,
-   "close": 185.30999755859375
+   "score": 1.4740557818873499,
+   "ret_12m": 1.4740557818873499,
+   "close": 178.8000030517578
   },
   {
-   "symbol": "OKTA",
-   "name": "Okta, Inc.",
-   "score": 1.4841563842255794,
-   "ret_12m": 1.4841563842255794,
-   "close": 221.86000061035156
-  },
-  {
-   "symbol": "MRVL",
-   "name": "Marvell Technology, Inc.",
-   "score": 1.4723963746348847,
-   "ret_12m": 1.4723963746348847,
-   "close": 218.33999633789062
-  },
-  {
-   "symbol": "HPE",
-   "name": "Hewlett Packard Enterprise Company",
-   "score": 1.4714034700565017,
-   "ret_12m": 1.4714034700565017,
-   "close": 58.869998931884766
-  },
-  {
-   "symbol": "TSEM",
-   "name": "Tower Semiconductor Ltd.",
-   "score": 1.3422658644660892,
-   "ret_12m": 1.3422658644660892,
-   "close": 187.9199981689453
+   "symbol": "STX",
+   "name": "Seagate Technology Holdings plc",
+   "score": 1.4410037729839464,
+   "ret_12m": 1.4410037729839464,
+   "close": 644.5800170898438
   },
   {
    "symbol": "APA",
    "name": "APA Corporation",
-   "score": 1.330981556674693,
-   "ret_12m": 1.330981556674693,
-   "close": 51.5099983215332
+   "score": 1.4104114723255954,
+   "ret_12m": 1.4104114723255954,
+   "close": 52.81999969482422
   },
   {
    "symbol": "VLO",
    "name": "Valero Energy Corporation",
-   "score": 1.3191427983828778,
-   "ret_12m": 1.3191427983828778,
-   "close": 384.57000732421875
+   "score": 1.391501187984185,
+   "ret_12m": 1.391501187984185,
+   "close": 399.6600036621094
   },
   {
-   "symbol": "NTRA",
-   "name": "Natera, Inc.",
-   "score": 1.299941885080564,
-   "ret_12m": 1.299941885080564,
-   "close": 436.0
+   "symbol": "OKTA",
+   "name": "Okta, Inc.",
+   "score": 1.3758129134964205,
+   "ret_12m": 1.3758129134964205,
+   "close": 208.24000549316406
+  },
+  {
+   "symbol": "HPE",
+   "name": "Hewlett Packard Enterprise Company",
+   "score": 1.3108106767469754,
+   "ret_12m": 1.3108106767469754,
+   "close": 55.09000015258789
   },
   {
    "symbol": "MPC",
    "name": "Marathon Petroleum Corporation",
-   "score": 1.2877801443437544,
-   "ret_12m": 1.2877801443437544,
-   "close": 432.510009765625
+   "score": 1.3098765525049108,
+   "ret_12m": 1.3098765525049108,
+   "close": 444.7300109863281
   },
   {
-   "symbol": "INTC",
-   "name": "Intel Corporation",
-   "score": 1.2169516590672775,
-   "ret_12m": 1.2169516590672775,
-   "close": 92.06999969482422
+   "symbol": "DINO",
+   "name": "HF Sinclair Corporation",
+   "score": 1.2007291048135253,
+   "ret_12m": 1.2007291048135253,
+   "close": 115.0
   },
   {
-   "symbol": "AMD",
-   "name": "Advanced Micro Devices, Inc.",
-   "score": 1.1953411165120662,
-   "ret_12m": 1.1953411165120662,
-   "close": 566.4199829101562
+   "symbol": "MRVL",
+   "name": "Marvell Technology, Inc.",
+   "score": 1.1822648877622028,
+   "ret_12m": 1.1822648877622028,
+   "close": 196.39999389648438
+  },
+  {
+   "symbol": "SN",
+   "name": "SharkNinja, Inc.",
+   "score": 1.177782382449533,
+   "ret_12m": 1.177782382449533,
+   "close": 208.0
+  },
+  {
+   "symbol": "PR",
+   "name": "Permian Resources Corporation",
+   "score": 1.1488294866214162,
+   "ret_12m": 1.1488294866214162,
+   "close": 26.020000457763672
+  },
+  {
+   "symbol": "NTRA",
+   "name": "Natera, Inc.",
+   "score": 1.1487474355009293,
+   "ret_12m": 1.1487474355009293,
+   "close": 414.29998779296875
   }
  ],
  "n": 20,
