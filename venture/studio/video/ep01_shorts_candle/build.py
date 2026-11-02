@@ -405,18 +405,61 @@ def nowrap(t):
     return re.sub(r'(\w+(?:-\w+)+)', r'<span style="white-space:nowrap">\1</span>', html.escape(t))
 
 
+# Reaction timing (owner 2026-11-02): react more often, and never on the same frame as a slide change.
+HOLD_MAX = 2.6      # a pose held longer than this gets a follow-up reaction
+REACT_LAG = 0.6     # a mood change near a slide change waits this long after the slide
+NEAR = 0.4          # "near" = within this many seconds
+# follow-up reactions, tried in order; never the pose already showing or the next tagged one
+FOLLOW = {'shocked': ['sceptical', 'thinking'], 'sceptical': ['thinking', 'neutral', 'shocked'],
+          'pleased': ['neutral', 'thinking'], 'neutral': ['thinking', 'sceptical'],
+          'thinking': ['neutral', 'sceptical']}   # 'pleased' only where the script tags it
+
+
+def mood_events(sents, total):
+    """Mood change times: the tagged moods (nudged off slide changes), plus follow-up reactions so no pose is held
+    longer than about HOLD_MAX. Every event is a visible change."""
+    cards = [s['start'] for i, s in enumerate(sents) if i == 0 or s['card'] != sents[i - 1]['card']]
+    near_card = lambda t: next((c for c in cards if abs(t - c) < NEAR), None)
+    tagged = []
+    for s in sents:
+        if tagged and tagged[-1][1] == s['mood']:
+            continue
+        t = s['start']
+        c = near_card(t)
+        if c is not None and t > 0.05:
+            t = c + REACT_LAG
+        tagged.append((t, s['mood']))
+    tagged.append((total, None))
+    out, used = [tagged[0]], {}
+    for (t, m) in tagged[1:]:
+        while t - out[-1][0] > HOLD_MAX + 0.8:
+            tt = out[-1][0] + HOLD_MAX
+            c = near_card(tt)
+            if c is not None:
+                tt = c + REACT_LAG
+            if t - tt < 0.8:
+                break
+            cur = out[-1][1]
+            opts = [o for o in FOLLOW[cur] if o != m] or FOLLOW[cur]
+            k = used.get(cur, 0) % len(opts)
+            used[cur] = used.get(cur, 0) + 1
+            out.append((tt, opts[k]))
+        if m is not None and m != out[-1][1]:
+            out.append((t, m))
+    return out
+
+
 def frame_states(sents, total):
     n = round(total * FPS)
+    ev = mood_events(sents, total)
     states = []
     for f in range(n):
         t = f / FPS
         si = max(i for i, s in enumerate(sents) if s['start'] <= t + 1e-9)
         s = sents[si]
         ch = [c for c in s['chunks'] if c['start'] <= t + 1e-9][-1]
-        changed = si > 0 and sents[si - 1]['mood'] != s['mood']
-        bounce = False   # Candle is a still image: no bounce
-        mopen = False    # and no talking mouth
-        states.append((s['card'], ch['text'], s['mood'], mopen, bounce))
+        mood = [m for (tm, m) in ev if tm <= t + 1e-9][-1]
+        states.append((s['card'], ch['text'], mood, False, False))   # still image: no mouth, no bounce
     return states
 
 
