@@ -1,0 +1,8 @@
+file '/home/user/AI-Desk/venture/studio/voice/ep01/audio/short5-01.mp3'
+file '/home/user/AI-Desk/venture/studio/voice/ep01/audio/_gap.mp3'
+file '/home/user/AI-Desk/venture/studio/voice/ep01/audio/short5-02.mp3'
+file '/home/user/AI-Desk/venture/studio/voice/ep01/audio/_gap.mp3'
+file '/home/user/AI-Desk/venture/studio/voice/ep01/audio/short5-03.mp3'
+file '/home/user/AI-Desk/venture/studio/voice/ep01/audio/_gap.mp3'
+file '/home/user/AI-Desk/venture/studio/voice/ep01/audio/short5-04.mp3'
+file '/home/user/AI-Desk/venture/studio/voice/ep01/audio/_gap.mp3'

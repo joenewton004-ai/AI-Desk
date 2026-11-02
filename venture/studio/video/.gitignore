@@ -1,8 +1,0 @@
-# rebuilt by build.py
-ep*/slides/
-ep*/clips/
-ep*/*.mp4
-ep*/tmp/
-ep*/build/
-__pycache__/
-*.log
