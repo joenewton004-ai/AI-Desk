@@ -469,11 +469,11 @@
   "sleeve": "quality_screen",
   "order_type": "market",
   "signal_close": 44.36,
-  "day_open": 44.70000076293945,
+  "day_open": 43.80388102217248,
   "fill": 44.903244,
   "notional": 2004.25,
   "vs_close_bps": 122.5,
-  "vs_open_bps": 45.5
+  "vs_open_bps": 251.0
  },
  {
   "id": "00571dfb",
@@ -3829,11 +3829,11 @@
   "sleeve": "quality_screen",
   "order_type": "market",
   "signal_close": 45.31,
-  "day_open": 45.290000915527344,
+  "day_open": 44.382051871797614,
   "fill": 45.29,
   "notional": 2021.51,
   "vs_close_bps": 4.4,
-  "vs_open_bps": 0.0
+  "vs_open_bps": -204.6
  },
  {
   "id": "e81a566f",
@@ -5103,11 +5103,11 @@
   "sleeve": "overnight_drift",
   "order_type": "market",
   "signal_close": 504.8,
-  "day_open": 510.6499938964844,
+  "day_open": 510.7099914550781,
   "fill": 506.67625,
   "notional": 4053.41,
   "vs_close_bps": -37.2,
-  "vs_open_bps": 77.8
+  "vs_open_bps": 79.0
  },
  {
   "id": "8ca62d0c",
@@ -5243,11 +5243,11 @@
   "sleeve": "overnight_drift",
   "order_type": "market",
   "signal_close": 196.4,
-  "day_open": 191.55499267578125,
+  "day_open": 191.55999755859375,
   "fill": 187.281364,
   "notional": 4120.19,
   "vs_close_bps": 464.3,
-  "vs_open_bps": 223.1
+  "vs_open_bps": 223.4
  },
  {
   "id": "0baede88",
@@ -5257,7 +5257,7 @@
   "sleeve": "overnight_drift",
   "order_type": "market",
   "signal_close": 884.74,
-  "day_open": 890.5349731445312,
+  "day_open": 890.5399780273438,
   "fill": 883.2,
   "notional": 4416.0,
   "vs_close_bps": 17.4,
@@ -5313,11 +5313,11 @@
   "sleeve": "overnight_drift",
   "order_type": "market",
   "signal_close": 1150.89,
-  "day_open": 1158.5,
+  "day_open": 1157.97998046875,
   "fill": 1134.203333,
   "notional": 3402.61,
   "vs_close_bps": 145.0,
-  "vs_open_bps": 209.7
+  "vs_open_bps": 205.3
  },
  {
   "id": "a4cc079b",
@@ -5369,10 +5369,10 @@
   "sleeve": "overnight_drift",
   "order_type": "market",
   "signal_close": 366.11,
-  "day_open": 367.5050048828125,
+  "day_open": 367.510009765625,
   "fill": 362.064167,
   "notional": 4344.77,
   "vs_close_bps": 110.5,
-  "vs_open_bps": 148.0
+  "vs_open_bps": 148.2
  }
 ]

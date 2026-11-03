@@ -2,7 +2,7 @@
  {
   "tier": "1 process",
   "metric": "Slippage vs the open (bps, $-weighted)",
-  "value": 33.23493613101813,
+  "value": 33.22374299903816,
   "format": "bps",
   "target": "\u2264 10",
   "status": "flag",
@@ -38,7 +38,7 @@
  {
   "tier": "2 behaviour",
   "metric": "Drawdown from peak (now)",
-  "value": -0.14544931937383043,
+  "value": -0.13843000451882503,
   "format": "pct",
   "target": "above -15%",
   "status": "ok",
@@ -65,7 +65,7 @@
  {
   "tier": "2 behaviour",
   "metric": "quality_screen vs RSP",
-  "value": -0.02406,
+  "value": -0.02408,
   "format": "pct",
   "target": "above -10% over 12m",
   "status": "too early",
@@ -83,7 +83,7 @@
  {
   "tier": "2 behaviour",
   "metric": "momentum vs SPY",
-  "value": -0.15103,
+  "value": -0.15097,
   "format": "pct",
   "target": "above -10% over 12m",
   "status": "too early",
@@ -110,16 +110,16 @@
  {
   "tier": "3 edge",
   "metric": "Sharpe (above T-bills)",
-  "value": -9.614737232691743,
+  "value": -8.324016636097733,
   "format": "num",
   "target": "\u2265 SPY's",
   "status": "too early",
-  "note": "SPY -4.81; 90% range for the desk -69.4 to 50.2"
+  "note": "SPY -3.96; 90% range for the desk -57.6 to 41.0"
  },
  {
   "tier": "3 edge",
   "metric": "Return vs SPY since launch",
-  "value": -0.12169013593085609,
+  "value": -0.1175167754908707,
   "format": "pct",
   "target": "\u2265 0",
   "status": "too early",
@@ -128,7 +128,7 @@
  {
   "tier": "3 edge",
   "metric": "Worst drop vs SPY's",
-  "value": -0.11836320816556745,
+  "value": -0.11831615314728905,
   "format": "pct",
   "target": "\u2265 0 (shallower)",
   "status": "too early",
@@ -137,7 +137,7 @@
  {
   "tier": "3 edge",
   "metric": "Upside capture",
-  "value": 0.4832128465552553,
+  "value": 0.7614782818169444,
   "format": "pct",
   "target": "\u2265 80%",
   "status": "too early",
@@ -146,7 +146,7 @@
  {
   "tier": "3 edge",
   "metric": "Downside capture",
-  "value": 3.714299637905433,
+  "value": 3.7090952970068134,
   "format": "pct",
   "target": "\u2264 70%",
   "status": "too early",
