@@ -1,18 +1,18 @@
 {
  "summary": {
-  "asof_utc": "2026-11-02T14:53:58+00:00",
+  "asof_utc": "2026-11-03T14:43:10+00:00",
   "orders": 330,
   "filled": 294,
-  "avg_cost": 0.0027241513331647984,
+  "avg_cost": 0.002745326274157706,
   "avg_cost_buys": -0.0005394899935802384,
-  "avg_cost_sells": 0.006339261725866993,
+  "avg_cost_sells": 0.006383891986113582,
   "break_even": 0.00045,
   "ab_test": {
    "since": "2026-10-28",
    "opg_sales": 0,
    "market_sales": 55,
    "opg_cost": null,
-   "market_cost": 0.008495292301508684,
+   "market_cost": 0.008600782007546078,
    "opg_fill_rate": 0.0,
    "rule": "after 10 trading days: adopt market-on-open if its cost is >= 0.10 points lower and >= 95% of its shares filled; otherwise keep market orders"
   },
@@ -20,10 +20,10 @@
    "totals": {
     "nights": 8,
     "paper": -12884.22,
-    "official": -10675.29,
+    "official": -10649.4,
     "paper_pct_night": -0.03202,
-    "official_pct_night": -0.02676,
-    "difference": 2208.93
+    "official_pct_night": -0.02672,
+    "difference": 2234.82
    },
    "nights": [
     {
@@ -94,9 +94,9 @@
      "stocks": 20,
      "invested": 86712.62,
      "paper": -1690.78,
-     "official": -578.19,
+     "official": -552.3,
      "paper_pct": -0.0195,
-     "official_pct": -0.00667
+     "official_pct": -0.00637
     }
    ],
    "note": "official = bought at the official close, sold at the next official open (the auction prices live market-on-close/open orders get), before commissions and fees; paper = Alpaca paper's simulated fills"
@@ -4341,8 +4341,8 @@
    "filled_qty": 3.0,
    "fill_date": "2026-11-02",
    "netted": true,
-   "official": 1158.5,
-   "cost": 0.02097252222701773
+   "official": 1157.97998046875,
+   "cost": 0.020532865740153228
   },
   {
    "utc": "2026-10-30T20:42:13+00:00",
@@ -4357,8 +4357,8 @@
    "filled_qty": 5.0,
    "fill_date": "2026-11-02",
    "netted": true,
-   "official": 800.02001953125,
-   "cost": 0.05397117381706151
+   "official": 802.5499877929688,
+   "cost": 0.056953446499534266
   },
   {
    "utc": "2026-10-30T20:42:13+00:00",
@@ -4373,8 +4373,8 @@
    "filled_qty": 5.0,
    "fill_date": "2026-11-02",
    "netted": true,
-   "official": 890.655029296875,
-   "cost": 0.008370276989015935
+   "official": 890.5399780273438,
+   "cost": 0.008242165661784928
   },
   {
    "utc": "2026-10-30T20:42:13+00:00",
@@ -4405,8 +4405,8 @@
    "filled_qty": 12.0,
    "fill_date": "2026-11-02",
    "netted": true,
-   "official": 367.5050048828125,
-   "cost": 0.014804799419119274
+   "official": 367.510009765625,
+   "cost": 0.014818216159875552
   },
   {
    "utc": "2026-10-30T20:42:13+00:00",
@@ -4421,8 +4421,8 @@
    "filled_qty": 7.0,
    "fill_date": "2026-11-02",
    "netted": true,
-   "official": 645.8699951171875,
-   "cost": 0.014492072999132355
+   "official": 645.97998046875,
+   "cost": 0.01465986679939868
   },
   {
    "utc": "2026-10-30T20:42:13+00:00",
@@ -4485,8 +4485,8 @@
    "filled_qty": 21.0,
    "fill_date": "2026-11-02",
    "netted": true,
-   "official": 204.0500030517578,
-   "cost": 0.036281969816388204
+   "official": 205.0,
+   "cost": 0.040747965853658474
   },
   {
    "utc": "2026-10-30T20:42:13+00:00",
@@ -4501,8 +4501,8 @@
    "filled_qty": 22.0,
    "fill_date": "2026-11-02",
    "netted": true,
-   "official": 191.88999938964844,
-   "cost": 0.024017069176649586
+   "official": 191.55999755859375,
+   "cost": 0.02233573613032136
   },
   {
    "utc": "2026-10-30T20:42:13+00:00",
@@ -4613,8 +4613,8 @@
    "filled_qty": 69.0,
    "fill_date": "2026-11-02",
    "netted": true,
-   "official": 65.37999725341797,
-   "cost": 0.002892754074076964
+   "official": 65.4000015258789,
+   "cost": 0.00319774496941172
   },
   {
    "utc": "2026-10-30T20:42:13+00:00",
@@ -4629,8 +4629,8 @@
    "filled_qty": 8.0,
    "fill_date": "2026-11-02",
    "netted": true,
-   "official": 510.6499938964844,
-   "cost": 0.007781736892157776
+   "official": 510.7099914550781,
+   "cost": 0.007898301428537757
   },
   {
    "utc": "2026-10-28T13:10:19+00:00",

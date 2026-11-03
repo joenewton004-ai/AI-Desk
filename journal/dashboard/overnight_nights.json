@@ -3,11 +3,11 @@
   "night": "2026-10-30",
   "stocks": 20,
   "invested": 86712.62,
-  "official": -578.19,
-  "official_pct": -0.00667,
+  "official": -552.3,
+  "official_pct": -0.00637,
   "paper": -1690.78,
   "paper_pct": -0.0195,
-  "fill_cost": 1112.59
+  "fill_cost": 1138.48
  },
  {
   "night": "2026-10-29",
@@ -83,10 +83,10 @@
   "night": "total",
   "stocks": null,
   "invested": 335955.69,
-  "official": -10675.29,
-  "official_pct": -0.03178,
+  "official": -10649.4,
+  "official_pct": -0.0317,
   "paper": -12884.22,
   "paper_pct": -0.03835,
-  "fill_cost": 2208.93
+  "fill_cost": 2234.82
  }
 ]

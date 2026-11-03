@@ -1,5 +1,20 @@
 [
  {
+  "date": "2026-11-02",
+  "source": "live",
+  "status": "traded",
+  "gap_up": true,
+  "range_high": 209.03,
+  "range_low": 206.73,
+  "entry_time": "10:15",
+  "entry": 209.03,
+  "exit_time": "11:25",
+  "exit": 206.73,
+  "exit_why": "stop",
+  "net": -0.011403,
+  "R": -1.0
+ },
+ {
   "date": "2026-10-30",
   "source": "live",
   "status": "no breakout",
