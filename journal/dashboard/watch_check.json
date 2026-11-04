@@ -1,17 +1,17 @@
 [
  {
-  "cohort": "overnight_drift:2026-10-21",
+  "cohort": "overnight_drift:2026-11-04",
   "sleeve": "overnight_drift",
-  "asof": "2026-11-03",
-  "days": 10,
+  "asof": "2026-11-04",
+  "days": 1,
   "horizon": 21,
-  "picks": -0.0422305,
-  "near_misses": -0.01169125,
-  "gap": -0.03054,
-  "chance": 0.94,
+  "picks": -0.018313999999999997,
+  "near_misses": 0.005092,
+  "gap": -0.02341,
+  "chance": 1.0,
   "verdict": "too early",
-  "reason": "day 10 of 21: judge this cohort at its re-pick. A random group of the same size did at least as well as the picks 94% of the time, so today's gap is ordinary noise",
-  "explanation": "picks behind near misses by 3.05%; score most linked to returns so far: score (rank corr -0.22)",
+  "reason": "day 1 of 21: an unusually large gap for now (100% of random groups did as well as the picks), but early gaps often reverse - judge at the re-pick",
+  "explanation": "picks behind near misses by 2.34%; score most linked to returns so far: score (rank corr -0.36)",
   "baseline": "ranks 21-60 not measured; in research/OVERNIGHT.md the strongest tenth beat the weakest by 7.3 bp a night in 82% of 150 months (t = 6.4)",
   "top_factor": "score"
  }
