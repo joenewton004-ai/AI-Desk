@@ -71,6 +71,41 @@ def pick(score_row: pd.Series, eligible_row: pd.Series, n: int = N) -> list[str]
     return list(s.nlargest(n).index)
 
 
+# Amendment 93853ab3 (accepted by the owner 2026-11-05): no more than 6 of the 20 picks from computer hardware +
+# electronics combined (2-digit SIC 35 and 36) and no more than 4 from any one industry (35 and 36 each count too);
+# the next-ranked stock takes a capped slot. Applies to rankings from the 2026-11-05 close on. research/OVERNIGHT_SAFETY2.md variant H6.
+SECTOR_CAP = {"from_ref": "2026-11-05", "amendment": "93853ab3", "hardware": (35, 36), "hardware_max": 6,
+              "industry_max": 4}
+
+
+def cap_active(ref_date) -> bool:
+    return pd.Timestamp(ref_date).normalize() >= pd.Timestamp(SECTOR_CAP["from_ref"])
+
+
+def capped_pick(score_row: pd.Series, eligible_row: pd.Series, industry: dict, n: int = N,
+                hardware=SECTOR_CAP["hardware"], hardware_max: int = SECTOR_CAP["hardware_max"],
+                industry_max: int = SECTOR_CAP["industry_max"]) -> tuple[list[str], dict[str, str]]:
+    """Pure: the top `n` by score with the sector cap, and {symbol: why it was skipped} for the stocks ranked above
+    the last pick that the cap left out. An unknown industry (None) is never capped."""
+    s = score_row.where(eligible_row.reindex(score_row.index).fillna(False).astype(bool)).dropna()
+    picks, skipped, count, hw = [], {}, {}, 0
+    for sym in s.sort_values(ascending=False, kind="stable").index:
+        g = industry.get(sym)
+        if g is not None and g in hardware and hw >= hardware_max:
+            skipped[sym] = f"sector cap: already {hardware_max} hardware/electronics picks (SIC {g})"
+            continue
+        if g is not None and count.get(g, 0) >= industry_max:
+            skipped[sym] = f"sector cap: already {industry_max} picks from industry SIC {g}"
+            continue
+        picks.append(sym)
+        if g is not None:
+            count[g] = count.get(g, 0) + 1
+            hw += g in hardware
+        if len(picks) == n:
+            break
+    return picks, skipped
+
+
 def twelve_month_return(adj: pd.DataFrame, days: int = LOOK_BACK) -> pd.DataFrame:
     """The ranking since 2026-10-23 (amendment 82c84226): each stock's plain return over the past `days` trading days,
     on dividend- and split-adjusted closes. Row t uses closes up to t only."""
@@ -204,20 +239,38 @@ def scan(universe_size: int = 750) -> dict:
     c, v, adj = (drop_incomplete_bar(bars[k]) for k in ("close", "volume", "adj"))
     sc, el = twelve_month_return(adj), eligible(c, v)
     last = c.index[-1]
-    picks = pick(sc.loc[last], el.loc[last])
+    skipped, industry, cap_note = {}, {}, None
+    if cap_active(last):
+        from ai_desk import sectors
+        top = list(sc.loc[last].where(el.loc[last]).dropna().nlargest(80).index)   # far more than the cap can skip
+        try:
+            industry = sectors.lookup(top)
+        except Exception as e:  # noqa: BLE001 - without industries the cap can't apply; say so in the scan
+            cap_note = f"sector cap not applied: industries unavailable ({e})"
+        picks, skipped = capped_pick(sc.loc[last], el.loc[last], industry)
+        unknown = [x for x in picks if industry.get(x) is None]
+        if unknown and not cap_note:
+            cap_note = f"industry unknown (not capped): {', '.join(unknown)}"
+    else:
+        picks = pick(sc.loc[last], el.loc[last])
     names = uni.set_index("symbol")["name"].to_dict() if "name" in uni else {}
     rows = [{"symbol": s, "name": names.get(s, ""), "score": float(sc.at[last, s]), "ret_12m": float(sc.at[last, s]),
-             "close": float(c.at[last, s])} for s in picks]
+             "close": float(c.at[last, s]), "sic2": industry.get(s)} for s in picks]
     return {"ref_date": last.date().isoformat(), "picks": picks, "rows": rows, "universe": len(syms),
-            "near": near_misses(sc.loc[last], el.loc[last], c, v, names),
+            "sector_cap": {"active": cap_active(last), "skipped": skipped, "note": cap_note,
+                           "amendment": SECTOR_CAP["amendment"]},
+            "near": near_misses(sc.loc[last], el.loc[last], c, v, names, picks=picks, skipped=skipped),
             "latest_price": {k: float(x) for k, x in latest.items() if np.isfinite(x)}}
 
 
 def near_misses(score_row: pd.Series, eligible_row: pd.Series, closes: pd.DataFrame, volume: pd.DataFrame,
-                names: dict | None = None, n: int = N, more: int = 40, failed: int = 20) -> list[dict]:
+                names: dict | None = None, n: int = N, more: int = 40, failed: int = 20,
+                picks: list[str] | None = None, skipped: dict[str, str] | None = None) -> list[dict]:
     """Pure: the stocks ranked just below the picks (the watchlist), plus the best scorers that failed the price or
-    liquidity gate - all as of the decision close (the last row of `closes`)."""
+    liquidity gate - all as of the decision close (the last row of `closes`). With the sector cap, `picks` are the
+    capped picks and `skipped` the stocks the cap left out (recorded as failing a gate, with the reason)."""
     names = names or {}
+    skipped = skipped or {}
     ok = eligible_row.reindex(score_row.index).fillna(False).astype(bool)
     s = score_row.dropna()
     ranked = s[ok.reindex(s.index)].sort_values(ascending=False)
@@ -229,7 +282,12 @@ def near_misses(score_row: pd.Series, eligible_row: pd.Series, closes: pd.DataFr
                 "ret_12m": float(s[sym]), "close": float(px.get(sym, np.nan)),
                 "passes": bool(eligible), "gate_reason": reason}
 
-    out = [row(sym, True) for sym in ranked.index[n:n + more]]
+    if picks is None:
+        out = [row(sym, True) for sym in ranked.index[n:n + more]]
+    else:
+        rest = [x for x in ranked.index if x not in set(picks)]
+        out = [row(x, False, skipped[x]) for x in rest if x in skipped]
+        out += [row(x, True) for x in rest if x not in skipped][:more]
     cut = ranked.iloc[n - 1] if len(ranked) >= n else -np.inf
     for sym in s[~ok.reindex(s.index)].sort_values(ascending=False).index[:failed]:
         if s[sym] <= cut:
@@ -500,7 +558,12 @@ def prepare_repick(today: pd.Timestamp | None = None) -> str:
         return f"latest full day is {s['ref_date']}, not today - not cached"
     DIR.mkdir(parents=True, exist_ok=True)
     _scan_cache().write_text(json.dumps({**s, "latest_price": {}}, indent=1))
-    return f"tomorrow's picks ranked from the {s['ref_date']} close: {', '.join(s['picks'])}"
+    cap = s.get("sector_cap") or {}
+    extra = ""
+    if cap.get("active"):
+        extra = (f"; sector cap (amendment {cap['amendment']}) skipped: {', '.join(cap['skipped']) or 'none'}"
+                 + (f" - {cap['note']}" if cap.get("note") else ""))
+    return f"tomorrow's picks ranked from the {s['ref_date']} close: {', '.join(s['picks'])}{extra}"
 
 
 def _newer_ranking(lock: dict | None, today: str) -> dict | None:
@@ -549,7 +612,7 @@ def buy(execute: bool = False, now: datetime | None = None, broker=None, regime_
         ref = s["ref_date"]
         if repick_due(lock, pd.Timestamp(ref)):
             new_lock = {"picked_on": today, "ref_date": ref, "picks": s["picks"], "rows": s["rows"], "n": N,
-                        "look_back_days": LOOK_BACK}
+                        "look_back_days": LOOK_BACK, "sector_cap": s.get("sector_cap")}
             changed = sorted(set(s["picks"]) - set((lock or {}).get("picks", [])))
             notes.append(f"picks from the {ref} close" + (f" - new: {', '.join(changed)}" if lock else
                                                           f": {', '.join(s['picks'])}"))

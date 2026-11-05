@@ -129,8 +129,11 @@ SLEEVE_TEXT = {
                  "(amendment 82c84226; until 2026-10-23: the highest average overnight return, monthly) - bought in the "
                  "last minutes before the close (3:55-3:59pm New York), sold at the next open by the evening run, every trading day. "
                  "Replaced SPY momentum (amendment 330e76e0, accepted 2026-10-21). Sits in cash on nights when SPY is below its "
-                 "200-day average or its picks have fallen 2.0% or more since the open (amendments 7a8b29ec, 9b951502).",
-        "screen": "Top 20 by 12-month return (adjusted closes); price over $10, $20M a day traded; equal weight; "
+                 "200-day average or its picks have fallen 2.0% or more since the open (amendments 7a8b29ec, 9b951502). "
+                 "From the 2026-11-06 buy: at most 6 picks from computer hardware/electronics and 4 from any one "
+                 "industry (amendment 93853ab3).",
+        "screen": "Top 20 by 12-month return (adjusted closes), sector-capped (6 hardware/electronics, 4 per SEC "
+                  "industry); price over $10, $20M a day traded; equal weight; "
                   "re-ranked every evening on that day's close, bought the next afternoon.",
         "metrics": "Fill cost vs the official close/open (break-even about 0.045% per trade; the desk-level case needs "
                    "about 0.02%). Backtest 2014-2026 at 0.02%: 16.7%/yr, Sharpe 0.81, worst drop -28%.",
@@ -260,7 +263,9 @@ RESEARCH_METHODS = {
                        "look_back": "12 months", "re_pick": "daily (82c84226; was monthly)", "hold": "close to next open, daily",
                        "orders": "market buy at 3:55-3:59pm (market-on-close until 2026-10-21: paper filled only part), market sell at the open",
                        "regime": "cash for the night when SPY < its 200-day average (7a8b29ec) or tonight's picks are down "
-                                 "2.0%+ since the open (9b951502, 82c84226)"},
+                                 "2.0%+ since the open (9b951502, 82c84226)",
+                       "sector_cap": "at most 6 from SIC 35+36 (hardware/electronics), 4 per 2-digit SIC industry; from "
+                                     "the 2026-11-05 ranking (93853ab3; backtest H6: Sharpe 1.42 vs 1.49, worst -13% vs -15%)"},
         "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`",
         "summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, "
                    "both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the "
@@ -381,6 +386,17 @@ RESEARCH_METHODS = {
                    "beta 0.46, alpha t 1.1; walk-forward t 1.4; ETF L/S Sharpe 0.27, worst -70%. Survivors-only data "
                    "understates the short side.",
         "docs": ["research/SHORT_EDGE.md", "research/output/short_edge.md"],
+    },
+    "overnight_timing": {
+        "description": "Six new timing indicators on top of the overnight sleeve's live rule and checks: VIX above "
+                       "VIX3M, HYG/IEF below its 50-day, breadth under 40%, the sleeve's own last 20 nights below zero, "
+                       "a volatility target, and cash over weekends. Each also a day later.",
+        "parameters": {"adopt": "Sharpe beats live in both halves + smaller worst drop or month, at 0.02% and 0.05%"},
+        "status": "tested: none passes (not in the live mix)",
+        "summary": "Live 1.49 Sharpe / -15% worst drop. VIX term structure 1.57 but worse in 2014-19 (68 nights out); "
+                   "volatility target 1.54, -11%, but worse 2020-26 and at 0.05% costs (it is mostly a 74% share); "
+                   "credit, breadth, own trend and weekends lower the Sharpe. Survivors-only.",
+        "docs": ["research/OVERNIGHT_TIMING.md", "research/output/overnight_timing.md"],
     },
     "spy_short": {
         "description": "Shorting SPY: short-side swing rules (RSI(2) > 90, 10-day highs, three up days, tweezer top; "
