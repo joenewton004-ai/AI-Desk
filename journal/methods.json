@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-11-05T10:10:58+00:00",
+ "generated_utc": "2026-11-05T12:03:33+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "overnight_drift": 0.95,
@@ -671,6 +671,22 @@
    "docs": [
     "research/SHORT_EDGE.md",
     "research/output/short_edge.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "overnight_timing",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Six new timing indicators on top of the overnight sleeve's live rule and checks: VIX above VIX3M, HYG/IEF below its 50-day, breadth under 40%, the sleeve's own last 20 nights below zero, a volatility target, and cash over weekends. Each also a day later.",
+   "parameters": {
+    "adopt": "Sharpe beats live in both halves + smaller worst drop or month, at 0.02% and 0.05%"
+   },
+   "status": "tested: none passes (not in the live mix)",
+   "evidence_summary": "Live 1.49 Sharpe / -15% worst drop. VIX term structure 1.57 but worse in 2014-19 (68 nights out); volatility target 1.54, -11%, but worse 2020-26 and at 0.05% costs (it is mostly a 74% share); credit, breadth, own trend and weekends lower the Sharpe. Survivors-only.",
+   "docs": [
+    "research/OVERNIGHT_TIMING.md",
+    "research/output/overnight_timing.md"
    ],
    "amendments": []
   },

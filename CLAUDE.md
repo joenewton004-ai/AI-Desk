@@ -129,6 +129,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   the 10-30 open in data/backtest/daily_ohlcv_ext.pkl, releases refreshed): E swap/E cash/S4/S3/S2/hardware cap all
   soften that night but cost 2-7 pts/yr and Sharpe in both halves - none passes; a 60% overnight share keeps Sharpe 1.49
   and cuts the worst drop -15% -> -9% (an amendment if wanted).
+- One more timing indicator for the overnight sleeve (VIX vs VIX3M, HYG/IEF credit, breadth, the sleeve's own 20-night
+  slump, a volatility target, weekends; on top of the live checks): `python research/overnight_timing.py` ->
+  `research/OVERNIGHT_TIMING.md` (VIX3M in market_data/). None passes; VIX>VIX3M closest (1.57 vs 1.49 but not 2014-19,
+  ~5 nights a year); vol target ~= a 74% share. Research-only (`overnight_timing`).
 - Overnight sleeve with leverage (what-if, `python research/overnight_leverage.py` -> `research/OVERNIGHT_LEVERAGE.md`):
   2x = 49.9%/yr, worst -29% at 0.02% costs; 19.5%, -42% at 0.05%. Scales risk, not Sharpe; not proposed.
 - EMA9/VWAP crossover and Trend+Momentum+Confirmation (EMA20/50, VWAP, volume, breakout): `python research/vwap_ema.py`

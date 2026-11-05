@@ -382,6 +382,17 @@ RESEARCH_METHODS = {
                    "understates the short side.",
         "docs": ["research/SHORT_EDGE.md", "research/output/short_edge.md"],
     },
+    "overnight_timing": {
+        "description": "Six new timing indicators on top of the overnight sleeve's live rule and checks: VIX above "
+                       "VIX3M, HYG/IEF below its 50-day, breadth under 40%, the sleeve's own last 20 nights below zero, "
+                       "a volatility target, and cash over weekends. Each also a day later.",
+        "parameters": {"adopt": "Sharpe beats live in both halves + smaller worst drop or month, at 0.02% and 0.05%"},
+        "status": "tested: none passes (not in the live mix)",
+        "summary": "Live 1.49 Sharpe / -15% worst drop. VIX term structure 1.57 but worse in 2014-19 (68 nights out); "
+                   "volatility target 1.54, -11%, but worse 2020-26 and at 0.05% costs (it is mostly a 74% share); "
+                   "credit, breadth, own trend and weekends lower the Sharpe. Survivors-only.",
+        "docs": ["research/OVERNIGHT_TIMING.md", "research/output/overnight_timing.md"],
+    },
     "spy_short": {
         "description": "Shorting SPY: short-side swing rules (RSI(2) > 90, 10-day highs, three up days, tweezer top; "
                        "with/without the 200-day filter), long-above/short-below the 200-day, and an SPY hedge on the "
