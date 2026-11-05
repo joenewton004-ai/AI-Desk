@@ -78,6 +78,12 @@ changes plainly and be honest about whether a strategy has a real edge.
   data/congress/trades.csv with `filed`) then `python research/congress.py` -> `research/CONGRESS.md`. Bought at the open
   after the FILING date: copy book 13.9%/yr vs SPY 13.7%, no rule beyond t 1 (incl. $50k+, clusters, Pelosi); paper
   scans skipped, survivors-only. Research-only (`congress_copy`).
+  Congress SCREEN (dashboard tab "Congress", 2026-11-05; information only, never trades): `ai_desk/congress.py`,
+  `python -m ai_desk congress refresh|status`, run by `portfolio prepare` each evening: reads new House filings (parser
+  shared with research/house_ptr.py), prices from Alpaca daily bars, writes journal/congress/screen.json (+ recent.csv =
+  last ~13 months of trades and seen.json, so fresh checkouts work; commit them); `journal export` -> tables
+  congress_trades / congress_top / congress_members / congress_summary. Moves are measured from the first close after
+  the FILING date, vs SPY. Say "no edge in copying" wherever it's presented.
 - Trader-skill desk (owner's choice 2026-10-28: day-trader-skill's own rules, automatic, on a SEPARATE $5,000 ledger -
   no orders, never the desk's Alpaca account): `ai_desk/skill_desk.py`, `python -m ai_desk skilldesk record|status`;
   `portfolio prepare` replays each finished day on Alpaca 5-min bars for the top 100 -> journal/skill_desk/ (commit

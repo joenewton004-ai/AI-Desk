@@ -2,6 +2,10 @@
  "with_rows": [
   "amendments",
   "closed",
+  "congress_members",
+  "congress_summary",
+  "congress_top",
+  "congress_trades",
   "curve",
   "exits",
   "fills",

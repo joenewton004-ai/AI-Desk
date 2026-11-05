@@ -15,114 +15,16 @@ site (efdsearch.senate.gov) is not in the network policy.
 from __future__ import annotations
 
 import argparse
-import io
-import re
-import subprocess
-import threading
-import time
-import zipfile
+import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import pandas as pd
-import requests
 
 ROOT = Path(__file__).resolve().parents[1]
-DIR = ROOT / "data" / "congress"
-TEXT = DIR / "ptr_text"
-BASE = "https://disclosures-clerk.house.gov/public_disc"
-MIN_GAP = 0.2                                     # at most ~5 requests a second across threads
-_lock = threading.Lock()
-_last = [0.0]
+sys.path.insert(0, str(ROOT))
 
-TX = re.compile(r"(?<![A-Za-z])(P|S \(partial\)|S|E)\s+(\d{2}/\d{2}/\d{4})\s+(\d{2}/\d{2}/\d{4})\s+\$([\d,]+)"
-                r"(?:\s*-\s*\$?([\d,]+))?")
-TICKER = re.compile(r"\(([A-Z]{1,5}(?:[.\-/][A-Z]{1,2})?)\)")
-ATYPE = re.compile(r"\[([A-Z]{2})\]")
-OWNER = re.compile(r"^\s*(SP|JT|DC)\s{2,}")
-AMOUNT_HIGH = re.compile(r"^\s*\$([\d,]+)\s*$")
-
-
-def _get(url: str, tries: int = 4) -> requests.Response:
-    for k in range(tries):
-        with _lock:
-            wait = _last[0] + MIN_GAP - time.time()
-            if wait > 0:
-                time.sleep(wait)
-            _last[0] = time.time()
-        try:
-            r = requests.get(url, timeout=60, headers={"User-Agent": "AI-Desk research"})
-            if r.status_code in (429, 500, 502, 503, 504):
-                raise requests.HTTPError(str(r.status_code))
-            return r
-        except (requests.ConnectionError, requests.Timeout, requests.HTTPError):
-            if k == tries - 1:
-                raise
-            time.sleep(2 ** (k + 1))
-    raise RuntimeError("unreachable")
-
-
-def index(year: int) -> pd.DataFrame:
-    """Every PTR filed in one year's index: member, state/district, filing date, doc id."""
-    z = zipfile.ZipFile(io.BytesIO(_get(f"{BASE}/financial-pdfs/{year}FD.zip").content))
-    x = z.read(f"{year}FD.xml").decode("utf-8-sig")
-    rows = []
-    for m in re.findall(r"<Member>(.*?)</Member>", x, re.S):
-        f = dict(re.findall(r"<(\w+)>([^<]*)</\1>", m))
-        if f.get("FilingType") == "P" and f.get("DocID"):
-            rows.append({"year": year, "doc_id": f["DocID"], "member": f"{f.get('First', '')} {f.get('Last', '')}".strip(),
-                         "state_dst": f.get("StateDst", ""), "filed": pd.to_datetime(f.get("FilingDate"))})
-    return pd.DataFrame(rows)
-
-
-def text_of(year: int, doc_id: str) -> str | None:
-    """The PDF's text (pdftotext -layout), cached. None if it couldn't be fetched."""
-    p = TEXT / f"{doc_id}.txt"
-    if p.exists():
-        return p.read_text()
-    r = _get(f"{BASE}/ptr-pdfs/{year}/{doc_id}.pdf")
-    if r.status_code != 200 or not r.content.startswith(b"%PDF"):
-        return None
-    out = subprocess.run(["pdftotext", "-layout", "-", "-"], input=r.content, capture_output=True).stdout
-    t = out.decode("utf-8", "replace")
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(t)
-    return t
-
-
-def parse(text: str) -> list[dict]:
-    """Pure: the transactions in one electronic PTR's text. Each transaction line carries the type (P purchase,
-    S sale, S (partial), E exchange), trade date, notification date and amount band; the asset's name, ticker and
-    [type] sit on that line or wrap onto the lines just after it."""
-    lines = text.splitlines()
-    hits = [(i, m) for i, ln in enumerate(lines) for m in [TX.search(ln)] if m]
-    out = []
-    for k, (i, m) in enumerate(hits):
-        hi = hits[k + 1][0] if k + 1 < len(hits) else len(lines)
-        after = []
-        for ln in lines[i + 1:min(hi, i + 4)]:
-            if re.search(r"^\s*(F|D|C|S|L)\s{2,}\S|Filing Status|Description|Comments|Subholding", ln):
-                break                                  # the next fields belong to this trade but aren't its asset
-            after.append(ln)
-        here = lines[i][:m.start()]
-        window = " ".join([here] + after)             # never the lines above: they end the previous trade
-        tick = TICKER.findall(window)
-        atype = ATYPE.findall(window)
-        own = OWNER.match(lines[i])
-        high = m.group(5)
-        if not high:
-            for ln in after:
-                h = AMOUNT_HIGH.search(ln.strip()) or re.search(r"\$([\d,]+)\s*$", ln)
-                if h:
-                    high = h.group(1)
-                    break
-        typ = {"P": "purchase", "S": "sale", "S (partial)": "sale", "E": "exchange"}[m.group(1)]
-        out.append({"ticker": tick[0] if tick else None, "asset_type": atype[0] if atype else None,
-                    "owner": own.group(1) if own else "self", "type": typ,
-                    "date": pd.to_datetime(m.group(2), format="%m/%d/%Y", errors="coerce"),
-                    "amount_low": int(m.group(4).replace(",", "")),
-                    "amount_high": int(high.replace(",", "")) if high else None})
-    return out
+from ai_desk.congress import BASE, DIR, TEXT, index, parse, text_of  # noqa: E402,F401 - shared with the live screen
 
 
 def build(years: range, workers: int = 4) -> pd.DataFrame:
