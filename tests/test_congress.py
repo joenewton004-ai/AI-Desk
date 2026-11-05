@@ -65,3 +65,30 @@ def test_smart_money_counts_a_trade_only_once_its_report_is_filed():
     t = _trades()
     assert congress_signals(t, "X", asof="2024-01-15")["congress_net_buyers"] == 0     # traded, not yet filed
     assert congress_signals(t, "X", asof="2024-02-06")["congress_net_buyers"] == 2
+
+
+def test_congress_screen_dates_moves_from_the_filing_and_merges_repeated_lots():
+    from ai_desk import congress as cg
+    days = pd.bdate_range("2026-09-01", periods=40)
+    closes = pd.DataFrame({"AAA": np.linspace(100, 139, 40), "SPY": np.full(40, 500.0)}, index=days)
+    tr = pd.DataFrame({
+        "politician": ["Jane Mr Doe", "Jane Mr Doe", "Bob Roe"], "state_dst": ["CA01", "CA01", "TX02"],
+        "owner": ["self", "self", "SP"], "ticker": ["AAA", "AAA", "AAA"], "type": ["purchase", "purchase", "sale"],
+        "asset_type": ["ST", "ST", "ST"], "amount_low": [1001, 1001, 15001], "amount_high": [15000, 15000, 50000],
+        "doc_id": ["1", "1", "2"], "date": pd.to_datetime(["2026-09-01", "2026-09-01", "2026-09-02"]),
+        "filed": pd.to_datetime(["2026-09-10", "2026-09-10", "2026-09-15"])})
+    out = cg.screen(tr, closes, pd.Timestamp("2026-10-27"))
+    rows = out["congress_trades"]
+    assert len(rows) == 2 and rows[1]["lots"] == 2 and rows[1]["member"] == "Jane Doe"
+    buy = rows[1]
+    start = closes.index[closes.index > pd.Timestamp("2026-09-10")][0]       # the first close after the filing day
+    assert abs(buy["since_filed"] - (139 / closes.loc[start, "AAA"] - 1)) < 1e-3 and buy["spy_since"] == 0
+    top = out["congress_top"][0]
+    assert top["ticker"] == "AAA" and top["buyers"] == 1 and top["buys"] == 2 and top["sells"] == 1
+    assert out["congress_summary"][0]["latest_filing"] == "2026-09-15"
+
+
+def test_clean_name_drops_titles():
+    from ai_desk.congress import clean_name
+    assert clean_name("John J Mr McGuire") == "John J McGuire"
+    assert clean_name("Hon. Nancy Pelosi") == "Nancy Pelosi"

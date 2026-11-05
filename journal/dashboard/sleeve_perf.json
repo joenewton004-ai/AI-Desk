@@ -3,25 +3,25 @@
   "sleeve": "quality_screen",
   "benchmark": "RSP",
   "days": 6,
-  "return": -0.01679,
+  "return": -0.01681,
   "benchmark_return": 0.00727,
-  "excess": -0.02406
+  "excess": -0.02408
  },
  {
   "sleeve": "bottleneck",
   "benchmark": "SPY",
-  "days": 1,
-  "return": 0.00039,
-  "benchmark_return": 0.00525,
-  "excess": -0.00486
+  "days": 2,
+  "return": -0.06505,
+  "benchmark_return": 0.02187,
+  "excess": -0.08692
  },
  {
   "sleeve": "momentum",
   "benchmark": "SPY",
-  "days": 5,
-  "return": -0.00938,
-  "benchmark_return": -0.00101,
-  "excess": -0.00838
+  "days": 9,
+  "return": -0.18545,
+  "benchmark_return": -0.01107,
+  "excess": -0.17438
  },
  {
   "sleeve": "index_momentum",

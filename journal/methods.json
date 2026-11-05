@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-29T14:03:35+00:00",
+ "generated_utc": "2026-11-05T10:10:58+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "overnight_drift": 0.95,
@@ -494,9 +494,9 @@
      "proposal": "Sell the overnight shares with market-on-open orders (the opening auction, which fills at the official open) instead of ordinary market orders at the open. Tested first as a live A/B test on paper: each evening, a fixed coin-flip half of the overnight-only holdings is left out of the evening run's orders and sold by a 9:05am market-on-open run; unfilled shares go out with the next evening's orders.",
      "rationale": "Live paper fills 2026-10-22 to 10-26: the overnight sales filled 0.45-0.68% below the official open each morning (49 sales), buys about 0.00% - about ten times the research's break-even of ~0.045% per trade, and roughly half of the sleeve's -$954 so far. Paper fills are simulated, so this tests the mechanics. Decision rule fixed in advance: after 10 trading days, adopt market-on-open for all overnight-only sales if its average cost vs the official open is at least 0.10 points lower than market orders' and at least 95% of its shares filled; otherwise keep market orders.",
      "author": "you",
-     "status": "testing",
-     "evidence": "Owner: 'Propose the market-on-open change and test it' (2026-10-26). Live A/B test from the 2026-10-27 evening run (first market-on-open sales 2026-10-28, 9:05am run); judged after 10 trading days by the rule above.",
-     "decided_utc": null
+     "status": "rejected",
+     "evidence": "Rejected by the owner 2026-10-29: Alpaca paper does not fill market-on-open orders - all 20 sales (9 on 2026-10-28, 11 on 2026-10-29) expired unfilled, so the test could not reach its pre-set verdict (needs >= 95% filled) and the unfilled half was held through the day. From the 2026-10-29 evening run all overnight shares sell at the open with the desk's market orders; leftovers are still swept. Real auction prices stay tracked by the official-price line (6 nights: official -$527 vs paper -$1,384).",
+     "decided_utc": "2026-10-29T14:27:54+00:00"
     }
    ]
   },
@@ -636,6 +636,131 @@
    "docs": [
     "research/CANDLES.md",
     "research/output/candles.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "aschenbrenner_13f",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Leopold Aschenbrenner's Situational Awareness LP from its 7 SEC 13F filings (Q4 2024 - Q2 2026): the method in numbers (themes, options, net exposure, turnover) and copying each filing from the day after it became public.",
+   "parameters": {
+    "versions": "stocks / stocks+calls / full book (puts short) / equal weight",
+    "costs": "0.10% each way",
+    "benchmarks": "SPY, QQQ, SMH"
+   },
+   "status": "tested: no edge beyond semiconductor exposure (not in the live mix)",
+   "evidence_summary": "Concentrated AI build-out bet rotating power -> chips -> data centres -> memory; up to 46% calls; net -62% via puts at 2026-03. Copy +91-159% (Feb 2025 - Oct 2026) vs SMH +128% (Sharpe 1.33 vs 0.87-1.15, worst -49% vs -33%); ~1.5x SMH, alpha t -0.4 to 0.1.",
+   "docs": [
+    "research/ASCHENBRENNER.md",
+    "research/output/aschenbrenner.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "short_edge",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Our own edge with shorting: own_edge.py's search turned to what lags (top-500 stocks, 25 ETFs, ~35 indicators, 5-day horizon), then long/short books: model top 20 / bottom 20, pullback long vs the best short, walk-forward, ETF top 3 / bottom 3.",
+   "parameters": {
+    "costs": "0.05% each way per leg (ETFs 0.02%)",
+    "borrow": "0.5%/yr (stress 2%)"
+   },
+   "status": "tested: no edge (not in the live mix)",
+   "evidence_summary": "The search's best shorts fade to ~0 in the holdout; model L/S 17.7%/yr, Sharpe 0.59 (long-only 0.75), beta 0.46, alpha t 1.1; walk-forward t 1.4; ETF L/S Sharpe 0.27, worst -70%. Survivors-only data understates the short side.",
+   "docs": [
+    "research/SHORT_EDGE.md",
+    "research/output/short_edge.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "spy_short",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Shorting SPY: short-side swing rules (RSI(2) > 90, 10-day highs, three up days, tweezer top; with/without the 200-day filter), long-above/short-below the 200-day, and an SPY hedge on the overnight sleeve. Borrow 0.5%/yr, dividends paid, 0.01% costs each way.",
+   "parameters": {
+    "hold": "up to 5 days",
+    "hedge": "beta from 2014-2019, applied 2020-2026"
+   },
+   "status": "tested: no edge (not in the live mix)",
+   "evidence_summary": "No short rule passes (best: short RSI(2)>90 below the 200-day, +0.42%, t 1.8, 2.6/yr). Short below the 200-day: 4.2%/yr, Sharpe 0.18, worst -47% vs cash 8.9%/0.55/-24%. Hedging the overnight sleeve (beta 1.21) cuts its Sharpe 1.54 -> 0.66: its return is mostly the market's overnight premium.",
+   "docs": [
+    "research/SPY_SHORT.md",
+    "research/output/spy_short.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "own_edge",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Our own search: ~35 indicators (returns 1d-12m, RSI, moving averages, volatility, volume, range, 52-week levels, gaps, overnight/intraday, market state, calendar) on the top 500 stocks and 25 ETFs, 5-day horizon; singles, pairs and a LightGBM model searched on development years, then one holdout test.",
+   "parameters": {
+    "search": "stocks 2014-19, ETFs 1999-2012",
+    "holdout": "stocks 2020-26, ETFs 2013-26",
+    "costs": "0.05% stocks / 0.02% ETFs each way"
+   },
+   "status": "tested: no new edge (not in the live mix)",
+   "evidence_summary": "Best singles all collapse in the holdout; ETFs nothing. Stocks: 'pullback in a long-term winner' pairs +0.12-0.18%/wk (t 1.0-1.6); the model +0.41%/wk (t 2.4) but a third is extra market exposure (alpha +0.26%, t 1.7) and walk-forward t 1.5. Survivors-only.",
+   "docs": [
+    "research/OWN_EDGE.md",
+    "research/output/own_edge.md",
+    "research/output/own_edge_checks.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "candles_daily_spy",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "23 textbook daily candlestick patterns on SPY 1993-2026 (10 bullish after a down week, 10 bearish after an up week, doji/inside/outside day), measured 1 and 5 days from the next open vs SPY's normal drift, cross-checked on QQQ/IWM/DIA.",
+   "parameters": {
+    "horizons": "1 and 5 trading days",
+    "context": "5-day trend",
+    "costs": "0.01% each way"
+   },
+   "status": "tested: no edge (not in the live mix)",
+   "evidence_summary": "1 of 40 passes (~2 by chance): tweezer top, SPY -0.32% over 5 days (t -2.7), also QQQ/IWM, not DIA; small and bearish (the desk is long only). Hammers, engulfing, stars, dojis: nothing or flips.",
+   "docs": [
+    "research/CANDLES_DAILY_SPY.md",
+    "research/output/candles_daily_spy.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "swing_etf",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Swing trades up to a week on SPY/QQQ/IWM/DIA and GLD/SLV/USO/UNG daily bars (SPY from 1993): RSI(2)/RSI(14) dips, three down days, IBS, 10-day low, 20-day breakout, weekly reversal/momentum, turn of the month, gap down; next-open fills, long only, judged against holding the ETF.",
+   "parameters": {
+    "hold": "up to 5 trading days",
+    "costs": "0.01-0.05% each way",
+    "trend": "200-day average"
+   },
+   "status": "tested: an edge on index ETFs (RSI(2) dip, 10-day low), not in the live mix",
+   "evidence_summary": "SPY RSI(2)<10 above the 200-day: 73% wins, +0.51% a trade, +0.36% vs holding (t 3.4), but +0.56% -> +0.18% from 1993-2009 to 2010-26 (faded since publication); strategy 6.6%/yr, Sharpe 0.69, worst -11%, in the market 10%. Commodity ETFs: nothing.",
+   "docs": [
+    "research/SWING_ETF.md",
+    "research/output/swing_etf.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "intraday_etf",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "Day-trading rules on SPY/QQQ/IWM/DIA and GLD/SLV/USO/UNG minute bars 2016-2026: intraday momentum (Gao et al. 2018; Baltussen et al. 2021), gap fade, first-hour fade, VWAP snap-back, opening-range breakout (long, long+short), open-to-close long/short.",
+   "parameters": {
+    "costs": "0.01-0.05% each way by ETF",
+    "fills": "minute close",
+    "pass": "lead ETF t>=2 in both halves + rest of the family positive in both"
+   },
+   "status": "tested: no edge (not in the live mix)",
+   "evidence_summary": "18 of 18 fail. Before costs every rule averages within +-0.05% a trade; fades win 60-68% of the time and still lose; nearest miss: long ORB on index ETFs, +0.01-0.03% after costs, t 0.9-1.6.",
+   "docs": [
+    "research/INTRADAY_ETF.md",
+    "research/output/intraday_etf.md"
    ],
    "amendments": []
   },

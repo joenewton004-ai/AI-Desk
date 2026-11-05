@@ -1,23 +1,53 @@
 [
  {
+  "night": "2026-11-03",
+  "stocks": 20,
+  "invested": 84687.14,
+  "official": -1065.67,
+  "official_pct": -0.01258,
+  "paper": -2006.73,
+  "paper_pct": -0.0237,
+  "fill_cost": 941.06
+ },
+ {
+  "night": "2026-10-30",
+  "stocks": 20,
+  "invested": 86712.62,
+  "official": -552.3,
+  "official_pct": -0.00637,
+  "paper": -1690.78,
+  "paper_pct": -0.0195,
+  "fill_cost": 1138.48
+ },
+ {
+  "night": "2026-10-29",
+  "stocks": 20,
+  "invested": 42662.59,
+  "official": -2965.91,
+  "official_pct": -0.06952,
+  "paper": -3101.26,
+  "paper_pct": -0.07269,
+  "fill_cost": 135.35
+ },
+ {
   "night": "2026-10-28",
-  "stocks": 9,
-  "invested": 38269.2,
-  "official": -461.2,
-  "official_pct": -0.01205,
-  "paper": -771.06,
-  "paper_pct": -0.02015,
-  "fill_cost": 309.86
+  "stocks": 20,
+  "invested": 84587.31,
+  "official": -6319.36,
+  "official_pct": -0.07471,
+  "paper": -6731.76,
+  "paper_pct": -0.07958,
+  "fill_cost": 412.4
  },
  {
   "night": "2026-10-27",
-  "stocks": 15,
-  "invested": 22219.89,
-  "official": 254.16,
-  "official_pct": 0.01144,
-  "paper": 128.61,
-  "paper_pct": 0.00579,
-  "fill_cost": 125.55
+  "stocks": 20,
+  "invested": 29311.66,
+  "official": -492.01,
+  "official_pct": -0.01679,
+  "paper": -619.27,
+  "paper_pct": -0.02113,
+  "fill_cost": 127.26
  },
  {
   "night": "2026-10-26",
@@ -62,11 +92,11 @@
  {
   "night": "total",
   "stocks": null,
-  "invested": 153170.6,
-  "official": -526.86,
-  "official_pct": -0.00344,
-  "paper": -1383.6,
-  "paper_pct": -0.00903,
-  "fill_cost": 856.74
+  "invested": 420642.83,
+  "official": -11715.07,
+  "official_pct": -0.02785,
+  "paper": -14890.95,
+  "paper_pct": -0.0354,
+  "fill_cost": 3175.88
  }
 ]

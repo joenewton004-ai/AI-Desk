@@ -78,12 +78,46 @@ changes plainly and be honest about whether a strategy has a real edge.
   data/congress/trades.csv with `filed`) then `python research/congress.py` -> `research/CONGRESS.md`. Bought at the open
   after the FILING date: copy book 13.9%/yr vs SPY 13.7%, no rule beyond t 1 (incl. $50k+, clusters, Pelosi); paper
   scans skipped, survivors-only. Research-only (`congress_copy`).
+  Congress SCREEN (dashboard tab "Congress", 2026-11-05; information only, never trades): `ai_desk/congress.py`,
+  `python -m ai_desk congress refresh|status`, run by `portfolio prepare` each evening: reads new House filings (parser
+  shared with research/house_ptr.py), prices from Alpaca daily bars, writes journal/congress/screen.json (+ recent.csv =
+  last ~13 months of trades and seen.json, so fresh checkouts work; commit them); `journal export` -> tables
+  congress_trades / congress_top / congress_members / congress_summary. Moves are measured from the first close after
+  the FILING date, vs SPY. Say "no edge in copying" wherever it's presented.
 - Trader-skill desk (owner's choice 2026-10-28: day-trader-skill's own rules, automatic, on a SEPARATE $5,000 ledger -
   no orders, never the desk's Alpaca account): `ai_desk/skill_desk.py`, `python -m ai_desk skilldesk record|status`;
   `portfolio prepare` replays each finished day on Alpaca 5-min bars for the top 100 -> journal/skill_desk/ (commit
   it); dashboard table `skill_desk`. Rules copied from its code (15-min ORB, next-open fill, mid stop, 2R, flat 15:55,
   $50 risk, $4,000 cap, 3 trades/day, -$150/day). Backtest `python research/skill_desk.py` -> `research/SKILL_DESK.md`:
   -9.7%/yr at 0.02% costs (+0.03R before costs). The ledger only moves forward; trading it needs an amendment.
+- Day trading SPY family / commodity ETFs (SPY QQQ IWM DIA GLD SLV USO UNG, Alpaca minute bars 2016-2026; published
+  intraday momentum, gap fade, first-hour fade, VWAP snap-back, ORB, open->close): `python research/intraday_etf.py` ->
+  `research/INTRADAY_ETF.md`. 18 of 18 fail; everything is within +-0.05% a trade before costs; fades win 60-68% and
+  lose. Research-only (`intraday_etf`).
+- Swing trades up to a week on the same ETFs (daily bars, SPY from 1993): `python research/swing_etf.py` ->
+  `research/SWING_ETF.md`. Index ETFs: buying short dips above the 200-day works - SPY RSI(2)<10: 73% wins, +0.51% a
+  trade, +0.36% vs holding (t 3.4), faded to +0.18% since 2010; 10-day low similar. RSI(14) passes on too few trades
+  (16 in 30 years). Commodity ETFs: nothing. Not live (needs a desk test + amendment; cash is used by overnight).
+- Daily candlestick patterns on SPY 1993-2026 (23 textbook patterns, 1 and 5 days, vs drift; QQQ/IWM/DIA check):
+  `python research/candles_daily_spy.py` -> `research/CANDLES_DAILY_SPY.md`. 1 of 40 passes (tweezer top, -0.32%/5 days,
+  t -2.7; luck delivers ~2). Research-only (`candles_daily_spy`).
+- Our own edge search (~35 indicators, top-500 stocks + 25 ETFs, 5-day horizon; singles/pairs/LightGBM on development
+  years, one holdout): `python research/own_edge.py` + `python research/own_edge_checks.py` -> `research/OWN_EDGE.md`
+  (needs scikit-learn + lightgbm). No new edge: singles collapse out of sample; everything points back to "a pullback in
+  a long-term winner" (the live dip rule); the model's +0.41%/wk is a third market exposure (alpha t 1.7, walk-forward
+  t 1.5). Survivors-only. Research-only (`own_edge`).
+- Shorting SPY (short swing rules, long/short around the 200-day, SPY hedge on the overnight sleeve):
+  `python research/spy_short.py` -> `research/SPY_SHORT.md`. No short rule passes; short below the 200-day is far worse
+  than cash; the overnight sleeve's beta to SPY's night is 1.21 and hedging it cuts Sharpe 1.54 -> 0.66 (its return is
+  mostly the market's overnight premium). Research-only (`spy_short`).
+- Our own edge with shorting (own_edge search turned to what lags + long/short books, stocks and ETFs):
+  `python research/short_edge.py` -> `research/SHORT_EDGE.md`. No edge: the search's best shorts fade to ~0; model L/S
+  Sharpe 0.59 vs long-only 0.75, still beta 0.3-0.5, alpha t 1.1; ETF L/S worst -70%. The desk stays long only.
+  Survivors-only data understates shorts. Research-only (`short_edge`).
+- Leopold Aschenbrenner / Situational Awareness LP (CIK 2045724) from its 13F filings (www.sec.gov allowed 2026-10-29; info
+  tables cached in data/sec/13f/): `python research/aschenbrenner.py` -> `research/ASCHENBRENNER.md`. Copying from the
+  filing date +91-159% Feb 2025 - Oct 2026 but SMH +128% with a better Sharpe; the copy is ~1.5x SMH, no alpha. 13F shows
+  only quarter-end US longs/options. Research-only (`aschenbrenner_13f`).
 - RSI dips on wider universes (`python research/dip_universe.py` -> `research/DIP_UNIVERSE.md`): top 100/250/500/750 all
   work per dip (+1.12% -> +0.61%), but wider universes lower the desk's return and Sharpe (27.7%/1.67 -> 20.9%/1.32)
   and deepen its worst drop; keep the top 100.
@@ -91,6 +125,10 @@ changes plainly and be honest about whether a strategy has a real edge.
   8-K item 2.02 acceptance times, cached in data/backtest/earnings_8k.pkl): skipping earnings nights, volatile stocks,
   crowded industries or adding names all cost more than they save; the worst nights are market-wide gaps. Drawdowns
   are controlled by the overnight share and the cash checks, not stock choice. Not live.
+  Re-test after the 2026-10-30 loss (`python research/overnight_safety2.py` -> `research/OVERNIGHT_SAFETY2.md`; prices to
+  the 10-30 open in data/backtest/daily_ohlcv_ext.pkl, releases refreshed): E swap/E cash/S4/S3/S2/hardware cap all
+  soften that night but cost 2-7 pts/yr and Sharpe in both halves - none passes; a 60% overnight share keeps Sharpe 1.49
+  and cuts the worst drop -15% -> -9% (an amendment if wanted).
 - Overnight sleeve with leverage (what-if, `python research/overnight_leverage.py` -> `research/OVERNIGHT_LEVERAGE.md`):
   2x = 49.9%/yr, worst -29% at 0.02% costs; 19.5%, -42% at 0.05%. Scales risk, not Sharpe; not proposed.
 - EMA9/VWAP crossover and Trend+Momentum+Confirmation (EMA20/50, VWAP, volume, breakout): `python research/vwap_ema.py`
@@ -160,7 +198,7 @@ changes plainly and be honest about whether a strategy has a real edge.
 - Research notes (`research/notes/<date>/`): numbers come from
   `research/build_notes.py` (DATA blocks), never typed by hand. Prose must
   cite dated sources and say what to verify. Notes are research, not advice.
-- EDGAR: only data.sec.gov is reachable here. Ticker->CIK must be verified
+- EDGAR: data.sec.gov and (since 2026-10-29) www.sec.gov are reachable here. Ticker->CIK must be verified
   via data.sec.gov/submissions. Never put the user's email in SEC_USER_AGENT
   without asking - it comes from .env.
 - The 10-year check's thresholds live in `filters.LONG_RUN_RULES`. They were
@@ -250,7 +288,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   7a8b29ec) or tonight's 20 picks are down 2.0%+ since today's open (`PICKS_DAY_CUTOFF`, amendment 9b951502, accepted
   2026-10-23; replaced 7a8b29ec's tech-vs-defensive test - `research/overnight_picks_check.py`). Checked at the buy,
   after the picks are set. A failed check buys as usual and says so. Never switch to defensive stocks instead.
-  Market-on-open A/B TEST (amendment e43f2959, testing from 2026-10-27; `overnight.OPG_TEST`): each evening run leaves a
+  Market-on-open A/B TEST - ENDED 2026-10-29 (amendment e43f2959 rejected by the owner: Alpaca paper let all 20
+  market-on-open sales expire unfilled; `overnight.OPG_TEST = False`, `open-sell` is a no-op, the 9:05am scheduled task
+  is paused; unfilled opg shares are still swept into the evening orders). As it ran: each evening run left a
   fixed coin-flip half of the overnight-ONLY holdings (`opg_group`) out of its orders and queues them in the book; the
   9:05am scheduled `overnight open-sell --execute` sends them as market-on-open (Alpaca rejects opg 9:28am-7pm); unfilled
   shares (`unsold_opg`) go out with the next evening's orders. `overnight review` prints the comparison (`opg_ab`) and

@@ -406,6 +406,11 @@ def cmd_portfolio(a) -> None:
                   + (f", net {r['net']:+.2%} ({r['exit_why']})" if r and r.get("status") == "traded" else ""))
         except Exception as e:  # noqa: BLE001 - the shadow must never block the trading run
             print(f"nvda_orb (shadow): not recorded ({e})")
+        try:                      # the Congress screen: new House filings and prices (information only, no orders)
+            from ai_desk import congress
+            print(f"congress screen: {congress.refresh()}")
+        except Exception as e:  # noqa: BLE001 - the screen must never block the trading run
+            print(f"congress screen: not refreshed ({e})")
         try:                      # the trader-skill desk: a separate $5,000 ledger, replayed on today's bars, no orders
             from ai_desk import skill_desk
             r = skill_desk.record()
@@ -548,6 +553,19 @@ def cmd_orb(a) -> None:
     g = nvda_orb.summary(gap_up_only=True)
     print(f"Gap-up days only: {g['trades']} trades, average {pct(g['avg_net'])} (backtest "
           f"{nvda_orb.BACKTEST_GAP_UP:+.2%}).")
+
+
+def cmd_congress(a) -> None:
+    from ai_desk import congress
+    if a.action == "refresh":
+        print(f"Congress screen refreshed: {congress.refresh()}")
+    s = (congress.tables()["congress_summary"] or [{}])[0]
+    if not s:
+        print("No Congress screen yet - run `python -m ai_desk congress refresh`.")
+        return
+    print(f"Latest House filing {s.get('latest_filing')}; last 30 days: {s.get('trades_30d')} trades by "
+          f"{s.get('members_30d')} members ({s.get('buys_30d')} buys, {s.get('sells_30d')} sells); most bought in "
+          f"90 days: {s.get('most_bought_90d')} ({s.get('most_bought_buyers')} members). Refreshed {s.get('refreshed_utc')}.")
 
 
 def cmd_skilldesk(a) -> None:
@@ -881,6 +899,10 @@ def build_parser() -> argparse.ArgumentParser:
     ob.add_argument("--date", default=None)
     ob.add_argument("--days", type=int, default=60)
     ob.set_defaults(func=cmd_orb)
+
+    cg = sub.add_parser("congress", help="House members' stock trades screen (information only, never trades)")
+    cg.add_argument("action", choices=["refresh", "status"])
+    cg.set_defaults(func=cmd_congress)
 
     sk = sub.add_parser("skilldesk", help="day-trader-skill's rules on a separate $5,000 ledger (never trades)")
     sk.add_argument("action", choices=["record", "status"])

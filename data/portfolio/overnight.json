@@ -1,168 +1,168 @@
 {
- "picked_on": "2026-10-28",
- "ref_date": "2026-10-27",
+ "picked_on": "2026-11-04",
+ "ref_date": "2026-11-03",
  "picks": [
   "MRNA",
   "SNDK",
-  "LITE",
   "MU",
+  "LITE",
   "RVMD",
   "DELL",
-  "WDC",
-  "MRVL",
+  "SN",
   "STX",
-  "ILMN",
-  "HPE",
-  "OKTA",
-  "TSEM",
-  "GH",
-  "INTC",
   "VLO",
-  "TWLO",
+  "WDC",
+  "DINO",
   "MPC",
-  "TER",
-  "AMD"
+  "HPE",
+  "APA",
+  "OKTA",
+  "PSX",
+  "TEVA",
+  "STM",
+  "EQNR",
+  "TXN"
  ],
  "rows": [
   {
    "symbol": "MRNA",
    "name": "Moderna, Inc.",
-   "score": 6.777487023217226,
-   "ret_12m": 6.777487023217226,
-   "close": 207.97000122070312
+   "score": 7.410898517113679,
+   "ret_12m": 7.410898517113679,
+   "close": 228.44000244140625
   },
   {
    "symbol": "SNDK",
    "name": "Sandisk Corporation",
-   "score": 6.00923904249953,
-   "ret_12m": 6.00923904249953,
-   "close": 1304.8399658203125
-  },
-  {
-   "symbol": "LITE",
-   "name": "Lumentum Holdings Inc.",
-   "score": 3.830897813346632,
-   "ret_12m": 3.830897813346632,
-   "close": 866.1799926757812
+   "score": 4.651532680394244,
+   "ret_12m": 4.651532680394244,
+   "close": 1126.52001953125
   },
   {
    "symbol": "MU",
    "name": "Micron Technology, Inc.",
-   "score": 3.245341610791291,
-   "ret_12m": 3.245341610791291,
-   "close": 928.760009765625
+   "score": 2.8256743385639096,
+   "ret_12m": 2.8256743385639096,
+   "close": 855.0999755859375
+  },
+  {
+   "symbol": "LITE",
+   "name": "Lumentum Holdings Inc.",
+   "score": 2.3744789709416816,
+   "ret_12m": 2.3744789709416816,
+   "close": 680.1599731445312
   },
   {
    "symbol": "RVMD",
    "name": "Revolution Medicines, Inc.",
-   "score": 2.418135146574912,
-   "ret_12m": 2.418135146574912,
-   "close": 186.22000122070312
+   "score": 2.3009856428254354,
+   "ret_12m": 2.3009856428254354,
+   "close": 194.22999572753906
   },
   {
    "symbol": "DELL",
    "name": "Dell Technologies Inc.",
-   "score": 2.1975118923342802,
-   "ret_12m": 2.1975118923342802,
-   "close": 501.9599914550781
+   "score": 1.5474149758472957,
+   "ret_12m": 1.5474149758472957,
+   "close": 408.3999938964844
   },
   {
-   "symbol": "WDC",
-   "name": "Western Digital Corporation",
-   "score": 1.9482391190061477,
-   "ret_12m": 1.9482391190061477,
-   "close": 380.8800048828125
-  },
-  {
-   "symbol": "MRVL",
-   "name": "Marvell Technology, Inc.",
-   "score": 1.9000446290569588,
-   "ret_12m": 1.9000446290569588,
-   "close": 243.57000732421875
+   "symbol": "SN",
+   "name": "SharkNinja, Inc.",
+   "score": 1.463040892840826,
+   "ret_12m": 1.463040892840826,
+   "close": 210.58999633789062
   },
   {
    "symbol": "STX",
    "name": "Seagate Technology Holdings plc",
-   "score": 1.8694111645688474,
-   "ret_12m": 1.8694111645688474,
-   "close": 667.8499755859375
-  },
-  {
-   "symbol": "ILMN",
-   "name": "Illumina, Inc.",
-   "score": 1.7916292030449292,
-   "ret_12m": 1.7916292030449292,
-   "close": 279.4700012207031
-  },
-  {
-   "symbol": "HPE",
-   "name": "Hewlett Packard Enterprise Company",
-   "score": 1.635619457308827,
-   "ret_12m": 1.635619457308827,
-   "close": 60.84000015258789
-  },
-  {
-   "symbol": "OKTA",
-   "name": "Okta, Inc.",
-   "score": 1.5381161793958724,
-   "ret_12m": 1.5381161793958724,
-   "close": 226.07000732421875
-  },
-  {
-   "symbol": "TSEM",
-   "name": "Tower Semiconductor Ltd.",
-   "score": 1.4954468814584159,
-   "ret_12m": 1.4954468814584159,
-   "close": 189.0800018310547
-  },
-  {
-   "symbol": "GH",
-   "name": "Guardant Health, Inc.",
-   "score": 1.467913981882964,
-   "ret_12m": 1.467913981882964,
-   "close": 178.05999755859375
-  },
-  {
-   "symbol": "INTC",
-   "name": "Intel Corporation",
-   "score": 1.448798350392511,
-   "ret_12m": 1.448798350392511,
-   "close": 93.73999786376953
+   "score": 1.383751124551814,
+   "ret_12m": 1.383751124551814,
+   "close": 606.3800048828125
   },
   {
    "symbol": "VLO",
    "name": "Valero Energy Corporation",
-   "score": 1.3124952856813343,
-   "ret_12m": 1.3124952856813343,
-   "close": 387.3399963378906
+   "score": 1.3346835976747111,
+   "ret_12m": 1.3346835976747111,
+   "close": 387.6499938964844
   },
   {
-   "symbol": "TWLO",
-   "name": "Twilio Inc.",
-   "score": 1.261549423240535,
-   "ret_12m": 1.261549423240535,
-   "close": 254.55999755859375
+   "symbol": "WDC",
+   "name": "Western Digital Corporation",
+   "score": 1.3167434896855035,
+   "ret_12m": 1.3167434896855035,
+   "close": 347.3500061035156
+  },
+  {
+   "symbol": "DINO",
+   "name": "HF Sinclair Corporation",
+   "score": 1.2685629984751121,
+   "ret_12m": 1.2685629984751121,
+   "close": 113.36000061035156
   },
   {
    "symbol": "MPC",
    "name": "Marathon Petroleum Corporation",
-   "score": 1.259006115568439,
-   "ret_12m": 1.259006115568439,
-   "close": 435.9800109863281
+   "score": 1.2291204176071688,
+   "ret_12m": 1.2291204176071688,
+   "close": 427.3399963378906
   },
   {
-   "symbol": "TER",
-   "name": "Teradyne, Inc.",
-   "score": 1.2477610542219169,
-   "ret_12m": 1.2477610542219169,
-   "close": 323.67999267578125
+   "symbol": "HPE",
+   "name": "Hewlett Packard Enterprise Company",
+   "score": 1.213656471383005,
+   "ret_12m": 1.213656471383005,
+   "close": 53.099998474121094
   },
   {
-   "symbol": "AMD",
-   "name": "Advanced Micro Devices, Inc.",
-   "score": 1.21516690582681,
-   "ret_12m": 1.21516690582681,
-   "close": 560.260009765625
+   "symbol": "APA",
+   "name": "APA Corporation",
+   "score": 1.1693707680564942,
+   "ret_12m": 1.1693707680564942,
+   "close": 47.77000045776367
+  },
+  {
+   "symbol": "OKTA",
+   "name": "Okta, Inc.",
+   "score": 1.0723259609469684,
+   "ret_12m": 1.0723259609469684,
+   "close": 189.67999267578125
+  },
+  {
+   "symbol": "PSX",
+   "name": "Phillips 66",
+   "score": 1.0566531497956198,
+   "ret_12m": 1.0566531497956198,
+   "close": 271.94000244140625
+  },
+  {
+   "symbol": "TEVA",
+   "name": "Teva Pharmaceutical Industries Limited",
+   "score": 1.0463867570397278,
+   "ret_12m": 1.0463867570397278,
+   "close": 41.90999984741211
+  },
+  {
+   "symbol": "STM",
+   "name": "STMicroelectronics N.V.",
+   "score": 1.0018383068698165,
+   "ret_12m": 1.0018383068698165,
+   "close": 48.540000915527344
+  },
+  {
+   "symbol": "EQNR",
+   "name": "Equinor ASA",
+   "score": 0.9988261004410186,
+   "ret_12m": 0.9988261004410186,
+   "close": 45.630001068115234
+  },
+  {
+   "symbol": "TXN",
+   "name": "Texas Instruments Incorporated",
+   "score": 0.9775630177689922,
+   "ret_12m": 0.9775630177689922,
+   "close": 312.489990234375
   }
  ],
  "n": 20,
