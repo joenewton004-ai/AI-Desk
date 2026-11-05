@@ -174,5 +174,16 @@
   "status": "accepted",
   "evidence": "Owner, 2026-10-27, asked how to proceed with variant C (options: wait for the market-on-open test, go live now, or phase in): 'Go live on paper now'. Supersedes the 10%-overlay version (amendment 661549dd).",
   "decided": "2026-10-27"
+ },
+ {
+  "id": "93853ab3",
+  "date": "2026-11-05",
+  "method": "overnight_drift",
+  "proposal": "Sector cap on the overnight picks: at most 6 of the 20 from computer hardware + electronics combined (SEC SIC 35 and 36: chips, memory, storage, servers, industrial machinery) and at most 4 from any other 2-digit SIC industry; the next-ranked stock takes a capped slot. From the ranking on the 2026-11-05 close (the 2026-11-06 buy).",
+  "rationale": "Owner's request 2026-11-05 after the picks' chip concentration (13 of 20 in the 10-21 cohort) drove the losses of 10-22 and 10-30. Chosen variant H6 of research/OVERNIGHT_SAFETY2.md.",
+  "author": "you",
+  "status": "accepted",
+  "evidence": "Accepted by the owner 2026-11-05 (chat), knowing the backtest cost (~3 pts/yr, Sharpe 1.49 -> 1.42).",
+  "decided": "2026-11-05"
  }
 ]
