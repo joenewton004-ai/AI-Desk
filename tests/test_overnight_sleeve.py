@@ -238,3 +238,35 @@ def test_official_line_pairs_each_buy_with_its_next_sale():
     n = r["nights"][0]
     assert n["paper"] == round(10 * (100.5 - 100.2), 2) and n["official"] == 10.0
     assert r["totals"]["difference"] == round(10.0 - 3.0, 2)
+
+
+def test_sector_cap_skips_the_extra_hardware_and_industry_names():
+    syms = [f"S{i}" for i in range(30)]
+    score = pd.Series(np.arange(30, 0, -1, dtype=float), index=syms)        # S0 best
+    elig = pd.Series(True, index=syms)
+    industry = {s: 36 if i < 5 else 35 if i < 8 else 28 if i < 14 else None for i, s in enumerate(syms)}
+    picks, skipped = ov.capped_pick(score, elig, industry, n=20)
+    assert len(picks) == 20
+    # SIC 36 holds 4 at most (S4 out), then 35 fills the hardware total to 6 (S5, S6 in; S7 out) - as tested in H6
+    assert sum(industry[p] in (35, 36) for p in picks) == 6
+    assert "industry SIC 36" in skipped["S4"] and "hardware" in skipped["S7"]
+    assert sum(industry[p] == 28 for p in picks) == 4                       # S8-S11 in, S12-S13 out
+    assert {"S12", "S13"} <= set(skipped)
+    assert picks[:6] == ["S0", "S1", "S2", "S3", "S5", "S6"]
+    # no industries known -> the plain top 20
+    assert ov.capped_pick(score, elig, {})[0] == ov.pick(score, elig)
+
+
+def test_sector_cap_starts_with_the_2026_11_05_ranking_and_near_misses_show_the_skips():
+    assert not ov.cap_active("2026-11-04") and ov.cap_active("2026-11-05")
+    idx = pd.bdate_range("2026-01-01", periods=60)
+    syms = ["A", "B", "C", "D"]
+    closes = pd.DataFrame(50.0, index=idx, columns=syms)
+    volume = pd.DataFrame(1e6, index=idx, columns=syms)
+    score = pd.Series([4.0, 3.0, 2.0, 1.0], index=syms)
+    elig = pd.Series(True, index=syms)
+    picks, skipped = ov.capped_pick(score, elig, {"A": 28, "B": 28, "C": 1, "D": 1}, n=2, industry_max=1)
+    assert picks == ["A", "C"] and set(skipped) == {"B"}
+    near = ov.near_misses(score, elig, closes, volume, n=2, picks=picks, skipped=skipped)
+    assert near[0]["symbol"] == "B" and not near[0]["passes"] and "sector cap" in near[0]["gate_reason"]
+    assert [r["symbol"] for r in near if r["passes"]] == ["D"]

@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-11-05T12:03:33+00:00",
+ "generated_utc": "2026-11-05T14:34:35+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "overnight_drift": 0.95,
@@ -422,7 +422,8 @@
     "re_pick": "daily (82c84226; was monthly)",
     "hold": "close to next open, daily",
     "orders": "market buy at 3:55-3:59pm (market-on-close until 2026-10-21: paper filled only part), market sell at the open",
-    "regime": "cash for the night when SPY < its 200-day average (7a8b29ec) or tonight's picks are down 2.0%+ since the open (9b951502, 82c84226)"
+    "regime": "cash for the night when SPY < its 200-day average (7a8b29ec) or tonight's picks are down 2.0%+ since the open (9b951502, 82c84226)",
+    "sector_cap": "at most 6 from SIC 35+36 (hardware/electronics), 4 per 2-digit SIC industry; from the 2026-11-05 ranking (93853ab3; backtest H6: Sharpe 1.42 vs 1.49, worst -13% vs -15%)"
    },
    "status": "accepted as the desk's 30% sleeve (amendment 330e76e0) - live from `overnight activate`",
    "evidence_summary": "Persistence out of sample: the top tenth beats the bottom by 7.3 bp a night (t 6.4, 82% of 150 months, both halves). Strategy 2014-2026: 27.7%/yr at zero cost, 15.5% (Sharpe 0.70) at 0.02% each way vs the average stock 12.6% (0.62); break-even about 0.045% each way; loses at 0.05%. Survivors-only prices.",
@@ -497,6 +498,17 @@
      "status": "rejected",
      "evidence": "Rejected by the owner 2026-10-29: Alpaca paper does not fill market-on-open orders - all 20 sales (9 on 2026-10-28, 11 on 2026-10-29) expired unfilled, so the test could not reach its pre-set verdict (needs >= 95% filled) and the unfilled half was held through the day. From the 2026-10-29 evening run all overnight shares sell at the open with the desk's market orders; leftovers are still swept. Real auction prices stay tracked by the official-price line (6 nights: official -$527 vs paper -$1,384).",
      "decided_utc": "2026-10-29T14:27:54+00:00"
+    },
+    {
+     "id": "93853ab3",
+     "created_utc": "2026-11-05T14:30:39+00:00",
+     "method": "overnight_drift",
+     "proposal": "Sector cap on the overnight picks: at most 6 of the 20 from computer hardware + electronics combined (SEC SIC 35 and 36: chips, memory, storage, servers, industrial machinery) and at most 4 from any other 2-digit SIC industry; the next-ranked stock takes a capped slot. From the ranking on the 2026-11-05 close (the 2026-11-06 buy).",
+     "rationale": "Owner's request 2026-11-05 after the picks' chip concentration (13 of 20 in the 10-21 cohort) drove the losses of 10-22 and 10-30. Chosen variant H6 of research/OVERNIGHT_SAFETY2.md.",
+     "author": "you",
+     "status": "accepted",
+     "evidence": "Accepted by the owner 2026-11-05 (chat), knowing the backtest cost (~3 pts/yr, Sharpe 1.49 -> 1.42).",
+     "decided_utc": "2026-11-05T14:30:39+00:00"
     }
    ]
   },
