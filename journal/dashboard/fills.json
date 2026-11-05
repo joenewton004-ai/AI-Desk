@@ -5733,11 +5733,11 @@
   "sleeve": "overnight_drift",
   "order_type": "market",
   "signal_close": 238.21,
-  "day_open": 240.99749755859375,
+  "day_open": 241.0,
   "fill": 237.0,
   "notional": 4266.0,
   "vs_close_bps": 50.8,
-  "vs_open_bps": 165.9
+  "vs_open_bps": 166.0
  },
  {
   "id": "1981d7c9",
@@ -5803,11 +5803,11 @@
   "sleeve": "overnight_drift",
   "order_type": "market",
   "signal_close": 855.1,
-  "day_open": 822.9949951171875,
+  "day_open": 823.0,
   "fill": 821.948,
   "notional": 4109.74,
   "vs_close_bps": 387.7,
-  "vs_open_bps": 12.7
+  "vs_open_bps": 12.8
  },
  {
   "id": "b6145b31",
@@ -5901,11 +5901,11 @@
   "sleeve": "overnight_drift",
   "order_type": "market",
   "signal_close": 606.38,
-  "day_open": 569.5850219726562,
+  "day_open": 569.5900268554688,
   "fill": 575.81,
   "notional": 4030.67,
   "vs_close_bps": 504.1,
-  "vs_open_bps": -109.3
+  "vs_open_bps": -109.2
  },
  {
   "id": "afa82860",

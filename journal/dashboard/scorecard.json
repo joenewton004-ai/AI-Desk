@@ -2,7 +2,7 @@
  {
   "tier": "1 process",
   "metric": "Slippage vs the open (bps, $-weighted)",
-  "value": 40.55066867164492,
+  "value": 40.55186545494128,
   "format": "bps",
   "target": "\u2264 10",
   "status": "flag",
@@ -38,7 +38,7 @@
  {
   "tier": "2 behaviour",
   "metric": "Drawdown from peak (now)",
-  "value": -0.16551587987858019,
+  "value": -0.1655330640021685,
   "format": "pct",
   "target": "above -15%",
   "status": "watch",
@@ -74,7 +74,7 @@
  {
   "tier": "2 behaviour",
   "metric": "bottleneck vs SPY",
-  "value": -0.08692,
+  "value": -0.08691,
   "format": "pct",
   "target": "above -10% over 12m",
   "status": "too early",
@@ -83,7 +83,7 @@
  {
   "tier": "2 behaviour",
   "metric": "momentum vs SPY",
-  "value": -0.17438,
+  "value": -0.17437,
   "format": "pct",
   "target": "above -10% over 12m",
   "status": "too early",
@@ -110,16 +110,16 @@
  {
   "tier": "3 edge",
   "metric": "Sharpe (above T-bills)",
-  "value": -9.919177517148992,
+  "value": -9.382732927795164,
   "format": "num",
   "target": "\u2265 SPY's",
   "status": "too early",
-  "note": "SPY -0.63; 90% range for the desk -65.7 to 45.9"
+  "note": "SPY -4.10; 90% range for the desk -60.0 to 41.2"
  },
  {
   "tier": "3 edge",
   "metric": "Return vs SPY since launch",
-  "value": -0.16087405070849037,
+  "value": -0.11691492604745113,
   "format": "pct",
   "target": "\u2265 0",
   "status": "too early",
@@ -128,16 +128,16 @@
  {
   "tier": "3 edge",
   "metric": "Worst drop vs SPY's",
-  "value": -0.13836502998997413,
+  "value": -0.11367619680322882,
   "format": "pct",
   "target": "\u2265 0 (shallower)",
   "status": "too early",
-  "note": "desk -16.6%, SPY -2.7%"
+  "note": "desk -16.6%, SPY -5.2%"
  },
  {
   "tier": "3 edge",
   "metric": "Upside capture",
-  "value": -0.320426000607096,
+  "value": -0.32102133605481675,
   "format": "pct",
   "target": "\u2265 80%",
   "status": "too early",
@@ -146,7 +146,7 @@
  {
   "tier": "3 edge",
   "metric": "Downside capture",
-  "value": 3.7090952970068134,
+  "value": 1.8392756638556564,
   "format": "pct",
   "target": "\u2264 70%",
   "status": "too early",

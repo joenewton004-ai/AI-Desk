@@ -12,16 +12,16 @@
   "benchmark": "SPY",
   "days": 2,
   "return": -0.06505,
-  "benchmark_return": 0.02187,
-  "excess": -0.08692
+  "benchmark_return": 0.02186,
+  "excess": -0.08691
  },
  {
   "sleeve": "momentum",
   "benchmark": "SPY",
   "days": 9,
   "return": -0.18545,
-  "benchmark_return": -0.01107,
-  "excess": -0.17438
+  "benchmark_return": -0.01108,
+  "excess": -0.17437
  },
  {
   "sleeve": "index_momentum",
