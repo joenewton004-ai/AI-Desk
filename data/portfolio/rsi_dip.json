@@ -1,5 +1,11 @@
 {
- "positions": {},
+ "positions": {
+  "PLTR": {
+   "signal_date": "2026-11-05",
+   "rsi_14": 25.42,
+   "signal_close": 154.99
+  }
+ },
  "closed": [],
- "updated": "2026-11-03"
+ "updated": "2026-11-05"
 }
