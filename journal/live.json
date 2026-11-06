@@ -1,22 +1,22 @@
 {
- "utc": "2026-11-06T14:43:59+00:00",
+ "utc": "2026-11-06T15:08:50+00:00",
  "market_open": true,
- "equity": 83691.91,
+ "equity": 83719.37,
  "cash": 75024.81,
  "last_equity": 83523.79,
  "holdings": {
   "PLTR": {
    "qty": 53.8897,
-   "price": 160.82,
+   "price": 161.34,
    "sleeve": "rsi_dip",
    "avg_cost": 157.710599,
    "last_close": 154.99,
-   "market_value": 8666.541554,
+   "market_value": 8694.564198,
    "cost_basis": 8498.976867,
-   "unrealized_pl": 167.564687,
-   "unrealized_pct": 0.01972,
-   "day_pl": 167.564687,
-   "day_pct": 0.01972
+   "unrealized_pl": 195.587331,
+   "unrealized_pct": 0.02301,
+   "day_pl": 195.587331,
+   "day_pct": 0.02301
   }
  }
 }
