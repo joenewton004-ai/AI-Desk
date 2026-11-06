@@ -13,7 +13,7 @@
   "why": "",
   "rationale": "rsi_dip: rsi_14=25.42, close=155, sma_5=172.9, sma_200=153.6, source_file=rsi_dip_2026-11-05.csv, why=above its 200-day average with RSI(14) below 30",
   "notes": "",
-  "return": 0.02301,
-  "day": 0.02301
+  "return": 0.02181,
+  "day": 0.02181
  }
 ]
