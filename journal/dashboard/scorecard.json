@@ -2,16 +2,16 @@
  {
   "tier": "1 process",
   "metric": "Slippage vs the open (bps, $-weighted)",
-  "value": 40.55186545494128,
+  "value": 39.7252462552336,
   "format": "bps",
   "target": "\u2264 10",
   "status": "flag",
-  "note": "424 fills; the backtest assumes 3bps"
+  "note": "425 fills; the backtest assumes 3bps"
  },
  {
   "tier": "1 process",
   "metric": "Fill vs signal close (bps)",
-  "value": 101.21627358490565,
+  "value": 101.3910588235294,
   "format": "bps",
   "target": "info only",
   "status": "info",
@@ -38,7 +38,7 @@
  {
   "tier": "2 behaviour",
   "metric": "Drawdown from peak (now)",
-  "value": -0.1655330640021685,
+  "value": -0.1631950241172181,
   "format": "pct",
   "target": "above -15%",
   "status": "watch",
@@ -110,16 +110,16 @@
  {
   "tier": "3 edge",
   "metric": "Sharpe (above T-bills)",
-  "value": -9.382732927795164,
+  "value": -8.733597517477206,
   "format": "num",
   "target": "\u2265 SPY's",
   "status": "too early",
-  "note": "SPY -4.10; 90% range for the desk -60.0 to 41.2"
+  "note": "SPY -3.67; 90% range for the desk -54.0 to 36.6"
  },
  {
   "tier": "3 edge",
   "metric": "Return vs SPY since launch",
-  "value": -0.11691492604745113,
+  "value": -0.11764070712965646,
   "format": "pct",
   "target": "\u2265 0",
   "status": "too early",
@@ -137,7 +137,7 @@
  {
   "tier": "3 edge",
   "metric": "Upside capture",
-  "value": -0.32102133605481675,
+  "value": -0.23412141737269948,
   "format": "pct",
   "target": "\u2265 80%",
   "status": "too early",

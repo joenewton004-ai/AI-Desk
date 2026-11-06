@@ -5934,5 +5934,19 @@
   "notional": 4060.8,
   "vs_close_bps": 257.7,
   "vs_open_bps": -151.2
+ },
+ {
+  "id": "833f790c",
+  "date": "2026-11-06",
+  "symbol": "PLTR",
+  "side": "buy",
+  "sleeve": "rsi_dip",
+  "order_type": "limit",
+  "signal_close": 154.99,
+  "day_open": 158.67999267578125,
+  "fill": 157.710599,
+  "notional": 8498.98,
+  "vs_close_bps": 175.5,
+  "vs_open_bps": -61.1
  }
 ]
