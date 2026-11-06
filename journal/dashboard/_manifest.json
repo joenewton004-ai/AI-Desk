@@ -9,6 +9,7 @@
   "curve",
   "exits",
   "fills",
+  "holdings",
   "methods",
   "notes",
   "nvda_orb",
@@ -28,7 +29,5 @@
   "watch_summary",
   "watchlist"
  ],
- "empty": [
-  "holdings"
- ]
+ "empty": []
 }

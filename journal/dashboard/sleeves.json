@@ -14,9 +14,9 @@
   "sleeve": "rsi_dip",
   "allocation": 0.05,
   "planned_weight": 0.1,
-  "open_positions": 0,
-  "invested": 0.0,
-  "unrealized_pnl": 0.0,
+  "open_positions": 1,
+  "invested": 8498.98,
+  "unrealized_pnl": 167.56,
   "realized_pnl": 0.0,
   "closed_trades": 0,
   "win_rate": null

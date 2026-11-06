@@ -1,6 +1,6 @@
 {
- "asof_utc": "2026-11-05T14:42:37+00:00",
- "equity": 83523.79,
+ "asof_utc": "2026-11-06T14:42:45+00:00",
+ "equity": 83672.49,
  "by_sleeve": {
   "bottleneck": {
    "open_positions": 0,
@@ -46,9 +46,42 @@
    "closed_trades": 26,
    "win_rate": 0.269,
    "avg_closed_return": -0.0275
+  },
+  "rsi_dip": {
+   "open_positions": 1,
+   "invested": 8498.98,
+   "unrealized_pnl": 148.43,
+   "realized_pnl": 0.0,
+   "closed_trades": 0,
+   "win_rate": null,
+   "avg_closed_return": null
   }
  },
- "open": [],
+ "open": [
+  {
+   "trade_id": "833f790c",
+   "symbol": "PLTR",
+   "sleeve": "rsi_dip",
+   "qty": 53.8897,
+   "entry_price": 157.710599,
+   "entry_utc": "2026-11-06T14:35:48.883475733Z",
+   "entry_rationale": {
+    "rsi_dip": {
+     "rsi_14": 25.4244,
+     "close": 154.99,
+     "sma_5": 172.908,
+     "sma_200": 153.5604,
+     "source_file": "rsi_dip_2026-11-05.csv",
+     "why": "above its 200-day average with RSI(14) below 30"
+    }
+   },
+   "handed_over_from": null,
+   "price": 160.465,
+   "unrealized_pnl": 148.43384356970006,
+   "return": 0.01746490735223194,
+   "held_days": 0
+  }
+ ],
  "closed": [
   {
    "trade_id": "ca73717b",
@@ -3428,6 +3461,6 @@
    "mean": -0.0109
   }
  ],
- "trades_logged": 445,
+ "trades_logged": 446,
  "notes": 4
 }
