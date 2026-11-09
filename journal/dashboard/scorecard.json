@@ -2,16 +2,16 @@
  {
   "tier": "1 process",
   "metric": "Slippage vs the open (bps, $-weighted)",
-  "value": 39.7252462552336,
+  "value": 32.903303703251375,
   "format": "bps",
   "target": "\u2264 10",
   "status": "flag",
-  "note": "425 fills; the backtest assumes 3bps"
+  "note": "465 fills; the backtest assumes 3bps"
  },
  {
   "tier": "1 process",
   "metric": "Fill vs signal close (bps)",
-  "value": 101.3910588235294,
+  "value": 91.31634408602152,
   "format": "bps",
   "target": "info only",
   "status": "info",
@@ -38,7 +38,7 @@
  {
   "tier": "2 behaviour",
   "metric": "Drawdown from peak (now)",
-  "value": -0.1631950241172181,
+  "value": -0.15537165213059656,
   "format": "pct",
   "target": "above -15%",
   "status": "watch",
@@ -74,20 +74,20 @@
  {
   "tier": "2 behaviour",
   "metric": "bottleneck vs SPY",
-  "value": -0.08691,
+  "value": -0.13046,
   "format": "pct",
   "target": "above -10% over 12m",
   "status": "too early",
-  "note": "since launch over 2 days"
+  "note": "since launch over 3 days"
  },
  {
   "tier": "2 behaviour",
   "metric": "momentum vs SPY",
-  "value": -0.17437,
+  "value": -0.15717,
   "format": "pct",
   "target": "above -10% over 12m",
   "status": "too early",
-  "note": "since launch over 9 days"
+  "note": "since launch over 10 days"
  },
  {
   "tier": "2 behaviour",
@@ -110,16 +110,16 @@
  {
   "tier": "3 edge",
   "metric": "Sharpe (above T-bills)",
-  "value": -8.733597517477206,
+  "value": -7.732608728000147,
   "format": "num",
   "target": "\u2265 SPY's",
   "status": "too early",
-  "note": "SPY -3.67; 90% range for the desk -54.0 to 36.6"
+  "note": "SPY -1.54; 90% range for the desk -46.5 to 31.1"
  },
  {
   "tier": "3 edge",
   "metric": "Return vs SPY since launch",
-  "value": -0.11764070712965646,
+  "value": -0.13233532023539052,
   "format": "pct",
   "target": "\u2265 0",
   "status": "too early",
@@ -137,7 +137,7 @@
  {
   "tier": "3 edge",
   "metric": "Upside capture",
-  "value": -0.23412141737269948,
+  "value": -0.01445264330766878,
   "format": "pct",
   "target": "\u2265 80%",
   "status": "too early",
