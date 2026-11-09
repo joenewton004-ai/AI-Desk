@@ -217,8 +217,8 @@
   "why": "",
   "rationale": "rsi_dip: rsi_14=31.17, close=160.4, sma_5=168.2, sma_200=153.5, source_file=rsi_dip_2026-11-06.csv",
   "notes": "",
-  "return": 0.07513,
-  "day": 0.05724
+  "return": 0.07418,
+  "day": 0.0563
  },
  {
   "symbol": "PSX",
