@@ -4,7 +4,6 @@ CHD,ST,SP,sale,2025-10-10,15001,50000.0,20033415,Richard W. Allen,GA12,2025-11-1
 ,GS,self,purchase,2025-10-10,50001,100000.0,20033415,Richard W. Allen,GA12,2025-11-13,house
 ,GS,self,purchase,2025-11-14,50001,100000.0,20033589,Richard W. Allen,GA12,2025-12-09,house
 STT,ST,SP,sale,2025-11-17,15001,50000.0,20033492,Jake Auchincloss,MA04,2025-11-18,house
-,GS,JT,exchange,2025-09-18,50001,100000.0,20032200,Donald Sternoff Beyer,VA08,2025-10-02,house
 ,GS,JT,purchase,2025-10-22,15001,50000.0,20033325,Donald Sternoff Beyer,VA08,2025-11-02,house
 ,GS,JT,purchase,2025-10-31,15001,50000.0,20033325,Donald Sternoff Beyer,VA08,2025-11-02,house
 ,GS,JT,exchange,2025-10-14,15001,50000.0,20033325,Donald Sternoff Beyer,VA08,2025-11-02,house
@@ -595,8 +594,6 @@ WFC,ST,self,purchase,2025-11-18,1001,15000.0,20033619,Gilbert Cisneros,CA31,2025
 WPM,ST,self,purchase,2025-11-18,1001,15000.0,20033619,Gilbert Cisneros,CA31,2025-12-15,house
 XIACF,ST,self,purchase,2025-11-19,1001,15000.0,20033619,Gilbert Cisneros,CA31,2025-12-15,house
 ZTS,ST,self,purchase,2025-11-18,1001,15000.0,20033619,Gilbert Cisneros,CA31,2025-12-15,house
-PG,ST,self,sale,2025-09-17,15001,50000.0,20032205,Katherine M. Clark,MA05,2025-10-03,house
-PG,ST,self,sale,2025-09-17,15001,50000.0,20032205,Katherine M. Clark,MA05,2025-10-03,house
 ,GS,self,purchase,2025-10-27,250001,500000.0,20033393,Katherine M. Clark,MA05,2025-11-06,house
 ,GS,self,purchase,2025-10-27,100001,250000.0,20033393,Katherine M. Clark,MA05,2025-11-06,house
 ,GS,SP,purchase,2025-10-27,100001,250000.0,20033393,Katherine M. Clark,MA05,2025-11-06,house
@@ -5528,3 +5525,8 @@ NVDA,ST,self,purchase,2026-10-23,1001,15000.0,20035778,Maria Elvira Salazar,FL27
 NVDA,ST,self,purchase,2026-10-23,1001,15000.0,20035778,Maria Elvira Salazar,FL27,2026-11-05,house
 PG,ST,self,purchase,2026-10-23,1001,15000.0,20035778,Maria Elvira Salazar,FL27,2026-11-05,house
 PG,ST,self,purchase,2026-10-23,1001,15000.0,20035778,Maria Elvira Salazar,FL27,2026-11-05,house
+AMAT,ST,JT,purchase,2026-10-26,1001,15000.0,20035770,Josh Gottheimer,NJ05,2026-11-05,house
+BHE,ST,JT,purchase,2026-10-12,1001,15000.0,20035770,Josh Gottheimer,NJ05,2026-11-05,house
+TLK,ST,JT,sale,2026-10-15,1001,15000.0,20035770,Josh Gottheimer,NJ05,2026-11-05,house
+WDC,ST,SP,sale,2026-10-15,1001,15000.0,20035775,John J Mr McGuire,VA05,2026-11-06,house
+WBD,ST,SP,sale,2026-10-07,50001,100000.0,20035780,Nancy Pelosi,CA11,2026-11-06,house

@@ -1,11 +1,12 @@
 {
- "positions": {
-  "PLTR": {
+ "positions": {},
+ "closed": [
+  {
+   "symbol": "PLTR",
    "signal_date": "2026-11-05",
-   "rsi_14": 25.42,
-   "signal_close": 154.99
+   "exit_signal_date": "2026-11-09",
+   "why": "closed above its 5-day average (169.20 > 166.33)"
   }
- },
- "closed": [],
- "updated": "2026-11-06"
+ ],
+ "updated": "2026-11-09"
 }
