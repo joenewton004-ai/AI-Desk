@@ -408,6 +408,16 @@ RESEARCH_METHODS = {
                    "18%). Mag 7 chosen with hindsight.",
         "docs": ["research/GREEN_LINE_TECH.md", "research/output/green_line_tech.md"],
     },
+    "green_line_why": {
+        "description": "Why the 200-day line helped NVIDIA and Apple but not Tesla/Amazon/Microsoft: returns while in vs "
+                       "out, big falls and their speed, whipsaws, and SEC financials (revenue swings, down years).",
+        "parameters": {"line": "200-day SMA", "financials": "SEC XBRL, fiscal ~2009 on"},
+        "status": "explanation after the fact (research-only)",
+        "summary": "Out-days compounded: NVDA -10%/yr, AAPL -2% (line dodged long cyclical collapses) vs TSLA +75%, AMZN "
+                   "+29%, MSFT +21% (fast falls that bounced back). Cyclical hardware revenue (NVDA 4, AAPL 3 down years) "
+                   "vs steady services (GOOGL/AMZN 0). 7 hindsight stocks - not a rule.",
+        "docs": ["research/GREEN_LINE_WHY.md", "research/output/green_line_why.md"],
+    },
     "spy_short": {
         "description": "Shorting SPY: short-side swing rules (RSI(2) > 90, 10-day highs, three up days, tweezer top; "
                        "with/without the 200-day filter), long-above/short-below the 200-day, and an SPY hedge on the "

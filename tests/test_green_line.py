@@ -40,3 +40,18 @@ def test_mag7_basket_is_the_daily_equal_weight():
     import green_line_tech as glt
     r = pd.DataFrame({"A": [0.1, -0.1], "B": [0.0, 0.1]})
     assert list(glt.basket(r).round(10)) == [0.05, 0.0]
+
+
+def test_why_helpers_find_spells_falls_and_trend():
+    import green_line_why as gw
+    idx = pd.bdate_range("2020-01-01", periods=6)
+    sig = pd.Series([False, True, False, False, True, False], index=idx)
+    assert gw.spells(sig) == [(idx[2], idx[4]), (idx[5], idx[5])]
+    c = pd.Series([100, 80, 60, 90, 110, 70.0], index=idx)
+    dd = gw.drawdowns(c)
+    assert len(dd) == 2 and abs(dd[0]["depth"] + 0.4) < 1e-12 and dd[0]["days_down"] == 2 and dd[0]["days_back"] == 2
+    assert dd[1]["days_back"] is None
+    m = pd.bdate_range("2000-01-01", periods=3000)
+    trend = pd.Series(np.exp(np.cumsum(np.full(3000, 0.001))), index=m)
+    noise = pd.Series(np.exp(np.cumsum(np.random.default_rng(1).normal(0, 0.01, 3000))), index=m)
+    assert abs(gw.variance_ratio(noise) - 1) < 0.5

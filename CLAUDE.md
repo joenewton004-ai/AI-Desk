@@ -144,6 +144,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   same Sharpe on SPY with dividends (the price-only index flatters it). Research-only.
   Same on QQQ and the Mag 7 (`python research/green_line_tech.py` -> `research/GREEN_LINE_TECH.md`): QQQ worst -83% -> -51%
   at about the same return; Mag 7 basket -49% -> -30% for 10 pts/yr less; single stocks mixed. Mag 7 = hindsight; say so.
+  Why NVDA/AAPL gained and TSLA/AMZN/MSFT lost (`python research/green_line_why.py` -> `research/GREEN_LINE_WHY.md`, SEC
+  financials + dated market-share sources): the line pays on long cyclical downturns (chips, iPhone cycles), not on fast
+  sell-offs that bounce back. After-the-fact story on 7 stocks, research-only.
 - Candle patterns on 10 years of Alpaca minute bars (SPY, NVDA; engulfing, hammer/star, inside bar, opening-range breakout,
   intraday momentum): `python research/candles.py` -> `research/CANDLES.md`. No edge; NVDA's ORB (t 3.2) fails on QQQ + the
   10 largest companies of 2016 (hindsight). Research-only. Minute bars: `python research/alpaca_bars.py SYM ...` (Alpaca SIP
