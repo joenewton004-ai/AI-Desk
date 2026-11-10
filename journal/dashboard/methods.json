@@ -288,6 +288,42 @@
   "notes": ""
  },
  {
+  "method": "green_line_tech",
+  "live": false,
+  "allocation": 0.0,
+  "status": "tested: insurance, not an edge (research-only)",
+  "description": "The 'big green line' (hold above a moving average, T-bills below) on QQQ, each Mag 7 stock and an equal-weight Mag 7 basket; 50/200-day EMA, 200-day SMA, 2% band, 10-month SMA; 0.05% a switch.",
+  "evidence": "200-day SMA: QQQ worst drop -83% -> -51%, 7.8% -> 7.3%/yr, Sharpe 0.34 -> 0.40; Mag 7 basket 35.9% -> 26.3%/yr, worst -49% -> -30%, Sharpe 1.20 -> 1.21. Single stocks mixed (NVDA/AAPL better, TSLA 41% -> 18%). Mag 7 chosen with hindsight.",
+  "parameters": "signal=close; switch at the next open; data=QQQ 2000-, Mag 7 from listing, basket 2013-",
+  "docs": "research/GREEN_LINE_TECH.md, research/output/green_line_tech.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
+  "method": "green_line_why",
+  "live": false,
+  "allocation": 0.0,
+  "status": "explanation after the fact (research-only)",
+  "description": "Why the 200-day line helped NVIDIA and Apple but not Tesla/Amazon/Microsoft: returns while in vs out, big falls and their speed, whipsaws, and SEC financials (revenue swings, down years).",
+  "evidence": "Out-days compounded: NVDA -10%/yr, AAPL -2% (line dodged long cyclical collapses) vs TSLA +75%, AMZN +29%, MSFT +21% (fast falls that bounced back). Cyclical hardware revenue (NVDA 4, AAPL 3 down years) vs steady services (GOOGL/AMZN 0). 7 hindsight stocks - not a rule.",
+  "parameters": "line=200-day SMA; financials=SEC XBRL, fiscal ~2009 on",
+  "docs": "research/GREEN_LINE_WHY.md, research/output/green_line_why.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
+  "method": "green_line_cyclical",
+  "live": false,
+  "allocation": 0.0,
+  "status": "tested: not repeatable (research-only)",
+  "description": "200-day line vs holding on 63 names grouped before the test: 10 cyclical ETFs, 3 defensive ETFs, 29 cyclical stocks (chips, machinery, energy, metals, autos, homebuilders), 21 steady stocks.",
+  "evidence": "Line raised the Sharpe for 8 of 29 cyclical stocks (median -0.05) and 0 of 21 steady ones (-0.23); cuts cyclicals' worst drop -86% -> -63% for ~4 pts/yr. Only 1 of 4 checks passed. Survivors-only.",
+  "parameters": "adopt=4 pre-set checks: cyclicals improved in both halves (stocks + ETFs), beat steady, revenue swings vs Sharpe change p < 0.05",
+  "docs": "research/GREEN_LINE_CYCLICAL.md, research/output/green_line_cyclical.md",
+  "open_amendments": 0,
+  "notes": ""
+ },
+ {
   "method": "spy_short",
   "live": false,
   "allocation": 0.0,

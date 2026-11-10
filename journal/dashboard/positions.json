@@ -1,7 +1,7 @@
 [
  {
   "symbol": "APA",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 86.0,
@@ -13,12 +13,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.0006,
-  "day": -0.0006
+  "return": null,
+  "day": null
  },
  {
   "symbol": "CNC",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 55.0,
@@ -30,12 +30,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00967,
-  "day": 0.00967
+  "return": null,
+  "day": null
  },
  {
   "symbol": "CRL",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 10.0,
@@ -47,12 +47,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00065,
-  "day": 0.00065
+  "return": null,
+  "day": null
  },
  {
   "symbol": "DELL",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 11.0,
@@ -64,12 +64,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00101,
-  "day": 0.00101
+  "return": null,
+  "day": null
  },
  {
   "symbol": "DINO",
-  "sleeve": "momentum + overnight_drift",
+  "sleeve": "momentum",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 38.0,
@@ -81,12 +81,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.0002,
-  "day": 0.0002
+  "return": null,
+  "day": null
  },
  {
   "symbol": "EQNR",
-  "sleeve": "bottleneck + overnight_drift",
+  "sleeve": "bottleneck",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 93.0,
@@ -98,12 +98,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.00316,
-  "day": -0.00316
+  "return": null,
+  "day": null
  },
  {
   "symbol": "HPE",
-  "sleeve": "momentum + overnight_drift",
+  "sleeve": "momentum",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 80.0,
@@ -115,12 +115,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00209,
-  "day": 0.00209
+  "return": null,
+  "day": null
  },
  {
   "symbol": "LITE",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 6.0,
@@ -132,12 +132,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00396,
-  "day": 0.00396
+  "return": null,
+  "day": null
  },
  {
   "symbol": "MPC",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 9.0,
@@ -149,12 +149,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.00075,
-  "day": -0.00075
+  "return": null,
+  "day": null
  },
  {
   "symbol": "MRNA",
-  "sleeve": "momentum + overnight_drift",
+  "sleeve": "momentum",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 14.0,
@@ -166,12 +166,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00695,
-  "day": 0.00695
+  "return": null,
+  "day": null
  },
  {
   "symbol": "MU",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 5.0,
@@ -183,12 +183,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.00081,
-  "day": -0.00081
+  "return": null,
+  "day": null
  },
  {
   "symbol": "OKTA",
-  "sleeve": "momentum + overnight_drift",
+  "sleeve": "momentum",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 21.0,
@@ -200,8 +200,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.00062,
-  "day": -0.00062
+  "return": null,
+  "day": null
  },
  {
   "symbol": "PLTR",
@@ -217,12 +217,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.07545,
-  "day": 0.05755
+  "return": null,
+  "day": null
  },
  {
   "symbol": "PR",
-  "sleeve": "bottleneck + overnight_drift",
+  "sleeve": "bottleneck",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 178.0,
@@ -234,12 +234,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.00277,
-  "day": -0.00277
+  "return": null,
+  "day": null
  },
  {
   "symbol": "PSX",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 15.0,
@@ -251,12 +251,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00028,
-  "day": 0.00028
+  "return": null,
+  "day": null
  },
  {
   "symbol": "ROIV",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 95.0,
@@ -268,12 +268,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.00049,
-  "day": -0.00049
+  "return": null,
+  "day": null
  },
  {
   "symbol": "RVMD",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 19.0,
@@ -285,12 +285,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": -0.00418,
-  "day": -0.00418
+  "return": null,
+  "day": null
  },
  {
   "symbol": "SN",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 16.0,
@@ -302,12 +302,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.01062,
-  "day": 0.01062
+  "return": null,
+  "day": null
  },
  {
   "symbol": "SNDK",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 4.0,
@@ -319,12 +319,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00199,
-  "day": 0.00199
+  "return": null,
+  "day": null
  },
  {
   "symbol": "VLO",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 10.0,
@@ -336,12 +336,12 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00191,
-  "day": 0.00191
+  "return": null,
+  "day": null
  },
  {
   "symbol": "VTRS",
-  "sleeve": "overnight_drift",
+  "sleeve": "",
   "target": 0.0,
   "target_usd": 0.0,
   "held_qty": 187.0,
@@ -353,7 +353,7 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": 0.00245,
-  "day": 0.00245
+  "return": null,
+  "day": null
  }
 ]
