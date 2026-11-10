@@ -147,6 +147,9 @@ changes plainly and be honest about whether a strategy has a real edge.
   Why NVDA/AAPL gained and TSLA/AMZN/MSFT lost (`python research/green_line_why.py` -> `research/GREEN_LINE_WHY.md`, SEC
   financials + dated market-share sources): the line pays on long cyclical downturns (chips, iPhone cycles), not on fast
   sell-offs that bounce back. After-the-fact story on 7 stocks, research-only.
+  Tested on 63 new names grouped in advance (`python research/green_line_cyclical.py` -> `research/GREEN_LINE_CYCLICAL.md`):
+  NOT repeatable (1 of 4 checks) - the line hurts cyclicals less than steady stocks but doesn't beat holding them; it is
+  crash insurance (cyclical worst drop -86% -> -63%, ~4 pts/yr). Survivors-only.
 - Candle patterns on 10 years of Alpaca minute bars (SPY, NVDA; engulfing, hammer/star, inside bar, opening-range breakout,
   intraday momentum): `python research/candles.py` -> `research/CANDLES.md`. No edge; NVDA's ORB (t 3.2) fails on QQQ + the
   10 largest companies of 2016 (hindsight). Research-only. Minute bars: `python research/alpaca_bars.py SYM ...` (Alpaca SIP

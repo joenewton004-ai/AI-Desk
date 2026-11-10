@@ -418,6 +418,16 @@ RESEARCH_METHODS = {
                    "vs steady services (GOOGL/AMZN 0). 7 hindsight stocks - not a rule.",
         "docs": ["research/GREEN_LINE_WHY.md", "research/output/green_line_why.md"],
     },
+    "green_line_cyclical": {
+        "description": "200-day line vs holding on 63 names grouped before the test: 10 cyclical ETFs, 3 defensive ETFs, "
+                       "29 cyclical stocks (chips, machinery, energy, metals, autos, homebuilders), 21 steady stocks.",
+        "parameters": {"adopt": "4 pre-set checks: cyclicals improved in both halves (stocks + ETFs), beat steady, "
+                                "revenue swings vs Sharpe change p < 0.05"},
+        "status": "tested: not repeatable (research-only)",
+        "summary": "Line raised the Sharpe for 8 of 29 cyclical stocks (median -0.05) and 0 of 21 steady ones (-0.23); "
+                   "cuts cyclicals' worst drop -86% -> -63% for ~4 pts/yr. Only 1 of 4 checks passed. Survivors-only.",
+        "docs": ["research/GREEN_LINE_CYCLICAL.md", "research/output/green_line_cyclical.md"],
+    },
     "spy_short": {
         "description": "Shorting SPY: short-side swing rules (RSI(2) > 90, 10-day highs, three up days, tweezer top; "
                        "with/without the 200-day filter), long-above/short-below the 200-day, and an SPY hedge on the "

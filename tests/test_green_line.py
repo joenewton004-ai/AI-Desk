@@ -55,3 +55,12 @@ def test_why_helpers_find_spells_falls_and_trend():
     trend = pd.Series(np.exp(np.cumsum(np.full(3000, 0.001))), index=m)
     noise = pd.Series(np.exp(np.cumsum(np.random.default_rng(1).normal(0, 0.01, 3000))), index=m)
     assert abs(gw.variance_ratio(noise) - 1) < 0.5
+
+
+def test_cyclical_one_compares_line_and_hold_on_a_series():
+    import green_line_cyclical as gc
+    idx = pd.bdate_range("2000-01-01", periods=800)
+    c = pd.Series(np.r_[np.linspace(100, 200, 400), np.linspace(200, 50, 400)], index=idx)
+    res = gc.one(c.shift(1).fillna(100), c, pd.Series(0.0, index=idx))
+    assert res["line_dd"] > res["hold_dd"]                       # it sat out the long fall
+    assert {"d_sharpe_all", "d_sharpe_h1", "d_sharpe_h2"} <= set(res)
