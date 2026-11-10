@@ -398,6 +398,16 @@ RESEARCH_METHODS = {
                    "credit, breadth, own trend and weekends lower the Sharpe. Survivors-only.",
         "docs": ["research/OVERNIGHT_TIMING.md", "research/output/overnight_timing.md"],
     },
+    "green_line_tech": {
+        "description": "The 'big green line' (hold above a moving average, T-bills below) on QQQ, each Mag 7 stock and an "
+                       "equal-weight Mag 7 basket; 50/200-day EMA, 200-day SMA, 2% band, 10-month SMA; 0.05% a switch.",
+        "parameters": {"signal": "close; switch at the next open", "data": "QQQ 2000-, Mag 7 from listing, basket 2013-"},
+        "status": "tested: insurance, not an edge (research-only)",
+        "summary": "200-day SMA: QQQ worst drop -83% -> -51%, 7.8% -> 7.3%/yr, Sharpe 0.34 -> 0.40; Mag 7 basket 35.9% -> "
+                   "26.3%/yr, worst -49% -> -30%, Sharpe 1.20 -> 1.21. Single stocks mixed (NVDA/AAPL better, TSLA 41% -> "
+                   "18%). Mag 7 chosen with hindsight.",
+        "docs": ["research/GREEN_LINE_TECH.md", "research/output/green_line_tech.md"],
+    },
     "spy_short": {
         "description": "Shorting SPY: short-side swing rules (RSI(2) > 90, 10-day highs, three up days, tweezer top; "
                        "with/without the 200-day filter), long-above/short-below the 200-day, and an SPY hedge on the "

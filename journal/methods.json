@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-11-05T15:09:42+00:00",
+ "generated_utc": "2026-11-10T11:02:37+00:00",
  "live_preset": "desk",
  "live_allocation": {
   "overnight_drift": 0.95,
@@ -699,6 +699,23 @@
    "docs": [
     "research/OVERNIGHT_TIMING.md",
     "research/output/overnight_timing.md"
+   ],
+   "amendments": []
+  },
+  {
+   "name": "green_line_tech",
+   "in_live_mix": false,
+   "allocation": 0.0,
+   "description": "The 'big green line' (hold above a moving average, T-bills below) on QQQ, each Mag 7 stock and an equal-weight Mag 7 basket; 50/200-day EMA, 200-day SMA, 2% band, 10-month SMA; 0.05% a switch.",
+   "parameters": {
+    "signal": "close; switch at the next open",
+    "data": "QQQ 2000-, Mag 7 from listing, basket 2013-"
+   },
+   "status": "tested: insurance, not an edge (research-only)",
+   "evidence_summary": "200-day SMA: QQQ worst drop -83% -> -51%, 7.8% -> 7.3%/yr, Sharpe 0.34 -> 0.40; Mag 7 basket 35.9% -> 26.3%/yr, worst -49% -> -30%, Sharpe 1.20 -> 1.21. Single stocks mixed (NVDA/AAPL better, TSLA 41% -> 18%). Mag 7 chosen with hindsight.",
+   "docs": [
+    "research/GREEN_LINE_TECH.md",
+    "research/output/green_line_tech.md"
    ],
    "amendments": []
   },

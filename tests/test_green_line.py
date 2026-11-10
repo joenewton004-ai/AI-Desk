@@ -34,3 +34,9 @@ def test_book_switches_at_the_next_open():
     r = gl.book(o, c, pd.Series(0.0, index=idx), sig, cost=0.0)
     # in from day 1's open (+10% open->close); out at day 2's open, but day 2's overnight gap (0%) is still held
     assert np.allclose(r.tolist(), [0.0, 0.10, 0.0, 0.0])
+
+
+def test_mag7_basket_is_the_daily_equal_weight():
+    import green_line_tech as glt
+    r = pd.DataFrame({"A": [0.1, -0.1], "B": [0.0, 0.1]})
+    assert list(glt.basket(r).round(10)) == [0.05, 0.0]
