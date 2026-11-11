@@ -13,8 +13,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.00128,
+  "day": 0.00128
  },
  {
   "symbol": "ATI",
@@ -30,8 +30,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.00037,
+  "day": 0.00037
  },
  {
   "symbol": "CNC",
@@ -47,8 +47,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00078,
+  "day": -0.00078
  },
  {
   "symbol": "CRL",
@@ -64,8 +64,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00276,
+  "day": -0.00276
  },
  {
   "symbol": "DELL",
@@ -81,8 +81,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.00596,
+  "day": 0.00596
  },
  {
   "symbol": "DINO",
@@ -98,8 +98,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00157,
+  "day": -0.00157
  },
  {
   "symbol": "LITE",
@@ -115,8 +115,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.0089,
+  "day": 0.0089
  },
  {
   "symbol": "MPC",
@@ -132,8 +132,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.00042,
+  "day": 0.00042
  },
  {
   "symbol": "MRNA",
@@ -149,8 +149,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00329,
+  "day": -0.00329
  },
  {
   "symbol": "MU",
@@ -166,8 +166,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.00657,
+  "day": 0.00657
  },
  {
   "symbol": "OKTA",
@@ -183,8 +183,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.00263,
+  "day": 0.00263
  },
  {
   "symbol": "PSX",
@@ -200,8 +200,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.00083,
+  "day": 0.00083
  },
  {
   "symbol": "ROIV",
@@ -217,8 +217,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.00048,
+  "day": 0.00048
  },
  {
   "symbol": "RVMD",
@@ -234,8 +234,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 6e-05,
+  "day": 6e-05
  },
  {
   "symbol": "SN",
@@ -251,8 +251,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.00034,
+  "day": 0.00034
  },
  {
   "symbol": "SNDK",
@@ -268,8 +268,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": 0.0073,
+  "day": 0.0073
  },
  {
   "symbol": "SWK",
@@ -302,8 +302,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00545,
+  "day": -0.00545
  },
  {
   "symbol": "VLO",
@@ -319,8 +319,8 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00275,
+  "day": -0.00275
  },
  {
   "symbol": "VTRS",
@@ -336,7 +336,7 @@
   "why": "",
   "rationale": "",
   "notes": "",
-  "return": null,
-  "day": null
+  "return": -0.00095,
+  "day": -0.00095
  }
 ]
