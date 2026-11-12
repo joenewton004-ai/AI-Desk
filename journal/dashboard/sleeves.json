@@ -3,9 +3,9 @@
   "sleeve": "overnight_drift",
   "allocation": 0.95,
   "planned_weight": 0.0,
-  "open_positions": 0,
-  "invested": 0.0,
-  "unrealized_pnl": 0.0,
+  "open_positions": 20,
+  "invested": 81329.1,
+  "unrealized_pnl": 179.12,
   "realized_pnl": -16882.75,
   "closed_trades": 249,
   "win_rate": 0.345
