@@ -1,44 +1,44 @@
 {
- "asof_utc": "2026-11-11T21:20:27+00:00",
+ "asof_utc": "2026-11-12T21:21:14+00:00",
  "launch": "2026-10-20",
  "criteria_as_of": "2026-10-20",
  "desk": {
-  "days": 16,
-  "total_return": -0.15684375834093722,
-  "max_drawdown": -0.176382939801917,
-  "current_drawdown": -0.15860036911897102,
+  "days": 17,
+  "total_return": -0.17527466399476355,
+  "max_drawdown": -0.17699287628160343,
+  "current_drawdown": -0.17699287628160343,
   "cagr": NaN,
-  "volatility": 0.38166920483534633,
-  "sharpe": -6.922224481446742,
-  "sharpe_low": -39.53713985464245,
-  "sharpe_high": 25.692690891748967
+  "volatility": 0.3698967847978951,
+  "sharpe": -7.607084835143,
+  "sharpe_low": -42.25867306527794,
+  "sharpe_high": 27.044503394991942
  },
  "spy": {
-  "days": 16,
-  "total_return": -0.011975763713267695,
+  "days": 17,
+  "total_return": -0.015512636194193519,
   "max_drawdown": -0.05185686719893967,
-  "current_drawdown": -0.01713901297355258,
+  "current_drawdown": -0.02065740235097724,
   "cagr": NaN,
-  "volatility": 0.24652682157034445,
-  "sharpe": -0.8156097600867559,
-  "sharpe_low": -8.351900710082125,
-  "sharpe_high": 6.720681189908614
+  "volatility": 0.23892295604314132,
+  "sharpe": -1.0243339153307511,
+  "sharpe_low": -8.844643400455475,
+  "sharpe_high": 6.795975569793972
  },
  "rsp": {
-  "days": 16,
-  "total_return": 0.03145554186479149,
+  "days": 17,
+  "total_return": 0.02251459555549773,
   "max_drawdown": -0.03259749572206638,
-  "current_drawdown": -0.0030448570679936227,
+  "current_drawdown": -0.01168674423029814,
   "cagr": NaN,
-  "volatility": 0.18889701620336957,
-  "sharpe": 2.4606291345258273,
-  "sharpe_low": -10.640711951950497,
-  "sharpe_high": 15.561970221002152
+  "volatility": 0.18745764708795035,
+  "sharpe": 1.6352644975946087,
+  "sharpe_low": -8.046962232235636,
+  "sharpe_high": 11.317491227424853
  },
  "capture": {
-  "upside_capture": 0.23468350507189836,
-  "downside_capture": 2.020773801646574,
-  "beta": 0.5795971662469114
+  "upside_capture": 0.21867188152332434,
+  "downside_capture": 2.1628722604246966,
+  "beta": 0.5808613681401172
  },
  "sleeves": [
   {
@@ -60,10 +60,10 @@
   {
    "sleeve": "momentum",
    "benchmark": "SPY",
-   "days": 12,
-   "return": -0.13399,
-   "benchmark_return": 0.02194,
-   "excess": -0.15592
+   "days": 13,
+   "return": -0.13627,
+   "benchmark_return": 0.01828,
+   "excess": -0.15455
   },
   {
    "sleeve": "index_momentum",
@@ -78,16 +78,16 @@
   {
    "tier": "1 process",
    "metric": "Slippage vs the open (bps, $-weighted)",
-   "value": 48.82680049517693,
+   "value": 50.15293030816977,
    "format": "bps",
    "target": "\u2264 10",
    "status": "flag",
-   "note": "546 fills; the backtest assumes 3bps"
+   "note": "586 fills; the backtest assumes 3bps"
   },
   {
    "tier": "1 process",
    "metric": "Fill vs signal close (bps)",
-   "value": 79.32326007326007,
+   "value": 82.03668941979522,
    "format": "bps",
    "target": "info only",
    "status": "info",
@@ -114,7 +114,7 @@
   {
    "tier": "2 behaviour",
    "metric": "Drawdown from peak (now)",
-   "value": -0.15860036911897102,
+   "value": -0.17699287628160343,
    "format": "pct",
    "target": "above -15%",
    "status": "watch",
@@ -159,11 +159,11 @@
   {
    "tier": "2 behaviour",
    "metric": "momentum vs SPY",
-   "value": -0.15592,
+   "value": -0.15455,
    "format": "pct",
    "target": "above -10% over 12m",
    "status": "too early",
-   "note": "since launch over 12 days"
+   "note": "since launch over 13 days"
   },
   {
    "tier": "2 behaviour",
@@ -186,16 +186,16 @@
   {
    "tier": "3 edge",
    "metric": "Sharpe (above T-bills)",
-   "value": -6.922224481446742,
+   "value": -7.607084835143,
    "format": "num",
    "target": "\u2265 SPY's",
    "status": "too early",
-   "note": "SPY -0.82; 90% range for the desk -39.5 to 25.7"
+   "note": "SPY -1.02; 90% range for the desk -42.3 to 27.0"
   },
   {
    "tier": "3 edge",
    "metric": "Return vs SPY since launch",
-   "value": -0.14486799462766953,
+   "value": -0.15976202780057003,
    "format": "pct",
    "target": "\u2265 0",
    "status": "too early",
@@ -204,16 +204,16 @@
   {
    "tier": "3 edge",
    "metric": "Worst drop vs SPY's",
-   "value": -0.12452607260297732,
+   "value": -0.12513600908266376,
    "format": "pct",
    "target": "\u2265 0 (shallower)",
    "status": "too early",
-   "note": "desk -17.6%, SPY -5.2%"
+   "note": "desk -17.7%, SPY -5.2%"
   },
   {
    "tier": "3 edge",
    "metric": "Upside capture",
-   "value": 0.23468350507189836,
+   "value": 0.21867188152332434,
    "format": "pct",
    "target": "\u2265 80%",
    "status": "too early",
@@ -222,7 +222,7 @@
   {
    "tier": "3 edge",
    "metric": "Downside capture",
-   "value": 2.020773801646574,
+   "value": 2.1628722604246966,
    "format": "pct",
    "target": "\u2264 70%",
    "status": "too early",
@@ -7602,11 +7602,11 @@
    "sleeve": "overnight_drift",
    "order_type": "market",
    "signal_close": 515.21,
-   "day_open": 543.0599975585938,
+   "day_open": 543.0800170898438,
    "fill": 532.2775,
    "notional": 4258.22,
    "vs_close_bps": -331.3,
-   "vs_open_bps": 198.6
+   "vs_open_bps": 198.9
   },
   {
    "id": "445e9071",
@@ -7868,11 +7868,571 @@
    "sleeve": "overnight_drift",
    "order_type": "market",
    "signal_close": 20.85,
-   "day_open": 20.7549991607666,
+   "day_open": 20.760000228881836,
    "fill": 20.822696,
    "notional": 4247.83,
    "vs_close_bps": 13.1,
-   "vs_open_bps": -32.6
+   "vs_open_bps": -30.2
+  },
+  {
+   "id": "bbb5751a",
+   "date": "2026-11-11",
+   "symbol": "MRNA",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 248.39500427246094,
+   "day_open": 252.77999877929688,
+   "fill": 248.617059,
+   "notional": 4226.49,
+   "vs_close_bps": 8.9,
+   "vs_open_bps": -164.7
+  },
+  {
+   "id": "d135794e",
+   "date": "2026-11-11",
+   "symbol": "SNDK",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 976.3699951171875,
+   "day_open": 928.0599975585938,
+   "fill": 976.2,
+   "notional": 3904.8,
+   "vs_close_bps": -1.7,
+   "vs_open_bps": 518.7
+  },
+  {
+   "id": "82f2c651",
+   "date": "2026-11-11",
+   "symbol": "RVMD",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 181.7050018310547,
+   "day_open": 193.0,
+   "fill": 181.689167,
+   "notional": 4360.54,
+   "vs_close_bps": -0.9,
+   "vs_open_bps": -586.1
+  },
+  {
+   "id": "b2dcf127",
+   "date": "2026-11-11",
+   "symbol": "MU",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 809.6300048828125,
+   "day_open": 777.1400146484375,
+   "fill": 809.68,
+   "notional": 4048.4,
+   "vs_close_bps": 0.6,
+   "vs_open_bps": 418.7
+  },
+  {
+   "id": "79214273",
+   "date": "2026-11-11",
+   "symbol": "SN",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 226.74000549316406,
+   "day_open": 227.27000427246094,
+   "fill": 226.853684,
+   "notional": 4310.22,
+   "vs_close_bps": 5.0,
+   "vs_open_bps": -18.3
+  },
+  {
+   "id": "68e41c94",
+   "date": "2026-11-11",
+   "symbol": "LITE",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 647.97998046875,
+   "day_open": 641.5,
+   "fill": 647.981667,
+   "notional": 3887.89,
+   "vs_close_bps": 0.0,
+   "vs_open_bps": 101.0
+  },
+  {
+   "id": "a46aa464",
+   "date": "2026-11-11",
+   "symbol": "DELL",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 374.1449890136719,
+   "day_open": 360.3999938964844,
+   "fill": 374.467273,
+   "notional": 4119.14,
+   "vs_close_bps": 8.6,
+   "vs_open_bps": 390.3
+  },
+  {
+   "id": "8e32b462",
+   "date": "2026-11-11",
+   "symbol": "AMD",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 552.1400146484375,
+   "day_open": 543.0800170898438,
+   "fill": 552.234286,
+   "notional": 3865.64,
+   "vs_close_bps": 1.7,
+   "vs_open_bps": 168.6
+  },
+  {
+   "id": "5b8014f2",
+   "date": "2026-11-11",
+   "symbol": "VTRS",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 21.075000762939453,
+   "day_open": 20.760000228881836,
+   "fill": 21.07,
+   "notional": 4361.49,
+   "vs_close_bps": -2.4,
+   "vs_open_bps": 149.3
+  },
+  {
+   "id": "7ef11434",
+   "date": "2026-11-11",
+   "symbol": "OKTA",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 182.69000244140625,
+   "day_open": 186.80499267578125,
+   "fill": 182.58,
+   "notional": 4199.34,
+   "vs_close_bps": -6.0,
+   "vs_open_bps": -226.2
+  },
+  {
+   "id": "a7950d9c",
+   "date": "2026-11-11",
+   "symbol": "CRL",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 343.7900085449219,
+   "day_open": 347.3800048828125,
+   "fill": 343.64,
+   "notional": 4123.68,
+   "vs_close_bps": -4.4,
+   "vs_open_bps": -107.7
+  },
+  {
+   "id": "bf1b8e4c",
+   "date": "2026-11-11",
+   "symbol": "MPC",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 402.30999755859375,
+   "day_open": 395.95001220703125,
+   "fill": 402.88,
+   "notional": 4028.8,
+   "vs_close_bps": 14.2,
+   "vs_open_bps": 175.0
+  },
+  {
+   "id": "9d729cec",
+   "date": "2026-11-11",
+   "symbol": "VLO",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 364.3699951171875,
+   "day_open": 357.1700134277344,
+   "fill": 364.711818,
+   "notional": 4011.83,
+   "vs_close_bps": 9.4,
+   "vs_open_bps": 211.2
+  },
+  {
+   "id": "9644b868",
+   "date": "2026-11-11",
+   "symbol": "ROIV",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 41.81999969482422,
+   "day_open": 41.470001220703125,
+   "fill": 41.83,
+   "notional": 4350.32,
+   "vs_close_bps": 2.4,
+   "vs_open_bps": 86.8
+  },
+  {
+   "id": "7f8f7777",
+   "date": "2026-11-11",
+   "symbol": "JAZZ",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 248.57000732421875,
+   "day_open": 244.24000549316406,
+   "fill": 248.53,
+   "notional": 4225.01,
+   "vs_close_bps": -1.6,
+   "vs_open_bps": 175.6
+  },
+  {
+   "id": "86d2da49",
+   "date": "2026-11-11",
+   "symbol": "ATI",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 187.03500366210938,
+   "day_open": 184.72999572753906,
+   "fill": 187.46,
+   "notional": 4311.58,
+   "vs_close_bps": 22.7,
+   "vs_open_bps": 147.8
+  },
+  {
+   "id": "ded5cbfa",
+   "date": "2026-11-11",
+   "symbol": "PSX",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 258.0409851074219,
+   "day_open": 254.85000610351562,
+   "fill": 258.46625,
+   "notional": 4135.46,
+   "vs_close_bps": 16.5,
+   "vs_open_bps": 141.9
+  },
+  {
+   "id": "9f37349a",
+   "date": "2026-11-11",
+   "symbol": "CNC",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 70.51000213623047,
+   "day_open": 70.33000183105469,
+   "fill": 70.534839,
+   "notional": 4373.16,
+   "vs_close_bps": 3.5,
+   "vs_open_bps": 29.1
+  },
+  {
+   "id": "e6f47544",
+   "date": "2026-11-11",
+   "symbol": "DINO",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 101.76499938964844,
+   "day_open": 101.19999694824219,
+   "fill": 101.89,
+   "notional": 4279.38,
+   "vs_close_bps": 12.3,
+   "vs_open_bps": 68.2
+  },
+  {
+   "id": "eb61afba",
+   "date": "2026-11-11",
+   "symbol": "TGT",
+   "side": "buy",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 162.46499633789062,
+   "day_open": 162.0,
+   "fill": 162.414615,
+   "notional": 4222.78,
+   "vs_close_bps": -3.1,
+   "vs_open_bps": 25.6
+  },
+  {
+   "id": "2dfb8654",
+   "date": "2026-11-12",
+   "symbol": "AMD",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 552.9,
+   "day_open": 569.280029296875,
+   "fill": 563.998571,
+   "notional": 3947.99,
+   "vs_close_bps": -200.7,
+   "vs_open_bps": 92.8
+  },
+  {
+   "id": "d115827c",
+   "date": "2026-11-12",
+   "symbol": "ATI",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 187.53,
+   "day_open": 183.72999572753906,
+   "fill": 182.1,
+   "notional": 4188.3,
+   "vs_close_bps": 289.6,
+   "vs_open_bps": 88.7
+  },
+  {
+   "id": "8c1d12ae",
+   "date": "2026-11-12",
+   "symbol": "CNC",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 70.48,
+   "day_open": 70.75,
+   "fill": 70.5,
+   "notional": 4371.0,
+   "vs_close_bps": -2.8,
+   "vs_open_bps": 35.3
+  },
+  {
+   "id": "14b78f34",
+   "date": "2026-11-12",
+   "symbol": "CRL",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 342.69,
+   "day_open": 335.6600036621094,
+   "fill": 331.928334,
+   "notional": 3983.14,
+   "vs_close_bps": 314.0,
+   "vs_open_bps": 111.2
+  },
+  {
+   "id": "8d9592fb",
+   "date": "2026-11-12",
+   "symbol": "DELL",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 373.68,
+   "day_open": 336.0849914550781,
+   "fill": 345.778182,
+   "notional": 3803.56,
+   "vs_close_bps": 746.7,
+   "vs_open_bps": -288.4
+  },
+  {
+   "id": "bfdc1a39",
+   "date": "2026-11-12",
+   "symbol": "DINO",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 101.73,
+   "day_open": 102.0,
+   "fill": 101.124286,
+   "notional": 4247.22,
+   "vs_close_bps": 59.5,
+   "vs_open_bps": 85.9
+  },
+  {
+   "id": "04c2c3f7",
+   "date": "2026-11-12",
+   "symbol": "JAZZ",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 248.24,
+   "day_open": 248.9600067138672,
+   "fill": 245.16,
+   "notional": 4167.72,
+   "vs_close_bps": 124.1,
+   "vs_open_bps": 152.6
+  },
+  {
+   "id": "2b6abd5c",
+   "date": "2026-11-12",
+   "symbol": "LITE",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 648.06,
+   "day_open": 592.52001953125,
+   "fill": 594.56,
+   "notional": 3567.36,
+   "vs_close_bps": 825.5,
+   "vs_open_bps": -34.4
+  },
+  {
+   "id": "4b1cd018",
+   "date": "2026-11-12",
+   "symbol": "MPC",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 402.84,
+   "day_open": 404.5,
+   "fill": 404.175,
+   "notional": 4041.75,
+   "vs_close_bps": -33.1,
+   "vs_open_bps": 8.0
+  },
+  {
+   "id": "89a728dd",
+   "date": "2026-11-12",
+   "symbol": "MRNA",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 248.69,
+   "day_open": 237.8800048828125,
+   "fill": 234.444118,
+   "notional": 3985.55,
+   "vs_close_bps": 572.8,
+   "vs_open_bps": 144.4
+  },
+  {
+   "id": "47b8c193",
+   "date": "2026-11-12",
+   "symbol": "MU",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 811.3,
+   "day_open": 769.3099975585938,
+   "fill": 771.66,
+   "notional": 3858.3,
+   "vs_close_bps": 488.6,
+   "vs_open_bps": -30.5
+  },
+  {
+   "id": "972941c3",
+   "date": "2026-11-12",
+   "symbol": "OKTA",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 182.25,
+   "day_open": 177.32000732421875,
+   "fill": 174.04,
+   "notional": 4002.92,
+   "vs_close_bps": 450.5,
+   "vs_open_bps": 185.0
+  },
+  {
+   "id": "66393c6f",
+   "date": "2026-11-12",
+   "symbol": "PSX",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 258.68,
+   "day_open": 260.1000061035156,
+   "fill": 259.0,
+   "notional": 4144.0,
+   "vs_close_bps": -12.4,
+   "vs_open_bps": 42.3
+  },
+  {
+   "id": "17e35d2d",
+   "date": "2026-11-12",
+   "symbol": "ROIV",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 41.85,
+   "day_open": 41.38999938964844,
+   "fill": 41.263846,
+   "notional": 4291.44,
+   "vs_close_bps": 140.1,
+   "vs_open_bps": 30.5
+  },
+  {
+   "id": "9d2b3898",
+   "date": "2026-11-12",
+   "symbol": "RVMD",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 180.7,
+   "day_open": 181.3249969482422,
+   "fill": 178.388333,
+   "notional": 4281.32,
+   "vs_close_bps": 127.9,
+   "vs_open_bps": 162.0
+  },
+  {
+   "id": "15db6164",
+   "date": "2026-11-12",
+   "symbol": "SN",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 226.93,
+   "day_open": 227.0,
+   "fill": 225.19421,
+   "notional": 4278.69,
+   "vs_close_bps": 76.5,
+   "vs_open_bps": 79.6
+  },
+  {
+   "id": "70a15c6b",
+   "date": "2026-11-12",
+   "symbol": "SNDK",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 977.69,
+   "day_open": 888.10498046875,
+   "fill": 889.08,
+   "notional": 3556.32,
+   "vs_close_bps": 906.3,
+   "vs_open_bps": -11.0
+  },
+  {
+   "id": "043eb6bb",
+   "date": "2026-11-12",
+   "symbol": "TGT",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 162.7,
+   "day_open": 165.0,
+   "fill": 164.851923,
+   "notional": 4286.15,
+   "vs_close_bps": -132.3,
+   "vs_open_bps": 9.0
+  },
+  {
+   "id": "8ae7b930",
+   "date": "2026-11-12",
+   "symbol": "VLO",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 363.71,
+   "day_open": 365.0,
+   "fill": 364.466364,
+   "notional": 4009.13,
+   "vs_close_bps": -20.8,
+   "vs_open_bps": 14.6
+  },
+  {
+   "id": "f7a34dd8",
+   "date": "2026-11-12",
+   "symbol": "VTRS",
+   "side": "sell",
+   "sleeve": "overnight_drift",
+   "order_type": "market",
+   "signal_close": 21.06,
+   "day_open": 21.049999237060547,
+   "fill": 21.15,
+   "notional": 4378.05,
+   "vs_close_bps": -42.7,
+   "vs_open_bps": -47.5
   }
  ],
  "exits": [
@@ -7883,8 +8443,8 @@
    "sleeve": "index_momentum",
    "exit_price": 770.52,
    "reason": "sleeve replaced by the overnight sleeve (amendment 330e76e0)",
-   "days_after": 15,
-   "return_after": -0.0139,
+   "days_after": 16,
+   "return_after": -0.0174,
    "complete": false
   },
   {
@@ -7894,8 +8454,8 @@
    "sleeve": "bottleneck",
    "exit_price": 146.295659,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "days_after": 15,
-   "return_after": -0.0577,
+   "days_after": 16,
+   "return_after": -0.0426,
    "complete": false
   },
   {
@@ -7905,8 +8465,8 @@
    "sleeve": "bottleneck",
    "exit_price": 50.03,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "days_after": 15,
-   "return_after": -0.1015,
+   "days_after": 16,
+   "return_after": -0.076,
    "complete": false
   },
   {
@@ -7916,8 +8476,8 @@
    "sleeve": "bottleneck",
    "exit_price": 158.43,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "days_after": 15,
-   "return_after": -0.0294,
+   "days_after": 16,
+   "return_after": -0.0177,
    "complete": false
   },
   {
@@ -7927,8 +8487,8 @@
    "sleeve": "bottleneck",
    "exit_price": 46.11,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "days_after": 15,
-   "return_after": -0.1037,
+   "days_after": 16,
+   "return_after": -0.0727,
    "complete": false
   },
   {
@@ -7938,8 +8498,8 @@
    "sleeve": "bottleneck",
    "exit_price": 70.5,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "days_after": 15,
-   "return_after": -0.0997,
+   "days_after": 16,
+   "return_after": -0.0796,
    "complete": false
   },
   {
@@ -7949,8 +8509,8 @@
    "sleeve": "bottleneck",
    "exit_price": 62.77,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "days_after": 15,
-   "return_after": -0.0881,
+   "days_after": 16,
+   "return_after": -0.0696,
    "complete": false
   },
   {
@@ -7960,8 +8520,8 @@
    "sleeve": "bottleneck",
    "exit_price": 24.9,
    "reason": "sleeve switched from bottleneck to plain momentum (amendment 00e1f2b8)",
-   "days_after": 15,
-   "return_after": -0.1036,
+   "days_after": 16,
+   "return_after": -0.0855,
    "complete": false
   },
   {
@@ -7971,8 +8531,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 225.11,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 14,
-   "return_after": -0.0695,
+   "days_after": 15,
+   "return_after": -0.103,
    "complete": false
   },
   {
@@ -7982,8 +8542,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 158.09,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 14,
-   "return_after": 0.2087,
+   "days_after": 15,
+   "return_after": 0.1567,
    "complete": false
   },
   {
@@ -7993,8 +8553,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 235.40247,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 14,
-   "return_after": 0.002,
+   "days_after": 15,
+   "return_after": -0.0069,
    "complete": false
   },
   {
@@ -8004,8 +8564,8 @@
    "sleeve": "quality_screen",
    "exit_price": 235.40247,
    "reason": "resize: +11.274 -> +7.2739 shares (target +1.9%) | includes the overnight sleeve's 4 shares, sold at the open",
-   "days_after": 14,
-   "return_after": 0.002,
+   "days_after": 15,
+   "return_after": -0.0069,
    "complete": false
   },
   {
@@ -8015,8 +8575,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 880.29,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 14,
-   "return_after": -0.0784,
+   "days_after": 15,
+   "return_after": -0.093,
    "complete": false
   },
   {
@@ -8026,8 +8586,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 138.82,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 14,
-   "return_after": -0.1591,
+   "days_after": 15,
+   "return_after": -0.168,
    "complete": false
   },
   {
@@ -8037,8 +8597,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 477.266667,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 14,
-   "return_after": -0.0099,
+   "days_after": 15,
+   "return_after": -0.0141,
    "complete": false
   },
   {
@@ -8048,8 +8608,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 664.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 14,
-   "return_after": -0.1691,
+   "days_after": 15,
+   "return_after": -0.179,
    "complete": false
   },
   {
@@ -8059,8 +8619,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 319.6,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 14,
-   "return_after": -0.1684,
+   "days_after": 15,
+   "return_after": -0.1747,
    "complete": false
   },
   {
@@ -8070,8 +8630,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 202.055714,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 14,
-   "return_after": 0.022,
+   "days_after": 15,
+   "return_after": 0.0375,
    "complete": false
   },
   {
@@ -8081,8 +8641,8 @@
    "sleeve": "bottleneck",
    "exit_price": 510.0,
    "reason": "exit rule: closed below its 100-day average",
-   "days_after": 13,
-   "return_after": 0.0841,
+   "days_after": 14,
+   "return_after": 0.1476,
    "complete": false
   },
   {
@@ -8092,8 +8652,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 156.6,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": 0.1975,
+   "days_after": 14,
+   "return_after": 0.2143,
    "complete": false
   },
   {
@@ -8103,8 +8663,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 201.384286,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": 0.0402,
+   "days_after": 14,
+   "return_after": 0.0027,
    "complete": false
   },
   {
@@ -8114,8 +8674,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 208.01,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": 0.1274,
+   "days_after": 14,
+   "return_after": 0.1157,
    "complete": false
   },
   {
@@ -8125,8 +8685,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 147.142222,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": -0.039,
+   "days_after": 14,
+   "return_after": -0.0498,
    "complete": false
   },
   {
@@ -8136,8 +8696,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 720.69,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": 0.0066,
+   "days_after": 14,
+   "return_after": 0.0032,
    "complete": false
   },
   {
@@ -8147,8 +8707,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 150.447778,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": 0.2701,
+   "days_after": 14,
+   "return_after": 0.2155,
    "complete": false
   },
   {
@@ -8158,8 +8718,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 85.830526,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": -0.2718,
+   "days_after": 14,
+   "return_after": -0.287,
    "complete": false
   },
   {
@@ -8169,8 +8729,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 757.13,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": -0.1441,
+   "days_after": 14,
+   "return_after": -0.175,
    "complete": false
   },
   {
@@ -8180,8 +8740,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 227.78,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": 0.0356,
+   "days_after": 14,
+   "return_after": 0.0263,
    "complete": false
   },
   {
@@ -8191,8 +8751,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 223.455714,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": -0.2446,
+   "days_after": 14,
+   "return_after": -0.2641,
    "complete": false
   },
   {
@@ -8202,8 +8762,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 863.98,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": -0.061,
+   "days_after": 14,
+   "return_after": -0.0759,
    "complete": false
   },
   {
@@ -8213,8 +8773,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 158.387778,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": -0.0233,
+   "days_after": 14,
+   "return_after": -0.1878,
    "complete": false
   },
   {
@@ -8224,8 +8784,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 123.476667,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": -0.0546,
+   "days_after": 14,
+   "return_after": -0.0646,
    "complete": false
   },
   {
@@ -8235,8 +8795,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 106.894286,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": 0.1841,
+   "days_after": 14,
+   "return_after": 0.1478,
    "complete": false
   },
   {
@@ -8246,8 +8806,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 455.97,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": 0.0364,
+   "days_after": 14,
+   "return_after": 0.032,
    "complete": false
   },
   {
@@ -8257,8 +8817,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 1263.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": -0.2259,
+   "days_after": 14,
+   "return_after": -0.2578,
    "complete": false
   },
   {
@@ -8268,8 +8828,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 631.65,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": -0.1265,
+   "days_after": 14,
+   "return_after": -0.137,
    "complete": false
   },
   {
@@ -8279,8 +8839,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 307.514,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": -0.1357,
+   "days_after": 14,
+   "return_after": -0.1423,
    "complete": false
   },
   {
@@ -8290,8 +8850,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 164.532222,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": -0.0344,
+   "days_after": 14,
+   "return_after": -0.0406,
    "complete": false
   },
   {
@@ -8301,8 +8861,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 191.35,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 13,
-   "return_after": 0.0792,
+   "days_after": 14,
+   "return_after": 0.0956,
    "complete": false
   },
   {
@@ -8312,8 +8872,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 156.888,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": 0.1953,
+   "days_after": 13,
+   "return_after": 0.2121,
    "complete": false
   },
   {
@@ -8323,8 +8883,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 195.01,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": 0.0742,
+   "days_after": 13,
+   "return_after": 0.0355,
    "complete": false
   },
   {
@@ -8334,8 +8894,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 210.38,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": 0.1147,
+   "days_after": 13,
+   "return_after": 0.1031,
    "complete": false
   },
   {
@@ -8345,8 +8905,8 @@
    "sleeve": "momentum",
    "exit_price": 88.51,
    "reason": "exit rule: closed below its 100-day average",
-   "days_after": 12,
-   "return_after": -0.1579,
+   "days_after": 13,
+   "return_after": -0.1672,
    "complete": false
   },
   {
@@ -8356,8 +8916,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 148.73,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": -0.0492,
+   "days_after": 13,
+   "return_after": -0.06,
    "complete": false
   },
   {
@@ -8367,8 +8927,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 750.11,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": -0.0329,
+   "days_after": 13,
+   "return_after": -0.0361,
    "complete": false
   },
   {
@@ -8378,8 +8938,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 154.31,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": 0.2383,
+   "days_after": 13,
+   "return_after": 0.1851,
    "complete": false
   },
   {
@@ -8389,8 +8949,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 87.629444,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": -0.2868,
+   "days_after": 13,
+   "return_after": -0.3016,
    "complete": false
   },
   {
@@ -8400,8 +8960,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 763.11,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": -0.1508,
+   "days_after": 13,
+   "return_after": -0.1814,
    "complete": false
   },
   {
@@ -8411,8 +8971,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 233.68,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": 0.0094,
+   "days_after": 13,
+   "return_after": 0.0004,
    "complete": false
   },
   {
@@ -8422,8 +8982,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 227.067143,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": -0.2566,
+   "days_after": 13,
+   "return_after": -0.2758,
    "complete": false
   },
   {
@@ -8433,8 +8993,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 886.85,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": -0.0852,
+   "days_after": 13,
+   "return_after": -0.0997,
    "complete": false
   },
   {
@@ -8444,8 +9004,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 152.872,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": 0.0119,
+   "days_after": 13,
+   "return_after": -0.1585,
    "complete": false
   },
   {
@@ -8455,8 +9015,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 125.9,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": -0.0728,
+   "days_after": 13,
+   "return_after": -0.0826,
    "complete": false
   },
   {
@@ -8466,8 +9026,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 110.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": 0.1506,
+   "days_after": 13,
+   "return_after": 0.1154,
    "complete": false
   },
   {
@@ -8477,8 +9037,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 455.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": 0.0386,
+   "days_after": 13,
+   "return_after": 0.0342,
    "complete": false
   },
   {
@@ -8488,8 +9048,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 1252.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": -0.2191,
+   "days_after": 13,
+   "return_after": -0.2512,
    "complete": false
   },
   {
@@ -8499,8 +9059,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 628.51,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": -0.1222,
+   "days_after": 13,
+   "return_after": -0.1326,
    "complete": false
   },
   {
@@ -8510,8 +9070,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 309.87,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": -0.1423,
+   "days_after": 13,
+   "return_after": -0.1488,
    "complete": false
   },
   {
@@ -8521,8 +9081,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 167.576667,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": -0.052,
+   "days_after": 13,
+   "return_after": -0.058,
    "complete": false
   },
   {
@@ -8532,8 +9092,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 196.48125,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 12,
-   "return_after": 0.051,
+   "days_after": 13,
+   "return_after": 0.067,
    "complete": false
   },
   {
@@ -8543,8 +9103,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 51.621818,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.0946,
+   "days_after": 12,
+   "return_after": -0.0767,
    "complete": false
   },
   {
@@ -8554,8 +9114,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 473.923333,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.2115,
+   "days_after": 12,
+   "return_after": -0.2168,
    "complete": false
   },
   {
@@ -8565,8 +9125,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 123.59,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.1769,
+   "days_after": 12,
+   "return_after": -0.1735,
    "complete": false
   },
   {
@@ -8576,8 +9136,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 171.343333,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.0967,
+   "days_after": 12,
+   "return_after": -0.0962,
    "complete": false
   },
   {
@@ -8587,8 +9147,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 59.846207,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.1603,
+   "days_after": 12,
+   "return_after": -0.1619,
    "complete": false
   },
   {
@@ -8598,8 +9158,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 266.100002,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.1998,
+   "days_after": 12,
+   "return_after": -0.2125,
    "complete": false
   },
   {
@@ -8609,8 +9169,8 @@
    "sleeve": "momentum",
    "exit_price": 266.100002,
    "reason": "resize: +9.7366 -> +3.7365 shares (target +1.0%) | includes the overnight sleeve's 6 shares, sold at the open",
-   "days_after": 11,
-   "return_after": -0.1998,
+   "days_after": 12,
+   "return_after": -0.2125,
    "complete": false
   },
   {
@@ -8620,8 +9180,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 92.303889,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.3229,
+   "days_after": 12,
+   "return_after": -0.337,
    "complete": false
   },
   {
@@ -8631,8 +9191,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 841.07,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.2295,
+   "days_after": 12,
+   "return_after": -0.2573,
    "complete": false
   },
   {
@@ -8642,8 +9202,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 465.6,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.1348,
+   "days_after": 12,
+   "return_after": -0.1133,
    "complete": false
   },
   {
@@ -8653,8 +9213,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 192.16125,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": 0.2942,
+   "days_after": 12,
+   "return_after": 0.2039,
    "complete": false
   },
   {
@@ -8664,8 +9224,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 237.235714,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.2885,
+   "days_after": 12,
+   "return_after": -0.3068,
    "complete": false
   },
   {
@@ -8675,8 +9235,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 914.84,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.1132,
+   "days_after": 12,
+   "return_after": -0.1272,
    "complete": false
   },
   {
@@ -8686,8 +9246,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 219.914285,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.1713,
+   "days_after": 12,
+   "return_after": -0.1699,
    "complete": false
   },
   {
@@ -8697,8 +9257,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 181.678889,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.0054,
+   "days_after": 12,
+   "return_after": -0.0293,
    "complete": false
   },
   {
@@ -8708,8 +9268,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 1269.04,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.2296,
+   "days_after": 12,
+   "return_after": -0.2613,
    "complete": false
   },
   {
@@ -8719,8 +9279,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 651.405,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.153,
+   "days_after": 12,
+   "return_after": -0.1631,
    "complete": false
   },
   {
@@ -8730,8 +9290,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 179.581111,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.1153,
+   "days_after": 12,
+   "return_after": -0.121,
    "complete": false
   },
   {
@@ -8741,8 +9301,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 261.39,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.1603,
+   "days_after": 12,
+   "return_after": -0.1881,
    "complete": false
   },
   {
@@ -8752,8 +9312,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 421.27,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.1366,
+   "days_after": 12,
+   "return_after": -0.11,
    "complete": false
   },
   {
@@ -8763,8 +9323,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 360.2425,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 11,
-   "return_after": -0.1303,
+   "days_after": 12,
+   "return_after": -0.1361,
    "complete": false
   },
   {
@@ -8774,8 +9334,8 @@
    "sleeve": "quality_screen",
    "exit_price": 244.84,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.0296,
+   "days_after": 11,
+   "return_after": -0.0257,
    "complete": false
   },
   {
@@ -8785,8 +9345,8 @@
    "sleeve": "quality_screen",
    "exit_price": 189.788166,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.0363,
+   "days_after": 11,
+   "return_after": 0.0887,
    "complete": false
   },
   {
@@ -8796,8 +9356,8 @@
    "sleeve": "quality_screen",
    "exit_price": 149.229512,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.0736,
+   "days_after": 11,
+   "return_after": 0.0802,
    "complete": false
   },
   {
@@ -8807,8 +9367,8 @@
    "sleeve": "quality_screen",
    "exit_price": 398.618159,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.1589,
+   "days_after": 11,
+   "return_after": 0.144,
    "complete": false
   },
   {
@@ -8818,8 +9378,8 @@
    "sleeve": "momentum",
    "exit_price": 269.01,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.1485,
+   "days_after": 11,
+   "return_after": -0.1455,
    "complete": false
   },
   {
@@ -8829,8 +9389,8 @@
    "sleeve": "momentum",
    "exit_price": 281.515462,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.345,
+   "days_after": 11,
+   "return_after": -0.3448,
    "complete": false
   },
   {
@@ -8840,8 +9400,8 @@
    "sleeve": "quality_screen",
    "exit_price": 79.733676,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.1084,
+   "days_after": 11,
+   "return_after": 0.0602,
    "complete": false
   },
   {
@@ -8851,8 +9411,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 116.693608,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 10,
-   "return_after": -0.1282,
+   "days_after": 11,
+   "return_after": -0.1246,
    "complete": false
   },
   {
@@ -8862,8 +9422,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 116.693608,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.1282,
+   "days_after": 11,
+   "return_after": -0.1246,
    "complete": false
   },
   {
@@ -8873,8 +9433,8 @@
    "sleeve": "quality_screen",
    "exit_price": 676.35,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.0142,
+   "days_after": 11,
+   "return_after": -0.0201,
    "complete": false
   },
   {
@@ -8884,8 +9444,8 @@
    "sleeve": "quality_screen",
    "exit_price": 686.56,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.0616,
+   "days_after": 11,
+   "return_after": 0.0449,
    "complete": false
   },
   {
@@ -8895,8 +9455,8 @@
    "sleeve": "quality_screen",
    "exit_price": 1320.0,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.12,
+   "days_after": 11,
+   "return_after": -0.1454,
    "complete": false
   },
   {
@@ -8906,8 +9466,8 @@
    "sleeve": "momentum",
    "exit_price": 100.85,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.0859,
+   "days_after": 11,
+   "return_after": 0.0967,
    "complete": false
   },
   {
@@ -8917,8 +9477,8 @@
    "sleeve": "quality_screen",
    "exit_price": 183.4,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.3015,
+   "days_after": 11,
+   "return_after": -0.2937,
    "complete": false
   },
   {
@@ -8928,8 +9488,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 178.022222,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 10,
-   "return_after": -0.1306,
+   "days_after": 11,
+   "return_after": -0.1301,
    "complete": false
   },
   {
@@ -8939,8 +9499,8 @@
    "sleeve": "quality_screen",
    "exit_price": 325.58,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.0987,
+   "days_after": 11,
+   "return_after": -0.0826,
    "complete": false
   },
   {
@@ -8950,8 +9510,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 61.619465,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 10,
-   "return_after": -0.1845,
+   "days_after": 11,
+   "return_after": -0.186,
    "complete": false
   },
   {
@@ -8961,8 +9521,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 61.619465,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.1845,
+   "days_after": 11,
+   "return_after": -0.186,
    "complete": false
   },
   {
@@ -8972,8 +9532,8 @@
    "sleeve": "momentum",
    "exit_price": 411.962166,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.0834,
+   "days_after": 11,
+   "return_after": 0.077,
    "complete": false
   },
   {
@@ -8983,8 +9543,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 277.73,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 10,
-   "return_after": -0.2333,
+   "days_after": 11,
+   "return_after": -0.2455,
    "complete": false
   },
   {
@@ -8994,8 +9554,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 277.73,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.2333,
+   "days_after": 11,
+   "return_after": -0.2455,
    "complete": false
   },
   {
@@ -9005,8 +9565,8 @@
    "sleeve": "quality_screen",
    "exit_price": 114.61,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.0668,
+   "days_after": 11,
+   "return_after": 0.0619,
    "complete": false
   },
   {
@@ -9016,8 +9576,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 94.791111,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 10,
-   "return_after": -0.3407,
+   "days_after": 11,
+   "return_after": -0.3544,
    "complete": false
   },
   {
@@ -9027,8 +9587,8 @@
    "sleeve": "quality_screen",
    "exit_price": 156.210849,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.0307,
+   "days_after": 11,
+   "return_after": 0.007,
    "complete": false
   },
   {
@@ -9038,8 +9598,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 883.12,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 10,
-   "return_after": -0.2662,
+   "days_after": 11,
+   "return_after": -0.2927,
    "complete": false
   },
   {
@@ -9049,8 +9609,8 @@
    "sleeve": "quality_screen",
    "exit_price": 1262.43,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.1385,
+   "days_after": 11,
+   "return_after": 0.1306,
    "complete": false
   },
   {
@@ -9060,8 +9620,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 246.582906,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.0434,
+   "days_after": 11,
+   "return_after": -0.0519,
    "complete": false
   },
   {
@@ -9071,8 +9631,8 @@
    "sleeve": "quality_screen",
    "exit_price": 606.072265,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.0902,
+   "days_after": 11,
+   "return_after": 0.0768,
    "complete": false
   },
   {
@@ -9082,8 +9642,8 @@
    "sleeve": "quality_screen",
    "exit_price": 666.638601,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.0028,
+   "days_after": 11,
+   "return_after": -0.0147,
    "complete": false
   },
   {
@@ -9093,8 +9653,8 @@
    "sleeve": "quality_screen",
    "exit_price": 623.56,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.0084,
+   "days_after": 11,
+   "return_after": 0.0001,
    "complete": false
   },
   {
@@ -9104,8 +9664,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 207.005978,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 10,
-   "return_after": 0.2014,
+   "days_after": 11,
+   "return_after": 0.1176,
    "complete": false
   },
   {
@@ -9115,8 +9675,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 207.005978,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.2014,
+   "days_after": 11,
+   "return_after": 0.1176,
    "complete": false
   },
   {
@@ -9126,8 +9686,8 @@
    "sleeve": "quality_screen",
    "exit_price": 600.227154,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.1021,
+   "days_after": 11,
+   "return_after": 0.0854,
    "complete": false
   },
   {
@@ -9137,8 +9697,8 @@
    "sleeve": "momentum",
    "exit_price": 227.358541,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.1946,
+   "days_after": 11,
+   "return_after": -0.1816,
    "complete": false
   },
   {
@@ -9148,8 +9708,8 @@
    "sleeve": "quality_screen",
    "exit_price": 219.44,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.2083,
+   "days_after": 11,
+   "return_after": -0.2427,
    "complete": false
   },
   {
@@ -9159,8 +9719,8 @@
    "sleeve": "quality_screen",
    "exit_price": 78.066924,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.2885,
+   "days_after": 11,
+   "return_after": 0.199,
    "complete": false
   },
   {
@@ -9170,8 +9730,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 224.612575,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 10,
-   "return_after": -0.1886,
+   "days_after": 11,
+   "return_after": -0.1873,
    "complete": false
   },
   {
@@ -9181,8 +9741,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 224.612575,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.1886,
+   "days_after": 11,
+   "return_after": -0.1873,
    "complete": false
   },
   {
@@ -9192,8 +9752,8 @@
    "sleeve": "momentum",
    "exit_price": 31.51,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.019,
+   "days_after": 11,
+   "return_after": 0.0136,
    "complete": false
   },
   {
@@ -9203,8 +9763,8 @@
    "sleeve": "momentum",
    "exit_price": 141.02,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.2448,
+   "days_after": 11,
+   "return_after": -0.2193,
    "complete": false
   },
   {
@@ -9214,8 +9774,8 @@
    "sleeve": "quality_screen",
    "exit_price": 108.173738,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.0665,
+   "days_after": 11,
+   "return_after": 0.0648,
    "complete": false
   },
   {
@@ -9225,8 +9785,8 @@
    "sleeve": "momentum",
    "exit_price": 75.15,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.0721,
+   "days_after": 11,
+   "return_after": -0.0558,
    "complete": false
   },
   {
@@ -9236,8 +9796,8 @@
    "sleeve": "quality_screen",
    "exit_price": 201.11,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.0237,
+   "days_after": 11,
+   "return_after": -0.0221,
    "complete": false
   },
   {
@@ -9247,8 +9807,8 @@
    "sleeve": "momentum",
    "exit_price": 135.01,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.1907,
+   "days_after": 11,
+   "return_after": -0.1824,
    "complete": false
   },
   {
@@ -9258,8 +9818,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 184.01,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 10,
-   "return_after": -0.018,
+   "days_after": 11,
+   "return_after": -0.0416,
    "complete": false
   },
   {
@@ -9269,8 +9829,8 @@
    "sleeve": "momentum",
    "exit_price": 337.42,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.1073,
+   "days_after": 11,
+   "return_after": -0.1148,
    "complete": false
   },
   {
@@ -9280,8 +9840,8 @@
    "sleeve": "momentum",
    "exit_price": 217.685669,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.2997,
+   "days_after": 11,
+   "return_after": -0.3004,
    "complete": false
   },
   {
@@ -9291,8 +9851,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 251.309734,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 10,
-   "return_after": -0.1267,
+   "days_after": 11,
+   "return_after": -0.1556,
    "complete": false
   },
   {
@@ -9302,8 +9862,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 251.309734,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.1267,
+   "days_after": 11,
+   "return_after": -0.1556,
    "complete": false
   },
   {
@@ -9313,8 +9873,8 @@
    "sleeve": "quality_screen",
    "exit_price": 578.63,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.0294,
+   "days_after": 11,
+   "return_after": 0.0254,
    "complete": false
   },
   {
@@ -9324,8 +9884,8 @@
    "sleeve": "quality_screen",
    "exit_price": 398.170396,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": 0.0688,
+   "days_after": 11,
+   "return_after": 0.0556,
    "complete": false
   },
   {
@@ -9335,8 +9895,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 379.88,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 10,
-   "return_after": -0.1752,
+   "days_after": 11,
+   "return_after": -0.1808,
    "complete": false
   },
   {
@@ -9346,8 +9906,8 @@
    "sleeve": "quality_screen",
    "exit_price": 45.29,
    "reason": "desk rearranged: quality screen and momentum retired (amendment c52ce018)",
-   "days_after": 10,
-   "return_after": -0.0877,
+   "days_after": 11,
+   "return_after": -0.0775,
    "complete": false
   },
   {
@@ -9357,8 +9917,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 179.804166,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 9,
-   "return_after": -0.1392,
+   "days_after": 10,
+   "return_after": -0.1387,
    "complete": false
   },
   {
@@ -9368,8 +9928,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 59.313919,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 9,
-   "return_after": -0.1528,
+   "days_after": 10,
+   "return_after": -0.1543,
    "complete": false
   },
   {
@@ -9379,8 +9939,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 285.240667,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 9,
-   "return_after": -0.2535,
+   "days_after": 10,
+   "return_after": -0.2654,
    "complete": false
   },
   {
@@ -9390,8 +9950,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 218.456,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 9,
-   "return_after": 0.1384,
+   "days_after": 10,
+   "return_after": 0.059,
    "complete": false
   },
   {
@@ -9401,8 +9961,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 960.944,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 9,
-   "return_after": -0.1557,
+   "days_after": 10,
+   "return_after": -0.1691,
    "complete": false
   },
   {
@@ -9412,8 +9972,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 205.914211,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 9,
-   "return_after": -0.1149,
+   "days_after": 10,
+   "return_after": -0.1135,
    "complete": false
   },
   {
@@ -9423,8 +9983,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 1358.19,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 9,
-   "return_after": -0.2802,
+   "days_after": 10,
+   "return_after": -0.3098,
    "complete": false
   },
   {
@@ -9434,8 +9994,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 677.185,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 9,
-   "return_after": -0.1853,
+   "days_after": 10,
+   "return_after": -0.195,
    "complete": false
   },
   {
@@ -9445,8 +10005,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 386.55,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 9,
-   "return_after": -0.0591,
+   "days_after": 10,
+   "return_after": -0.03,
    "complete": false
   },
   {
@@ -9456,8 +10016,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 509.324615,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": 0.0856,
+   "days_after": 9,
+   "return_after": 0.1492,
    "complete": false
   },
   {
@@ -9467,8 +10027,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 51.990218,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.101,
+   "days_after": 9,
+   "return_after": -0.0833,
    "complete": false
   },
   {
@@ -9478,8 +10038,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 416.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.1017,
+   "days_after": 9,
+   "return_after": -0.1078,
    "complete": false
   },
   {
@@ -9489,8 +10049,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 179.91,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.1397,
+   "days_after": 9,
+   "return_after": -0.1392,
    "complete": false
   },
   {
@@ -9500,8 +10060,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 54.73,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.0819,
+   "days_after": 9,
+   "return_after": -0.0835,
    "complete": false
   },
   {
@@ -9511,8 +10071,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 248.75125,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.144,
+   "days_after": 9,
+   "return_after": -0.1576,
    "complete": false
   },
   {
@@ -9522,8 +10082,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 66.736197,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.0635,
+   "days_after": 9,
+   "return_after": -0.083,
    "complete": false
   },
   {
@@ -9533,8 +10093,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 857.61,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.2443,
+   "days_after": 9,
+   "return_after": -0.2716,
    "complete": false
   },
   {
@@ -9544,8 +10104,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 437.227222,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.0786,
+   "days_after": 9,
+   "return_after": -0.0558,
    "complete": false
   },
   {
@@ -9555,8 +10115,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 223.331,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": 0.1135,
+   "days_after": 9,
+   "return_after": 0.0359,
    "complete": false
   },
   {
@@ -9566,8 +10126,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 204.493939,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.1745,
+   "days_after": 9,
+   "return_after": -0.1958,
    "complete": false
   },
   {
@@ -9577,8 +10137,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 885.59,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.0839,
+   "days_after": 9,
+   "return_after": -0.0984,
    "complete": false
   },
   {
@@ -9588,8 +10148,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 219.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.1678,
+   "days_after": 9,
+   "return_after": -0.1665,
    "complete": false
   },
   {
@@ -9599,8 +10159,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 187.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.0337,
+   "days_after": 9,
+   "return_after": -0.057,
    "complete": false
   },
   {
@@ -9610,8 +10170,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 1213.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.194,
+   "days_after": 9,
+   "return_after": -0.2272,
    "complete": false
   },
   {
@@ -9621,8 +10181,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 656.293333,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.1593,
+   "days_after": 9,
+   "return_after": -0.1694,
    "complete": false
   },
   {
@@ -9632,8 +10192,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 276.202857,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.0377,
+   "days_after": 9,
+   "return_after": -0.0451,
    "complete": false
   },
   {
@@ -9643,8 +10203,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 170.954186,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.0707,
+   "days_after": 9,
+   "return_after": -0.0766,
    "complete": false
   },
   {
@@ -9654,8 +10214,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 184.601538,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": 0.1889,
+   "days_after": 9,
+   "return_after": 0.1496,
    "complete": false
   },
   {
@@ -9665,8 +10225,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 390.395,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.0684,
+   "days_after": 9,
+   "return_after": -0.0396,
    "complete": false
   },
   {
@@ -9676,8 +10236,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 368.01,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 8,
-   "return_after": -0.1486,
+   "days_after": 9,
+   "return_after": -0.1543,
    "complete": false
   },
   {
@@ -9687,8 +10247,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 506.67625,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": 0.0912,
+   "days_after": 8,
+   "return_after": 0.1552,
    "complete": false
   },
   {
@@ -9698,8 +10258,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 50.909884,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.0819,
+   "days_after": 8,
+   "return_after": -0.0638,
    "complete": false
   },
   {
@@ -9709,8 +10269,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 420.433,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.1112,
+   "days_after": 8,
+   "return_after": -0.1172,
    "complete": false
   },
   {
@@ -9720,8 +10280,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 177.448,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.1277,
+   "days_after": 8,
+   "return_after": -0.1273,
    "complete": false
   },
   {
@@ -9731,8 +10291,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 54.684512,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.0811,
+   "days_after": 8,
+   "return_after": -0.0827,
    "complete": false
   },
   {
@@ -9742,8 +10302,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 229.994737,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.0742,
+   "days_after": 8,
+   "return_after": -0.0889,
    "complete": false
   },
   {
@@ -9753,8 +10313,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 65.190869,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.0413,
+   "days_after": 8,
+   "return_after": -0.0612,
    "complete": false
   },
   {
@@ -9764,8 +10324,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 756.842,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.1437,
+   "days_after": 8,
+   "return_after": -0.1747,
    "complete": false
   },
   {
@@ -9775,8 +10335,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 435.12,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.0742,
+   "days_after": 8,
+   "return_after": -0.0512,
    "complete": false
   },
   {
@@ -9786,8 +10346,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 226.875,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": 0.0962,
+   "days_after": 8,
+   "return_after": 0.0197,
    "complete": false
   },
   {
@@ -9797,8 +10357,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 187.281364,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.0987,
+   "days_after": 8,
+   "return_after": -0.1219,
    "complete": false
   },
   {
@@ -9808,8 +10368,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 883.2,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.0814,
+   "days_after": 8,
+   "return_after": -0.096,
    "complete": false
   },
   {
@@ -9819,8 +10379,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 415.07,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.2295,
+   "days_after": 8,
+   "return_after": -0.222,
    "complete": false
   },
   {
@@ -9830,8 +10390,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 196.646667,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.0732,
+   "days_after": 8,
+   "return_after": -0.0717,
    "complete": false
   },
   {
@@ -9841,8 +10401,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 191.02,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.054,
+   "days_after": 8,
+   "return_after": -0.0768,
    "complete": false
   },
   {
@@ -9852,8 +10412,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 1134.203333,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.138,
+   "days_after": 8,
+   "return_after": -0.1735,
    "complete": false
   },
   {
@@ -9863,8 +10423,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 636.51,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.1332,
+   "days_after": 8,
+   "return_after": -0.1435,
    "complete": false
   },
   {
@@ -9874,8 +10434,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 157.58,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": 0.0082,
+   "days_after": 8,
+   "return_after": 0.0018,
    "complete": false
   },
   {
@@ -9885,8 +10445,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 387.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.0602,
+   "days_after": 8,
+   "return_after": -0.0311,
    "complete": false
   },
   {
@@ -9896,8 +10456,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 362.064167,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 7,
-   "return_after": -0.1347,
+   "days_after": 8,
+   "return_after": -0.1405,
    "complete": false
   },
   {
@@ -9907,8 +10467,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 45.462391,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": 0.0281,
+   "days_after": 6,
+   "return_after": 0.0483,
    "complete": false
   },
   {
@@ -9918,8 +10478,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 380.518,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.018,
+   "days_after": 6,
+   "return_after": -0.0246,
    "complete": false
   },
   {
@@ -9929,8 +10489,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 111.01,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.0836,
+   "days_after": 6,
+   "return_after": -0.0798,
    "complete": false
   },
   {
@@ -9940,8 +10500,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 172.5368,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.1029,
+   "days_after": 6,
+   "return_after": -0.1025,
    "complete": false
   },
   {
@@ -9951,8 +10511,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 51.94,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.0325,
+   "days_after": 6,
+   "return_after": -0.0343,
    "complete": false
   },
   {
@@ -9962,8 +10522,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 237.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.1016,
+   "days_after": 6,
+   "return_after": -0.1158,
    "complete": false
   },
   {
@@ -9973,8 +10533,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 629.9,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": 0.0288,
+   "days_after": 6,
+   "return_after": -0.0083,
    "complete": false
   },
   {
@@ -9984,8 +10544,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 415.059,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.0294,
+   "days_after": 6,
+   "return_after": -0.0053,
    "complete": false
   },
   {
@@ -9995,8 +10555,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 232.786315,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": 0.0683,
+   "days_after": 6,
+   "return_after": -0.0062,
    "complete": false
   },
   {
@@ -10006,8 +10566,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 163.85,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": 0.0302,
+   "days_after": 6,
+   "return_after": 0.0037,
    "complete": false
   },
   {
@@ -10017,8 +10577,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 821.948,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.013,
+   "days_after": 6,
+   "return_after": -0.0286,
    "complete": false
   },
   {
@@ -10028,8 +10588,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 390.664545,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.1813,
+   "days_after": 6,
+   "return_after": -0.1734,
    "complete": false
   },
   {
@@ -10039,8 +10599,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 190.01,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.0408,
+   "days_after": 6,
+   "return_after": -0.0393,
    "complete": false
   },
   {
@@ -10050,8 +10610,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 23.35,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.0441,
+   "days_after": 6,
+   "return_after": -0.0248,
    "complete": false
   },
   {
@@ -10061,8 +10621,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 195.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.0733,
+   "days_after": 6,
+   "return_after": -0.0956,
    "complete": false
   },
   {
@@ -10072,8 +10632,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 213.8675,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": 0.0611,
+   "days_after": 6,
+   "return_after": 0.0293,
    "complete": false
   },
   {
@@ -10083,8 +10643,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 1088.74,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.102,
+   "days_after": 6,
+   "return_after": -0.1389,
    "complete": false
   },
   {
@@ -10094,8 +10654,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 575.81,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.0418,
+   "days_after": 6,
+   "return_after": -0.0533,
    "complete": false
   },
   {
@@ -10105,8 +10665,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 378.12,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.0381,
+   "days_after": 6,
+   "return_after": -0.0084,
    "complete": false
   },
   {
@@ -10116,8 +10676,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 338.4,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 5,
-   "return_after": -0.0741,
+   "days_after": 6,
+   "return_after": -0.0803,
    "complete": false
   },
   {
@@ -10127,8 +10687,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 43.56,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.073,
+   "days_after": 3,
+   "return_after": 0.0941,
    "complete": false
   },
   {
@@ -10138,8 +10698,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 69.910186,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.0082,
+   "days_after": 3,
+   "return_after": 0.0051,
    "complete": false
   },
   {
@@ -10149,8 +10709,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 328.765455,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.1366,
+   "days_after": 3,
+   "return_after": 0.129,
    "complete": false
   },
   {
@@ -10160,8 +10720,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 97.35,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.045,
+   "days_after": 3,
+   "return_after": 0.0493,
    "complete": false
   },
   {
@@ -10171,8 +10731,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 40.815824,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.0126,
+   "days_after": 3,
+   "return_after": 0.0476,
    "complete": false
   },
   {
@@ -10182,8 +10742,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 45.7,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.0996,
+   "days_after": 3,
+   "return_after": 0.0976,
    "complete": false
   },
   {
@@ -10193,8 +10753,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 550.637143,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.1769,
+   "days_after": 3,
+   "return_after": 0.1344,
    "complete": false
   },
   {
@@ -10204,8 +10764,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 373.416,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.0788,
+   "days_after": 3,
+   "return_after": 0.1056,
    "complete": false
   },
   {
@@ -10215,8 +10775,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 257.05,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": -0.0325,
+   "days_after": 3,
+   "return_after": -0.1,
    "complete": false
   },
   {
@@ -10226,8 +10786,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 699.1,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.1605,
+   "days_after": 3,
+   "return_after": 0.1421,
    "complete": false
   },
   {
@@ -10237,8 +10797,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 311.052727,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.0282,
+   "days_after": 3,
+   "return_after": 0.0382,
    "complete": false
   },
   {
@@ -10248,8 +10808,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 169.051364,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.0781,
+   "days_after": 3,
+   "return_after": 0.0798,
    "complete": false
   },
   {
@@ -10259,8 +10819,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 244.242,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.0591,
+   "days_after": 3,
+   "return_after": 0.0764,
    "complete": false
   },
   {
@@ -10270,8 +10830,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 192.942105,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": -0.0634,
+   "days_after": 3,
+   "return_after": -0.086,
    "complete": false
   },
   {
@@ -10281,8 +10841,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 226.828824,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.0004,
+   "days_after": 3,
+   "return_after": -0.0295,
    "complete": false
   },
   {
@@ -10292,8 +10852,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 850.46,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.1496,
+   "days_after": 3,
+   "return_after": 0.1023,
    "complete": false
   },
   {
@@ -10303,8 +10863,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 42.759333,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.0112,
+   "days_after": 3,
+   "return_after": 0.0208,
    "complete": false
   },
   {
@@ -10314,8 +10874,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 160.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.0169,
+   "days_after": 3,
+   "return_after": 0.0056,
    "complete": false
   },
   {
@@ -10325,8 +10885,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 343.772727,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.058,
+   "days_after": 3,
+   "return_after": 0.0907,
    "complete": false
   },
   {
@@ -10336,8 +10896,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 19.980625,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 2,
-   "return_after": 0.054,
+   "days_after": 3,
+   "return_after": 0.0345,
    "complete": false
   },
   {
@@ -10347,8 +10907,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 43.586047,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.0724,
+   "days_after": 2,
+   "return_after": 0.0935,
    "complete": false
   },
   {
@@ -10358,8 +10918,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 68.165818,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.0339,
+   "days_after": 2,
+   "return_after": 0.0309,
    "complete": false
   },
   {
@@ -10369,8 +10929,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 350.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": -0.0209,
+   "days_after": 2,
+   "return_after": -0.0263,
    "complete": false
   },
   {
@@ -10380,8 +10940,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 332.168182,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.125,
+   "days_after": 2,
+   "return_after": 0.1174,
    "complete": false
   },
   {
@@ -10391,8 +10951,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 95.823684,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.0616,
+   "days_after": 2,
+   "return_after": 0.066,
    "complete": false
   },
   {
@@ -10402,8 +10962,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 39.38,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.0495,
+   "days_after": 2,
+   "return_after": 0.0858,
    "complete": false
   },
   {
@@ -10413,8 +10973,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 46.6935,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.0762,
+   "days_after": 2,
+   "return_after": 0.0742,
    "complete": false
   },
   {
@@ -10424,8 +10984,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 576.0,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.1251,
+   "days_after": 2,
+   "return_after": 0.0845,
    "complete": false
   },
   {
@@ -10435,8 +10995,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 379.64,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.0611,
+   "days_after": 2,
+   "return_after": 0.0875,
    "complete": false
   },
   {
@@ -10446,8 +11006,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 267.752143,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": -0.0712,
+   "days_after": 2,
+   "return_after": -0.136,
    "complete": false
   },
   {
@@ -10457,8 +11017,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 704.99,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.1508,
+   "days_after": 2,
+   "return_after": 0.1326,
    "complete": false
   },
   {
@@ -10468,8 +11028,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 173.344762,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.0514,
+   "days_after": 2,
+   "return_after": 0.053,
    "complete": false
   },
   {
@@ -10479,8 +11039,8 @@
    "sleeve": "rsi_dip",
    "exit_price": 166.32,
    "reason": "closed above its 5-day average (169.20 > 166.33)",
-   "days_after": 1,
-   "return_after": 0.0366,
+   "days_after": 2,
+   "return_after": 0.0316,
    "complete": false
   },
   {
@@ -10490,8 +11050,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 21.03,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.0613,
+   "days_after": 2,
+   "return_after": 0.0827,
    "complete": false
   },
   {
@@ -10501,8 +11061,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 244.808,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.0567,
+   "days_after": 2,
+   "return_after": 0.0739,
    "complete": false
   },
   {
@@ -10512,8 +11072,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 39.999158,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.0463,
+   "days_after": 2,
+   "return_after": -0.0002,
    "complete": false
   },
   {
@@ -10523,8 +11083,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 197.23,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": -0.0838,
+   "days_after": 2,
+   "return_after": -0.1059,
    "complete": false
   },
   {
@@ -10534,8 +11094,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 226.96,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": -0.0001,
+   "days_after": 2,
+   "return_after": -0.03,
    "complete": false
   },
   {
@@ -10545,8 +11105,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 845.77,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.156,
+   "days_after": 2,
+   "return_after": 0.1084,
    "complete": false
   },
   {
@@ -10556,8 +11116,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 343.66,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.0583,
+   "days_after": 2,
+   "return_after": 0.091,
    "complete": false
   },
   {
@@ -10567,8 +11127,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 20.476043,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 1,
-   "return_after": 0.0285,
+   "days_after": 2,
+   "return_after": 0.0095,
    "complete": false
   },
   {
@@ -10578,8 +11138,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 532.2775,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": 0.0996,
    "complete": false
   },
   {
@@ -10589,8 +11149,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 182.18,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": 0.0438,
    "complete": false
   },
   {
@@ -10600,8 +11160,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 70.306667,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.0005,
    "complete": false
   },
   {
@@ -10611,8 +11171,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 346.998333,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.0178,
    "complete": false
   },
   {
@@ -10622,8 +11182,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 366.17,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": 0.0137,
    "complete": false
   },
   {
@@ -10633,8 +11193,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 99.47,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": 0.0269,
    "complete": false
   },
   {
@@ -10644,8 +11204,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 648.674285,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.037,
    "complete": false
   },
   {
@@ -10655,8 +11215,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 394.153,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": 0.0474,
    "complete": false
   },
   {
@@ -10666,8 +11226,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 251.616875,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.0805,
    "complete": false
   },
   {
@@ -10677,8 +11237,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 774.458,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": 0.031,
    "complete": false
   },
   {
@@ -10688,8 +11248,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 186.723043,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.0224,
    "complete": false
   },
   {
@@ -10699,8 +11259,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 253.193529,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": 0.0384,
    "complete": false
   },
   {
@@ -10710,8 +11270,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 41.114757,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.0274,
    "complete": false
   },
   {
@@ -10721,8 +11281,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 191.056667,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.077,
    "complete": false
   },
   {
@@ -10732,8 +11292,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 224.666666,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.0201,
    "complete": false
   },
   {
@@ -10743,8 +11303,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 934.075,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": 0.0036,
    "complete": false
   },
   {
@@ -10754,8 +11314,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 115.185555,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.0188,
    "complete": false
   },
   {
@@ -10765,8 +11325,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 161.08,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": -0.0011,
    "complete": false
   },
   {
@@ -10776,8 +11336,8 @@
    "sleeve": "overnight_drift",
    "exit_price": 353.515834,
    "reason": "overnight: held from the close to the next open",
-   "days_after": 0,
-   "return_after": null,
+   "days_after": 1,
+   "return_after": 0.0606,
    "complete": false
   },
   {
@@ -10786,6 +11346,226 @@
    "symbol": "VTRS",
    "sleeve": "overnight_drift",
    "exit_price": 20.822696,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 1,
+   "return_after": -0.0073,
+   "complete": false
+  },
+  {
+   "id": "2dfb8654",
+   "date": "2026-11-12",
+   "symbol": "AMD",
+   "sleeve": "overnight_drift",
+   "exit_price": 563.998571,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "d115827c",
+   "date": "2026-11-12",
+   "symbol": "ATI",
+   "sleeve": "overnight_drift",
+   "exit_price": 182.1,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "8c1d12ae",
+   "date": "2026-11-12",
+   "symbol": "CNC",
+   "sleeve": "overnight_drift",
+   "exit_price": 70.5,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "14b78f34",
+   "date": "2026-11-12",
+   "symbol": "CRL",
+   "sleeve": "overnight_drift",
+   "exit_price": 331.928334,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "8d9592fb",
+   "date": "2026-11-12",
+   "symbol": "DELL",
+   "sleeve": "overnight_drift",
+   "exit_price": 345.778182,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "bfdc1a39",
+   "date": "2026-11-12",
+   "symbol": "DINO",
+   "sleeve": "overnight_drift",
+   "exit_price": 101.124286,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "04c2c3f7",
+   "date": "2026-11-12",
+   "symbol": "JAZZ",
+   "sleeve": "overnight_drift",
+   "exit_price": 245.16,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "2b6abd5c",
+   "date": "2026-11-12",
+   "symbol": "LITE",
+   "sleeve": "overnight_drift",
+   "exit_price": 594.56,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "4b1cd018",
+   "date": "2026-11-12",
+   "symbol": "MPC",
+   "sleeve": "overnight_drift",
+   "exit_price": 404.175,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "89a728dd",
+   "date": "2026-11-12",
+   "symbol": "MRNA",
+   "sleeve": "overnight_drift",
+   "exit_price": 234.444118,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "47b8c193",
+   "date": "2026-11-12",
+   "symbol": "MU",
+   "sleeve": "overnight_drift",
+   "exit_price": 771.66,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "972941c3",
+   "date": "2026-11-12",
+   "symbol": "OKTA",
+   "sleeve": "overnight_drift",
+   "exit_price": 174.04,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "66393c6f",
+   "date": "2026-11-12",
+   "symbol": "PSX",
+   "sleeve": "overnight_drift",
+   "exit_price": 259.0,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "17e35d2d",
+   "date": "2026-11-12",
+   "symbol": "ROIV",
+   "sleeve": "overnight_drift",
+   "exit_price": 41.263846,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "9d2b3898",
+   "date": "2026-11-12",
+   "symbol": "RVMD",
+   "sleeve": "overnight_drift",
+   "exit_price": 178.388333,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "15db6164",
+   "date": "2026-11-12",
+   "symbol": "SN",
+   "sleeve": "overnight_drift",
+   "exit_price": 225.19421,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "70a15c6b",
+   "date": "2026-11-12",
+   "symbol": "SNDK",
+   "sleeve": "overnight_drift",
+   "exit_price": 889.08,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "043eb6bb",
+   "date": "2026-11-12",
+   "symbol": "TGT",
+   "sleeve": "overnight_drift",
+   "exit_price": 164.851923,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "8ae7b930",
+   "date": "2026-11-12",
+   "symbol": "VLO",
+   "sleeve": "overnight_drift",
+   "exit_price": 364.466364,
+   "reason": "overnight: held from the close to the next open",
+   "days_after": 0,
+   "return_after": null,
+   "complete": false
+  },
+  {
+   "id": "f7a34dd8",
+   "date": "2026-11-12",
+   "symbol": "VTRS",
+   "sleeve": "overnight_drift",
+   "exit_price": 21.15,
    "reason": "overnight: held from the close to the next open",
    "days_after": 0,
    "return_after": null,
@@ -10955,13 +11735,23 @@
   },
   {
    "date": "2026-11-11",
-   "desk": -0.15684,
-   "spy": -0.01198,
+   "desk": -0.15792,
+   "spy": -0.01201,
    "rsp": 0.03146,
    "expected": 0.00963,
    "low": -0.05792,
    "high": 0.08017,
-   "drawdown": -0.1586
+   "drawdown": -0.15967
+  },
+  {
+   "date": "2026-11-12",
+   "desk": -0.17527,
+   "spy": -0.01551,
+   "rsp": 0.02251,
+   "expected": 0.01024,
+   "low": -0.05939,
+   "high": 0.08303,
+   "drawdown": -0.17699
   }
  ]
 }
