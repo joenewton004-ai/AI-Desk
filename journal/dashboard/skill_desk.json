@@ -1,5 +1,35 @@
 [
  {
+  "date": "2026-11-13",
+  "symbol": "MSFT",
+  "signal_time": "09:50",
+  "shares": 7,
+  "entry": 523.311,
+  "stop": 517.36,
+  "target": 535.165,
+  "exit_time": "15:55",
+  "exit": 525.55,
+  "exit_why": "flat_by",
+  "pnl": 14.2,
+  "R": 0.377,
+  "equity_after_day": 4864.71
+ },
+ {
+  "date": "2026-11-13",
+  "symbol": "WMT",
+  "signal_time": "09:50",
+  "shares": 5,
+  "entry": 128.15,
+  "stop": 126.9475,
+  "target": 130.525,
+  "exit_time": "15:55",
+  "exit": 127.93,
+  "exit_why": "flat_by",
+  "pnl": -1.36,
+  "R": -0.184,
+  "equity_after_day": 4864.71
+ },
+ {
   "date": "2026-11-12",
   "symbol": "SHEL",
   "signal_time": "10:15",
