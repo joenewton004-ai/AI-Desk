@@ -8,7 +8,7 @@
   "stocks": 403,
   "est_value": 13525616,
   "avg_days_to_report": 26.5,
-  "recent_buys_vs_spy": 0.0173
+  "recent_buys_vs_spy": 0.0204
  },
  {
   "member": "Lisa McClain",
@@ -19,7 +19,7 @@
   "stocks": 172,
   "est_value": 4207242,
   "avg_days_to_report": 22.3,
-  "recent_buys_vs_spy": -0.091
+  "recent_buys_vs_spy": -0.094
  },
  {
   "member": "April McClain Delaney",
@@ -30,7 +30,7 @@
   "stocks": 42,
   "est_value": 8144668,
   "avg_days_to_report": 19.9,
-  "recent_buys_vs_spy": -0.0407
+  "recent_buys_vs_spy": -0.0362
  },
  {
   "member": "Julia Letlow",
@@ -44,17 +44,6 @@
   "recent_buys_vs_spy": null
  },
  {
-  "member": "Julie Johnson",
-  "district": "TX32",
-  "trades": 216,
-  "buys": 42,
-  "sells": 174,
-  "stocks": 95,
-  "est_value": 1728108,
-  "avg_days_to_report": 121.6,
-  "recent_buys_vs_spy": 0.0183
- },
- {
   "member": "David J. Taylor",
   "district": "OH02",
   "trades": 203,
@@ -63,7 +52,18 @@
   "stocks": 28,
   "est_value": 1795602,
   "avg_days_to_report": 10.3,
-  "recent_buys_vs_spy": 0.0653
+  "recent_buys_vs_spy": 0.0632
+ },
+ {
+  "member": "Julie Johnson",
+  "district": "TX32",
+  "trades": 200,
+  "buys": 37,
+  "sells": 163,
+  "stocks": 92,
+  "est_value": 1600100,
+  "avg_days_to_report": 129.1,
+  "recent_buys_vs_spy": 0.0326
  },
  {
   "member": "Kevin Hern",
@@ -74,7 +74,7 @@
   "stocks": 83,
   "est_value": 7575084,
   "avg_days_to_report": 18.9,
-  "recent_buys_vs_spy": 0.1509
+  "recent_buys_vs_spy": 0.1794
  },
  {
   "member": "Josh Gottheimer",
@@ -85,7 +85,7 @@
   "stocks": 88,
   "est_value": 6570068,
   "avg_days_to_report": 30.1,
-  "recent_buys_vs_spy": 0.0431
+  "recent_buys_vs_spy": -0.0603
  },
  {
   "member": "Maria Elvira Salazar",
@@ -96,7 +96,7 @@
   "stocks": 40,
   "est_value": 1973562,
   "avg_days_to_report": 23.1,
-  "recent_buys_vs_spy": -0.0128
+  "recent_buys_vs_spy": -0.0111
  },
  {
   "member": "Jared Moskowitz",
@@ -107,7 +107,7 @@
   "stocks": 46,
   "est_value": 1157556,
   "avg_days_to_report": 39.3,
-  "recent_buys_vs_spy": 0.0866
+  "recent_buys_vs_spy": 0.0932
  },
  {
   "member": "Richard Dean McCormick",
@@ -118,7 +118,7 @@
   "stocks": 27,
   "est_value": 656041,
   "avg_days_to_report": 23.8,
-  "recent_buys_vs_spy": 0.1586
+  "recent_buys_vs_spy": 0.1675
  },
  {
   "member": "Thomas H. Kean",
@@ -129,7 +129,7 @@
   "stocks": 30,
   "est_value": 805534,
   "avg_days_to_report": 29.7,
-  "recent_buys_vs_spy": -0.0047
+  "recent_buys_vs_spy": -0.0138
  },
  {
   "member": "Byron Donalds",
@@ -140,7 +140,7 @@
   "stocks": 21,
   "est_value": 480030,
   "avg_days_to_report": 33.5,
-  "recent_buys_vs_spy": -0.0459
+  "recent_buys_vs_spy": -0.0322
  },
  {
   "member": "Cleo Fields",
@@ -151,7 +151,7 @@
   "stocks": 20,
   "est_value": 2767530,
   "avg_days_to_report": 15.0,
-  "recent_buys_vs_spy": -0.0474
+  "recent_buys_vs_spy": -0.0579
  },
  {
   "member": "Jonathan Jackson",
@@ -162,7 +162,7 @@
   "stocks": 34,
   "est_value": 1837028,
   "avg_days_to_report": 28.8,
-  "recent_buys_vs_spy": -0.0076
+  "recent_buys_vs_spy": -0.0086
  },
  {
   "member": "Tim Moore",
@@ -173,7 +173,7 @@
   "stocks": 14,
   "est_value": 2322026,
   "avg_days_to_report": 14.8,
-  "recent_buys_vs_spy": 0.005
+  "recent_buys_vs_spy": 0.0122
  },
  {
   "member": "Dan Newhouse",
@@ -184,7 +184,7 @@
   "stocks": 46,
   "est_value": 392024,
   "avg_days_to_report": 16.1,
-  "recent_buys_vs_spy": 0.0366
+  "recent_buys_vs_spy": 0.0373
  },
  {
   "member": "Michael Rulli",
@@ -195,7 +195,7 @@
   "stocks": 24,
   "est_value": 454020,
   "avg_days_to_report": 195.8,
-  "recent_buys_vs_spy": -0.0182
+  "recent_buys_vs_spy": -0.0273
  },
  {
   "member": "Pete Sessions",
@@ -211,13 +211,13 @@
  {
   "member": "Richard W. Allen",
   "district": "GA12",
-  "trades": 28,
+  "trades": 27,
   "buys": 10,
-  "sells": 18,
-  "stocks": 20,
-  "est_value": 701014,
-  "avg_days_to_report": 35.6,
-  "recent_buys_vs_spy": -0.022
+  "sells": 17,
+  "stocks": 19,
+  "est_value": 668514,
+  "avg_days_to_report": 35.7,
+  "recent_buys_vs_spy": -0.0462
  },
  {
   "member": "Nancy Pelosi",
@@ -228,7 +228,7 @@
   "stocks": 11,
   "est_value": 57975012,
   "avg_days_to_report": 22.9,
-  "recent_buys_vs_spy": -0.1847
+  "recent_buys_vs_spy": -0.2171
  },
  {
   "member": "Lloyd Doggett",
@@ -239,7 +239,7 @@
   "stocks": 6,
   "est_value": 184012,
   "avg_days_to_report": 23.8,
-  "recent_buys_vs_spy": 0.0988
+  "recent_buys_vs_spy": 0.1153
  },
  {
   "member": "Rick Larsen",
@@ -250,7 +250,7 @@
   "stocks": 23,
   "est_value": 184012,
   "avg_days_to_report": 6.3,
-  "recent_buys_vs_spy": 0.1068
+  "recent_buys_vs_spy": 0.1064
  },
  {
   "member": "Tim Walberg",
@@ -261,7 +261,7 @@
   "stocks": 13,
   "est_value": 365008,
   "avg_days_to_report": 424.5,
-  "recent_buys_vs_spy": -0.0055
+  "recent_buys_vs_spy": -0.0056
  },
  {
   "member": "Dwight Evans",
@@ -283,7 +283,7 @@
   "stocks": 8,
   "est_value": 179007,
   "avg_days_to_report": 22.2,
-  "recent_buys_vs_spy": 0.1896
+  "recent_buys_vs_spy": 0.2076
  },
  {
   "member": "Matthew Robert Van Epps",
@@ -327,7 +327,7 @@
   "stocks": 2,
   "est_value": 88006,
   "avg_days_to_report": 272.2,
-  "recent_buys_vs_spy": 0.1537
+  "recent_buys_vs_spy": 0.1615
  },
  {
   "member": "Elizabeth Fletcher",
@@ -349,7 +349,7 @@
   "stocks": 8,
   "est_value": 88006,
   "avg_days_to_report": 26.4,
-  "recent_buys_vs_spy": -0.1496
+  "recent_buys_vs_spy": -0.1869
  },
  {
   "member": "John McGuire",
@@ -360,7 +360,7 @@
   "stocks": 8,
   "est_value": 88006,
   "avg_days_to_report": 16.6,
-  "recent_buys_vs_spy": 0.0056
+  "recent_buys_vs_spy": 0.0059
  },
  {
   "member": "August Lee Pfluger",
@@ -382,7 +382,7 @@
   "stocks": 2,
   "est_value": 96504,
   "avg_days_to_report": 31.2,
-  "recent_buys_vs_spy": -0.1394
+  "recent_buys_vs_spy": -0.1311
  },
  {
   "member": "Steve Cohen",
@@ -404,7 +404,7 @@
   "stocks": 4,
   "est_value": 163504,
   "avg_days_to_report": 17.3,
-  "recent_buys_vs_spy": 0.039
+  "recent_buys_vs_spy": 0.0408
  },
  {
   "member": "Christian D. Menefee",
@@ -459,7 +459,7 @@
   "stocks": 5,
   "est_value": 56004,
   "avg_days_to_report": 53.7,
-  "recent_buys_vs_spy": -0.0233
+  "recent_buys_vs_spy": -0.0276
  },
  {
   "member": "Mark Alford",
@@ -514,7 +514,7 @@
   "stocks": 1,
   "est_value": 64502,
   "avg_days_to_report": 5.2,
-  "recent_buys_vs_spy": 0.155
+  "recent_buys_vs_spy": 0.1642
  },
  {
   "member": "Jake Auchincloss",

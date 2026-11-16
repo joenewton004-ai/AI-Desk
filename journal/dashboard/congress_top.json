@@ -6,8 +6,8 @@
   "sells": 9,
   "bought_est": 1214004,
   "first_buy_filed": "2026-09-04",
-  "since_first_buy": 0.0606,
-  "vs_spy": 0.0733
+  "since_first_buy": 0.0487,
+  "vs_spy": 0.0802
  },
  {
   "ticker": "NVDA",
@@ -16,8 +16,8 @@
   "sells": 5,
   "bought_est": 56004,
   "first_buy_filed": "2026-09-02",
-  "since_first_buy": -0.2863,
-  "vs_spy": -0.2645
+  "since_first_buy": -0.3157,
+  "vs_spy": -0.2752
  },
  {
   "ticker": "PG",
@@ -26,8 +26,8 @@
   "sells": 5,
   "bought_est": 40002,
   "first_buy_filed": "2026-08-20",
-  "since_first_buy": 0.1814,
-  "vs_spy": 0.1938
+  "since_first_buy": 0.2038,
+  "vs_spy": 0.235
  },
  {
   "ticker": "TSM",
@@ -36,8 +36,8 @@
   "sells": 0,
   "bought_est": 24002,
   "first_buy_filed": "2026-09-22",
-  "since_first_buy": -0.1071,
-  "vs_spy": -0.0896
+  "since_first_buy": -0.1637,
+  "vs_spy": -0.1275
  },
  {
   "ticker": "ETN",
@@ -46,8 +46,8 @@
   "sells": 1,
   "bought_est": 48502,
   "first_buy_filed": "2026-09-10",
-  "since_first_buy": -0.1683,
-  "vs_spy": -0.1578
+  "since_first_buy": -0.2062,
+  "vs_spy": -0.1768
  },
  {
   "ticker": "SNOW",
@@ -56,8 +56,8 @@
   "sells": 1,
   "bought_est": 48502,
   "first_buy_filed": "2026-09-10",
-  "since_first_buy": -0.1155,
-  "vs_spy": -0.1049
+  "since_first_buy": -0.1473,
+  "vs_spy": -0.1178
  },
  {
   "ticker": "BHE",
@@ -66,8 +66,8 @@
   "sells": 0,
   "bought_est": 40501,
   "first_buy_filed": "2026-10-12",
-  "since_first_buy": -0.1996,
-  "vs_spy": -0.1692
+  "since_first_buy": -0.2179,
+  "vs_spy": -0.169
  },
  {
   "ticker": "AVGO",
@@ -76,8 +76,8 @@
   "sells": 2,
   "bought_est": 40002,
   "first_buy_filed": "2026-08-18",
-  "since_first_buy": -0.0409,
-  "vs_spy": -0.0243
+  "since_first_buy": -0.0785,
+  "vs_spy": -0.0431
  },
  {
   "ticker": "AAPL",
@@ -86,8 +86,8 @@
   "sells": 6,
   "bought_est": 24002,
   "first_buy_filed": "2026-08-18",
-  "since_first_buy": 0.1253,
-  "vs_spy": 0.142
+  "since_first_buy": 0.1143,
+  "vs_spy": 0.1498
  },
  {
   "ticker": "ACN",
@@ -96,8 +96,8 @@
   "sells": 3,
   "bought_est": 24002,
   "first_buy_filed": "2026-09-04",
-  "since_first_buy": 0.4076,
-  "vs_spy": 0.4202
+  "since_first_buy": 0.3919,
+  "vs_spy": 0.4234
  },
  {
   "ticker": "AMAT",
@@ -106,8 +106,8 @@
   "sells": 1,
   "bought_est": 24002,
   "first_buy_filed": "2026-08-27",
-  "since_first_buy": -0.1975,
-  "vs_spy": -0.1804
+  "since_first_buy": -0.2413,
+  "vs_spy": -0.2055
  },
  {
   "ticker": "HD",
@@ -116,8 +116,8 @@
   "sells": 12,
   "bought_est": 24002,
   "first_buy_filed": "2026-10-01",
-  "since_first_buy": 0.2328,
-  "vs_spy": 0.2526
+  "since_first_buy": 0.2286,
+  "vs_spy": 0.2672
  },
  {
   "ticker": "META",
@@ -126,8 +126,8 @@
   "sells": 2,
   "bought_est": 24002,
   "first_buy_filed": "2026-10-07",
-  "since_first_buy": -0.1099,
-  "vs_spy": -0.0846
+  "since_first_buy": -0.1311,
+  "vs_spy": -0.0872
  },
  {
   "ticker": "NFLX",
@@ -136,8 +136,8 @@
   "sells": 0,
   "bought_est": 24002,
   "first_buy_filed": "2026-09-15",
-  "since_first_buy": -0.1866,
-  "vs_spy": -0.1895
+  "since_first_buy": -0.2049,
+  "vs_spy": -0.1887
  },
  {
   "ticker": "AMD",
@@ -146,8 +146,8 @@
   "sells": 1,
   "bought_est": 16001,
   "first_buy_filed": "2026-08-18",
-  "since_first_buy": 0.145,
-  "vs_spy": 0.1617
+  "since_first_buy": 0.0812,
+  "vs_spy": 0.1166
  },
  {
   "ticker": "BRK-B",
@@ -156,8 +156,8 @@
   "sells": 2,
   "bought_est": 16001,
   "first_buy_filed": "2026-09-09",
-  "since_first_buy": 0.1695,
-  "vs_spy": 0.1716
+  "since_first_buy": 0.1693,
+  "vs_spy": 0.1905
  },
  {
   "ticker": "GS",
@@ -166,8 +166,8 @@
   "sells": 1,
   "bought_est": 16001,
   "first_buy_filed": "2026-09-10",
-  "since_first_buy": -0.1094,
-  "vs_spy": -0.0989
+  "since_first_buy": -0.1337,
+  "vs_spy": -0.1043
  },
  {
   "ticker": "IBM",
@@ -176,8 +176,8 @@
   "sells": 6,
   "bought_est": 16001,
   "first_buy_filed": "2026-09-10",
-  "since_first_buy": 0.0228,
-  "vs_spy": 0.0333
+  "since_first_buy": 0.0037,
+  "vs_spy": 0.0331
  },
  {
   "ticker": "KO",
@@ -186,8 +186,8 @@
   "sells": 0,
   "bought_est": 16001,
   "first_buy_filed": "2026-09-25",
-  "since_first_buy": 0.1384,
-  "vs_spy": 0.1531
+  "since_first_buy": 0.1411,
+  "vs_spy": 0.1746
  },
  {
   "ticker": "MRNA",
@@ -196,8 +196,8 @@
   "sells": 2,
   "bought_est": 16001,
   "first_buy_filed": "2026-09-09",
-  "since_first_buy": 0.635,
-  "vs_spy": 0.6371
+  "since_first_buy": 0.5757,
+  "vs_spy": 0.5968
  },
  {
   "ticker": "BE",
@@ -206,8 +206,8 @@
   "sells": 0,
   "bought_est": 7500002,
   "first_buy_filed": "2026-08-21",
-  "since_first_buy": -0.059,
-  "vs_spy": -0.0495
+  "since_first_buy": -0.1311,
+  "vs_spy": -0.1027
  },
  {
   "ticker": "INTC",
@@ -216,8 +216,8 @@
   "sells": 0,
   "bought_est": 1125001,
   "first_buy_filed": "2026-08-21",
-  "since_first_buy": -0.3163,
-  "vs_spy": -0.3068
+  "since_first_buy": -0.3643,
+  "vs_spy": -0.3359
  },
  {
   "ticker": "DDOG",
@@ -226,8 +226,8 @@
   "sells": 1,
   "bought_est": 75000,
   "first_buy_filed": "2026-10-19",
-  "since_first_buy": -0.2818,
-  "vs_spy": -0.2627
+  "since_first_buy": -0.3259,
+  "vs_spy": -0.2881
  },
  {
   "ticker": "EL",
@@ -236,8 +236,8 @@
   "sells": 0,
   "bought_est": 75000,
   "first_buy_filed": "2026-10-19",
-  "since_first_buy": 0.0531,
-  "vs_spy": 0.0721
+  "since_first_buy": 0.0235,
+  "vs_spy": 0.0613
  },
  {
   "ticker": "MBGL",
@@ -246,8 +246,8 @@
   "sells": 3,
   "bought_est": 75000,
   "first_buy_filed": "2026-11-10",
-  "since_first_buy": 0.1687,
-  "vs_spy": 0.1758
+  "since_first_buy": 0.2068,
+  "vs_spy": 0.233
  },
  {
   "ticker": "FWONK",
@@ -256,8 +256,8 @@
   "sells": 1,
   "bought_est": 73002,
   "first_buy_filed": "2026-09-09",
-  "since_first_buy": 0.1425,
-  "vs_spy": 0.1446
+  "since_first_buy": 0.1522,
+  "vs_spy": 0.1734
  },
  {
   "ticker": "MRK",
@@ -266,8 +266,8 @@
   "sells": 1,
   "bought_est": 65001,
   "first_buy_filed": "2026-09-09",
-  "since_first_buy": 0.0271,
-  "vs_spy": 0.0292
+  "since_first_buy": 0.0042,
+  "vs_spy": 0.0253
  },
  {
   "ticker": "HUBB",
@@ -276,8 +276,8 @@
   "sells": 1,
   "bought_est": 56502,
   "first_buy_filed": "2026-09-09",
-  "since_first_buy": -0.0341,
-  "vs_spy": -0.032
+  "since_first_buy": -0.0618,
+  "vs_spy": -0.0407
  },
  {
   "ticker": "LTH",
@@ -286,8 +286,8 @@
   "sells": 1,
   "bought_est": 56502,
   "first_buy_filed": "2026-09-09",
-  "since_first_buy": 0.1215,
-  "vs_spy": 0.1236
+  "since_first_buy": 0.1157,
+  "vs_spy": 0.1369
  },
  {
   "ticker": "ARGX",
@@ -296,8 +296,8 @@
   "sells": 0,
   "bought_est": 48502,
   "first_buy_filed": "2026-11-10",
-  "since_first_buy": -0.0179,
-  "vs_spy": -0.0108
+  "since_first_buy": -0.0272,
+  "vs_spy": -0.0011
  },
  {
   "ticker": "CHRW",
@@ -306,8 +306,8 @@
   "sells": 1,
   "bought_est": 48502,
   "first_buy_filed": "2026-09-09",
-  "since_first_buy": -0.1178,
-  "vs_spy": -0.1157
+  "since_first_buy": -0.1165,
+  "vs_spy": -0.0953
  },
  {
   "ticker": "ALKS",
@@ -316,8 +316,8 @@
   "sells": 0,
   "bought_est": 40501,
   "first_buy_filed": "2026-09-04",
-  "since_first_buy": 0.0339,
-  "vs_spy": 0.0465
+  "since_first_buy": 0.0229,
+  "vs_spy": 0.0544
  },
  {
   "ticker": "GMED",
@@ -326,8 +326,8 @@
   "sells": 0,
   "bought_est": 40501,
   "first_buy_filed": "2026-09-10",
-  "since_first_buy": -0.0276,
-  "vs_spy": -0.0171
+  "since_first_buy": -0.0497,
+  "vs_spy": -0.0203
  },
  {
   "ticker": "MOG-A",
@@ -336,8 +336,8 @@
   "sells": 0,
   "bought_est": 40501,
   "first_buy_filed": "2026-09-10",
-  "since_first_buy": -0.075,
-  "vs_spy": -0.0644
+  "since_first_buy": -0.1021,
+  "vs_spy": -0.0727
  },
  {
   "ticker": "NXPI",
@@ -346,8 +346,8 @@
   "sells": 1,
   "bought_est": 40501,
   "first_buy_filed": "2026-10-12",
-  "since_first_buy": 0.1713,
-  "vs_spy": 0.2017
+  "since_first_buy": 0.1231,
+  "vs_spy": 0.1721
  },
  {
   "ticker": "ON",
@@ -356,8 +356,8 @@
   "sells": 0,
   "bought_est": 40501,
   "first_buy_filed": "2026-10-12",
-  "since_first_buy": -0.0734,
-  "vs_spy": -0.043
+  "since_first_buy": -0.1174,
+  "vs_spy": -0.0684
  },
  {
   "ticker": "CACI",
@@ -366,8 +366,8 @@
   "sells": 0,
   "bought_est": 32500,
   "first_buy_filed": "2026-10-12",
-  "since_first_buy": 0.0534,
-  "vs_spy": 0.0838
+  "since_first_buy": 0.0461,
+  "vs_spy": 0.095
  },
  {
   "ticker": "GH",
@@ -376,8 +376,8 @@
   "sells": 0,
   "bought_est": 32500,
   "first_buy_filed": "2026-10-19",
-  "since_first_buy": -0.067,
-  "vs_spy": -0.0479
+  "since_first_buy": -0.1142,
+  "vs_spy": -0.0763
  },
  {
   "ticker": "MSB",
@@ -386,8 +386,8 @@
   "sells": 0,
   "bought_est": 32500,
   "first_buy_filed": "2026-09-04",
-  "since_first_buy": -0.3091,
-  "vs_spy": -0.2964
+  "since_first_buy": -0.3206,
+  "vs_spy": -0.289
  },
  {
   "ticker": "NOKBF",
@@ -406,8 +406,8 @@
   "sells": 0,
   "bought_est": 32500,
   "first_buy_filed": "2026-10-12",
-  "since_first_buy": 0.1742,
-  "vs_spy": 0.2046
+  "since_first_buy": 0.1358,
+  "vs_spy": 0.1848
  },
  {
   "ticker": "PWR",
@@ -416,8 +416,8 @@
   "sells": 0,
   "bought_est": 32500,
   "first_buy_filed": "2026-09-10",
-  "since_first_buy": -0.0745,
-  "vs_spy": -0.064
+  "since_first_buy": -0.0993,
+  "vs_spy": -0.0698
  },
  {
   "ticker": "RIG",
@@ -426,8 +426,8 @@
   "sells": 0,
   "bought_est": 32500,
   "first_buy_filed": "2026-10-12",
-  "since_first_buy": -0.0195,
-  "vs_spy": 0.0109
+  "since_first_buy": -0.0761,
+  "vs_spy": -0.0272
  },
  {
   "ticker": "SFM",
@@ -436,8 +436,8 @@
   "sells": 0,
   "bought_est": 32500,
   "first_buy_filed": "2026-09-04",
-  "since_first_buy": -0.3159,
-  "vs_spy": -0.3032
+  "since_first_buy": -0.3408,
+  "vs_spy": -0.3093
  },
  {
   "ticker": "STRC",
@@ -446,8 +446,8 @@
   "sells": 1,
   "bought_est": 32500,
   "first_buy_filed": "2026-11-10",
-  "since_first_buy": 0.0006,
-  "vs_spy": 0.0078
+  "since_first_buy": -0.007,
+  "vs_spy": 0.0191
  },
  {
   "ticker": "GOOGL",
@@ -456,8 +456,8 @@
   "sells": 5,
   "bought_est": 32002,
   "first_buy_filed": "2026-08-20",
-  "since_first_buy": -0.1417,
-  "vs_spy": -0.1293
+  "since_first_buy": -0.1767,
+  "vs_spy": -0.1454
  },
  {
   "ticker": "T",
@@ -466,8 +466,8 @@
   "sells": 1,
   "bought_est": 32002,
   "first_buy_filed": "2026-10-15",
-  "since_first_buy": -0.0538,
-  "vs_spy": -0.0421
+  "since_first_buy": -0.0461,
+  "vs_spy": -0.0155
  },
  {
   "ticker": "EPAC",
@@ -476,8 +476,8 @@
   "sells": 0,
   "bought_est": 24002,
   "first_buy_filed": "2026-09-04",
-  "since_first_buy": 0.0643,
-  "vs_spy": 0.077
+  "since_first_buy": 0.063,
+  "vs_spy": 0.0945
  },
  {
   "ticker": "ESE",
@@ -486,8 +486,8 @@
   "sells": 1,
   "bought_est": 24002,
   "first_buy_filed": "2026-09-09",
-  "since_first_buy": -0.1335,
-  "vs_spy": -0.1315
+  "since_first_buy": -0.1413,
+  "vs_spy": -0.1201
  },
  {
   "ticker": "IBP",
@@ -496,7 +496,7 @@
   "sells": 0,
   "bought_est": 24002,
   "first_buy_filed": "2026-08-20",
-  "since_first_buy": -0.0704,
-  "vs_spy": -0.058
+  "since_first_buy": -0.0583,
+  "vs_spy": -0.027
  }
 ]

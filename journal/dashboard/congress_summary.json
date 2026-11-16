@@ -1,14 +1,14 @@
 [
  {
   "latest_filing": "2026-11-12",
-  "trades_30d": 168,
-  "buys_30d": 70,
-  "sells_30d": 98,
-  "members_30d": 21,
+  "trades_30d": 158,
+  "buys_30d": 65,
+  "sells_30d": 93,
+  "members_30d": 19,
   "most_bought_90d": "MSFT",
   "most_bought_buyers": 4,
   "median_days_to_report": 24.0,
-  "refreshed_utc": "2026-11-13T21:39:15+00:00",
-  "new_filings": 1
+  "refreshed_utc": "2026-11-16T21:39:01+00:00",
+  "new_filings": 0
  }
 ]

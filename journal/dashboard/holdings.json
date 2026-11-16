@@ -2,7 +2,7 @@
  {
   "symbol": "APA",
   "name": "APA Corporation",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 86.0,
   "price": 47.01,
   "avg_cost": 47.309651,
@@ -17,13 +17,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 48.4235
+  "overnight_shares": 86.0,
+  "overnight_cost": 47.3097
  },
  {
   "symbol": "CNC",
   "name": "Centene Corporation",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 54.0,
   "price": 74.9225,
   "avg_cost": 74.808519,
@@ -38,13 +38,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 71.23
+  "overnight_shares": 54.0,
+  "overnight_cost": 74.8085
  },
  {
   "symbol": "CRL",
   "name": "Charles River Laboratories International, Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 12.0,
   "price": 335.52,
   "avg_cost": 334.788333,
@@ -59,13 +59,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 339.5
+  "overnight_shares": 12.0,
+  "overnight_cost": 334.7883
  },
  {
   "symbol": "DELL",
   "name": "Dell Technologies Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 12.0,
   "price": 320.715,
   "avg_cost": 319.855,
@@ -80,13 +80,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 343.87
+  "overnight_shares": 12.0,
+  "overnight_cost": 319.855
  },
  {
   "symbol": "DINO",
   "name": "HF Sinclair Corporation",
-  "sleeve": "momentum",
+  "sleeve": "momentum + overnight_drift",
   "shares": 41.0,
   "price": 99.05,
   "avg_cost": 99.010244,
@@ -101,13 +101,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 102.17
+  "overnight_shares": 41.0,
+  "overnight_cost": 99.0102
  },
  {
   "symbol": "EQNR",
   "name": "Equinor ASA",
-  "sleeve": "bottleneck",
+  "sleeve": "bottleneck + overnight_drift",
   "shares": 99.0,
   "price": 41.05,
   "avg_cost": 41.051919,
@@ -122,13 +122,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": null
+  "overnight_shares": 99.0,
+  "overnight_cost": 41.0519
  },
  {
   "symbol": "HPE",
   "name": "Hewlett Packard Enterprise Company",
-  "sleeve": "momentum",
+  "sleeve": "momentum + overnight_drift",
   "shares": 88.0,
   "price": 46.57,
   "avg_cost": 46.57,
@@ -143,13 +143,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": null
+  "overnight_shares": 88.0,
+  "overnight_cost": 46.57
  },
  {
   "symbol": "HUM",
   "name": "Humana Inc.",
-  "sleeve": "momentum",
+  "sleeve": "momentum + overnight_drift",
   "shares": 8.0,
   "price": 461.25,
   "avg_cost": 462.72,
@@ -164,13 +164,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 450.0
+  "overnight_shares": 8.0,
+  "overnight_cost": 462.72
  },
  {
   "symbol": "LITE",
   "name": "Lumentum Holdings Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 7.0,
   "price": 547.1,
   "avg_cost": 545.862857,
@@ -185,13 +185,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 595.8386
+  "overnight_shares": 7.0,
+  "overnight_cost": 545.8629
  },
  {
   "symbol": "MPC",
   "name": "Marathon Petroleum Corporation",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 10.0,
   "price": 402.19,
   "avg_cost": 402.103,
@@ -206,13 +206,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 414.49
+  "overnight_shares": 10.0,
+  "overnight_cost": 402.103
  },
  {
   "symbol": "MRNA",
   "name": "Moderna, Inc.",
-  "sleeve": "momentum",
+  "sleeve": "momentum + overnight_drift",
   "shares": 18.0,
   "price": 214.0,
   "avg_cost": 213.979444,
@@ -227,13 +227,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 223.03
+  "overnight_shares": 18.0,
+  "overnight_cost": 213.9794
  },
  {
   "symbol": "MU",
   "name": "Micron Technology, Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 5.0,
   "price": 721.2,
   "avg_cost": 719.57,
@@ -248,13 +248,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 781.718
+  "overnight_shares": 5.0,
+  "overnight_cost": 719.57
  },
  {
   "symbol": "OKTA",
   "name": "Okta, Inc.",
-  "sleeve": "momentum",
+  "sleeve": "momentum + overnight_drift",
   "shares": 22.0,
   "price": 177.53,
   "avg_cost": 178.316818,
@@ -269,13 +269,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 183.2
+  "overnight_shares": 22.0,
+  "overnight_cost": 178.3168
  },
  {
   "symbol": "PSX",
   "name": "Phillips 66",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 15.0,
   "price": 260.62,
   "avg_cost": 260.56,
@@ -290,13 +290,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 264.5507
+  "overnight_shares": 15.0,
+  "overnight_cost": 260.56
  },
  {
   "symbol": "ROIV",
   "name": "Roivant Sciences Ltd.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 106.0,
   "price": 38.43,
   "avg_cost": 38.62,
@@ -311,13 +311,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 39.37
+  "overnight_shares": 106.0,
+  "overnight_cost": 38.62
  },
  {
   "symbol": "RVMD",
   "name": "Revolution Medicines, Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 24.0,
   "price": 167.0528,
   "avg_cost": 166.82,
@@ -332,13 +332,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 172.8
+  "overnight_shares": 24.0,
+  "overnight_cost": 166.82
  },
  {
   "symbol": "SN",
   "name": "SharkNinja, Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 18.0,
   "price": 223.29,
   "avg_cost": 222.76,
@@ -353,13 +353,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 226.61
+  "overnight_shares": 18.0,
+  "overnight_cost": 222.76
  },
  {
   "symbol": "SNDK",
   "name": "Sandisk Corporation",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 5.0,
   "price": 812.4,
   "avg_cost": 812.79,
@@ -374,13 +374,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 884.0925
+  "overnight_shares": 5.0,
+  "overnight_cost": 812.79
  },
  {
   "symbol": "VLO",
   "name": "Valero Energy Corporation",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 11.0,
   "price": 370.06,
   "avg_cost": 369.66,
@@ -395,13 +395,13 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 380.2191
+  "overnight_shares": 11.0,
+  "overnight_cost": 369.66
  },
  {
   "symbol": "VTRS",
   "name": "Viatris Inc.",
-  "sleeve": "",
+  "sleeve": "overnight_drift",
   "shares": 199.0,
   "price": 20.67,
   "avg_cost": 20.68,
@@ -416,7 +416,7 @@
   "pe_note": "an index fund - no single P/E",
   "as_of": "2026-11-16T21:20:58+00:00",
   "why": "",
-  "overnight_shares": null,
-  "overnight_cost": 20.8
+  "overnight_shares": 199.0,
+  "overnight_cost": 20.68
  }
 ]
