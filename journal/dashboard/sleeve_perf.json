@@ -3,9 +3,9 @@
   "sleeve": "quality_screen",
   "benchmark": "RSP",
   "days": 6,
-  "return": -0.01681,
+  "return": -0.01682,
   "benchmark_return": 0.00727,
-  "excess": -0.02408
+  "excess": -0.02409
  },
  {
   "sleeve": "bottleneck",
@@ -18,10 +18,10 @@
  {
   "sleeve": "momentum",
   "benchmark": "SPY",
-  "days": 14,
-  "return": -0.15328,
-  "benchmark_return": 0.01436,
-  "excess": -0.16764
+  "days": 15,
+  "return": -0.17373,
+  "benchmark_return": -0.0048,
+  "excess": -0.16893
  },
  {
   "sleeve": "index_momentum",
