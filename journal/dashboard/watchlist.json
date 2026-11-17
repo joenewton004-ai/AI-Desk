@@ -10,8 +10,8 @@
   "status": "picked",
   "reason": "held",
   "score": 7.4109,
-  "return": -0.04626,
-  "vs_picks": -0.01267,
+  "return": -0.02794,
+  "vs_picks": -0.00464,
   "details": "12 months +741% \u00b7 price $228"
  },
  {
@@ -25,8 +25,8 @@
   "status": "picked",
   "reason": "held",
   "score": 4.65153,
-  "return": -0.11551,
-  "vs_picks": -0.08192,
+  "return": -0.11473,
+  "vs_picks": -0.09143,
   "details": "12 months +465% \u00b7 price $1,127"
  },
  {
@@ -40,8 +40,8 @@
   "status": "picked",
   "reason": "held",
   "score": 2.82567,
-  "return": -0.07755,
-  "vs_picks": -0.04396,
+  "return": -0.06949,
+  "vs_picks": -0.04619,
   "details": "12 months +283% \u00b7 price $855"
  },
  {
@@ -55,8 +55,8 @@
   "status": "picked",
   "reason": "held",
   "score": 2.37448,
-  "return": -0.13549,
-  "vs_picks": -0.1019,
+  "return": -0.10332,
+  "vs_picks": -0.08002,
   "details": "12 months +237% \u00b7 price $680"
  },
  {
@@ -70,8 +70,8 @@
   "status": "picked",
   "reason": "held",
   "score": 2.30099,
-  "return": 0.11566,
-  "vs_picks": 0.14925,
+  "return": 0.11506,
+  "vs_picks": 0.13836,
   "details": "12 months +230% \u00b7 price $194"
  },
  {
@@ -85,8 +85,8 @@
   "status": "picked",
   "reason": "held",
   "score": 1.54741,
-  "return": -0.11093,
-  "vs_picks": -0.07734,
+  "return": -0.09029,
+  "vs_picks": -0.06699,
   "details": "12 months +155% \u00b7 price $408"
  },
  {
@@ -100,8 +100,8 @@
   "status": "picked",
   "reason": "held",
   "score": 1.46304,
-  "return": 0.06582,
-  "vs_picks": 0.09941,
+  "return": 0.07078,
+  "vs_picks": 0.09408,
   "details": "12 months +146% \u00b7 price $211"
  },
  {
@@ -115,8 +115,8 @@
   "status": "picked",
   "reason": "held",
   "score": 1.38375,
-  "return": -0.08754,
-  "vs_picks": -0.05395,
+  "return": -0.0662,
+  "vs_picks": -0.0429,
   "details": "12 months +138% \u00b7 price $606"
  },
  {
@@ -130,8 +130,8 @@
   "status": "picked",
   "reason": "held",
   "score": 1.33468,
-  "return": -0.03368,
-  "vs_picks": -9e-05,
+  "return": -0.02529,
+  "vs_picks": -0.00199,
   "details": "12 months +133% \u00b7 price $388"
  },
  {
@@ -145,8 +145,8 @@
   "status": "picked",
   "reason": "held",
   "score": 1.31674,
-  "return": -0.07042,
-  "vs_picks": -0.03683,
+  "return": -0.05487,
+  "vs_picks": -0.03157,
   "details": "12 months +132% \u00b7 price $347"
  },
  {
@@ -160,8 +160,8 @@
   "status": "picked",
   "reason": "held",
   "score": 1.26856,
-  "return": 0.01641,
-  "vs_picks": 0.05,
+  "return": 0.02554,
+  "vs_picks": 0.04884,
   "details": "12 months +127% \u00b7 price $113"
  },
  {
@@ -175,8 +175,8 @@
   "status": "picked",
   "reason": "held",
   "score": 1.22912,
-  "return": -0.02156,
-  "vs_picks": 0.01203,
+  "return": -0.00821,
+  "vs_picks": 0.01509,
   "details": "12 months +123% \u00b7 price $427"
  },
  {
@@ -190,8 +190,8 @@
   "status": "picked",
   "reason": "held",
   "score": 1.21366,
-  "return": -0.031,
-  "vs_picks": 0.00259,
+  "return": -0.01206,
+  "vs_picks": 0.01124,
   "details": "12 months +121% \u00b7 price $53"
  },
  {
@@ -205,8 +205,8 @@
   "status": "picked",
   "reason": "held",
   "score": 1.16937,
-  "return": -0.01141,
-  "vs_picks": 0.02218,
+  "return": -0.00325,
+  "vs_picks": 0.02005,
   "details": "12 months +117% \u00b7 price $48"
  },
  {
@@ -220,8 +220,8 @@
   "status": "picked",
   "reason": "held",
   "score": 1.07233,
-  "return": 0.00592,
-  "vs_picks": 0.03951,
+  "return": 0.00146,
+  "vs_picks": 0.02476,
   "details": "12 months +107% \u00b7 price $190"
  },
  {
@@ -235,8 +235,8 @@
   "status": "picked",
   "reason": "held",
   "score": 1.05665,
-  "return": -0.0139,
-  "vs_picks": 0.01969,
+  "return": -0.01087,
+  "vs_picks": 0.01243,
   "details": "12 months +106% \u00b7 price $272"
  },
  {
@@ -250,8 +250,8 @@
   "status": "picked",
   "reason": "held",
   "score": 1.04639,
-  "return": -0.00398,
-  "vs_picks": 0.02961,
+  "return": -0.01685,
+  "vs_picks": 0.00645,
   "details": "12 months +105% \u00b7 price $42"
  },
  {
@@ -265,8 +265,8 @@
   "status": "picked",
   "reason": "held",
   "score": 1.00184,
-  "return": 0.01228,
-  "vs_picks": 0.04587,
+  "return": 0.01637,
+  "vs_picks": 0.03967,
   "details": "12 months +100% \u00b7 price $49"
  },
  {
@@ -280,8 +280,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.99883,
-  "return": -0.09864,
-  "vs_picks": -0.06505,
+  "return": -0.07598,
+  "vs_picks": -0.05268,
   "details": "12 months +100% \u00b7 price $46"
  },
  {
@@ -295,8 +295,8 @@
   "status": "picked",
   "reason": "held",
   "score": 0.97756,
-  "return": -0.02999,
-  "vs_picks": 0.0036,
+  "return": -0.01588,
+  "vs_picks": 0.00742,
   "details": "12 months +98% \u00b7 price $312"
  },
  {
@@ -310,8 +310,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.97728,
-  "return": -0.02162,
-  "vs_picks": 0.01197,
+  "return": -0.01197,
+  "vs_picks": 0.01133,
   "details": "12 months +98% \u00b7 price $24"
  },
  {
@@ -325,8 +325,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.97471,
-  "return": 0.03218,
-  "vs_picks": 0.06577,
+  "return": 0.03434,
+  "vs_picks": 0.05764,
   "details": "12 months +97% \u00b7 price $299"
  },
  {
@@ -340,8 +340,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.95407,
-  "return": 0.0098,
-  "vs_picks": 0.04339,
+  "return": 0.003,
+  "vs_picks": 0.0263,
   "details": "12 months +95% \u00b7 price $352"
  },
  {
@@ -355,8 +355,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.9536,
-  "return": -0.15291,
-  "vs_picks": -0.11932,
+  "return": -0.1364,
+  "vs_picks": -0.1131,
   "details": "12 months +95% \u00b7 price $389"
  },
  {
@@ -370,8 +370,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.94058,
-  "return": -0.04065,
-  "vs_picks": -0.00706,
+  "return": -0.05225,
+  "vs_picks": -0.02895,
   "details": "12 months +94% \u00b7 price $56"
  },
  {
@@ -385,8 +385,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.9282,
-  "return": -0.04661,
-  "vs_picks": -0.01302,
+  "return": -0.03828,
+  "vs_picks": -0.01498,
   "details": "12 months +93% \u00b7 price $238"
  },
  {
@@ -400,8 +400,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.91452,
-  "return": -0.06349,
-  "vs_picks": -0.0299,
+  "return": -0.03685,
+  "vs_picks": -0.01355,
   "details": "12 months +91% \u00b7 price $163"
  },
  {
@@ -415,8 +415,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.90783,
-  "return": 0.07546,
-  "vs_picks": 0.10905,
+  "return": 0.05216,
+  "vs_picks": 0.07546,
   "details": "12 months +91% \u00b7 price $67"
  },
  {
@@ -430,8 +430,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.891,
-  "return": 0.03276,
-  "vs_picks": 0.06635,
+  "return": 0.02629,
+  "vs_picks": 0.04959,
   "details": "12 months +89% \u00b7 price $19"
  },
  {
@@ -445,8 +445,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.88935,
-  "return": 0.05352,
-  "vs_picks": 0.08711,
+  "return": 0.06882,
+  "vs_picks": 0.09212,
   "details": "12 months +89% \u00b7 price $484"
  },
  {
@@ -460,8 +460,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.88132,
-  "return": -0.0729,
-  "vs_picks": -0.03931,
+  "return": -0.03795,
+  "vs_picks": -0.01465,
   "details": "12 months +88% \u00b7 price $175"
  },
  {
@@ -475,8 +475,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.86993,
-  "return": 0.01929,
-  "vs_picks": 0.05288,
+  "return": 0.00668,
+  "vs_picks": 0.02998,
   "details": "12 months +87% \u00b7 price $72"
  },
  {
@@ -490,8 +490,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.84426,
-  "return": 0.07839,
-  "vs_picks": 0.11198,
+  "return": 0.09535,
+  "vs_picks": 0.11865,
   "details": "12 months +84% \u00b7 price $274"
  },
  {
@@ -505,8 +505,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.83764,
-  "return": -0.08787,
-  "vs_picks": -0.05428,
+  "return": -0.05953,
+  "vs_picks": -0.03623,
   "details": "12 months +84% \u00b7 price $172"
  },
  {
@@ -520,8 +520,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.82207,
-  "return": 0.06164,
-  "vs_picks": 0.09523,
+  "return": 0.06697,
+  "vs_picks": 0.09027,
   "details": "12 months +82% \u00b7 price $180"
  },
  {
@@ -535,8 +535,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.8154,
-  "return": -0.00735,
-  "vs_picks": 0.02624,
+  "return": 0.01309,
+  "vs_picks": 0.03639,
   "details": "12 months +82% \u00b7 price $420"
  },
  {
@@ -550,8 +550,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.8118,
-  "return": -0.01153,
-  "vs_picks": 0.02206,
+  "return": -0.00334,
+  "vs_picks": 0.01996,
   "details": "12 months +81% \u00b7 price $66"
  },
  {
@@ -565,8 +565,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.80308,
-  "return": -0.01273,
-  "vs_picks": 0.02086,
+  "return": -0.02144,
+  "vs_picks": 0.00186,
   "details": "12 months +80% \u00b7 price $66"
  },
  {
@@ -580,8 +580,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.8029,
-  "return": 0.02585,
-  "vs_picks": 0.05944,
+  "return": 0.01974,
+  "vs_picks": 0.04304,
   "details": "12 months +80% \u00b7 price $36"
  },
  {
@@ -595,8 +595,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.8024,
-  "return": 0.05931,
-  "vs_picks": 0.0929,
+  "return": 0.06306,
+  "vs_picks": 0.08636,
   "details": "12 months +80% \u00b7 price $245"
  },
  {
@@ -610,8 +610,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.75107,
-  "return": 0.04764,
-  "vs_picks": 0.08123,
+  "return": 0.05024,
+  "vs_picks": 0.07354,
   "details": "12 months +75% \u00b7 price $163"
  },
  {
@@ -625,8 +625,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.73717,
-  "return": 0.00338,
-  "vs_picks": 0.03697,
+  "return": 0.00065,
+  "vs_picks": 0.02395,
   "details": "12 months +74% \u00b7 price $26"
  },
  {
@@ -640,8 +640,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.73266,
-  "return": 0.03475,
-  "vs_picks": 0.06834,
+  "return": 0.01978,
+  "vs_picks": 0.04308,
   "details": "12 months +73% \u00b7 price $154"
  },
  {
@@ -655,8 +655,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.73201,
-  "return": 0.03184,
-  "vs_picks": 0.06543,
+  "return": 0.02373,
+  "vs_picks": 0.04703,
   "details": "12 months +73% \u00b7 price $145"
  },
  {
@@ -670,8 +670,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.69356,
-  "return": 0.03107,
-  "vs_picks": 0.06466,
+  "return": 0.0307,
+  "vs_picks": 0.054,
   "details": "12 months +69% \u00b7 price $204"
  },
  {
@@ -685,8 +685,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.68945,
-  "return": -0.01045,
-  "vs_picks": 0.02314,
+  "return": -0.01187,
+  "vs_picks": 0.01143,
   "details": "12 months +69% \u00b7 price $26"
  },
  {
@@ -700,8 +700,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.67626,
-  "return": -0.00915,
-  "vs_picks": 0.02444,
+  "return": 0.00169,
+  "vs_picks": 0.02499,
   "details": "12 months +68% \u00b7 price $144"
  },
  {
@@ -715,8 +715,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.6733,
-  "return": -0.0645,
-  "vs_picks": -0.03091,
+  "return": -0.04783,
+  "vs_picks": -0.02453,
   "details": "12 months +67% \u00b7 price $153"
  },
  {
@@ -730,8 +730,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.66763,
-  "return": 0.01937,
-  "vs_picks": 0.05296,
+  "return": 0.03768,
+  "vs_picks": 0.06098,
   "details": "12 months +67% \u00b7 price $305"
  },
  {
@@ -745,8 +745,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.6475,
-  "return": -0.05103,
-  "vs_picks": -0.01744,
+  "return": -0.04043,
+  "vs_picks": -0.01713,
   "details": "12 months +65% \u00b7 price $382"
  },
  {
@@ -760,8 +760,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.64471,
-  "return": 0.02381,
-  "vs_picks": 0.0574,
+  "return": 0.04073,
+  "vs_picks": 0.06403,
   "details": "12 months +64% \u00b7 price $191"
  },
  {
@@ -775,8 +775,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.64368,
-  "return": 0.03532,
-  "vs_picks": 0.06891,
+  "return": 0.02399,
+  "vs_picks": 0.04729,
   "details": "12 months +64% \u00b7 price $1,409"
  },
  {
@@ -790,8 +790,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.61932,
-  "return": -0.09091,
-  "vs_picks": -0.05732,
+  "return": -0.07184,
+  "vs_picks": -0.04854,
   "details": "12 months +62% \u00b7 price $214"
  },
  {
@@ -805,8 +805,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.6193,
-  "return": 0.01217,
-  "vs_picks": 0.04576,
+  "return": 0.01598,
+  "vs_picks": 0.03928,
   "details": "12 months +62% \u00b7 price $67"
  },
  {
@@ -820,8 +820,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.6136,
-  "return": 0.0137,
-  "vs_picks": 0.04729,
+  "return": 0.0029,
+  "vs_picks": 0.0262,
   "details": "12 months +61% \u00b7 price $249"
  },
  {
@@ -835,8 +835,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.6112,
-  "return": 0.04417,
-  "vs_picks": 0.07776,
+  "return": 0.03904,
+  "vs_picks": 0.06234,
   "details": "12 months +61% \u00b7 price $416"
  },
  {
@@ -850,8 +850,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.61117,
-  "return": 0.05709,
-  "vs_picks": 0.09068,
+  "return": 0.03724,
+  "vs_picks": 0.06054,
   "details": "12 months +61% \u00b7 price $105"
  },
  {
@@ -865,8 +865,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.60793,
-  "return": 0.11192,
-  "vs_picks": 0.14551,
+  "return": 0.11376,
+  "vs_picks": 0.13706,
   "details": "12 months +61% \u00b7 price $60"
  },
  {
@@ -880,8 +880,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.59674,
-  "return": -0.02699,
-  "vs_picks": 0.0066,
+  "return": -0.01739,
+  "vs_picks": 0.00591,
   "details": "12 months +60% \u00b7 price $177"
  },
  {
@@ -895,8 +895,8 @@
   "status": "near miss",
   "reason": "outside the top 20",
   "score": 0.59641,
-  "return": 0.07051,
-  "vs_picks": 0.1041,
+  "return": 0.07907,
+  "vs_picks": 0.10237,
   "details": "12 months +60% \u00b7 price $248"
  }
 ]

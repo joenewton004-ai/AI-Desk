@@ -10,18 +10,18 @@
  {
   "sleeve": "bottleneck",
   "benchmark": "SPY",
-  "days": 4,
-  "return": -0.08506,
-  "benchmark_return": 0.04219,
-  "excess": -0.12725
+  "days": 5,
+  "return": -0.07633,
+  "benchmark_return": 0.03161,
+  "excess": -0.10794
  },
  {
   "sleeve": "momentum",
   "benchmark": "SPY",
-  "days": 15,
-  "return": -0.17373,
-  "benchmark_return": -0.0048,
-  "excess": -0.16893
+  "days": 16,
+  "return": -0.19366,
+  "benchmark_return": -0.01491,
+  "excess": -0.17875
  },
  {
   "sleeve": "index_momentum",
