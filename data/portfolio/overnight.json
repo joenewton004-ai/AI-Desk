@@ -1,188 +1,188 @@
 {
- "picked_on": "2026-11-16",
- "ref_date": "2026-11-13",
+ "picked_on": "2026-11-17",
+ "ref_date": "2026-11-16",
  "picks": [
   "MRNA",
-  "MU",
   "SNDK",
+  "MU",
   "RVMD",
-  "DELL",
   "SN",
+  "DELL",
   "LITE",
   "VLO",
   "OKTA",
   "MPC",
-  "HPE",
-  "APA",
-  "PSX",
-  "CRL",
   "CNC",
-  "VTRS",
-  "DINO",
+  "HPE",
+  "CRL",
   "HUM",
-  "EQNR",
-  "ROIV"
+  "APA",
+  "VTRS",
+  "PSX",
+  "DINO",
+  "ROIV",
+  "TGT"
  ],
  "rows": [
   {
    "symbol": "MRNA",
    "name": "Moderna, Inc.",
-   "score": 7.362785577444642,
-   "ret_12m": 7.362785577444642,
-   "close": 223.3699951171875,
+   "score": 7.624599846495109,
+   "ret_12m": 7.624599846495109,
+   "close": 215.27000427246094,
    "sic2": 28
-  },
-  {
-   "symbol": "MU",
-   "name": "Micron Technology, Inc.",
-   "score": 2.181682080950455,
-   "ret_12m": 2.181682080950455,
-   "close": 778.3099975585938,
-   "sic2": 36
   },
   {
    "symbol": "SNDK",
    "name": "Sandisk Corporation",
-   "score": 2.126139140534037,
-   "ret_12m": 2.126139140534037,
-   "close": 885.010009765625,
+   "score": 2.3218785606659162,
+   "ret_12m": 2.3218785606659162,
+   "close": 809.1099853515625,
    "sic2": 35
+  },
+  {
+   "symbol": "MU",
+   "name": "Micron Technology, Inc.",
+   "score": 2.037926228370463,
+   "ret_12m": 2.037926228370463,
+   "close": 719.02001953125,
+   "sic2": 36
   },
   {
    "symbol": "RVMD",
    "name": "Revolution Medicines, Inc.",
-   "score": 1.6171956325976677,
-   "ret_12m": 1.6171956325976677,
-   "close": 172.2899932861328,
+   "score": 1.5919540577229254,
+   "ret_12m": 1.5919540577229254,
+   "close": 166.8699951171875,
    "sic2": 28
-  },
-  {
-   "symbol": "DELL",
-   "name": "Dell Technologies Inc.",
-   "score": 1.4743311538351112,
-   "ret_12m": 1.4743311538351112,
-   "close": 344.5299987792969,
-   "sic2": 35
   },
   {
    "symbol": "SN",
    "name": "SharkNinja, Inc.",
-   "score": 1.409942447370661,
-   "ret_12m": 1.409942447370661,
-   "close": 226.38999938964844,
+   "score": 1.4459414070194607,
+   "ret_12m": 1.4459414070194607,
+   "close": 223.2899932861328,
    "sic2": 36
+  },
+  {
+   "symbol": "DELL",
+   "name": "Dell Technologies Inc.",
+   "score": 1.418472874447132,
+   "ret_12m": 1.418472874447132,
+   "close": 320.54998779296875,
+   "sic2": 35
   },
   {
    "symbol": "LITE",
    "name": "Lumentum Holdings Inc.",
-   "score": 1.350656005894542,
-   "ret_12m": 1.350656005894542,
-   "close": 596.6199951171875,
+   "score": 1.4067706891079244,
+   "ret_12m": 1.4067706891079244,
+   "close": 546.0,
    "sic2": 36
   },
   {
    "symbol": "VLO",
    "name": "Valero Energy Corporation",
-   "score": 1.1847646763871906,
-   "ret_12m": 1.1847646763871906,
-   "close": 379.8299865722656,
+   "score": 1.147963467657807,
+   "ret_12m": 1.147963467657807,
+   "close": 369.7300109863281,
    "sic2": 29
   },
   {
    "symbol": "OKTA",
    "name": "Okta, Inc.",
-   "score": 1.1592866908193584,
-   "ret_12m": 1.1592866908193584,
-   "close": 182.8699951171875,
+   "score": 1.1277459010905861,
+   "ret_12m": 1.1277459010905861,
+   "close": 178.22000122070312,
    "sic2": 73
   },
   {
    "symbol": "MPC",
    "name": "Marathon Petroleum Corporation",
-   "score": 1.1410660206556185,
-   "ret_12m": 1.1410660206556185,
-   "close": 414.6499938964844,
+   "score": 1.101489025432651,
+   "ret_12m": 1.101489025432651,
+   "close": 402.19000244140625,
    "sic2": 29
-  },
-  {
-   "symbol": "HPE",
-   "name": "Hewlett Packard Enterprise Company",
-   "score": 1.0937290593957099,
-   "ret_12m": 1.0937290593957099,
-   "close": 48.290000915527344,
-   "sic2": 35
-  },
-  {
-   "symbol": "APA",
-   "name": "APA Corporation",
-   "score": 1.0856178366838654,
-   "ret_12m": 1.0856178366838654,
-   "close": 48.439998626708984,
-   "sic2": 13
-  },
-  {
-   "symbol": "PSX",
-   "name": "Phillips 66",
-   "score": 0.9761214716092452,
-   "ret_12m": 0.9761214716092452,
-   "close": 264.8999938964844,
-   "sic2": 29
-  },
-  {
-   "symbol": "CRL",
-   "name": "Charles River Laboratories International, Inc.",
-   "score": 0.9706705610536626,
-   "ret_12m": 0.9706705610536626,
-   "close": 337.9700012207031,
-   "sic2": 87
   },
   {
    "symbol": "CNC",
    "name": "Centene Corporation",
-   "score": 0.9687843961603071,
-   "ret_12m": 0.9687843961603071,
-   "close": 71.2699966430664,
+   "score": 1.0717649300897802,
+   "ret_12m": 1.0717649300897802,
+   "close": 74.7699966430664,
    "sic2": 63
   },
   {
-   "symbol": "VTRS",
-   "name": "Viatris Inc.",
-   "score": 0.9580488672899985,
-   "ret_12m": 0.9580488672899985,
-   "close": 20.81999969482422,
-   "sic2": 28
+   "symbol": "HPE",
+   "name": "Hewlett Packard Enterprise Company",
+   "score": 1.0675858198155201,
+   "ret_12m": 1.0675858198155201,
+   "close": 46.56999969482422,
+   "sic2": 35
   },
   {
-   "symbol": "DINO",
-   "name": "HF Sinclair Corporation",
-   "score": 0.9507173905095907,
-   "ret_12m": 0.9507173905095907,
-   "close": 102.18000030517578,
-   "sic2": 46
+   "symbol": "CRL",
+   "name": "Charles River Laboratories International, Inc.",
+   "score": 0.9828613894037224,
+   "ret_12m": 0.9828613894037224,
+   "close": 335.5199890136719,
+   "sic2": 87
   },
   {
    "symbol": "HUM",
    "name": "Humana Inc.",
-   "score": 0.8956737907632826,
-   "ret_12m": 0.8956737907632826,
-   "close": 450.0,
+   "score": 0.9737620745563269,
+   "ret_12m": 0.9737620745563269,
+   "close": 461.25,
    "sic2": null
   },
   {
-   "symbol": "EQNR",
-   "name": "Equinor ASA",
-   "score": 0.8596958522521698,
-   "ret_12m": 0.8596958522521698,
-   "close": 42.95000076293945,
+   "symbol": "APA",
+   "name": "APA Corporation",
+   "score": 0.9705470275905581,
+   "ret_12m": 0.9705470275905581,
+   "close": 47.29999923706055,
+   "sic2": 13
+  },
+  {
+   "symbol": "VTRS",
+   "name": "Viatris Inc.",
+   "score": 0.9684035771734885,
+   "ret_12m": 0.9684035771734885,
+   "close": 20.739999771118164,
+   "sic2": 28
+  },
+  {
+   "symbol": "PSX",
+   "name": "Phillips 66",
+   "score": 0.9235665733976699,
+   "ret_12m": 0.9235665733976699,
+   "close": 260.6199951171875,
    "sic2": 29
+  },
+  {
+   "symbol": "DINO",
+   "name": "HF Sinclair Corporation",
+   "score": 0.9028619624728489,
+   "ret_12m": 0.9028619624728489,
+   "close": 99.05000305175781,
+   "sic2": 46
   },
   {
    "symbol": "ROIV",
    "name": "Roivant Sciences Ltd.",
-   "score": 0.8541275490211866,
-   "ret_12m": 0.8541275490211866,
-   "close": 39.529998779296875,
+   "score": 0.8779183664040939,
+   "ret_12m": 0.8779183664040939,
+   "close": 38.61000061035156,
    "sic2": 28
+  },
+  {
+   "symbol": "TGT",
+   "name": "Target Corporation",
+   "score": 0.8306709056424242,
+   "ret_12m": 0.8306709056424242,
+   "close": 160.32000732421875,
+   "sic2": 53
   }
  ],
  "n": 20,
@@ -191,9 +191,9 @@
   "active": true,
   "skipped": {
    "AMD": "sector cap: already 6 hardware/electronics picks (SIC 36)",
+   "STX": "sector cap: already 6 hardware/electronics picks (SIC 35)",
    "STM": "sector cap: already 6 hardware/electronics picks (SIC 36)",
-   "TXN": "sector cap: already 6 hardware/electronics picks (SIC 36)",
-   "STX": "sector cap: already 6 hardware/electronics picks (SIC 35)"
+   "TXN": "sector cap: already 6 hardware/electronics picks (SIC 36)"
   },
   "note": "industry unknown (not capped): HUM",
   "amendment": "93853ab3"
