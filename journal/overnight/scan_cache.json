@@ -1,595 +1,595 @@
 {
- "ref_date": "2026-11-17",
+ "ref_date": "2026-11-18",
  "picks": [
   "MRNA",
   "SNDK",
   "MU",
   "SN",
   "DELL",
-  "LITE",
-  "RVMD",
   "OKTA",
-  "HPE",
-  "VLO",
-  "MPC",
-  "CNC",
+  "RVMD",
+  "LITE",
+  "AMD",
   "CRL",
+  "VLO",
   "VTRS",
-  "APA",
-  "ROIV",
-  "HUM",
-  "PSX",
   "TGT",
-  "DINO"
+  "MPC",
+  "APA",
+  "ENTG",
+  "ROIV",
+  "ATI",
+  "PSX",
+  "CNC"
  ],
  "rows": [
   {
    "symbol": "MRNA",
    "name": "Moderna, Inc.",
-   "score": 7.34880901211047,
-   "ret_12m": 7.34880901211047,
-   "close": 206.8000030517578,
+   "score": 6.947899493820799,
+   "ret_12m": 6.947899493820799,
+   "close": 196.7899932861328,
    "sic2": 28
   },
   {
    "symbol": "SNDK",
    "name": "Sandisk Corporation",
-   "score": 2.1367641593767766,
-   "ret_12m": 2.1367641593767766,
-   "close": 797.239990234375,
+   "score": 1.9194371763504612,
+   "ret_12m": 1.9194371763504612,
+   "close": 776.219970703125,
    "sic2": 35
   },
   {
    "symbol": "MU",
    "name": "Micron Technology, Inc.",
-   "score": 1.889556123602456,
-   "ret_12m": 1.889556123602456,
-   "close": 712.4199829101562,
+   "score": 1.9182517705176525,
+   "ret_12m": 1.9182517705176525,
+   "close": 705.27001953125,
    "sic2": 36
   },
   {
    "symbol": "SN",
    "name": "SharkNinja, Inc.",
-   "score": 1.5002270880072834,
-   "ret_12m": 1.5002270880072834,
-   "close": 220.1199951171875,
+   "score": 1.7184546077162528,
+   "ret_12m": 1.7184546077162528,
+   "close": 230.08999633789062,
    "sic2": 36
   },
   {
    "symbol": "DELL",
    "name": "Dell Technologies Inc.",
-   "score": 1.4386507349775246,
-   "ret_12m": 1.4386507349775246,
-   "close": 322.7900085449219,
+   "score": 1.583375293297474,
+   "ret_12m": 1.583375293297474,
+   "close": 313.1099853515625,
    "sic2": 35
-  },
-  {
-   "symbol": "LITE",
-   "name": "Lumentum Holdings Inc.",
-   "score": 1.412104180165585,
-   "ret_12m": 1.412104180165585,
-   "close": 559.969970703125,
-   "sic2": 36
-  },
-  {
-   "symbol": "RVMD",
-   "name": "Revolution Medicines, Inc.",
-   "score": 1.4013284493196494,
-   "ret_12m": 1.4013284493196494,
-   "close": 162.69000244140625,
-   "sic2": 28
   },
   {
    "symbol": "OKTA",
    "name": "Okta, Inc.",
-   "score": 1.0793422469575131,
-   "ret_12m": 1.0793422469575131,
-   "close": 174.5399932861328,
+   "score": 1.412853106533809,
+   "ret_12m": 1.412853106533809,
+   "close": 195.61000061035156,
    "sic2": 73
   },
   {
-   "symbol": "HPE",
-   "name": "Hewlett Packard Enterprise Company",
-   "score": 1.0552381691120023,
-   "ret_12m": 1.0552381691120023,
-   "close": 46.09000015258789,
-   "sic2": 35
+   "symbol": "RVMD",
+   "name": "Revolution Medicines, Inc.",
+   "score": 1.3068049476966048,
+   "ret_12m": 1.3068049476966048,
+   "close": 159.49249267578125,
+   "sic2": 28
+  },
+  {
+   "symbol": "LITE",
+   "name": "Lumentum Holdings Inc.",
+   "score": 1.276490232786823,
+   "ret_12m": 1.276490232786823,
+   "close": 551.0700073242188,
+   "sic2": 36
+  },
+  {
+   "symbol": "AMD",
+   "name": "Advanced Micro Devices, Inc.",
+   "score": 1.2041410495232454,
+   "ret_12m": 1.2041410495232454,
+   "close": 530.1400146484375,
+   "sic2": 36
+  },
+  {
+   "symbol": "CRL",
+   "name": "Charles River Laboratories International, Inc.",
+   "score": 1.0477447999963245,
+   "ret_12m": 1.0477447999963245,
+   "close": 333.25,
+   "sic2": 87
   },
   {
    "symbol": "VLO",
    "name": "Valero Energy Corporation",
-   "score": 1.0438086051092408,
-   "ret_12m": 1.0438086051092408,
-   "close": 363.7699890136719,
+   "score": 0.9837021655300346,
+   "ret_12m": 0.9837021655300346,
+   "close": 346.5450134277344,
    "sic2": 29
+  },
+  {
+   "symbol": "VTRS",
+   "name": "Viatris Inc.",
+   "score": 0.9698848802730939,
+   "ret_12m": 0.9698848802730939,
+   "close": 20.280000686645508,
+   "sic2": 28
+  },
+  {
+   "symbol": "TGT",
+   "name": "Target Corporation",
+   "score": 0.9405570791892672,
+   "ret_12m": 0.9405570791892672,
+   "close": 165.92999267578125,
+   "sic2": 53
   },
   {
    "symbol": "MPC",
    "name": "Marathon Petroleum Corporation",
-   "score": 1.0112904169231203,
-   "ret_12m": 1.0112904169231203,
-   "close": 395.6099853515625,
+   "score": 0.9396057519190995,
+   "ret_12m": 0.9396057519190995,
+   "close": 373.8599853515625,
+   "sic2": 29
+  },
+  {
+   "symbol": "APA",
+   "name": "APA Corporation",
+   "score": 0.9205044287596174,
+   "ret_12m": 0.9205044287596174,
+   "close": 45.52000045776367,
+   "sic2": 13
+  },
+  {
+   "symbol": "ENTG",
+   "name": "Entegris, Inc.",
+   "score": 0.911797466655125,
+   "ret_12m": 0.911797466655125,
+   "close": 142.5500030517578,
+   "sic2": 30
+  },
+  {
+   "symbol": "ROIV",
+   "name": "Roivant Sciences Ltd.",
+   "score": 0.8837548904800572,
+   "ret_12m": 0.8837548904800572,
+   "close": 38.72999954223633,
+   "sic2": 28
+  },
+  {
+   "symbol": "ATI",
+   "name": "ATI Inc.",
+   "score": 0.8315948872626582,
+   "ret_12m": 0.8315948872626582,
+   "close": 180.8699951171875,
+   "sic2": 33
+  },
+  {
+   "symbol": "PSX",
+   "name": "Phillips 66",
+   "score": 0.8291585018555292,
+   "ret_12m": 0.8291585018555292,
+   "close": 244.8300018310547,
    "sic2": 29
   },
   {
    "symbol": "CNC",
    "name": "Centene Corporation",
-   "score": 0.9942276229162426,
-   "ret_12m": 0.9942276229162426,
-   "close": 72.55000305175781,
+   "score": 0.8190397415717623,
+   "ret_12m": 0.8190397415717623,
+   "close": 67.44999694824219,
    "sic2": 63
-  },
-  {
-   "symbol": "CRL",
-   "name": "Charles River Laboratories International, Inc.",
-   "score": 0.9793814939192165,
-   "ret_12m": 0.9793814939192165,
-   "close": 332.1600036621094,
-   "sic2": 87
-  },
-  {
-   "symbol": "VTRS",
-   "name": "Viatris Inc.",
-   "score": 0.9752800973630114,
-   "ret_12m": 0.9752800973630114,
-   "close": 20.450000762939453,
-   "sic2": 28
-  },
-  {
-   "symbol": "APA",
-   "name": "APA Corporation",
-   "score": 0.9451712689535239,
-   "ret_12m": 0.9451712689535239,
-   "close": 46.880001068115234,
-   "sic2": 13
-  },
-  {
-   "symbol": "ROIV",
-   "name": "Roivant Sciences Ltd.",
-   "score": 0.9078362413896703,
-   "ret_12m": 0.9078362413896703,
-   "close": 38.709999084472656,
-   "sic2": 28
-  },
-  {
-   "symbol": "HUM",
-   "name": "Humana Inc.",
-   "score": 0.8940820517059545,
-   "ret_12m": 0.8940820517059545,
-   "close": 443.3399963378906,
-   "sic2": null
-  },
-  {
-   "symbol": "PSX",
-   "name": "Phillips 66",
-   "score": 0.8587568307654707,
-   "ret_12m": 0.8587568307654707,
-   "close": 256.92999267578125,
-   "sic2": 29
-  },
-  {
-   "symbol": "TGT",
-   "name": "Target Corporation",
-   "score": 0.8362394508014941,
-   "ret_12m": 0.8362394508014941,
-   "close": 159.52999877929688,
-   "sic2": 53
-  },
-  {
-   "symbol": "DINO",
-   "name": "HF Sinclair Corporation",
-   "score": 0.8059248849567704,
-   "ret_12m": 0.8059248849567704,
-   "close": 97.70999908447266,
-   "sic2": 46
   }
  ],
- "universe": 604,
+ "universe": 606,
  "sector_cap": {
   "active": true,
   "skipped": {
-   "AMD": "sector cap: already 6 hardware/electronics picks (SIC 36)",
-   "STX": "sector cap: already 6 hardware/electronics picks (SIC 35)",
+   "HPE": "sector cap: already 6 hardware/electronics picks (SIC 35)",
    "STM": "sector cap: already 6 hardware/electronics picks (SIC 36)",
+   "STX": "sector cap: already 6 hardware/electronics picks (SIC 35)",
    "TXN": "sector cap: already 6 hardware/electronics picks (SIC 36)"
   },
-  "note": "industry unknown (not capped): HUM",
+  "note": null,
   "amendment": "93853ab3"
  },
  "near": [
   {
-   "symbol": "AMD",
-   "name": "Advanced Micro Devices, Inc.",
-   "score": 1.0396661749595362,
-   "ret_12m": 1.0396661749595362,
-   "close": 503.4100036621094,
-   "passes": false,
-   "gate_reason": "sector cap: already 6 hardware/electronics picks (SIC 36)"
-  },
-  {
-   "symbol": "STX",
-   "name": "Seagate Technology Holdings plc",
-   "score": 0.9649633285319381,
-   "ret_12m": 0.9649633285319381,
-   "close": 504.3999938964844,
+   "symbol": "HPE",
+   "name": "Hewlett Packard Enterprise Company",
+   "score": 1.1952660465105218,
+   "ret_12m": 1.1952660465105218,
+   "close": 45.779998779296875,
    "passes": false,
    "gate_reason": "sector cap: already 6 hardware/electronics picks (SIC 35)"
   },
   {
    "symbol": "STM",
    "name": "STMicroelectronics N.V.",
-   "score": 0.9119697852243531,
-   "ret_12m": 0.9119697852243531,
-   "close": 44.220001220703125,
+   "score": 0.9930389403899067,
+   "ret_12m": 0.9930389403899067,
+   "close": 44.90999984741211,
    "passes": false,
    "gate_reason": "sector cap: already 6 hardware/electronics picks (SIC 36)"
+  },
+  {
+   "symbol": "STX",
+   "name": "Seagate Technology Holdings plc",
+   "score": 0.9853888170720064,
+   "ret_12m": 0.9853888170720064,
+   "close": 515.9000244140625,
+   "passes": false,
+   "gate_reason": "sector cap: already 6 hardware/electronics picks (SIC 35)"
   },
   {
    "symbol": "TXN",
    "name": "Texas Instruments Incorporated",
-   "score": 0.8973517875558763,
-   "ret_12m": 0.8973517875558763,
-   "close": 295.8599853515625,
+   "score": 0.927868299682362,
+   "ret_12m": 0.927868299682362,
+   "close": 292.42999267578125,
    "passes": false,
    "gate_reason": "sector cap: already 6 hardware/electronics picks (SIC 36)"
   },
   {
-   "symbol": "ENTG",
-   "name": "Entegris, Inc.",
-   "score": 0.8038828176651966,
-   "ret_12m": 0.8038828176651966,
-   "close": 140.77999877929688,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "WDC",
-   "name": "Western Digital Corporation",
-   "score": 0.7985082939391643,
-   "ret_12m": 0.7985082939391643,
-   "close": 283.3299865722656,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "RPRX",
-   "name": "Royalty Pharma plc",
-   "score": 0.7840212623352183,
-   "ret_12m": 0.7840212623352183,
-   "close": 68.68000030517578,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "EQNR",
-   "name": "Equinor ASA",
-   "score": 0.7687048125977503,
-   "ret_12m": 0.7687048125977503,
-   "close": 41.439998626708984,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "ATI",
-   "name": "ATI Inc.",
-   "score": 0.7523397410674011,
-   "ret_12m": 0.7523397410674011,
-   "close": 174.1300048828125,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
    "symbol": "SWK",
    "name": "Stanley Black & Decker, Inc.",
-   "score": 0.7285324414707612,
-   "ret_12m": 0.7285324414707612,
-   "close": 108.80999755859375,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "NUE",
-   "name": "Nucor Corporation",
-   "score": 0.7257411849160142,
-   "ret_12m": 0.7257411849160142,
-   "close": 252.0800018310547,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "MRVL",
-   "name": "Marvell Technology, Inc.",
-   "score": 0.7234334671222378,
-   "ret_12m": 0.7234334671222378,
-   "close": 148.74000549316406,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "GMAB",
-   "name": "Genmab A/S",
-   "score": 0.7171182647539813,
-   "ret_12m": 0.7171182647539813,
-   "close": 51.959999084472656,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "TRGP",
-   "name": "Targa Resources Corp.",
-   "score": 0.7148386662206065,
-   "ret_12m": 0.7148386662206065,
-   "close": 291.3500061035156,
+   "score": 0.8153733336615825,
+   "ret_12m": 0.8153733336615825,
+   "close": 110.83000183105469,
    "passes": true,
    "gate_reason": ""
   },
   {
    "symbol": "LSCC",
    "name": "Lattice Semiconductor Corporation",
-   "score": 0.7108133769033811,
-   "ret_12m": 0.7108133769033811,
-   "close": 109.80000305175781,
+   "score": 0.8080350143852959,
+   "ret_12m": 0.8080350143852959,
+   "close": 111.61000061035156,
    "passes": true,
    "gate_reason": ""
   },
   {
-   "symbol": "JAZZ",
-   "name": "Jazz Pharmaceuticals plc",
-   "score": 0.7063159723288845,
-   "ret_12m": 0.7063159723288845,
-   "close": 240.7100067138672,
+   "symbol": "RPRX",
+   "name": "Royalty Pharma plc",
+   "score": 0.7837616251157495,
+   "ret_12m": 0.7837616251157495,
+   "close": 68.66999816894531,
    "passes": true,
    "gate_reason": ""
   },
   {
-   "symbol": "PR",
-   "name": "Permian Resources Corporation",
-   "score": 0.6838810138553337,
-   "ret_12m": 0.6838810138553337,
-   "close": 22.18000030517578,
+   "symbol": "WDC",
+   "name": "Western Digital Corporation",
+   "score": 0.7773324758542277,
+   "ret_12m": 0.7773324758542277,
+   "close": 288.19000244140625,
    "passes": true,
    "gate_reason": ""
   },
   {
-   "symbol": "ILMN",
-   "name": "Illumina, Inc.",
-   "score": 0.6790420459498581,
-   "ret_12m": 0.6790420459498581,
-   "close": 202.61000061035156,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "TEVA",
-   "name": "Teva Pharmaceutical Industries Limited",
-   "score": 0.6772923726020965,
-   "ret_12m": 0.6772923726020965,
-   "close": 42.619998931884766,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "OVV",
-   "name": "Ovintiv Inc.",
-   "score": 0.6682193596414927,
-   "ret_12m": 0.6682193596414927,
-   "close": 63.84000015258789,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "ADI",
-   "name": "Analog Devices, Inc.",
-   "score": 0.6538319643921153,
-   "ret_12m": 0.6538319643921153,
-   "close": 383.6700134277344,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "EXEL",
-   "name": "Exelixis, Inc.",
-   "score": 0.6446578028919892,
-   "ret_12m": 0.6446578028919892,
-   "close": 68.5,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "CRWD",
-   "name": "CrowdStrike Holdings, Inc.",
-   "score": 0.6339317780107432,
-   "ret_12m": 0.6339317780107432,
-   "close": 219.5800018310547,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "BEN",
-   "name": "Franklin Templeton Inc.",
-   "score": 0.6288644081829518,
-   "ret_12m": 0.6288644081829518,
-   "close": 34.40999984741211,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "CPAY",
-   "name": "Corpay, Inc.",
-   "score": 0.6207760980674206,
-   "ret_12m": 0.6207760980674206,
-   "close": 452.30999755859375,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "NTAP",
-   "name": "NetApp, Inc.",
-   "score": 0.6054573961669822,
-   "ret_12m": 0.6054573961669822,
-   "close": 173.0399932861328,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "RVTY",
-   "name": "Revvity, Inc.",
-   "score": 0.5976939453900971,
-   "ret_12m": 0.5976939453900971,
-   "close": 147.7899932861328,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "GWW",
-   "name": "W.W. Grainger, Inc.",
-   "score": 0.5958978722974775,
-   "ret_12m": 0.5958978722974775,
-   "close": 1466.9599609375,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "JHX",
-   "name": "James Hardie Industries plc",
-   "score": 0.5949670453822109,
-   "ret_12m": 0.5949670453822109,
-   "close": 26.6200008392334,
+   "symbol": "TRGP",
+   "name": "Targa Resources Corp.",
+   "score": 0.7563946982812964,
+   "ret_12m": 0.7563946982812964,
+   "close": 290.1700134277344,
    "passes": true,
    "gate_reason": ""
   },
   {
    "symbol": "VIK",
    "name": "Viking Holdings Ltd",
-   "score": 0.5896138357156377,
-   "ret_12m": 0.5896138357156377,
-   "close": 94.27999877929688,
+   "score": 0.7528816920841033,
+   "ret_12m": 0.7528816920841033,
+   "close": 100.37000274658203,
    "passes": true,
    "gate_reason": ""
   },
   {
-   "symbol": "WST",
-   "name": "West Pharmaceutical Services, Inc.",
-   "score": 0.5891641733049289,
-   "ret_12m": 0.5891641733049289,
-   "close": 414.1199951171875,
+   "symbol": "ILMN",
+   "name": "Illumina, Inc.",
+   "score": 0.7489173159932769,
+   "ret_12m": 0.7489173159932769,
+   "close": 210.00999450683594,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "CRWD",
+   "name": "CrowdStrike Holdings, Inc.",
+   "score": 0.7460454686427842,
+   "ret_12m": 0.7460454686427842,
+   "close": 231.2550048828125,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "MRVL",
+   "name": "Marvell Technology, Inc.",
+   "score": 0.7396572604130722,
+   "ret_12m": 0.7396572604130722,
+   "close": 144.92999267578125,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "EQNR",
+   "name": "Equinor ASA",
+   "score": 0.7240796150195854,
+   "ret_12m": 0.7240796150195854,
+   "close": 40.130001068115234,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "TEVA",
+   "name": "Teva Pharmaceutical Industries Limited",
+   "score": 0.7234648558412105,
+   "ret_12m": 0.7234648558412105,
+   "close": 42.380001068115234,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "DINO",
+   "name": "HF Sinclair Corporation",
+   "score": 0.7112083502666442,
+   "ret_12m": 0.7112083502666442,
+   "close": 90.63999938964844,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "NUE",
+   "name": "Nucor Corporation",
+   "score": 0.7041140614038768,
+   "ret_12m": 0.7041140614038768,
+   "close": 250.4199981689453,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "OVV",
+   "name": "Ovintiv Inc.",
+   "score": 0.6839965510160506,
+   "ret_12m": 0.6839965510160506,
+   "close": 62.880001068115234,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "ADI",
+   "name": "Analog Devices, Inc.",
+   "score": 0.6819928020875075,
+   "ret_12m": 0.6819928020875075,
+   "close": 381.9800109863281,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "RVTY",
+   "name": "Revvity, Inc.",
+   "score": 0.6780760213396888,
+   "ret_12m": 0.6780760213396888,
+   "close": 152.42999267578125,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "BEN",
+   "name": "Franklin Templeton Inc.",
+   "score": 0.6764104671867772,
+   "ret_12m": 0.6764104671867772,
+   "close": 34.439998626708984,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "GMAB",
+   "name": "Genmab A/S",
+   "score": 0.6755424422376524,
+   "ret_12m": 0.6755424422376524,
+   "close": 50.970001220703125,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "PANW",
+   "name": "Palo Alto Networks, Inc.",
+   "score": 0.6753081500887326,
+   "ret_12m": 0.6753081500887326,
+   "close": 339.9200134277344,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "HUM",
+   "name": "Humana Inc.",
+   "score": 0.6693591688885192,
+   "ret_12m": 0.6693591688885192,
+   "close": 385.7799987792969,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "CPAY",
+   "name": "Corpay, Inc.",
+   "score": 0.6461814069607861,
+   "ret_12m": 0.6461814069607861,
+   "close": 451.3500061035156,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "NTAP",
+   "name": "NetApp, Inc.",
+   "score": 0.6370616333617718,
+   "ret_12m": 0.6370616333617718,
+   "close": 172.19000244140625,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "JHX",
+   "name": "James Hardie Industries plc",
+   "score": 0.6345116724818514,
+   "ret_12m": 0.6345116724818514,
+   "close": 27.280000686645508,
    "passes": true,
    "gate_reason": ""
   },
   {
    "symbol": "KEYS",
    "name": "Keysight Technologies, Inc.",
-   "score": 0.5885737522918861,
-   "ret_12m": 0.5885737522918861,
-   "close": 284.45001220703125,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "MRK",
-   "name": "Merck & Co., Inc.",
-   "score": 0.5882468432695225,
-   "ret_12m": 0.5882468432695225,
-   "close": 143.3699951171875,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "COP",
-   "name": "ConocoPhillips",
-   "score": 0.5850270228232901,
-   "ret_12m": 0.5850270228232901,
-   "close": 139.47999572753906,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "VG",
-   "name": "Venture Global, Inc.",
-   "score": 0.5792236283046004,
-   "ret_12m": 0.5792236283046004,
-   "close": 12.5,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "RS",
-   "name": "Reliance, Inc.",
-   "score": 0.5788990640586318,
-   "ret_12m": 0.5788990640586318,
-   "close": 420.32000732421875,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "HST",
-   "name": "Host Hotels & Resorts, Inc.",
-   "score": 0.572298465938248,
-   "ret_12m": 0.572298465938248,
-   "close": 25.6200008392334,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "HAS",
-   "name": "Hasbro, Inc.",
-   "score": 0.5721020382516762,
-   "ret_12m": 0.5721020382516762,
-   "close": 118.3499984741211,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "SNX",
-   "name": "TD SYNNEX Corporation",
-   "score": 0.563205144167578,
-   "ret_12m": 0.563205144167578,
-   "close": 233.33999633789062,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "AMAT",
-   "name": "Applied Materials, Inc.",
-   "score": 0.5537437517468227,
-   "ret_12m": 0.5537437517468227,
-   "close": 349.2300109863281,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "INTC",
-   "name": "Intel Corporation",
-   "score": 0.5532093878925248,
-   "ret_12m": 0.5532093878925248,
-   "close": 55.16999816894531,
-   "passes": true,
-   "gate_reason": ""
-  },
-  {
-   "symbol": "BE",
-   "name": "Bloom Energy Corporation",
-   "score": 0.5502726576108548,
-   "ret_12m": 0.5502726576108548,
-   "close": 173.4600067138672,
+   "score": 0.6312460643477351,
+   "ret_12m": 0.6312460643477351,
+   "close": 286.29998779296875,
    "passes": true,
    "gate_reason": ""
   },
   {
    "symbol": "TWLO",
    "name": "Twilio Inc.",
-   "score": 0.5485801207533041,
-   "ret_12m": 0.5485801207533041,
-   "close": 194.1300048828125,
+   "score": 0.6297620253395912,
+   "ret_12m": 0.6297620253395912,
+   "close": 195.92999267578125,
    "passes": true,
    "gate_reason": ""
   },
   {
-   "symbol": "PAA",
-   "name": "Plains All American Pipeline, L.P.",
-   "score": 0.5447467628356868,
-   "ret_12m": 0.5447467628356868,
-   "close": 24.34000015258789,
+   "symbol": "PR",
+   "name": "Permian Resources Corporation",
+   "score": 0.6157006487809991,
+   "ret_12m": 0.6157006487809991,
+   "close": 21.360000610351562,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "EXEL",
+   "name": "Exelixis, Inc.",
+   "score": 0.6098539335987254,
+   "ret_12m": 0.6098539335987254,
+   "close": 68.29000091552734,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "FTNT",
+   "name": "Fortinet, Inc.",
+   "score": 0.6086159828082578,
+   "ret_12m": 0.6086159828082578,
+   "close": 131.80999755859375,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "SNX",
+   "name": "TD SYNNEX Corporation",
+   "score": 0.6003455808678075,
+   "ret_12m": 0.6003455808678075,
+   "close": 231.94000244140625,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "RS",
+   "name": "Reliance, Inc.",
+   "score": 0.599810731099979,
+   "ret_12m": 0.599810731099979,
+   "close": 419.739990234375,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "BE",
+   "name": "Bloom Energy Corporation",
+   "score": 0.5963028172274591,
+   "ret_12m": 0.5963028172274591,
+   "close": 170.97999572753906,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "ARMK",
+   "name": "Aramark",
+   "score": 0.5941837894133748,
+   "ret_12m": 0.5941837894133748,
+   "close": 56.849998474121094,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "HAS",
+   "name": "Hasbro, Inc.",
+   "score": 0.5896602044222137,
+   "ret_12m": 0.5896602044222137,
+   "close": 118.63999938964844,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "HST",
+   "name": "Host Hotels & Resorts, Inc.",
+   "score": 0.5882336140936886,
+   "ret_12m": 0.5882336140936886,
+   "close": 25.350000381469727,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "GWW",
+   "name": "W.W. Grainger, Inc.",
+   "score": 0.5800763319583084,
+   "ret_12m": 0.5800763319583084,
+   "close": 1448.1199951171875,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "RBRK",
+   "name": "Rubrik, Inc.",
+   "score": 0.578418656140606,
+   "ret_12m": 0.578418656140606,
+   "close": 110.0,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "INTC",
+   "name": "Intel Corporation",
+   "score": 0.5750504065383759,
+   "ret_12m": 0.5750504065383759,
+   "close": 54.66999816894531,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "COP",
+   "name": "ConocoPhillips",
+   "score": 0.5584577951792231,
+   "ret_12m": 0.5584577951792231,
+   "close": 134.39999389648438,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "MT",
+   "name": "ArcelorMittal S.A.",
+   "score": 0.5491067660463556,
+   "ret_12m": 0.5491067660463556,
+   "close": 60.279998779296875,
+   "passes": true,
+   "gate_reason": ""
+  },
+  {
+   "symbol": "AMAT",
+   "name": "Applied Materials, Inc.",
+   "score": 0.5488984114895912,
+   "ret_12m": 0.5488984114895912,
+   "close": 352.29998779296875,
    "passes": true,
    "gate_reason": ""
   }
