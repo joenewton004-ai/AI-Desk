@@ -9611,11 +9611,11 @@
   "sleeve": "overnight_drift",
   "order_type": "market",
   "signal_close": 47.3,
-  "day_open": 47.689998626708984,
+  "day_open": 47.630001068115234,
   "fill": 47.571512,
   "notional": 4091.15,
   "vs_close_bps": -57.4,
-  "vs_open_bps": 24.8
+  "vs_open_bps": 12.3
  },
  {
   "id": "9d8e2079",
@@ -9765,7 +9765,7 @@
   "sleeve": "overnight_drift",
   "order_type": "market",
   "signal_close": 719.02,
-  "day_open": 726.1950073242188,
+  "day_open": 726.2000122070312,
   "fill": 718.87,
   "notional": 3594.35,
   "vs_close_bps": 2.1,
