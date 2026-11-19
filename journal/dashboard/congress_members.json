@@ -8,7 +8,7 @@
   "stocks": 403,
   "est_value": 13525616,
   "avg_days_to_report": 26.5,
-  "recent_buys_vs_spy": 0.0156
+  "recent_buys_vs_spy": 0.0215
  },
  {
   "member": "Lisa McClain",
@@ -19,7 +19,7 @@
   "stocks": 172,
   "est_value": 4207242,
   "avg_days_to_report": 22.3,
-  "recent_buys_vs_spy": -0.0893
+  "recent_buys_vs_spy": -0.0863
  },
  {
   "member": "April McClain Delaney",
@@ -30,7 +30,7 @@
   "stocks": 42,
   "est_value": 8144668,
   "avg_days_to_report": 19.9,
-  "recent_buys_vs_spy": -0.0261
+  "recent_buys_vs_spy": -0.0148
  },
  {
   "member": "Julia Letlow",
@@ -52,7 +52,7 @@
   "stocks": 28,
   "est_value": 1795602,
   "avg_days_to_report": 10.3,
-  "recent_buys_vs_spy": 0.0644
+  "recent_buys_vs_spy": 0.0669
  },
  {
   "member": "Julie Johnson",
@@ -63,7 +63,7 @@
   "stocks": 92,
   "est_value": 1600100,
   "avg_days_to_report": 129.1,
-  "recent_buys_vs_spy": 0.0238
+  "recent_buys_vs_spy": 0.0244
  },
  {
   "member": "Kevin Hern",
@@ -74,18 +74,18 @@
   "stocks": 82,
   "est_value": 7038580,
   "avg_days_to_report": 18.7,
-  "recent_buys_vs_spy": 0.1767
+  "recent_buys_vs_spy": 0.1686
  },
  {
   "member": "Josh Gottheimer",
   "district": "NJ05",
-  "trades": 135,
-  "buys": 50,
-  "sells": 85,
+  "trades": 131,
+  "buys": 48,
+  "sells": 83,
   "stocks": 88,
-  "est_value": 6570068,
+  "est_value": 6538066,
   "avg_days_to_report": 30.1,
-  "recent_buys_vs_spy": -0.0644
+  "recent_buys_vs_spy": -0.0399
  },
  {
   "member": "Maria Elvira Salazar",
@@ -96,7 +96,7 @@
   "stocks": 40,
   "est_value": 1973562,
   "avg_days_to_report": 23.1,
-  "recent_buys_vs_spy": -0.0155
+  "recent_buys_vs_spy": -0.0175
  },
  {
   "member": "Jared Moskowitz",
@@ -107,7 +107,7 @@
   "stocks": 46,
   "est_value": 1157556,
   "avg_days_to_report": 39.3,
-  "recent_buys_vs_spy": 0.0935
+  "recent_buys_vs_spy": 0.0901
  },
  {
   "member": "Richard Dean McCormick",
@@ -118,7 +118,7 @@
   "stocks": 27,
   "est_value": 656041,
   "avg_days_to_report": 23.8,
-  "recent_buys_vs_spy": 0.157
+  "recent_buys_vs_spy": 0.1463
  },
  {
   "member": "Byron Donalds",
@@ -129,18 +129,18 @@
   "stocks": 23,
   "est_value": 544034,
   "avg_days_to_report": 34.9,
-  "recent_buys_vs_spy": -0.0352
+  "recent_buys_vs_spy": -0.0107
  },
  {
   "member": "Thomas H. Kean",
   "district": "NJ07",
-  "trades": 67,
+  "trades": 66,
   "buys": 22,
-  "sells": 45,
-  "stocks": 30,
-  "est_value": 805534,
-  "avg_days_to_report": 29.7,
-  "recent_buys_vs_spy": -0.0129
+  "sells": 44,
+  "stocks": 29,
+  "est_value": 797533,
+  "avg_days_to_report": 29.9,
+  "recent_buys_vs_spy": -0.0105
  },
  {
   "member": "Cleo Fields",
@@ -151,7 +151,7 @@
   "stocks": 20,
   "est_value": 2767530,
   "avg_days_to_report": 15.0,
-  "recent_buys_vs_spy": -0.0599
+  "recent_buys_vs_spy": -0.0583
  },
  {
   "member": "Jonathan Jackson",
@@ -162,7 +162,7 @@
   "stocks": 34,
   "est_value": 1869030,
   "avg_days_to_report": 29.0,
-  "recent_buys_vs_spy": -0.021
+  "recent_buys_vs_spy": -0.0112
  },
  {
   "member": "Tim Moore",
@@ -173,7 +173,7 @@
   "stocks": 14,
   "est_value": 2322026,
   "avg_days_to_report": 14.8,
-  "recent_buys_vs_spy": 0.0192
+  "recent_buys_vs_spy": 0.0067
  },
  {
   "member": "Dan Newhouse",
@@ -184,7 +184,7 @@
   "stocks": 46,
   "est_value": 392024,
   "avg_days_to_report": 16.1,
-  "recent_buys_vs_spy": 0.0369
+  "recent_buys_vs_spy": 0.0355
  },
  {
   "member": "Michael Rulli",
@@ -195,7 +195,7 @@
   "stocks": 24,
   "est_value": 454020,
   "avg_days_to_report": 195.8,
-  "recent_buys_vs_spy": -0.0286
+  "recent_buys_vs_spy": -0.0305
  },
  {
   "member": "Pete Sessions",
@@ -217,7 +217,7 @@
   "stocks": 19,
   "est_value": 668514,
   "avg_days_to_report": 35.7,
-  "recent_buys_vs_spy": -0.0411
+  "recent_buys_vs_spy": -0.015
  },
  {
   "member": "Nancy Pelosi",
@@ -228,7 +228,7 @@
   "stocks": 11,
   "est_value": 57975012,
   "avg_days_to_report": 22.9,
-  "recent_buys_vs_spy": -0.2196
+  "recent_buys_vs_spy": -0.2247
  },
  {
   "member": "Lloyd Doggett",
@@ -239,7 +239,7 @@
   "stocks": 6,
   "est_value": 184012,
   "avg_days_to_report": 23.8,
-  "recent_buys_vs_spy": 0.1063
+  "recent_buys_vs_spy": 0.1029
  },
  {
   "member": "Rick Larsen",
@@ -250,7 +250,7 @@
   "stocks": 23,
   "est_value": 184012,
   "avg_days_to_report": 6.3,
-  "recent_buys_vs_spy": 0.1133
+  "recent_buys_vs_spy": 0.1234
  },
  {
   "member": "Tim Walberg",
@@ -261,7 +261,7 @@
   "stocks": 13,
   "est_value": 365008,
   "avg_days_to_report": 424.5,
-  "recent_buys_vs_spy": -0.0029
+  "recent_buys_vs_spy": -0.0056
  },
  {
   "member": "Dwight Evans",
@@ -283,7 +283,7 @@
   "stocks": 8,
   "est_value": 179007,
   "avg_days_to_report": 22.2,
-  "recent_buys_vs_spy": 0.1879
+  "recent_buys_vs_spy": 0.1626
  },
  {
   "member": "Matthew Robert Van Epps",
@@ -327,7 +327,7 @@
   "stocks": 2,
   "est_value": 88006,
   "avg_days_to_report": 272.2,
-  "recent_buys_vs_spy": 0.1685
+  "recent_buys_vs_spy": 0.1732
  },
  {
   "member": "Elizabeth Fletcher",
@@ -349,7 +349,7 @@
   "stocks": 8,
   "est_value": 88006,
   "avg_days_to_report": 26.4,
-  "recent_buys_vs_spy": -0.1828
+  "recent_buys_vs_spy": -0.1877
  },
  {
   "member": "John McGuire",
@@ -360,7 +360,7 @@
   "stocks": 8,
   "est_value": 88006,
   "avg_days_to_report": 16.6,
-  "recent_buys_vs_spy": 0.0236
+  "recent_buys_vs_spy": 0.0303
  },
  {
   "member": "August Lee Pfluger",
@@ -382,7 +382,7 @@
   "stocks": 2,
   "est_value": 96504,
   "avg_days_to_report": 31.2,
-  "recent_buys_vs_spy": -0.094
+  "recent_buys_vs_spy": -0.0798
  },
  {
   "member": "Steve Cohen",
@@ -404,7 +404,7 @@
   "stocks": 4,
   "est_value": 163504,
   "avg_days_to_report": 17.3,
-  "recent_buys_vs_spy": 0.0409
+  "recent_buys_vs_spy": 0.0396
  },
  {
   "member": "Christian D. Menefee",
@@ -459,7 +459,7 @@
   "stocks": 5,
   "est_value": 56004,
   "avg_days_to_report": 53.7,
-  "recent_buys_vs_spy": -0.0291
+  "recent_buys_vs_spy": -0.0299
  },
  {
   "member": "Mark Alford",
@@ -525,7 +525,7 @@
   "stocks": 1,
   "est_value": 64502,
   "avg_days_to_report": 5.2,
-  "recent_buys_vs_spy": 0.1616
+  "recent_buys_vs_spy": 0.1526
  },
  {
   "member": "Jake Auchincloss",

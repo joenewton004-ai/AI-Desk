@@ -1,5 +1,20 @@
 [
  {
+  "date": "2026-11-18",
+  "source": "live",
+  "status": "no breakout",
+  "gap_up": true,
+  "range_high": 159.7,
+  "range_low": 154.42,
+  "entry_time": null,
+  "entry": null,
+  "exit_time": null,
+  "exit": null,
+  "exit_why": null,
+  "net": null,
+  "R": null
+ },
+ {
   "date": "2026-11-17",
   "source": "live",
   "status": "no breakout",
