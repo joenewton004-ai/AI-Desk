@@ -313,5 +313,14 @@
   "gap": -0.00964,
   "chance": 0.765,
   "verdict": "too early"
+ },
+ {
+  "cohort": "overnight_drift:2026-11-04",
+  "sleeve": "overnight_drift",
+  "asof": "2026-11-27",
+  "days": 17,
+  "gap": -0.00261,
+  "chance": 0.561,
+  "verdict": "too early"
  }
 ]
